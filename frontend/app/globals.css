@@ -401,4 +401,236 @@ p {
   .executive-metric-card {
     min-height: auto;
   }
+}.resume-studio-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 20px;
+  padding: 28px;
+  border: 1px solid #263b59;
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at top right, rgba(94, 234, 212, 0.14), transparent 32%),
+    linear-gradient(135deg, #111e32, #091426);
+}
+
+.resume-studio-header h1 {
+  margin: 4px 0 8px;
+  font-size: clamp(32px, 5vw, 52px);
+}
+
+.resume-save-message {
+  margin-bottom: 18px;
+  padding: 12px 16px;
+  border: 1px solid #2f806f;
+  border-radius: 10px;
+  background: #10362f;
+  color: #91f3dd;
+}
+
+.resume-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.resume-metric {
+  padding: 16px;
+  border: 1px solid #263b59;
+  border-radius: 14px;
+  background: #101d31;
+}
+
+.resume-metric span {
+  display: block;
+  color: #9db0c9;
+  font-size: 13px;
+}
+
+.resume-metric strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 28px;
+}
+
+.resume-studio-layout {
+  display: grid;
+  grid-template-columns: 280px minmax(500px, 1fr) 330px;
+  gap: 16px;
+  align-items: start;
+}
+
+.resume-library-panel,
+.resume-editor-panel,
+.resume-coach-panel {
+  min-height: 720px;
+  padding: 20px;
+  border: 1px solid #263b59;
+  border-radius: 16px;
+  background: #101d31;
+}
+
+.resume-library-list {
+  display: grid;
+  gap: 10px;
+}
+
+.resume-library-card {
+  display: block;
+  width: 100%;
+  min-height: 0;
+  padding: 15px;
+  border: 1px solid #2a405f;
+  background: #0b1728;
+  text-align: left;
+}
+
+.resume-library-card.active {
+  border-color: #5eead4;
+  background: #132a39;
+}
+
+.resume-library-card strong,
+.resume-library-card span,
+.resume-library-card small {
+  display: block;
+}
+
+.resume-library-card span {
+  margin: 5px 0 12px;
+  color: #9db0c9;
+  font-size: 12px;
+}
+
+.resume-library-card small {
+  color: #8ea3be;
+  font-size: 11px;
+}
+
+.resume-library-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.resume-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #263b59;
+}
+
+.resume-editor-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  margin: 22px 0 14px;
+}
+
+.resume-document-editor {
+  width: 100%;
+  min-height: 590px;
+  padding: 40px;
+  resize: vertical;
+  border: 1px solid #344a67;
+  border-radius: 10px;
+  outline: none;
+  background: #f7f8fb;
+  color: #111827;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 15px;
+  line-height: 1.65;
+  white-space: pre-wrap;
+}
+
+.resume-document-editor:focus {
+  border-color: #5d7cff;
+  box-shadow: 0 0 0 3px rgba(93, 124, 255, 0.18);
+}
+
+.resume-score-circle {
+  display: grid;
+  width: 150px;
+  height: 150px;
+  margin: 24px auto;
+  place-content: center;
+  text-align: center;
+  border: 8px solid #5eead4;
+  border-radius: 50%;
+  background: #0b1728;
+}
+
+.resume-score-circle strong {
+  font-size: 44px;
+}
+
+.resume-score-circle span {
+  color: #9db0c9;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.resume-coach-list p {
+  padding: 9px 0;
+  border-bottom: 1px solid #263b59;
+  color: #c9d6e7;
+}
+
+.resume-keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 24px;
+}
+
+.resume-ai-actions {
+  display: grid;
+  gap: 9px;
+}
+
+.resume-ai-actions button {
+  width: 100%;
+}
+
+@media (max-width: 1250px) {
+  .resume-studio-layout {
+    grid-template-columns: 250px 1fr;
+  }
+
+  .resume-coach-panel {
+    grid-column: 1 / -1;
+    min-height: auto;
+  }
+
+  .resume-metrics-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 800px) {
+  .resume-studio-header,
+  .resume-editor-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .resume-studio-layout,
+  .resume-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .resume-library-panel,
+  .resume-editor-panel,
+  .resume-coach-panel {
+    min-height: auto;
+  }
+
+  .resume-document-editor {
+    min-height: 500px;
+    padding: 22px;
+  }
 }

@@ -1,6 +1,6 @@
 from app.models.user import User
 from app.models.profile import CareerProfile
-from app.models.resume import Resume
+from app.models.resume import Resume, ResumeVersion
 from app.models.job import Job, JobMatch
 
 from app.models.tailoring import TailoredResume
