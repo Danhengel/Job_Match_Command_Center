@@ -1,0 +1,64 @@
+name: job_match_command_center_v1
+
+services:
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes
+    volumes:
+      - jobmatch_v1_redis:/data
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: jobmatch
+      POSTGRES_USER: jobmatch
+      POSTGRES_PASSWORD: jobmatch
+    volumes:
+      - jobmatch_v1_postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL","pg_isready -U jobmatch"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  migrate:
+    build: ./backend
+    command: ["alembic","upgrade","head"]
+    environment:
+      DATABASE_URL: postgresql+psycopg://jobmatch:jobmatch@db:5432/jobmatch
+      SECRET_KEY: ${SECRET_KEY:-replace-this-secret}
+    depends_on:
+      db:
+        condition: service_healthy
+
+  backend:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql+psycopg://jobmatch:jobmatch@db:5432/jobmatch
+      SECRET_KEY: ${SECRET_KEY:-replace-this-secret}
+      FRONTEND_URL: http://localhost:3000
+      REDIS_URL: redis://redis:6379/0
+      RAPIDAPI_KEY: ${RAPIDAPI_KEY:-}
+    volumes:
+      - jobmatch_v1_resumes:/data/resumes
+    ports:
+      - "8000:8000"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      redis:
+        condition: service_started
+
+  frontend:
+    build: ./frontend
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  jobmatch_v1_postgres:
+  jobmatch_v1_redis:
+  jobmatch_v1_resumes:
