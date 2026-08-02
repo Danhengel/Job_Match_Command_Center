@@ -153,7 +153,7 @@ def generate_follow_up_notifications(db: Session, user_id: int) -> int:
 
     for app in apps:
         due = False
-        follow_up_at = getattr(app, "next_action_at", None) or getattr(app, "follow_up_at", None)
+        follow_up_at = getattr(app, "follow_up_at", None)
         if follow_up_at and follow_up_at <= now:
             due = True
         elif app.applied_at and app.status == "applied":

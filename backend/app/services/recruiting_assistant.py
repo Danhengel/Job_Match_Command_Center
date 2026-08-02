@@ -133,7 +133,10 @@ def build_apply_checklist(application: Application, job: Job, match: JobMatch | 
             },
             {
                 "item": "Set the next follow-up action",
-                "complete": bool(application.next_action or application.follow_up_at),
+                "complete": bool(
+                    getattr(application, "next_action", None)
+                    or getattr(application, "follow_up_at", None)
+                ),
             },
         ],
     }

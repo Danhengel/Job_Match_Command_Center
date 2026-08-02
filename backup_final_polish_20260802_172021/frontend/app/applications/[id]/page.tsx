@@ -9,18 +9,14 @@ export default function ApplicationDetail(){
  const [busy,setBusy]=useState(false),[error,setError]=useState("");
 
  async function load(){
-  const app=await api(`/api/applications/${id}`);
-  setD(app);
-  const optionalResults=await Promise.allSettled([
+  const [app,packageData,explanation,checklistData,salaryData]=await Promise.all([
+   api(`/api/applications/${id}`),
    api(`/api/intelligence/applications/${id}/package`),
    api(`/api/recruiting/applications/${id}/match-explanation`),
    api(`/api/recruiting/applications/${id}/apply-checklist`),
    api(`/api/recruiting/applications/${id}/salary-plan`)
   ]);
-  if(optionalResults[0].status==="fulfilled")setPkg(optionalResults[0].value);
-  if(optionalResults[1].status==="fulfilled")setMatchExplanation(optionalResults[1].value);
-  if(optionalResults[2].status==="fulfilled")setChecklist(optionalResults[2].value);
-  if(optionalResults[3].status==="fulfilled")setSalaryPlan(optionalResults[3].value);
+  setD(app);setPkg(packageData);setMatchExplanation(explanation);setChecklist(checklistData);setSalaryPlan(salaryData);
  }
  useEffect(()=>{load().catch(e=>setError(e.message))},[id]);
 

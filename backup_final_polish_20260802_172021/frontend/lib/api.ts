@@ -12,20 +12,8 @@ export async function api(path: string, options: RequestInit = {}) {
   const token = getToken();
   if (token) headers.Authorization = `Bearer ${token}`;
 
-  let response: Response;
-  try {
-    response = await fetch(`${API_URL}${path}`, { ...options, headers });
-  } catch {
-    throw new Error("Unable to reach the server. Confirm Docker is running and try again.");
-  }
+  const response = await fetch(`${API_URL}${path}`, { ...options, headers });
   const data = await response.json().catch(() => ({}));
-  if (response.status === 401 && typeof window !== "undefined") {
-    localStorage.removeItem("token");
-    if (!window.location.pathname.startsWith("/login")) {
-      window.location.href = "/login";
-    }
-    throw new Error("Your session expired. Please sign in again.");
-  }
   if (!response.ok) {
     let message = "Request failed";
     if (Array.isArray(data.detail)) {
