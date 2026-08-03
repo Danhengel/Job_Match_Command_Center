@@ -26,12 +26,12 @@ type DigestData = {
 
 const METRICS: Array<[keyof DashboardData, string, string]> = [
   ["profile_count", "Career profiles", "Defined target strategies"],
-  ["resume_count", "Résumé versions", "Master and tailored drafts"],
+  ["resume_count", "RÃ©sumÃ© versions", "Master and tailored drafts"],
   ["ready_profiles", "Profiles ready", "Prepared for matching"],
   ["active_applications", "Active applications", "In the current pipeline"],
   ["interviews", "Upcoming interviews", "Scheduled and incomplete"],
   ["offers", "Offers", "Offer and accepted stages"],
-  ["tailored_resume_count", "Tailored résumés", "Job-specific versions"],
+  ["tailored_resume_count", "Tailored rÃ©sumÃ©s", "Job-specific versions"],
   ["followups_due", "Follow-ups due", "Actions needing attention"],
 ];
 
@@ -87,14 +87,14 @@ export default function Dashboard() {
     return (
       <section className="card dashboard-loading-card">
         <p className="eyebrow">EXECUTIVE CAREER COMMAND CENTER</p>
-        <h2>Loading your dashboard…</h2>
-        <p className="muted">Pulling your current applications, résumés, and interview activity.</p>
+        <h2>Loading your dashboardâ€¦</h2>
+        <p className="muted">Pulling your current applications, rÃ©sumÃ©s, and interview activity.</p>
       </section>
     );
   }
 
   const stageEntries = Object.entries(data.stage_counts || {}).sort(([a], [b]) => a.localeCompare(b));
-  const firstName = data.user_name?.trim().split(/\s+/)[0] || "Dan";
+  const firstName = data.user_name?.trim().split(/\s+/)[0] || "User";
 
   return (
     <>
@@ -127,7 +127,7 @@ export default function Dashboard() {
             <h2>{digest ? `${digest.unread_count} items need attention` : "No urgent actions"}</h2>
             <p className="muted">
               {digest
-                ? `${digest.high_matches} high matches · ${digest.follow_ups_due} follow-ups · ${digest.saved_search_updates} search updates`
+                ? `${digest.high_matches} high matches Â· ${digest.follow_ups_due} follow-ups Â· ${digest.saved_search_updates} search updates`
                 : "Your dashboard is available. Optional automation updates will appear here when ready."}
             </p>
           </div>
@@ -168,7 +168,7 @@ export default function Dashboard() {
           <div className="dashboard-action-grid">
             <Link className="dashboard-action-card" href="/jobs"><strong>Find opportunities</strong><span>Search and rank new roles</span></Link>
             <Link className="dashboard-action-card" href="/applications"><strong>Manage applications</strong><span>Update stages and next actions</span></Link>
-            <Link className="dashboard-action-card" href="/resumes"><strong>Resume Studio</strong><span>Analyze and manage résumés</span></Link>
+            <Link className="dashboard-action-card" href="/resumes"><strong>Resume Studio</strong><span>Analyze and manage rÃ©sumÃ©s</span></Link>
             <Link className="dashboard-action-card" href="/interviews"><strong>Interview Center</strong><span>Review upcoming preparation</span></Link>
             <Link className="dashboard-action-card" href="/crm"><strong>Recruiter CRM</strong><span>Track relationships and follow-ups</span></Link>
             <Link className="dashboard-action-card" href="/coach"><strong>Career coach</strong><span>Review strategic recommendations</span></Link>
