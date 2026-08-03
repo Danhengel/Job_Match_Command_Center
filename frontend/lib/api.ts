@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+﻿const API_URL = process.env.NEXT_PUBLIC_API_URL || (process.env.NODE_ENV === "production" ? "https://jobmatchcommandcenter-production.up.railway.app" : "http://localhost:8000");
 
 export function getToken(): string | null {
   return typeof window === "undefined" ? null : localStorage.getItem("token");
@@ -71,3 +71,4 @@ export async function downloadApi(path: string, filename: string) {
   anchor.remove();
   URL.revokeObjectURL(url);
 }
+
