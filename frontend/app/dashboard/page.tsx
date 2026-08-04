@@ -1,39 +1,30 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { api } from "@/lib/api";
 
+type Activity = { label: string; detail?: string; created_at?: string };
 type DashboardData = {
-  user_name: string;
-  profile_count: number;
-  resume_count: number;
-  ready_profiles: number;
-  active_applications: number;
-  interviews: number;
-  offers: number;
-  tailored_resume_count: number;
-  followups_due: number;
-  stage_counts: Record<string, number>;
+  user_name?: string;
+  average_completeness?: number;
+  profile_count?: number;
+  resume_count?: number;
+  ready_profiles?: number;
+  high_match_count?: number;
+  active_applications?: number;
+  application_count?: number;
+  interviews?: number;
+  interview_count?: number;
+  offers?: number;
+  offer_count?: number;
+  followups_due?: number;
+  stage_counts?: Record<string, number>;
+  status_counts?: Record<string, number>;
+  recent_activity?: Activity[];
 };
 
-type DigestData = {
-  unread_count: number;
-  high_matches: number;
-  saved_search_updates: number;
-  follow_ups_due: number;
-};
-
-const METRICS: Array<[keyof DashboardData, string, string]> = [
-  ["profile_count", "Career profiles", "Defined target strategies"],
-  ["resume_count", "RÃ©sumÃ© versions", "Master and tailored drafts"],
-  ["ready_profiles", "Profiles ready", "Prepared for matching"],
-  ["active_applications", "Active applications", "In the current pipeline"],
-  ["interviews", "Upcoming interviews", "Scheduled and incomplete"],
-  ["offers", "Offers", "Offer and accepted stages"],
-  ["tailored_resume_count", "Tailored rÃ©sumÃ©s", "Job-specific versions"],
-  ["followups_due", "Follow-ups due", "Actions needing attention"],
-];
+type DigestData = { unread_count?: number; high_matches?: number; saved_search_updates?: number; follow_ups_due?: number };
 
 export default function Dashboard() {
   const [data, setData] = useState<DashboardData | null>(null);
@@ -42,139 +33,63 @@ export default function Dashboard() {
 
   useEffect(() => {
     let active = true;
-
-    async function load() {
-      setError("");
+    (async () => {
       try {
-        const dashboardData = await api("/api/dashboard");
+        const dashboard = await api("/api/dashboard");
         if (!active) return;
-        setData(dashboardData);
-
-        // The digest is useful but optional. A digest failure should never
-        // take down the main dashboard.
-        try {
-          const digestData = await api("/api/automation/digest");
-          if (active) setDigest(digestData);
-        } catch {
-          if (active) setDigest(null);
-        }
+        setData(dashboard);
+        try { setDigest(await api("/api/automation/digest")); } catch { setDigest(null); }
       } catch (err) {
-        if (!active) return;
-        setError(err instanceof Error ? err.message : "Unable to load dashboard.");
+        if (active) setError(err instanceof Error ? err.message : "Unable to load dashboard.");
       }
-    }
-
-    void load();
-    return () => {
-      active = false;
-    };
+    })();
+    return () => { active = false; };
   }, []);
 
-  if (error) {
-    return (
-      <section className="card dashboard-error-card">
-        <p className="eyebrow">DASHBOARD</p>
-        <h2>Dashboard unavailable</h2>
-        <p className="error">{error}</p>
-        <Link className="button secondary" href="/login">
-          Sign in again
-        </Link>
-      </section>
-    );
-  }
+  const stages = useMemo(() => data?.status_counts || data?.stage_counts || {}, [data]);
+  if (error) return <section className="dashboard-panel"><h2>Dashboard unavailable</h2><p className="error">{error}</p><Link className="button" href="/login">Sign in again</Link></section>;
+  if (!data) return <section className="dashboard-panel"><p className="eyebrow">CAREEROS</p><h2>Loading your executive dashboard…</h2></section>;
 
-  if (!data) {
-    return (
-      <section className="card dashboard-loading-card">
-        <p className="eyebrow">EXECUTIVE CAREER COMMAND CENTER</p>
-        <h2>Loading your dashboardâ€¦</h2>
-        <p className="muted">Pulling your current applications, rÃ©sumÃ©s, and interview activity.</p>
-      </section>
-    );
-  }
+  const firstName = data.user_name?.trim().split(/\s+/)[0] || "there";
+  const applications = data.application_count ?? data.active_applications ?? 0;
+  const interviews = data.interview_count ?? data.interviews ?? 0;
+  const offers = data.offer_count ?? data.offers ?? 0;
+  const highMatches = data.high_match_count ?? digest?.high_matches ?? 0;
+  const completeness = data.average_completeness ?? (data.ready_profiles ? 100 : 0);
+  const followups = data.followups_due ?? digest?.follow_ups_due ?? 0;
+  const priority = followups > 0
+    ? { title: `Complete ${followups} follow-up${followups === 1 ? "" : "s"}`, detail: "Timely follow-up improves response rates and keeps active opportunities moving.", href: "/applications", action: "Review follow-ups" }
+    : highMatches > 0
+      ? { title: `Review ${highMatches} strong job match${highMatches === 1 ? "" : "es"}`, detail: "Start with the highest-ranked opportunities and tailor your materials before applying.", href: "/jobs", action: "Review matches" }
+      : { title: "Run your next targeted job search", detail: "Use your career profile to find remote and local opportunities that fit your goals.", href: "/jobs", action: "Search jobs" };
 
-  const stageEntries = Object.entries(data.stage_counts || {}).sort(([a], [b]) => a.localeCompare(b));
-  const firstName = data.user_name?.trim().split(/\s+/)[0] || "User";
+  const maxStage = Math.max(1, ...Object.values(stages));
+  const stageOrder = ["wishlist", "applied", "recruiter", "interview", "final", "offer", "accepted"];
 
-  return (
-    <>
-      <section className="dashboard-hero">
-        <div>
-          <p className="eyebrow">EXECUTIVE CAREER COMMAND CENTER</p>
-          <h1>Welcome back, {firstName}</h1>
-          <p className="muted">Search, tailor, apply, prepare, and follow up from one workspace.</p>
-        </div>
-        <div className="row wrap">
-          <Link className="button" href="/jobs">Find opportunities</Link>
-          <Link className="button secondary" href="/applications">Open pipeline</Link>
-        </div>
-      </section>
+  return <>
+    <section className="executive-hero">
+      <div><p className="eyebrow">EXECUTIVE CAREER COMMAND CENTER</p><h1>Welcome back, {firstName}</h1><p className="muted">Your job search, applications, relationships, and interview preparation in one place.</p></div>
+      <div className="executive-actions"><Link className="button" href="/jobs">Find opportunities</Link><Link className="button secondary" href="/applications">Open pipeline</Link></div>
+    </section>
 
-      <section className="dashboard-metrics-grid" aria-label="Career metrics">
-        {METRICS.map(([key, label, detail]) => (
-          <article className="dashboard-metric-card" key={key}>
-            <span>{label}</span>
-            <strong>{Number(data[key] ?? 0)}</strong>
-            <small>{detail}</small>
-          </article>
-        ))}
-      </section>
+    <section className="executive-kpis" aria-label="Career performance">
+      <article className="executive-kpi"><span>Applications</span><strong>{applications}</strong><small>Tracked opportunities</small></article>
+      <article className="executive-kpi"><span>Interviews</span><strong>{interviews}</strong><small>Interview and final stages</small></article>
+      <article className="executive-kpi"><span>Strong matches</span><strong>{highMatches}</strong><small>High-priority roles</small></article>
+      <article className="executive-kpi"><span>Profile readiness</span><strong>{completeness}%</strong><small>Average profile completion</small></article>
+      <article className="executive-kpi"><span>Offers</span><strong>{offers}</strong><small>Offer and accepted stages</small></article>
+    </section>
 
-      <section className="card dashboard-digest-card">
-        <div className="row between">
-          <div>
-            <p className="eyebrow">DAILY DIGEST</p>
-            <h2>{digest ? `${digest.unread_count} items need attention` : "No urgent actions"}</h2>
-            <p className="muted">
-              {digest
-                ? `${digest.high_matches} high matches Â· ${digest.follow_ups_due} follow-ups Â· ${digest.saved_search_updates} search updates`
-                : "Your dashboard is available. Optional automation updates will appear here when ready."}
-            </p>
-          </div>
-          <Link className="button" href="/notifications">Open notifications</Link>
-        </div>
-      </section>
+    <section className="executive-grid">
+      <article className="priority-card"><p className="eyebrow">TODAY'S PRIORITY</p><h2>{priority.title}</h2><p className="muted">{priority.detail}</p><Link className="button" href={priority.href}>{priority.action}</Link></article>
+      <article className="dashboard-panel"><p className="eyebrow">CAREEROS INSIGHT</p><h2>{digest?.unread_count ? `${digest.unread_count} items need attention` : "Your search is organized"}</h2><p className="muted">{digest ? `${digest.saved_search_updates || 0} search updates and ${followups} follow-ups are currently available.` : "Automation insights will appear here as new jobs and follow-ups are detected."}</p><Link href="/notifications">Open notifications →</Link></article>
+    </section>
 
-      <section className="two-col dashboard-lower-grid">
-        <section className="card">
-          <div className="row between">
-            <div>
-              <p className="eyebrow">APPLICATION FUNNEL</p>
-              <h2>Pipeline by stage</h2>
-            </div>
-            <Link className="button secondary" href="/applications">Manage pipeline</Link>
-          </div>
-          {stageEntries.length ? (
-            <div className="dashboard-funnel-list">
-              {stageEntries.map(([stage, count]) => (
-                <div className="dashboard-funnel-row" key={stage}>
-                  <span>{stage.replaceAll("_", " ")}</span>
-                  <strong>{count}</strong>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="dashboard-empty-state">
-              <h3>No applications yet</h3>
-              <p className="muted">Save a strong job match to begin tracking your pipeline.</p>
-              <Link className="button" href="/jobs">Search jobs</Link>
-            </div>
-          )}
-        </section>
+    <section className="executive-grid">
+      <article className="dashboard-panel"><div className="row between"><div><p className="eyebrow">APPLICATION PIPELINE</p><h2>Progress by stage</h2></div><Link href="/applications">Manage pipeline →</Link></div><div className="pipeline-list">{stageOrder.map(stage => { const count = stages[stage] || 0; return <div className="pipeline-row" key={stage}><span>{stage[0].toUpperCase() + stage.slice(1)}</span><div className="pipeline-track"><div className="pipeline-fill" style={{width:`${Math.max(count ? 8 : 0, (count / maxStage) * 100)}%`}} /></div><strong>{count}</strong></div>; })}</div></article>
+      <article className="dashboard-panel"><p className="eyebrow">QUICK ACTIONS</p><h2>Move your search forward</h2><div className="quick-actions-grid"><Link className="quick-action" href="/jobs"><strong>Search jobs</strong><span>Find and rank opportunities</span></Link><Link className="quick-action" href="/resumes"><strong>Resume studio</strong><span>Analyze and manage résumés</span></Link><Link className="quick-action" href="/interviews"><strong>Interview prep</strong><span>Prepare questions and stories</span></Link><Link className="quick-action" href="/crm"><strong>Recruiter CRM</strong><span>Manage relationships</span></Link></div></article>
+    </section>
 
-        <section className="card">
-          <p className="eyebrow">QUICK ACTIONS</p>
-          <h2>Move your search forward</h2>
-          <div className="dashboard-action-grid">
-            <Link className="dashboard-action-card" href="/jobs"><strong>Find opportunities</strong><span>Search and rank new roles</span></Link>
-            <Link className="dashboard-action-card" href="/applications"><strong>Manage applications</strong><span>Update stages and next actions</span></Link>
-            <Link className="dashboard-action-card" href="/resumes"><strong>Resume Studio</strong><span>Analyze and manage rÃ©sumÃ©s</span></Link>
-            <Link className="dashboard-action-card" href="/interviews"><strong>Interview Center</strong><span>Review upcoming preparation</span></Link>
-            <Link className="dashboard-action-card" href="/crm"><strong>Recruiter CRM</strong><span>Track relationships and follow-ups</span></Link>
-            <Link className="dashboard-action-card" href="/coach"><strong>Career coach</strong><span>Review strategic recommendations</span></Link>
-          </div>
-        </section>
-      </section>
-    </>
-  );
+    <section className="dashboard-panel"><div className="row between"><div><p className="eyebrow">RECENT ACTIVITY</p><h2>Latest progress</h2></div><Link href="/command-center">View command center →</Link></div><div className="activity-list">{data.recent_activity?.length ? data.recent_activity.slice(0,5).map((item,index)=><div className="activity-item" key={`${item.label}-${index}`}><strong>{item.label}</strong><small>{item.detail || "Career activity updated"}</small></div>) : <p className="muted">Your latest résumé, application, and interview activity will appear here.</p>}</div></section>
+  </>;
 }
