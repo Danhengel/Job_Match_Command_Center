@@ -7,9 +7,34 @@ from app.models.application import Application
 from app.models.automation import AutomationRun, Notification, SavedSearch
 from app.models.job import Job, JobMatch
 from app.models.profile import CareerProfile
+from app.models.recruiting import InterviewEvent
 from app.models.resume import Resume
 from app.services import job_sources
 from app.services.job_matcher import match_job
+
+
+def _unread_notification_exists(
+    db: Session,
+    user_id: int,
+    kind: str,
+    metadata_key: str,
+    metadata_value: int,
+    window_key: str | None = None,
+    window_value: str | None = None,
+) -> bool:
+    candidates = db.query(Notification).filter(
+        Notification.user_id == user_id,
+        Notification.kind == kind,
+        Notification.read.is_(False),
+    ).all()
+    for item in candidates:
+        metadata = item.metadata_json or {}
+        if metadata.get(metadata_key) != metadata_value:
+            continue
+        if window_key and metadata.get(window_key) != window_value:
+            continue
+        return True
+    return False
 
 
 def run_saved_search(db: Session, saved_search: SavedSearch) -> dict:
@@ -102,7 +127,13 @@ def run_saved_search(db: Session, saved_search: SavedSearch) -> dict:
     )
     db.add(run)
 
-    if matched_count:
+    if matched_count and not _unread_notification_exists(
+        db,
+        saved_search.user_id,
+        "saved_search",
+        "saved_search_id",
+        saved_search.id,
+    ):
         message = (
             f"{matched_count} jobs matched '{saved_search.name}'. "
             f"{new_job_count} were new to your database."
@@ -110,7 +141,7 @@ def run_saved_search(db: Session, saved_search: SavedSearch) -> dict:
         db.add(Notification(
             user_id=saved_search.user_id,
             kind="saved_search",
-            title=f"{matched_count} new matches",
+            title=f"{matched_count} search matches",
             message=message,
             link="/jobs",
             metadata_json={
@@ -121,6 +152,14 @@ def run_saved_search(db: Session, saved_search: SavedSearch) -> dict:
         ))
 
     for job, score in high_matches[:5]:
+        if _unread_notification_exists(
+            db,
+            saved_search.user_id,
+            "high_match",
+            "job_id",
+            job.id,
+        ):
+            continue
         db.add(Notification(
             user_id=saved_search.user_id,
             kind="high_match",
@@ -159,24 +198,9 @@ def generate_follow_up_notifications(db: Session, user_id: int) -> int:
         elif app.applied_at and app.status == "applied":
             due = app.applied_at <= now - timedelta(days=7)
 
-        if not due:
-            continue
-
-        existing_candidates = db.query(Notification).filter(
-            Notification.user_id == user_id,
-            Notification.kind == "follow_up",
-            Notification.read.is_(False),
-        ).all()
-        existing = next(
-            (
-                item
-                for item in existing_candidates
-                if (item.metadata_json or {}).get("application_id") == app.id
-            ),
-            None,
-        )
-
-        if existing:
+        if not due or _unread_notification_exists(
+            db, user_id, "follow_up", "application_id", app.id
+        ):
             continue
 
         db.add(Notification(
@@ -193,8 +217,62 @@ def generate_follow_up_notifications(db: Session, user_id: int) -> int:
     return count
 
 
+def generate_interview_notifications(db: Session, user_id: int) -> int:
+    now = datetime.utcnow()
+    upper_bound = now + timedelta(hours=48)
+    count = 0
+    events = db.query(InterviewEvent).filter(
+        InterviewEvent.user_id == user_id,
+        InterviewEvent.completed.is_(False),
+        InterviewEvent.starts_at >= now,
+        InterviewEvent.starts_at <= upper_bound,
+    ).order_by(InterviewEvent.starts_at.asc()).all()
+
+    for event in events:
+        hours_until = max(0, int((event.starts_at - now).total_seconds() // 3600))
+        window = "24h" if event.starts_at <= now + timedelta(hours=24) else "48h"
+        if _unread_notification_exists(
+            db,
+            user_id,
+            "interview_reminder",
+            "interview_event_id",
+            event.id,
+            "window",
+            window,
+        ):
+            continue
+
+        when = "within 24 hours" if window == "24h" else "within 48 hours"
+        db.add(Notification(
+            user_id=user_id,
+            kind="interview_reminder",
+            title=f"{event.title} is {when}",
+            message=(
+                f"Your {event.event_type} begins in about {hours_until} hours. "
+                "Review the application, practice key answers, and confirm meeting details."
+            ),
+            link=f"/applications/{event.application_id}",
+            metadata_json={
+                "interview_event_id": event.id,
+                "application_id": event.application_id,
+                "window": window,
+            },
+        ))
+        count += 1
+
+    db.commit()
+    return count
+
+
+def refresh_smart_notifications(db: Session, user_id: int) -> dict:
+    return {
+        "follow_ups_created": generate_follow_up_notifications(db, user_id),
+        "interview_reminders_created": generate_interview_notifications(db, user_id),
+    }
+
+
 def build_daily_digest(db: Session, user_id: int) -> dict:
-    generate_follow_up_notifications(db, user_id)
+    refresh_smart_notifications(db, user_id)
 
     unread = db.query(Notification).filter(
         Notification.user_id == user_id,
@@ -210,6 +288,7 @@ def build_daily_digest(db: Session, user_id: int) -> dict:
         "high_matches": counts.get("high_match", 0),
         "saved_search_updates": counts.get("saved_search", 0),
         "follow_ups_due": counts.get("follow_up", 0),
+        "interview_reminders": counts.get("interview_reminder", 0),
         "items": [
             {
                 "id": n.id,
