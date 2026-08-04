@@ -12,7 +12,7 @@ const sections = [
   { label: "Interview and follow up", items: [["/interviews", "Interview center"], ["/interview-coach", "AI interview coach"], ["/notifications", "Notifications"]] },
 ] as const;
 
-const tools = [["/command-center", "Command center"], ["/analytics", "Analytics"], ["/automation", "Automation"]] as const;
+const tools = [["/command-center", "Command center"], ["/analytics", "Analytics"], ["/reports/weekly", "Weekly report"], ["/automation", "Automation"]] as const;
 
 function active(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
