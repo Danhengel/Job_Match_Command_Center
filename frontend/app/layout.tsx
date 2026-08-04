@@ -1,5 +1,6 @@
 import "./globals.css";
 import "./careeros.css";
+import "./sprint3.css";
 import { AppShell } from "@/components/AppShell";
 
 export const metadata = {
