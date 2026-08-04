@@ -9,7 +9,7 @@ const sections = [
   { label: "Discover opportunities", items: [["/jobs", "Smart job search"], ["/companies", "Companies"], ["/company-watches", "Career watches"]] },
   { label: "Prepare applications", items: [["/coach", "Application studio"], ["/outreach", "Outreach Studio"]] },
   { label: "Apply and track", items: [["/applications", "Application pipeline"], ["/crm", "Recruiter CRM"]] },
-  { label: "Interview and follow up", items: [["/interviews", "Interview center"], ["/notifications", "Notifications"]] },
+  { label: "Interview and follow up", items: [["/interviews", "Interview center"], ["/interview-coach", "AI interview coach"], ["/notifications", "Notifications"]] },
 ] as const;
 
 const tools = [["/command-center", "Command center"], ["/analytics", "Analytics"], ["/automation", "Automation"]] as const;
