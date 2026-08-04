@@ -11,6 +11,7 @@ from app.models.user import User
 from app.schemas.automation import SavedSearchCreate, SavedSearchUpdate
 from app.services.automation_service import (
     build_daily_digest,
+    refresh_smart_notifications,
     run_saved_search,
 )
 
@@ -33,6 +34,19 @@ def _serialize_search(item: SavedSearch):
         "cadence": item.cadence,
         "last_run_at": item.last_run_at.isoformat() if item.last_run_at else None,
         "last_result_count": item.last_result_count,
+        "created_at": item.created_at.isoformat(),
+    }
+
+
+def _serialize_notification(item: Notification):
+    return {
+        "id": item.id,
+        "kind": item.kind,
+        "title": item.title,
+        "message": item.message,
+        "link": item.link,
+        "read": item.read,
+        "metadata": item.metadata_json or {},
         "created_at": item.created_at.isoformat(),
     }
 
@@ -132,18 +146,16 @@ def notifications(
     rows = db.query(Notification).filter(
         Notification.user_id == user.id
     ).order_by(Notification.created_at.desc()).limit(100).all()
-    return [
-        {
-            "id": n.id,
-            "kind": n.kind,
-            "title": n.title,
-            "message": n.message,
-            "link": n.link,
-            "read": n.read,
-            "created_at": n.created_at.isoformat(),
-        }
-        for n in rows
-    ]
+    return [_serialize_notification(item) for item in rows]
+
+
+@router.post("/notifications/refresh")
+def refresh_notifications(
+    user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    created = refresh_smart_notifications(db, user.id)
+    return {"ok": True, **created}
 
 
 @router.post("/notifications/{notification_id}/read")
@@ -158,6 +170,22 @@ def mark_read(
     ).first()
     if item:
         item.read = True
+        db.commit()
+    return {"ok": True}
+
+
+@router.delete("/notifications/{notification_id}")
+def dismiss_notification(
+    notification_id: int,
+    user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    item = db.query(Notification).filter(
+        Notification.id == notification_id,
+        Notification.user_id == user.id,
+    ).first()
+    if item:
+        db.delete(item)
         db.commit()
     return {"ok": True}
 
