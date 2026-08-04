@@ -44,6 +44,8 @@ jobs:
     defaults:
       run:
         working-directory: backend
+    env:
+      PYTHONPATH: ${{ github.workspace }}/backend
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -61,7 +63,7 @@ jobs:
         shell: bash
         run: |
           if find . \( -path '*/test_*.py' -o -path '*/tests/*.py' \) | grep -q .; then
-            pytest -q
+            python -m pytest -q
           else
             echo "No Python tests found; source compilation passed."
           fi
@@ -89,6 +91,7 @@ jobs:
     env:
       DATABASE_URL: postgresql+psycopg://jobmatch:jobmatch@localhost:5432/jobmatch
       SECRET_KEY: ci-only-secret-key
+      PYTHONPATH: ${{ github.workspace }}/backend
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
