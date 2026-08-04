@@ -7,7 +7,7 @@ import type { ReactNode } from "react";
 const sections = [
   { label: "Build your profile", items: [["/profiles", "Career profile"], ["/resumes", "Résumé library"], ["/resumes/studio", "Resume Studio"]] },
   { label: "Discover opportunities", items: [["/jobs", "Smart job search"], ["/companies", "Companies"], ["/company-watches", "Career watches"]] },
-  { label: "Prepare applications", items: [["/coach", "Application studio"]] },
+  { label: "Prepare applications", items: [["/coach", "Application studio"], ["/outreach", "Outreach Studio"]] },
   { label: "Apply and track", items: [["/applications", "Application pipeline"], ["/crm", "Recruiter CRM"]] },
   { label: "Interview and follow up", items: [["/interviews", "Interview center"], ["/notifications", "Notifications"]] },
 ] as const;
