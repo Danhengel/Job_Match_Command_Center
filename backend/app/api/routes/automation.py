@@ -12,6 +12,7 @@ from app.schemas.automation import AutomationPreferenceUpdate, SavedSearchCreate
 from app.services.automation_service import build_daily_digest, refresh_smart_notifications, run_saved_search
 from app.services.calendar_service import build_calendar_timeline
 from app.services.report_service import build_weekly_report
+from app.services.scheduler import run_user_automation, scheduler_status
 
 router = APIRouter(prefix="/api/automation", tags=["Automation"])
 
@@ -59,7 +60,9 @@ def update_saved_search(search_id:int,body:SavedSearchUpdate,user:User=Depends(g
 def run_search(search_id:int,user:User=Depends(get_current_user),db:Session=Depends(get_db)):
     item=db.query(SavedSearch).filter(SavedSearch.id==search_id,SavedSearch.user_id==user.id).first()
     if not item: raise HTTPException(status_code=404,detail="Saved search not found")
-    return run_saved_search(db,item)
+    preference=_preference(db,user.id)
+    categories=preference.notification_categories or {}
+    return run_saved_search(db,item,notify=bool(categories.get("jobs",True)))
 
 
 @router.delete("/saved-searches/{search_id}")
@@ -76,7 +79,9 @@ def notifications(user:User=Depends(get_current_user),db:Session=Depends(get_db)
 
 @router.post("/notifications/refresh")
 def refresh_notifications(user:User=Depends(get_current_user),db:Session=Depends(get_db)):
-    created=refresh_smart_notifications(db,user.id); return {"ok":True,**created}
+    preference=_preference(db,user.id)
+    created=refresh_smart_notifications(db,user.id,preference.application_follow_up_days,preference.interview_reminder_hours,preference.notification_categories)
+    return {"ok":True,**created}
 
 
 @router.post("/notifications/{notification_id}/read")
@@ -121,3 +126,13 @@ def update_preferences(body:AutomationPreferenceUpdate,user:User=Depends(get_cur
     item=_preference(db,user.id)
     for key,value in body.model_dump(exclude_unset=True).items(): setattr(item,key,value)
     db.commit(); db.refresh(item); return _serialize_preference(item)
+
+
+@router.get("/scheduler/status")
+def read_scheduler_status(user:User=Depends(get_current_user)):
+    return scheduler_status()
+
+
+@router.post("/scheduler/run-now")
+def run_scheduler_now(user:User=Depends(get_current_user),db:Session=Depends(get_db)):
+    return run_user_automation(db,user.id)

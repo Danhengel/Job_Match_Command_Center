@@ -6,13 +6,16 @@ const DAYS=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturda
 const FREQUENCIES=["instant","daily","weekdays","weekly","manual"];
 
 export default function AutomationSettings(){
- const [form,setForm]=useState<any>(null),[busy,setBusy]=useState(false),[message,setMessage]=useState(""),[error,setError]=useState("");
- useEffect(()=>{api("/api/automation/preferences").then(setForm).catch(e=>setError(e.message))},[]);
+ const [form,setForm]=useState<any>(null),[status,setStatus]=useState<any>(null),[busy,setBusy]=useState(false),[running,setRunning]=useState(false),[message,setMessage]=useState(""),[error,setError]=useState("");
+ async function load(){const [preferences,scheduler]=await Promise.all([api("/api/automation/preferences"),api("/api/automation/scheduler/status")]);setForm(preferences);setStatus(scheduler)}
+ useEffect(()=>{load().catch(e=>setError(e.message))},[]);
  function set(key:string,value:any){setForm((current:any)=>({...current,[key]:value}));setMessage("")}
  async function save(){setBusy(true);setError("");try{const updated=await api("/api/automation/preferences",{method:"PATCH",body:JSON.stringify(form)});setForm(updated);setMessage("Automation preferences saved.")}catch(e){setError(e instanceof Error?e.message:"Could not save preferences")}finally{setBusy(false)}}
+ async function runNow(){setRunning(true);setError("");try{const result=await api("/api/automation/scheduler/run-now",{method:"POST"});const scheduler=await api("/api/automation/scheduler/status");setStatus(scheduler);setMessage(`Automation completed: ${result.searches_run||0} searches and ${(result.follow_ups_created||0)+(result.interview_reminders_created||0)+(result.daily_briefs_created||0)+(result.weekly_reports_created||0)} notifications created.`)}catch(e){setError(e instanceof Error?e.message:"Could not run automation")}finally{setRunning(false)}}
  if(!form)return <p>{error||"Loading automation preferences…"}</p>;
  return <>
   <div className="hero"><p className="eyebrow">AUTOMATION CONTROL</p><h1>Automation preferences</h1><p className="muted">Control when CareerOS searches, reminds, and prepares reports. These settings are stored with your account.</p></div>
+  <section className="card"><div className="row between wrap"><div><h2>Background scheduler</h2><p className="muted">CareerOS checks due work every 15 minutes and respects your time zone and quiet hours.</p></div><button className="secondary" onClick={runNow} disabled={running}>{running?"Running…":"Run my automation now"}</button></div><div className="metrics-grid"><div className="metric-card"><span>Status</span><strong>{status?.running?"Running":"Stopped"}</strong></div><div className="metric-card"><span>Next check</span><strong>{status?.next_run_at?new Date(status.next_run_at).toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"}):"Not scheduled"}</strong></div><div className="metric-card"><span>Last completed</span><strong>{status?.last_finished_at?new Date(status.last_finished_at).toLocaleString():"Not yet"}</strong></div><div className="metric-card"><span>Last cycle</span><strong>{status?.last_result?.searches_run||0} searches</strong></div></div>{status?.last_error&&<p className="error">Last scheduler error: {status.last_error}</p>}</section>
   <div className="two-col">
    <section className="card"><h2>Briefings and reports</h2>
     <label><input type="checkbox" checked={form.daily_brief_enabled} onChange={e=>set("daily_brief_enabled",e.target.checked)}/> Daily briefing enabled</label>
