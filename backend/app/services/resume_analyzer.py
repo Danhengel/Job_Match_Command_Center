@@ -66,7 +66,12 @@ def analyze_resume(text: str, priority_keywords: list[str], target_titles: list[
     score += min(8, len(leadership_hits) * 2)
     score += min(7, len(risk_hits))
     score += min(6, len(operations_hits))
-    if word_count < 250: score -= 15
+    # Short extracts should receive a modest completeness penalty without
+    # overwhelming strong evidence from quantified accomplishments and keywords.
+    if word_count < 100:
+        score -= 10
+    elif word_count < 250:
+        score -= 6
     if not target_titles: score -= 5
     score = max(0, min(100, score))
 
