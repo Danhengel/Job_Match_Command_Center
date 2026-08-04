@@ -1,45 +1,259 @@
 "use client";
-import {useEffect,useState} from "react";
-import {api} from "@/lib/api";
 
-export default function Automation(){
- const [profiles,setProfiles]=useState<any[]>([]),[items,setItems]=useState<any[]>([]);
- const [profileId,setProfileId]=useState(""),[name,setName]=useState("Daily Executive Search");
- const [titles,setTitles]=useState("Construction Loan Administration\nCommercial Loan Operations\nCRE Loan Operations");
- const [location,setLocation]=useState("Remote"),[minimum,setMinimum]=useState(35);
- const [busy,setBusy]=useState(false),[error,setError]=useState("");
+import { useEffect, useMemo, useState } from "react";
+import { api } from "@/lib/api";
 
- async function load(){
-  const [p,s]=await Promise.all([api("/api/profiles"),api("/api/automation/saved-searches")]);
-  setProfiles(p);setItems(s);if(!profileId&&p[0])setProfileId(String(p[0].id));
- }
- useEffect(()=>{load().catch(e=>setError(e.message))},[]);
+type Profile = { id: number; name: string };
+type SavedSearch = {
+  id: number;
+  profile_id: number;
+  name: string;
+  titles: string[];
+  location: string;
+  minimum_score: number;
+  use_catalog: boolean;
+  use_remotive: boolean;
+  use_jsearch: boolean;
+  active: boolean;
+  cadence: string;
+  last_run_at: string | null;
+  last_result_count: number;
+  created_at: string;
+};
 
- async function create(e:React.FormEvent){
-  e.preventDefault();setBusy(true);setError("");
-  try{
-   await api("/api/automation/saved-searches",{method:"POST",body:JSON.stringify({
-    profile_id:Number(profileId),name,
-    titles:titles.split("\n").map(x=>x.trim()).filter(Boolean),
-    location,minimum_score:minimum,use_catalog:true,use_remotive:false,use_jsearch:true,cadence:"daily"
-   })});
-   await load();
-  }catch(e){setError(e instanceof Error?e.message:"Could not save search")}
-  finally{setBusy(false)}
- }
- async function run(id:number){
-  setBusy(true);try{await api(`/api/automation/saved-searches/${id}/run`,{method:"POST"});await load()}finally{setBusy(false)}
- }
- async function toggle(item:any){
-  await api(`/api/automation/saved-searches/${item.id}`,{method:"PATCH",body:JSON.stringify({active:!item.active})});
-  await load();
- }
- async function remove(id:number){
-  await api(`/api/automation/saved-searches/${id}`,{method:"DELETE"});await load();
- }
+type FormState = {
+  profileId: string;
+  name: string;
+  titles: string;
+  location: string;
+  minimumScore: number;
+  cadence: string;
+  useCatalog: boolean;
+  useRemotive: boolean;
+  useJsearch: boolean;
+};
 
- return <><div className="hero"><p className="eyebrow">AUTOMATED DISCOVERY</p><h1>Saved Searches</h1><p className="muted">Run recurring job searches and receive high-match notifications.</p></div>
- <div className="two-col"><form className="card" onSubmit={create}><h2>Create saved search</h2><label>Profile</label><select value={profileId} onChange={e=>setProfileId(e.target.value)}>{profiles.map(p=><option key={p.id} value={p.id}>{p.name}</option>)}</select><label>Name</label><input value={name} onChange={e=>setName(e.target.value)}/><label>Titles, one per line</label><textarea rows={7} value={titles} onChange={e=>setTitles(e.target.value)}/><label>Location</label><input value={location} onChange={e=>setLocation(e.target.value)}/><label>Minimum score: {minimum}</label><input type="range" min="0" max="100" value={minimum} onChange={e=>setMinimum(Number(e.target.value))}/>{error&&<p className="error">{error}</p>}<button disabled={busy}>Save daily search</button></form>
- <section className="card"><h2>How it works</h2><p className="muted">Active daily searches run automatically at 12:00 UTC. You can also run them manually at any time. New high matches appear in Notifications and the daily digest.</p></section></div>
- <section className="card"><h2>Your saved searches</h2>{items.map(s=><article className="automation-row" key={s.id}><div><strong>{s.name}</strong><small>{s.titles.join(" · ")} · {s.location} · threshold {s.minimum_score}</small><small>Last run: {s.last_run_at?new Date(s.last_run_at).toLocaleString():"Never"} · {s.last_result_count} matches</small></div><div className="row wrap"><span className={`badge ${s.active?"":"warning-badge"}`}>{s.active?"Active":"Paused"}</span><button onClick={()=>run(s.id)} disabled={busy}>Run now</button><button className="secondary" onClick={()=>toggle(s)}>{s.active?"Pause":"Resume"}</button><button className="danger" onClick={()=>remove(s.id)}>Delete</button></div></article>)}{!items.length&&<p className="muted">No saved searches yet.</p>}</section></>;
+const initialForm: FormState = {
+  profileId: "",
+  name: "Daily Executive Search",
+  titles: "Construction Loan Administration\nCommercial Loan Operations\nCRE Loan Operations",
+  location: "Remote",
+  minimumScore: 50,
+  cadence: "daily",
+  useCatalog: true,
+  useRemotive: false,
+  useJsearch: true,
+};
+
+export default function AutomationPage() {
+  const [profiles, setProfiles] = useState<Profile[]>([]);
+  const [items, setItems] = useState<SavedSearch[]>([]);
+  const [form, setForm] = useState<FormState>(initialForm);
+  const [workingId, setWorkingId] = useState<number | null>(null);
+  const [saving, setSaving] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
+
+  async function load() {
+    setLoading(true);
+    setError("");
+    try {
+      const [profileData, searchData] = await Promise.all([
+        api("/api/profiles"),
+        api("/api/automation/saved-searches"),
+      ]);
+      const loadedProfiles = Array.isArray(profileData) ? profileData : [];
+      const loadedSearches = Array.isArray(searchData) ? searchData : [];
+      setProfiles(loadedProfiles);
+      setItems(loadedSearches);
+      setForm((current) => ({
+        ...current,
+        profileId: current.profileId || (loadedProfiles[0] ? String(loadedProfiles[0].id) : ""),
+      }));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unable to load saved searches.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    void load();
+  }, []);
+
+  const activeCount = useMemo(() => items.filter((item) => item.active).length, [items]);
+  const totalMatches = useMemo(() => items.reduce((sum, item) => sum + item.last_result_count, 0), [items]);
+
+  function clearNotices() {
+    setError("");
+    setMessage("");
+  }
+
+  async function createSearch(event: React.FormEvent) {
+    event.preventDefault();
+    clearNotices();
+
+    const titleList = form.titles.split("\n").map((value) => value.trim()).filter(Boolean);
+    if (!form.profileId) return setError("Select a career profile.");
+    if (!form.name.trim()) return setError("Enter a name for this search.");
+    if (!titleList.length) return setError("Enter at least one target title.");
+    if (!form.useCatalog && !form.useRemotive && !form.useJsearch) return setError("Select at least one search provider.");
+
+    setSaving(true);
+    try {
+      await api("/api/automation/saved-searches", {
+        method: "POST",
+        body: JSON.stringify({
+          profile_id: Number(form.profileId),
+          name: form.name.trim(),
+          titles: titleList,
+          location: form.location.trim() || "Remote",
+          minimum_score: form.minimumScore,
+          use_catalog: form.useCatalog,
+          use_remotive: form.useRemotive,
+          use_jsearch: form.useJsearch,
+          cadence: form.cadence,
+          active: true,
+        }),
+      });
+      setMessage("Saved search created.");
+      setForm((current) => ({ ...initialForm, profileId: current.profileId }));
+      await load();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not save search.");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function runSearch(item: SavedSearch) {
+    clearNotices();
+    setWorkingId(item.id);
+    try {
+      const result = await api(`/api/automation/saved-searches/${item.id}/run`, { method: "POST" });
+      const count = result?.matched_job_count ?? result?.result_count ?? 0;
+      setMessage(`${item.name} completed${count ? ` with ${count} matches` : ""}.`);
+      await load();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Saved search run failed.");
+    } finally {
+      setWorkingId(null);
+    }
+  }
+
+  async function toggleSearch(item: SavedSearch) {
+    clearNotices();
+    setWorkingId(item.id);
+    try {
+      await api(`/api/automation/saved-searches/${item.id}`, {
+        method: "PATCH",
+        body: JSON.stringify({ active: !item.active }),
+      });
+      setMessage(`${item.name} ${item.active ? "paused" : "resumed"}.`);
+      await load();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unable to update saved search.");
+    } finally {
+      setWorkingId(null);
+    }
+  }
+
+  async function deleteSearch(item: SavedSearch) {
+    if (!window.confirm(`Delete “${item.name}”? This cannot be undone.`)) return;
+    clearNotices();
+    setWorkingId(item.id);
+    try {
+      await api(`/api/automation/saved-searches/${item.id}`, { method: "DELETE" });
+      setMessage(`${item.name} deleted.`);
+      await load();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unable to delete saved search.");
+    } finally {
+      setWorkingId(null);
+    }
+  }
+
+  return (
+    <>
+      <section className="executive-hero">
+        <div>
+          <p className="eyebrow">AUTOMATION CENTER</p>
+          <h1>Saved job searches</h1>
+          <p className="muted">Create focused searches, choose their data sources, run them on demand, and keep recurring discovery organized.</p>
+        </div>
+        <div className="executive-actions">
+          <button className="secondary" type="button" disabled={loading} onClick={() => void load()}>{loading ? "Refreshing…" : "Refresh"}</button>
+        </div>
+      </section>
+
+      <section className="executive-kpis">
+        <article className="executive-kpi"><span>Saved searches</span><strong>{items.length}</strong><small>configured searches</small></article>
+        <article className="executive-kpi"><span>Active</span><strong>{activeCount}</strong><small>eligible for scheduled runs</small></article>
+        <article className="executive-kpi"><span>Latest matches</span><strong>{totalMatches}</strong><small>across last completed runs</small></article>
+      </section>
+
+      {error ? <section className="resume-alert resume-alert-error"><strong>Action required</strong><span>{error}</span></section> : null}
+      {message ? <section className="resume-alert resume-alert-success"><strong>Updated</strong><span>{message}</span></section> : null}
+
+      <div className="two-col">
+        <form className="card" onSubmit={createSearch}>
+          <p className="eyebrow">NEW AUTOMATION</p>
+          <h2>Create saved search</h2>
+          <label>Career profile</label>
+          <select value={form.profileId} onChange={(event) => setForm({ ...form, profileId: event.target.value })}>
+            {profiles.map((profile) => <option key={profile.id} value={profile.id}>{profile.name}</option>)}
+          </select>
+          <label>Search name</label>
+          <input value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} />
+          <label>Target titles, one per line</label>
+          <textarea rows={7} value={form.titles} onChange={(event) => setForm({ ...form, titles: event.target.value })} />
+          <div className="two-col">
+            <div><label>Location</label><input value={form.location} onChange={(event) => setForm({ ...form, location: event.target.value })} /></div>
+            <div><label>Cadence</label><select value={form.cadence} onChange={(event) => setForm({ ...form, cadence: event.target.value })}><option value="daily">Daily</option><option value="weekdays">Weekdays</option><option value="weekly">Weekly</option><option value="manual">Manual only</option></select></div>
+          </div>
+          <label>Minimum match score: {form.minimumScore}</label>
+          <input type="range" min="0" max="100" value={form.minimumScore} onChange={(event) => setForm({ ...form, minimumScore: Number(event.target.value) })} />
+          <fieldset>
+            <legend>Search providers</legend>
+            <label className="resume-checkbox-row"><input type="checkbox" checked={form.useCatalog} onChange={(event) => setForm({ ...form, useCatalog: event.target.checked })} /> Employer catalog</label>
+            <label className="resume-checkbox-row"><input type="checkbox" checked={form.useRemotive} onChange={(event) => setForm({ ...form, useRemotive: event.target.checked })} /> Remote feed</label>
+            <label className="resume-checkbox-row"><input type="checkbox" checked={form.useJsearch} onChange={(event) => setForm({ ...form, useJsearch: event.target.checked })} /> JSearch provider</label>
+          </fieldset>
+          <button disabled={saving || !profiles.length}>{saving ? "Saving…" : "Create saved search"}</button>
+        </form>
+
+        <section className="card">
+          <p className="eyebrow">HOW IT WORKS</p>
+          <h2>Transparent automation</h2>
+          <p className="muted">Active searches are eligible for the configured scheduler. Manual runs execute immediately and update the result count and last-run timestamp.</p>
+          <ul>
+            <li>Higher score thresholds produce a smaller, more focused review queue.</li>
+            <li>Provider availability can vary; failed providers should not erase successful results from other sources.</li>
+            <li>New high-match results are surfaced through CareerOS notifications and digest data.</li>
+          </ul>
+        </section>
+      </div>
+
+      <section className="card">
+        <div className="row between"><div><p className="eyebrow">MANAGE</p><h2>Your saved searches</h2></div><span className="badge">{activeCount} active</span></div>
+        {loading ? <p className="muted">Loading saved searches…</p> : items.map((item) => (
+          <article className="automation-row" key={item.id}>
+            <div>
+              <div className="row wrap"><strong>{item.name}</strong><span className={`badge ${item.active ? "" : "warning-badge"}`}>{item.active ? "Active" : "Paused"}</span><span className="badge">{item.cadence}</span></div>
+              <small>{item.titles.join(" · ")} · {item.location} · minimum score {item.minimum_score}</small>
+              <small>Sources: {[item.use_catalog && "catalog", item.use_remotive && "remote feed", item.use_jsearch && "JSearch"].filter(Boolean).join(" · ") || "none"}</small>
+              <small>Last run: {item.last_run_at ? new Date(item.last_run_at).toLocaleString() : "Never"} · {item.last_result_count} matches</small>
+            </div>
+            <div className="row wrap">
+              <button type="button" disabled={workingId === item.id} onClick={() => void runSearch(item)}>{workingId === item.id ? "Working…" : "Run now"}</button>
+              <button type="button" className="secondary" disabled={workingId === item.id} onClick={() => void toggleSearch(item)}>{item.active ? "Pause" : "Resume"}</button>
+              <button type="button" className="danger" disabled={workingId === item.id} onClick={() => void deleteSearch(item)}>Delete</button>
+            </div>
+          </article>
+        ))}
+        {!loading && !items.length ? <p className="muted">No saved searches yet. Create one above to begin.</p> : null}
+      </section>
+    </>
+  );
 }
