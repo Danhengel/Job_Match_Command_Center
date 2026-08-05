@@ -1,11 +1,12 @@
 from pydantic import BaseModel, Field
 
+
 class JobSearchRequest(BaseModel):
     profile_id: int
     titles: list[str] = Field(min_length=1)
     use_remotive: bool = True
     use_catalog: bool = True
-    use_jsearch: bool = False
+    use_jsearch: bool = True
     jsearch_location: str = "United States"
     greenhouse_boards: list[str] = []
     lever_boards: list[str] = []
