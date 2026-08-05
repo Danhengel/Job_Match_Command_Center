@@ -1,5 +1,6 @@
 import "./globals.css";
 import "./careeros.css";
+import "./auth.css";
 import "./sprint3.css";
 import "./sprint5.css";
 import "./sprint6.css";
