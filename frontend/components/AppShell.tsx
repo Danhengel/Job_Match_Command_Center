@@ -47,6 +47,10 @@ export function AppShell({ children }: { children: ReactNode }) {
     };
   }, [menuOpen]);
 
+  if (pathname === "/") {
+    return <>{children}</>;
+  }
+
   if (pathname === "/login" || pathname === "/register") {
     return <main className="auth-content">{children}</main>;
   }
