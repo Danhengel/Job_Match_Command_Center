@@ -11,6 +11,7 @@ import "./brand-colors.css";
 import "./landing.css";
 import "./public-pages.css";
 import "./mobile.css";
+import "./public-readability.css";
 import { AppShell } from "@/components/AppShell";
 
 const SITE_URL = "https://careernaviq.com";
