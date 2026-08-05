@@ -5,17 +5,14 @@ import "./sprint5.css";
 import "./sprint6.css";
 import "./sprint7.css";
 import "./sprint8.css";
+import "./beta.css";
 import { AppShell } from "@/components/AppShell";
 
 export const metadata = {
   title: "CareerOS",
-  description: "AI-powered career search, application management, and interview preparation.",
+  description: "Find opportunities, track progress, and achieve more with an AI-assisted career command center.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <body><AppShell>{children}</AppShell></body>
-    </html>
-  );
+  return <html lang="en"><body><AppShell>{children}</AppShell></body></html>;
 }
