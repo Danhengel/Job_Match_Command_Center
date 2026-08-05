@@ -9,6 +9,7 @@ import "./sprint7.css";
 import "./sprint8.css";
 import "./brand-colors.css";
 import "./landing.css";
+import "./public-pages.css";
 import "./mobile.css";
 import { AppShell } from "@/components/AppShell";
 
