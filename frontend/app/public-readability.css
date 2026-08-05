@@ -1,0 +1,64 @@
+/*
+ * Public marketing pages share the application shell's global stylesheet.
+ * These scoped rules reset app-only element styles and keep public content
+ * readable on every viewport.
+ */
+
+.landing-page,
+.public-page {
+  color-scheme: light;
+}
+
+.landing-page main,
+.public-page main {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+.landing-page .landing-nav,
+.public-page .public-nav {
+  overflow: visible;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  white-space: normal;
+}
+
+.landing-page .landing-nav > a:not(.landing-nav-cta),
+.public-page .public-nav > a:not(.public-nav-cta) {
+  color: #334155;
+}
+
+.landing-page .landing-nav > a:not(.landing-nav-cta):hover,
+.public-page .public-nav > a:not(.public-nav-cta):hover {
+  color: #117fbd;
+}
+
+.landing-page .landing-nav .landing-nav-cta,
+.public-page .public-nav .public-nav-cta {
+  color: #fff;
+}
+
+.landing-page a.landing-button-primary {
+  color: #fff !important;
+}
+
+.landing-page a.landing-button-secondary,
+.landing-page a.landing-button-light {
+  color: #062b78 !important;
+}
+
+.landing-page .landing-final-card a.landing-button-light {
+  color: #062b78 !important;
+}
+
+/* Keep focus states visible for keyboard users. */
+.landing-page a:focus-visible,
+.public-page a:focus-visible,
+.landing-page button:focus-visible,
+.public-page button:focus-visible {
+  outline: 3px solid #1cb8f4;
+  outline-offset: 3px;
+}
