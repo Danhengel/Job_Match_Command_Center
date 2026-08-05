@@ -9,6 +9,7 @@ from app.models.resume import Resume
 from app.models.job import JobMatch
 from app.models.application import Application
 from app.models.tailoring import TailoredResume
+from app.services.daily_brief_service import build_daily_brief
 
 router = APIRouter(prefix="/api/dashboard", tags=["Dashboard"])
 
@@ -30,3 +31,8 @@ def dashboard(user: User = Depends(get_current_user), db: Session = Depends(get_
     due=[a for a in apps if a.next_action_at and a.next_action_at <= datetime.utcnow()]
     recent=sorted(all_resumes,key=lambda r:r.created_at,reverse=True)[:5]
     return {"user_name": user.full_name,"resume_count":len(all_resumes),"ready_profiles":sum(1 for p in pdata if p["has_primary"]),"analyzed_resumes":sum(1 for r in all_resumes if r.analysis_score is not None),"average_completeness":round(sum(p["completeness"] for p in pdata)/len(pdata)) if pdata else 0,"job_match_count":len(matches),"high_match_count":sum(1 for m in matches if m.score>=70),"application_count":len(apps),"interview_count":status_counts["interview"]+status_counts["final"],"offer_count":status_counts["offer"]+status_counts["accepted"],"tailored_resume_count":len(tailorings),"followups_due":len(due),"status_counts":status_counts,"profiles":pdata,"recent_activity":[{"type":"resume_uploaded","label":f"{r.name} uploaded","detail":r.original_filename,"profile_id":r.profile_id,"created_at":r.created_at.isoformat()} for r in recent]}
+
+
+@router.get("/daily-brief")
+def daily_brief(user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    return build_daily_brief(db, user.id, user.full_name)
