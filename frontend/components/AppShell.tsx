@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import type { ReactNode } from "react";
+import { useEffect, useState, type MouseEvent, type ReactNode } from "react";
 
 const sections = [
   { label: "Build your profile", items: [["/profiles", "Career profile"], ["/resumes", "Résumé library"], ["/resumes/studio", "Resume Studio"]] },
@@ -52,7 +51,7 @@ export function AppShell({ children }: { children: ReactNode }) {
     return <main className="auth-content">{children}</main>;
   }
 
-  function closeMenuFromLink(event: React.MouseEvent<HTMLElement>) {
+  function closeMenuFromLink(event: MouseEvent<HTMLElement>) {
     if ((event.target as HTMLElement).closest("a")) setMenuOpen(false);
   }
 
