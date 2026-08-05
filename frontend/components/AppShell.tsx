@@ -27,7 +27,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       <aside className="app-sidebar">
         <Link href="/dashboard" className="sidebar-brand">
           <span className="brand-mark">C</span>
-          <span><strong>CareerOS</strong><small>Your career command center</small></span>
+          <span><strong>CareerNavIQ</strong><small>Your career command center</small></span>
         </Link>
         <nav className="sidebar-nav" aria-label="Career journey">
           <Link href="/dashboard" className={`sidebar-dashboard ${active(pathname, "/dashboard") ? "active" : ""}`}>Dashboard</Link>
@@ -48,7 +48,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       </aside>
       <div className="app-workspace">
         <header className="app-header">
-          <div><strong>CareerOS</strong><span>Turn your experience into the right next opportunity.</span></div>
+          <div><strong>CareerNavIQ</strong><span>Turn your experience into the right next opportunity.</span></div>
           <div className="header-actions"><Link href="/jobs" className="button secondary compact">Search jobs</Link><Link href="/notifications" className="header-link">Notifications</Link></div>
         </header>
         <main className="app-content">{children}</main>
