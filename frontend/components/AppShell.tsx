@@ -21,6 +21,19 @@ const mobileNavigation = [
   ["/interviews", "◎", "Prepare"],
 ] as const;
 
+const publicPaths = new Set([
+  "/features",
+  "/about",
+  "/pricing",
+  "/contact",
+  "/privacy",
+  "/terms",
+  "/ai-job-search",
+  "/job-application-tracker",
+  "/resume-optimizer",
+  "/interview-preparation",
+]);
+
 function active(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
@@ -47,7 +60,7 @@ export function AppShell({ children }: { children: ReactNode }) {
     };
   }, [menuOpen]);
 
-  if (pathname === "/") {
+  if (pathname === "/" || publicPaths.has(pathname)) {
     return <>{children}</>;
   }
 
