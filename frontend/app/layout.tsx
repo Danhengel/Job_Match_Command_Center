@@ -8,7 +8,7 @@ import "./sprint8.css";
 import { AppShell } from "@/components/AppShell";
 
 export const metadata = {
-  title: "CareerOS",
+  title: "CareerNavIQ",
   description: "AI-powered career search, application management, and interview preparation.",
 };
 
