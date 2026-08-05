@@ -1,6 +1,5 @@
+from collections import Counter
 from datetime import datetime
-from pathlib import Path
-import json
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
@@ -18,23 +17,6 @@ from app.services.job_matcher import match_job
 
 
 router = APIRouter(prefix="/api/jobs", tags=["Jobs"])
-
-CATALOG_PATH = (
-    Path(__file__).resolve().parents[2]
-    / "data"
-    / "employer_catalog.json"
-)
-
-
-def employer_catalog() -> dict:
-    try:
-        return json.loads(CATALOG_PATH.read_text(encoding="utf-8"))
-    except Exception:
-        return {
-            "greenhouse": [],
-            "lever": [],
-            "ashby": [],
-        }
 
 
 def serialize_job(job: Job, match: JobMatch) -> dict:
@@ -143,6 +125,29 @@ def expand_search_titles(titles: list[str]) -> list[str]:
     return list(dict.fromkeys(expanded_titles))
 
 
+def source_status_item(
+    source: str,
+    jobs: int,
+    failures: int = 0,
+    requests: int = 1,
+) -> dict:
+    if jobs and failures:
+        status = "partial"
+    elif jobs:
+        status = "success"
+    elif failures:
+        status = "failed"
+    else:
+        status = "empty"
+    return {
+        "source": source,
+        "status": status,
+        "jobs": jobs,
+        "failures": failures,
+        "requests": requests,
+    }
+
+
 @router.post("/search")
 def search(
     body: JobSearchRequest,
@@ -174,23 +179,42 @@ def search(
 
     rows: list[dict] = []
     errors: list[str] = []
+    coverage_notes: list[str] = []
     searched_sources: list[str] = []
+    source_status: list[dict] = []
     expanded_titles = expand_search_titles(body.titles)
 
     if body.use_remotive:
         searched_sources.append("Remotive")
+        remotive_jobs = 0
+        remotive_failures = 0
         for title in expanded_titles:
             try:
-                rows += job_sources.remotive(title)
+                batch = job_sources.remotive(title)
+                remotive_jobs += len(batch)
+                rows += batch
+                if not batch:
+                    coverage_notes.append(
+                        f"Remotive returned no jobs for '{title}'."
+                    )
             except Exception as exc:
+                remotive_failures += 1
                 errors.append(f"Remotive {title}: {exc}")
+        source_status.append(
+            source_status_item(
+                "Remotive",
+                remotive_jobs,
+                remotive_failures,
+                len(expanded_titles),
+            )
+        )
 
     greenhouse_values = list(body.greenhouse_boards)
     lever_values = list(body.lever_boards)
     ashby_values = list(body.ashby_boards)
 
     if body.use_catalog:
-        catalog = employer_catalog()
+        catalog = job_sources.employer_catalog()
         greenhouse_values += [
             item["board"] for item in catalog.get("greenhouse", [])
         ]
@@ -201,35 +225,105 @@ def search(
             item["board"] for item in catalog.get("ashby", [])
         ]
         searched_sources.append("Curated employer catalog")
+    elif greenhouse_values or lever_values or ashby_values:
+        searched_sources.append("Custom employer boards")
 
-    for value in list(dict.fromkeys(greenhouse_values)):
+    unique_greenhouse = list(dict.fromkeys(greenhouse_values))
+    unique_lever = list(dict.fromkeys(lever_values))
+    unique_ashby = list(dict.fromkeys(ashby_values))
+    employer_requests = (
+        len(unique_greenhouse)
+        + len(unique_lever)
+        + len(unique_ashby)
+    )
+    employer_jobs = 0
+    employer_failures = 0
+
+    for value in unique_greenhouse:
         try:
-            rows += job_sources.greenhouse(value)
+            batch = job_sources.greenhouse(value)
+            employer_jobs += len(batch)
+            rows += batch
+            if not batch:
+                coverage_notes.append(
+                    f"Greenhouse board '{value}' returned no open jobs."
+                )
         except Exception as exc:
+            employer_failures += 1
             errors.append(f"Greenhouse {value}: {exc}")
 
-    for value in list(dict.fromkeys(lever_values)):
+    for value in unique_lever:
         try:
-            rows += job_sources.lever(value)
+            batch = job_sources.lever(value)
+            employer_jobs += len(batch)
+            rows += batch
+            if not batch:
+                coverage_notes.append(
+                    f"Lever board '{value}' returned no open jobs."
+                )
         except Exception as exc:
+            employer_failures += 1
             errors.append(f"Lever {value}: {exc}")
 
-    for value in list(dict.fromkeys(ashby_values)):
+    for value in unique_ashby:
         try:
-            rows += job_sources.ashby(value)
+            batch = job_sources.ashby(value)
+            employer_jobs += len(batch)
+            rows += batch
+            if not batch:
+                coverage_notes.append(
+                    f"Ashby board '{value}' returned no open jobs."
+                )
         except Exception as exc:
+            employer_failures += 1
             errors.append(f"Ashby {value}: {exc}")
+
+    if employer_requests:
+        source_status.append(
+            source_status_item(
+                "Employer career sites",
+                employer_jobs,
+                employer_failures,
+                employer_requests,
+            )
+        )
 
     if body.use_jsearch:
         searched_sources.append("JSearch")
+        jsearch_jobs = 0
+        jsearch_failures = 0
         for title in expanded_titles:
+            query = f"{title} in {body.jsearch_location}"
             try:
-                query = f"{title} in {body.jsearch_location}"
-                rows += job_sources.jsearch(query)
+                batch = job_sources.jsearch(query)
+                jsearch_jobs += len(batch)
+                rows += batch
+                if not batch:
+                    coverage_notes.append(
+                        f"JSearch returned no jobs for '{query}'."
+                    )
             except Exception as exc:
+                jsearch_failures += 1
                 errors.append(f"JSearch {title}: {exc}")
+        source_status.append(
+            source_status_item(
+                "JSearch / Google Jobs publishers",
+                jsearch_jobs,
+                jsearch_failures,
+                len(expanded_titles),
+            )
+        )
 
     unique_rows = job_sources.dedupe(rows)
+    source_counts = dict(
+        sorted(
+            Counter(
+                row.get("source") or "Unknown"
+                for row in rows
+            ).items(),
+            key=lambda item: (-item[1], item[0].lower()),
+        )
+    )
     results: list[tuple[Job, JobMatch]] = []
 
     for row in unique_rows:
@@ -288,6 +382,9 @@ def search(
         matched_count=len(results),
         minimum_score=body.minimum_score,
         errors=errors,
+        source_counts=source_counts,
+        source_status=source_status,
+        coverage_notes=coverage_notes,
     )
 
     db.add(search_run)
@@ -332,6 +429,10 @@ def search(
             for job, match in results
         ],
         "errors": errors,
+        "coverage_notes": coverage_notes,
+        "searched_sources": searched_sources,
+        "source_counts": source_counts,
+        "source_status": source_status,
         "searched": len(rows),
         "unique_jobs": unique_count,
         "cache": cache_stats(),
@@ -381,7 +482,7 @@ def cache(user: User = Depends(get_current_user)):
 
 @router.get("/catalog")
 def catalog(user: User = Depends(get_current_user)):
-    data = employer_catalog()
+    data = job_sources.employer_catalog()
 
     return {
         "greenhouse": len(data.get("greenhouse", [])),
@@ -415,6 +516,9 @@ def history(
             "matched_count": row.matched_count,
             "minimum_score": row.minimum_score,
             "errors": row.errors or [],
+            "source_counts": row.source_counts or {},
+            "source_status": row.source_status or [],
+            "coverage_notes": row.coverage_notes or [],
             "created_at": row.created_at.isoformat(),
         }
         for row in rows
