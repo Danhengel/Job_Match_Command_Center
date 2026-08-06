@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type MouseEvent, type ReactNode } from "react";
 import { BrandCompass } from "@/components/BrandCompass";
+import { GuidedJourneyFooter } from "@/components/GuidedJourneyFooter";
 import { endAuthenticatedSession } from "@/lib/sessionStorage";
 
 const sections = [
@@ -242,7 +243,10 @@ export function AppShell({ children }: { children: ReactNode }) {
           </div>
         </header>
 
-        <main className="app-content">{children}</main>
+        <main className="app-content">
+          {children}
+          <GuidedJourneyFooter pathname={pathname} />
+        </main>
       </div>
 
       <nav className="mobile-bottom-nav" aria-label="Primary mobile navigation">
