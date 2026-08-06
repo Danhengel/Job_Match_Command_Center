@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { BrandCompass } from "@/components/BrandCompass";
 import { api } from "@/lib/api";
 import { startAuthenticatedSession } from "@/lib/sessionStorage";
 
@@ -10,28 +11,32 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [busy, setBusy] = useState(false);
   const router = useRouter();
 
-  async function submit(event: React.FormEvent) {
+  async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError("");
+    setBusy(true);
+
     try {
       const result = await api("/api/auth/login", {
         method: "POST",
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email: email.trim(), password }),
       });
       startAuthenticatedSession(result.access_token);
       router.push("/dashboard");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Login failed");
+      setBusy(false);
     }
   }
 
   return (
     <div className="auth-page">
       <section className="auth-brand-panel">
-        <Link href="/login" className="auth-brand" aria-label="CareerNavIQ home">
-          <span className="auth-brand-mark">CN</span>
+        <Link href="/" className="auth-brand" aria-label="CareerNavIQ home">
+          <span className="auth-brand-mark"><BrandCompass /></span>
           <span className="auth-brand-copy">
             <strong>CareerNavIQ</strong>
             <small>Navigate your next career move.</small>
@@ -59,7 +64,7 @@ export default function LoginPage() {
       <section className="auth-form-panel">
         <div className="auth-card">
           <div className="auth-mobile-brand">
-            <span className="auth-brand-mark">CN</span>
+            <span className="auth-brand-mark"><BrandCompass /></span>
             <strong>CareerNavIQ</strong>
           </div>
           <p className="eyebrow">WELCOME BACK</p>
@@ -74,6 +79,7 @@ export default function LoginPage() {
               autoComplete="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
+              placeholder="you@example.com"
               required
             />
             <label htmlFor="password">Password</label>
@@ -85,8 +91,10 @@ export default function LoginPage() {
               onChange={(event) => setPassword(event.target.value)}
               required
             />
-            {error ? <p className="auth-error">{error}</p> : null}
-            <button className="auth-submit" type="submit">Sign in to CareerNavIQ</button>
+            {error ? <p className="auth-error" role="alert">{error}</p> : null}
+            <button className="auth-submit" type="submit" disabled={busy}>
+              {busy ? "Signing in…" : "Sign in to CareerNavIQ"}
+            </button>
           </form>
 
           <p className="auth-switch">New to CareerNavIQ? <Link href="/register">Create an account</Link></p>
