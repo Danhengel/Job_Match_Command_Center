@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+from datetime import datetime, timezone
 from pathlib import Path
 
 import requests
@@ -15,7 +16,7 @@ from app.services.cache_service import get_json, set_json
 
 TIMEOUT = 30
 HEADERS = {
-    "User-Agent": "JobMatchCommandCenter/1.0",
+    "User-Agent": "CareerNavIQ/1.0 (+https://careernaviq.com)",
     "Accept": "application/json",
 }
 CATALOG_PATH = Path(__file__).resolve().parents[1] / "data" / "employer_catalog.json"
@@ -29,6 +30,47 @@ def stable_key(source, company, title, url):
     return hashlib.sha256(
         f"{source}|{company}|{title}|{url}".lower().encode()
     ).hexdigest()
+
+
+def timestamp_to_iso(value):
+    if value in (None, ""):
+        return ""
+    if isinstance(value, (int, float)):
+        timestamp = float(value)
+        if timestamp > 10_000_000_000:
+            timestamp /= 1000
+        try:
+            return datetime.fromtimestamp(timestamp, tz=timezone.utc).isoformat()
+        except (OverflowError, OSError, ValueError):
+            return str(value)
+    return str(value)
+
+
+def salary_text(minimum=None, maximum=None, currency="", period=""):
+    if minimum in (None, "") and maximum in (None, ""):
+        return ""
+    if minimum not in (None, "") and maximum not in (None, ""):
+        amount = f"{minimum} - {maximum}"
+    else:
+        amount = str(minimum if minimum not in (None, "") else maximum)
+    return " ".join(part for part in [currency, amount, period] if part).strip()
+
+
+def query_matches(row, query):
+    normalized = re.sub(r"\W+", " ", (query or "").lower()).strip()
+    if not normalized:
+        return True
+    haystack = " ".join(
+        str(row.get(field) or "")
+        for field in ("title", "company", "description", "employment_type")
+    ).lower()
+    if normalized in re.sub(r"\W+", " ", haystack):
+        return True
+    tokens = [token for token in normalized.split() if len(token) >= 3]
+    if not tokens:
+        return True
+    required = 1 if len(tokens) == 1 else 2
+    return sum(token in haystack for token in tokens) >= required
 
 
 @retry(
@@ -105,6 +147,144 @@ def remotive(query):
         return rows
 
     return cached(f"jobs:remotive:{query.lower()}", load, 21600)
+
+
+def remoteok(query):
+    def load_all():
+        data = get_json_url("https://remoteok.com/api")
+        rows = []
+        for item in data if isinstance(data, list) else []:
+            title = item.get("position") or item.get("title") or ""
+            if not title:
+                continue
+            company = item.get("company", "")
+            url = item.get("apply_url") or item.get("url") or ""
+            tags = item.get("tags") or []
+            employment_type = ", ".join(tags) if isinstance(tags, list) else str(tags)
+            rows.append(
+                {
+                    "provider_key": stable_key("Remote OK", company, title, url),
+                    "title": title,
+                    "company": company,
+                    "location": item.get("location") or "Remote",
+                    "description": clean_html(item.get("description")),
+                    "url": url,
+                    "source": "Remote OK",
+                    "posted_at": item.get("date") or timestamp_to_iso(item.get("epoch")),
+                    "salary": salary_text(
+                        item.get("salary_min"),
+                        item.get("salary_max"),
+                    ),
+                    "employment_type": employment_type,
+                    "remote": True,
+                }
+            )
+        return rows
+
+    rows = cached("jobs:remoteok:all:v1", load_all, 21600)
+    return [row for row in rows if query_matches(row, query)]
+
+
+def jobicy(query):
+    def load():
+        data = get_json_url(
+            "https://jobicy.com/api/v2/remote-jobs",
+            params={
+                "count": 100,
+                "geo": "usa",
+                "tag": (query or "")[:50],
+            },
+        )
+        rows = []
+        for item in data.get("jobs", []) if isinstance(data, dict) else []:
+            title = item.get("jobTitle", "")
+            company = item.get("companyName", "")
+            url = item.get("url", "")
+            job_type = item.get("jobType") or []
+            rows.append(
+                {
+                    "provider_key": stable_key("Jobicy", company, title, url),
+                    "title": title,
+                    "company": company,
+                    "location": item.get("jobGeo") or "Remote",
+                    "description": clean_html(
+                        item.get("jobDescription") or item.get("jobExcerpt")
+                    ),
+                    "url": url,
+                    "source": "Jobicy",
+                    "posted_at": item.get("pubDate", ""),
+                    "salary": salary_text(
+                        item.get("salaryMin"),
+                        item.get("salaryMax"),
+                        item.get("salaryCurrency", ""),
+                        item.get("salaryPeriod", ""),
+                    ),
+                    "employment_type": (
+                        ", ".join(job_type)
+                        if isinstance(job_type, list)
+                        else str(job_type or "")
+                    ),
+                    "remote": True,
+                }
+            )
+        return rows
+
+    return cached(f"jobs:jobicy:v1:{query.lower()}", load, 21600)
+
+
+def himalayas(query):
+    def load():
+        rows = []
+        for page in range(1, 4):
+            data = get_json_url(
+                "https://himalayas.app/jobs/api/search",
+                params={
+                    "q": query,
+                    "country": "US",
+                    "sort": "recent",
+                    "page": page,
+                },
+            )
+            jobs = data.get("jobs", []) if isinstance(data, dict) else []
+            if not jobs:
+                break
+            for item in jobs:
+                title = item.get("title", "")
+                company = item.get("companyName", "")
+                url = item.get("applicationLink", "")
+                restrictions = item.get("locationRestrictions") or []
+                location_parts = []
+                for value in restrictions:
+                    if isinstance(value, dict):
+                        location_parts.append(value.get("name") or value.get("alpha2") or "")
+                    else:
+                        location_parts.append(str(value))
+                location = ", ".join(filter(None, location_parts)) or "Remote"
+                rows.append(
+                    {
+                        "provider_key": stable_key("Himalayas", company, title, url),
+                        "title": title,
+                        "company": company,
+                        "location": location,
+                        "description": clean_html(
+                            item.get("description") or item.get("excerpt")
+                        ),
+                        "url": url,
+                        "source": "Himalayas",
+                        "posted_at": timestamp_to_iso(item.get("pubDate")),
+                        "salary": salary_text(
+                            item.get("minSalary"),
+                            item.get("maxSalary"),
+                            item.get("currency", ""),
+                            item.get("salaryPeriod", ""),
+                        ),
+                        "employment_type": item.get("employmentType", "") or "",
+                        "remote": True,
+                    }
+                )
+        return rows
+
+    return cached(f"jobs:himalayas:v1:{query.lower()}", load, 21600)
 
 
 def greenhouse(board):
@@ -247,13 +427,199 @@ def ashby(board):
     return cached(f"jobs:ashby:{board.lower()}", load, 43200)
 
 
+def smartrecruiters(board):
+    match = re.search(
+        r"(?:careers|jobs)\.smartrecruiters\.com/([A-Za-z0-9_-]+)",
+        board,
+    )
+    identifier = match.group(1) if match else board.strip().strip("/")
+
+    def load():
+        rows = []
+        offset = 0
+        company_name = identifier.replace("-", " ").title()
+        while offset < 500:
+            data = get_json_url(
+                f"https://api.smartrecruiters.com/v1/companies/{identifier}/postings",
+                params={"limit": 100, "offset": offset, "destination": "PUBLIC"},
+            )
+            items = data.get("content", []) if isinstance(data, dict) else []
+            if not items:
+                break
+            for item in items:
+                title = item.get("name", "")
+                company = (item.get("company") or {}).get("name") or company_name
+                location_data = item.get("location") or {}
+                location = ", ".join(
+                    filter(
+                        None,
+                        [
+                            location_data.get("city"),
+                            location_data.get("region"),
+                            location_data.get("country"),
+                        ],
+                    )
+                )
+                employment = item.get("typeOfEmployment") or {}
+                posting_id = item.get("id") or item.get("uuid") or ""
+                url = item.get("applyUrl") or f"https://jobs.smartrecruiters.com/{identifier}/{posting_id}"
+                description_parts = []
+                for value in (
+                    item.get("department"),
+                    item.get("function"),
+                    item.get("industry"),
+                ):
+                    if isinstance(value, dict):
+                        description_parts.extend(
+                            filter(None, [value.get("label"), value.get("description")])
+                        )
+                rows.append(
+                    {
+                        "provider_key": stable_key(
+                            "SmartRecruiters", company, title, url
+                        ),
+                        "title": title,
+                        "company": company,
+                        "location": location,
+                        "description": " ".join(description_parts),
+                        "url": url,
+                        "source": "SmartRecruiters",
+                        "posted_at": item.get("releasedDate", "") or "",
+                        "salary": "",
+                        "employment_type": employment.get("label", "") if isinstance(employment, dict) else str(employment),
+                        "remote": bool(location_data.get("remote")) or "remote" in location.lower(),
+                    }
+                )
+            offset += len(items)
+            total = int(data.get("totalFound") or 0)
+            if len(items) < 100 or (total and offset >= total):
+                break
+        return rows
+
+    return cached(f"jobs:smartrecruiters:{identifier.lower()}", load, 43200)
+
+
+def recruitee(board):
+    match = re.search(r"https?://([A-Za-z0-9_-]+)\.recruitee\.com", board)
+    subdomain = match.group(1) if match else board.strip().strip("/")
+
+    def load():
+        data = get_json_url(f"https://{subdomain}.recruitee.com/api/offers/")
+        items = data.get("offers", []) if isinstance(data, dict) else data
+        company_name = (
+            data.get("company_name") if isinstance(data, dict) else None
+        ) or subdomain.replace("-", " ").title()
+        rows = []
+        for item in items or []:
+            title = item.get("title", "")
+            company = item.get("company_name") or company_name
+            locations = item.get("locations") or []
+            location_parts = []
+            for value in locations:
+                if isinstance(value, dict):
+                    location_parts.append(
+                        value.get("name")
+                        or ", ".join(
+                            filter(None, [value.get("city"), value.get("country")])
+                        )
+                    )
+                else:
+                    location_parts.append(str(value))
+            location = "; ".join(filter(None, location_parts)) or item.get("location", "")
+            slug = item.get("slug") or item.get("id") or ""
+            url = (
+                item.get("careers_url")
+                or item.get("url")
+                or item.get("apply_url")
+                or f"https://{subdomain}.recruitee.com/o/{slug}"
+            )
+            description = clean_html(
+                item.get("description")
+                or item.get("description_html")
+                or item.get("requirements")
+            )
+            remote = bool(item.get("remote")) or "remote" in location.lower()
+            rows.append(
+                {
+                    "provider_key": stable_key("Recruitee", company, title, url),
+                    "title": title,
+                    "company": company,
+                    "location": location,
+                    "description": description,
+                    "url": url,
+                    "source": "Recruitee",
+                    "posted_at": item.get("published_at") or item.get("created_at") or "",
+                    "salary": item.get("salary", "") or "",
+                    "employment_type": item.get("employment_type", "") or "",
+                    "remote": remote,
+                }
+            )
+        return rows
+
+    return cached(f"jobs:recruitee:{subdomain.lower()}", load, 43200)
+
+
+def workable(board):
+    match = re.search(r"apply\.workable\.com/([A-Za-z0-9_-]+)", board)
+    subdomain = match.group(1) if match else board.strip().strip("/")
+
+    def load():
+        data = get_json_url(
+            f"https://www.workable.com/api/accounts/{subdomain}",
+            params={"details": "true"},
+        )
+        company = data.get("name") or subdomain.replace("-", " ").title()
+        rows = []
+        for item in data.get("jobs", []):
+            title = item.get("title", "")
+            url = (
+                item.get("application_url")
+                or item.get("url")
+                or item.get("shortlink")
+                or ""
+            )
+            location = ", ".join(
+                filter(
+                    None,
+                    [item.get("city"), item.get("state"), item.get("country")],
+                )
+            )
+            workplace = item.get("workplace_type", "") or ""
+            rows.append(
+                {
+                    "provider_key": stable_key("Workable", company, title, url),
+                    "title": title,
+                    "company": company,
+                    "location": location,
+                    "description": clean_html(item.get("description")),
+                    "url": url,
+                    "source": "Workable",
+                    "posted_at": item.get("published_on") or item.get("created_at") or "",
+                    "salary": "",
+                    "employment_type": item.get("employment_type", "") or "",
+                    "remote": bool(item.get("telecommuting"))
+                    or workplace == "remote"
+                    or "remote" in location.lower(),
+                }
+            )
+        return rows
+
+    return cached(f"jobs:workable:{subdomain.lower()}", load, 43200)
+
+
 def dedupe(rows):
     best = {}
     priority = {
-        "Greenhouse": 9,
-        "Lever": 9,
-        "Ashby": 9,
-        "Remotive": 4,
+        "Greenhouse": 10,
+        "Lever": 10,
+        "Ashby": 10,
+        "SmartRecruiters": 10,
+        "Recruitee": 10,
+        "Workable": 10,
+        "Himalayas": 6,
+        "Jobicy": 6,
+        "Remote OK": 6,
+        "Remotive": 5,
     }
     for row in rows:
         key = re.sub(
@@ -266,7 +632,7 @@ def dedupe(rows):
         ).strip()
         quality = (
             len(row.get("description", ""))
-            + priority.get(row["source"], 6) * 300
+            + priority.get(row["source"], 7) * 300
         )
         if key not in best or quality > best[key][0]:
             best[key] = (quality, row)
@@ -284,9 +650,10 @@ def jsearch(query):
             "https://jsearch.p.rapidapi.com/search-v2",
             params={
                 "query": query,
-                "num_pages": 3,
+                "num_pages": 5,
                 "country": "us",
-                "date_posted": "month",
+                "date_posted": "all",
+                "language": "en",
             },
             headers={
                 "X-RapidAPI-Key": settings.rapidapi_key,
@@ -370,7 +737,7 @@ def jsearch(query):
         return rows
 
     return cached(
-        f"jobs:jsearch:v6:publisher:pages3:month:{query.lower()}",
+        f"jobs:jsearch:v7:publisher:pages5:all:{query.lower()}",
         load,
         21600,
     )
