@@ -1,0 +1,234 @@
+.executive-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.executive-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.65fr);
+  gap: 18px;
+  align-items: start;
+  margin-bottom: 20px;
+}
+
+.priority-card {
+  padding: 22px;
+  border: 1px solid rgba(80, 116, 171, 0.36);
+  border-radius: 17px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(94, 234, 212, 0.08), transparent 32%),
+    linear-gradient(180deg, rgba(16, 34, 59, 0.97), rgba(11, 26, 47, 0.98));
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+}
+
+.activity-list {
+  display: grid;
+  gap: 11px;
+  margin-top: 16px;
+}
+
+.activity-list > h3 {
+  margin: 18px 0 2px;
+  color: #dce5f1;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.activity-item,
+.notification-row,
+.automation-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 16px;
+  border: 1px solid rgba(76, 110, 162, 0.34);
+  border-radius: 13px;
+  background: rgba(7, 22, 41, 0.74);
+  box-shadow: 0 8px 22px rgba(0, 7, 20, 0.12);
+  transition:
+    transform 150ms ease,
+    border-color 150ms ease,
+    background 150ms ease;
+}
+
+.activity-item:hover,
+.notification-row:hover,
+.automation-row:hover {
+  border-color: #4b6f9e;
+  background: rgba(13, 34, 61, 0.9);
+  transform: translateY(-1px);
+}
+
+.activity-item {
+  display: grid;
+  justify-content: stretch;
+}
+
+.activity-item strong,
+.activity-item small,
+.automation-row strong,
+.automation-row small,
+.notification-row strong,
+.notification-row small {
+  display: block;
+}
+
+.activity-item strong,
+.automation-row strong,
+.notification-row strong,
+.notification-row h3 {
+  color: #f4f7fc;
+}
+
+.activity-item small,
+.automation-row small,
+.notification-row small {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.activity-item a {
+  color: #90afff;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.notification-row > div:first-child,
+.automation-row > div:first-child {
+  min-width: 0;
+  flex: 1;
+}
+
+.notification-row > div:last-child,
+.automation-row > div:last-child {
+  justify-content: flex-end;
+  flex: 0 0 auto;
+}
+
+.notification-row h3 {
+  margin: 11px 0 5px;
+  font-size: 18px;
+}
+
+.notification-row p {
+  margin: 0 0 8px;
+  color: #b5c4d6;
+  line-height: 1.6;
+}
+
+.notification-row.read {
+  opacity: 0.68;
+}
+
+.notification-row.read:hover {
+  opacity: 0.9;
+}
+
+.warning-badge {
+  border-color: rgba(242, 196, 109, 0.28) !important;
+  background: rgba(117, 77, 18, 0.25) !important;
+  color: #f5d796 !important;
+}
+
+.automation-row + .automation-row {
+  margin-top: 11px;
+}
+
+.automation-row > div:first-child > small {
+  max-width: 880px;
+}
+
+.app-shell fieldset {
+  margin: 18px 0 0;
+  padding: 15px;
+  border: 1px solid rgba(76, 110, 162, 0.34);
+  border-radius: 12px;
+  background: rgba(7, 22, 41, 0.5);
+}
+
+.app-shell legend {
+  padding: 0 7px;
+  color: #cbd8e8;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.app-shell fieldset .resume-checkbox-row {
+  color: #bac9dc;
+  font-weight: 600;
+}
+
+.app-shell ul:not(.public-page ul):not(.landing-page ul) {
+  color: #b4c3d5;
+}
+
+.app-shell li + li {
+  margin-top: 7px;
+}
+
+.dashboard-panel > label,
+.card > label,
+.studio-panel > label {
+  display: block;
+  margin: 14px 0 7px;
+}
+
+.dashboard-panel > select + label,
+.card > select + label,
+.dashboard-panel > input + label,
+.card > input + label,
+.dashboard-panel > textarea + label,
+.card > textarea + label {
+  margin-top: 16px;
+}
+
+.app-shell .resume-alert:not(.resume-alert-error):not(.resume-alert-success) {
+  border: 1px solid rgba(93, 124, 255, 0.28);
+  background: rgba(35, 61, 112, 0.3);
+  color: #bed0ff;
+}
+
+.app-shell .resume-alert strong,
+.app-shell .resume-alert span {
+  color: inherit;
+}
+
+@media (max-width: 1000px) {
+  .executive-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .executive-kpis {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .activity-item,
+  .notification-row,
+  .automation-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .notification-row > div:last-child,
+  .automation-row > div:last-child {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .notification-row > div:last-child > *,
+  .automation-row > div:last-child > * {
+    flex: 1 1 130px;
+  }
+}

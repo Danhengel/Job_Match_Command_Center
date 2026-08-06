@@ -1,0 +1,468 @@
+.profile-edit-form {
+  display: grid;
+  gap: 18px;
+}
+
+.profile-edit-section {
+  margin: 0 !important;
+}
+
+.profile-edit-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  margin-bottom: 20px;
+  padding-bottom: 17px;
+  border-bottom: 1px solid rgba(77, 111, 164, 0.25);
+}
+
+.profile-edit-heading > span {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  place-items: center;
+  border: 1px solid rgba(93, 124, 255, 0.3);
+  border-radius: 9px;
+  background: rgba(93, 124, 255, 0.13);
+  color: #aec0ff;
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.profile-edit-heading h2 {
+  margin: 0;
+  font-size: 19px;
+}
+
+.profile-edit-heading p {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.profile-edit-two-column {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.profile-edit-two-column label,
+.profile-edit-textareas label {
+  display: block;
+  margin-bottom: 7px;
+}
+
+.profile-preference-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.profile-preference-card {
+  display: flex !important;
+  min-height: 74px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px;
+  border: 1px solid rgba(75, 109, 162, 0.34);
+  border-radius: 11px;
+  background: rgba(7, 22, 41, 0.66);
+  cursor: pointer;
+}
+
+.profile-preference-card:hover {
+  border-color: #4b6f9e;
+  background: rgba(13, 34, 61, 0.82);
+}
+
+.profile-preference-card strong,
+.profile-preference-card small {
+  display: block;
+}
+
+.profile-preference-card strong {
+  color: #eef3fb;
+  font-size: 13px;
+}
+
+.profile-preference-card small {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.profile-preference-card input {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+}
+
+.profile-edit-textareas {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.profile-edit-textareas > div {
+  padding: 14px;
+  border: 1px solid rgba(75, 109, 162, 0.32);
+  border-radius: 12px;
+  background: rgba(7, 22, 41, 0.54);
+}
+
+.profile-edit-textareas small {
+  display: block;
+  margin-top: 7px;
+  color: #7f95b2;
+  font-size: 10px;
+}
+
+.profile-edit-save-bar {
+  position: sticky;
+  z-index: 5;
+  bottom: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 18px;
+  border: 1px solid rgba(89, 127, 188, 0.46);
+  border-radius: 15px;
+  background: rgba(8, 23, 42, 0.94);
+  box-shadow: 0 18px 46px rgba(0, 7, 20, 0.38);
+  backdrop-filter: blur(18px);
+}
+
+.profile-edit-save-bar strong,
+.profile-edit-save-bar span {
+  display: block;
+}
+
+.profile-edit-save-bar strong {
+  color: #f5f8fd;
+  font-size: 13px;
+}
+
+.profile-edit-save-bar span {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+/* Profile details */
+.app-shell .grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.app-shell .grid > .card {
+  margin: 0 !important;
+}
+
+.score-ring,
+.job-score,
+.large-score {
+  display: grid;
+  place-items: center;
+  color: #8ff2df;
+  font-weight: 850;
+}
+
+.score-ring,
+.job-score {
+  width: 74px;
+  height: 74px;
+  flex: 0 0 74px;
+  border: 2px solid rgba(94, 234, 212, 0.36);
+  border-radius: 50%;
+  background: linear-gradient(145deg, rgba(23, 84, 83, 0.88), rgba(13, 49, 55, 0.96));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.025);
+  text-align: center;
+}
+
+.score-ring small,
+.job-score small {
+  display: block;
+  margin-top: -13px;
+  color: #9adfd3;
+  font-size: 8px;
+  font-weight: 750;
+  text-transform: uppercase;
+}
+
+.large-score {
+  min-height: 86px;
+  font-size: 42px;
+  letter-spacing: -0.05em;
+}
+
+.resume-card {
+  margin-top: 12px;
+}
+
+.analysis-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 18px 0;
+}
+
+.analysis-grid > div {
+  padding: 14px;
+  border: 1px solid rgba(75, 109, 162, 0.3);
+  border-radius: 11px;
+  background: rgba(7, 22, 41, 0.56);
+}
+
+.analysis-item {
+  margin-top: 7px;
+  padding: 9px 10px;
+  border-radius: 8px;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.analysis-item.good {
+  background: rgba(24, 95, 70, 0.24);
+  color: #9ce8c8;
+}
+
+.analysis-item.warn {
+  background: rgba(117, 77, 18, 0.22);
+  color: #f5d796;
+}
+
+.preview {
+  padding: 14px;
+  border-radius: 9px;
+  background: #071526;
+  white-space: pre-wrap;
+}
+
+/* Job and application workspaces */
+.tailor-layout {
+  align-items: start;
+}
+
+.score-bars {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin: 18px 0;
+}
+
+.score-bars span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 11px;
+  border: 1px solid rgba(75, 109, 162, 0.3);
+  border-radius: 9px;
+  background: rgba(7, 22, 41, 0.62);
+  color: #9eb0c8;
+  font-size: 11px;
+}
+
+.score-bars b {
+  color: #f4f7fc;
+}
+
+.job-description,
+.letter-preview {
+  overflow: auto;
+  max-height: 520px;
+  padding: 16px;
+  border: 1px solid rgba(75, 109, 162, 0.3);
+  border-radius: 11px;
+  background: #071526;
+  color: #bcc9d9;
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 1.72;
+  white-space: pre-wrap;
+}
+
+.version-button {
+  display: flex !important;
+  width: 100%;
+  min-height: 58px !important;
+  align-items: center;
+  justify-content: space-between !important;
+  gap: 12px;
+  margin-top: 9px;
+  padding: 12px 13px !important;
+  border-color: rgba(75, 109, 162, 0.34) !important;
+  background: rgba(7, 22, 41, 0.72) !important;
+  box-shadow: none !important;
+  text-align: left;
+}
+
+.version-button:hover {
+  border-color: #4b6f9e !important;
+  background: rgba(13, 34, 61, 0.9) !important;
+}
+
+.version-button strong,
+.version-button span {
+  display: block;
+}
+
+.version-button strong {
+  color: #f4f7fc;
+}
+
+.version-button span {
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.tailoring-output {
+  margin-top: 18px;
+}
+
+.tailoring-output h3,
+.app-shell .card > h3 {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(77, 111, 164, 0.22);
+}
+
+.prep-item {
+  margin-top: 10px;
+  padding: 14px;
+  border: 1px solid rgba(75, 109, 162, 0.3);
+  border-radius: 11px;
+  background: rgba(7, 22, 41, 0.62);
+}
+
+.prep-item strong {
+  color: #f4f7fc;
+}
+
+.prep-item p {
+  margin: 7px 0 0;
+  color: #b5c4d6;
+  line-height: 1.6;
+}
+
+.analytics-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(77, 111, 164, 0.22);
+}
+
+.analytics-row:last-child {
+  border-bottom: 0;
+}
+
+.analytics-row span {
+  color: #b7c5d7;
+}
+
+.analytics-row b {
+  color: #fff;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.metric-card {
+  min-height: 112px;
+  padding: 16px;
+  border: 1px solid rgba(82, 119, 176, 0.34);
+  border-radius: 13px;
+  background: rgba(7, 22, 41, 0.66);
+}
+
+.metric-card span,
+.metric-card strong {
+  display: block;
+}
+
+.metric-card span {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.metric-card strong {
+  margin-top: 11px;
+  color: #fff;
+  font-size: 22px;
+  letter-spacing: -0.035em;
+}
+
+.warn-text {
+  color: #f5d796 !important;
+}
+
+.success {
+  color: var(--success);
+}
+
+.form-card {
+  max-width: 920px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.two-input {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+
+@media (max-width: 1000px) {
+  .profile-edit-textareas,
+  .app-shell .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .metrics-grid,
+  .score-bars {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .profile-edit-two-column,
+  .profile-preference-grid,
+  .analysis-grid,
+  .metrics-grid,
+  .score-bars,
+  .two-input {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-edit-save-bar {
+    bottom: calc(74px + env(safe-area-inset-bottom));
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .profile-edit-save-bar > div:last-child,
+  .profile-edit-save-bar > div:last-child > * {
+    width: 100%;
+  }
+
+  .resume-card > .row.between,
+  .app-shell .hero.row.between {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
