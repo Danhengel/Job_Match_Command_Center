@@ -12,9 +12,9 @@ from app.models.user import User
 from app.services.automation_service import (
     notification_exists,
     refresh_smart_notifications,
-    run_saved_search,
 )
 from app.services.report_service import build_weekly_report
+from app.services.saved_search_runner import run_saved_search
 
 
 scheduler = BackgroundScheduler(timezone="UTC")
