@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type MouseEvent, type ReactNode } from "react";
+import { endAuthenticatedSession } from "@/lib/sessionStorage";
 
 const sections = [
   { label: "Build your profile", items: [["/profiles", "Career profile"], ["/resumes", "Résumé library"], ["/resumes/studio", "Resume Studio"]] },
@@ -74,7 +75,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   function signOut() {
     setMenuOpen(false);
-    localStorage.removeItem("token");
+    endAuthenticatedSession();
     window.location.replace("/login");
   }
 

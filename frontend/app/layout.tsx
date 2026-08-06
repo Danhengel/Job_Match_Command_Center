@@ -13,6 +13,7 @@ import "./public-pages.css";
 import "./mobile.css";
 import "./public-readability.css";
 import { AppShell } from "@/components/AppShell";
+import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 
 const SITE_URL = "https://careernaviq.com";
 const SITE_DESCRIPTION =
@@ -115,6 +116,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
+        <LegacyPersonalDefaultsGuard />
         <AppShell>{children}</AppShell>
       </body>
     </html>
