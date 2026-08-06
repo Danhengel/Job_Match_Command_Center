@@ -75,7 +75,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="landing-product-preview" aria-label="CareerNavIQ product preview">
+            <div className="landing-product-preview" aria-label="Illustrative CareerNavIQ product preview">
               <div className="landing-preview-glow" />
               <div className="landing-dashboard-window">
                 <div className="landing-dashboard-topbar">
@@ -83,7 +83,7 @@ export default function HomePage() {
                     <CompassMark className="landing-compass-small" />
                     <strong>CareerNavIQ</strong>
                   </div>
-                  <span className="landing-preview-label">Product preview</span>
+                  <span className="landing-preview-label">Illustrative preview</span>
                 </div>
 
                 <div className="landing-dashboard-body">
@@ -99,15 +99,15 @@ export default function HomePage() {
                     <div className="landing-preview-heading">
                       <div>
                         <small>YOUR CAREER COMMAND CENTER</small>
-                        <strong>Good morning, Daniel</strong>
+                        <strong>Your personalized dashboard</strong>
                       </div>
                       <span>3 actions today</span>
                     </div>
 
                     <div className="landing-preview-stats">
-                      <div><small>Strong matches</small><strong>18</strong><span>New this week</span></div>
-                      <div><small>Applications</small><strong>7</strong><span>2 need follow-up</span></div>
-                      <div><small>Interviews</small><strong>3</strong><span>Preparation ready</span></div>
+                      <div><small>Strong matches</small><strong>12</strong><span>Illustrative count</span></div>
+                      <div><small>Applications</small><strong>5</strong><span>1 needs follow-up</span></div>
+                      <div><small>Interviews</small><strong>2</strong><span>Preparation ready</span></div>
                     </div>
 
                     <div className="landing-preview-grid">
@@ -123,12 +123,12 @@ export default function HomePage() {
 
                       <section className="landing-preview-card">
                         <div className="landing-card-heading">
-                          <div><small>TOP OPPORTUNITIES</small><strong>Strong-fit roles</strong></div>
-                          <span className="landing-green-pill">Updated</span>
+                          <div><small>TOP OPPORTUNITIES</small><strong>Illustrative strong-fit roles</strong></div>
+                          <span className="landing-green-pill">Demo</span>
                         </div>
-                        <div className="landing-job-row"><span>94</span><div><strong>Director, Loan Operations</strong><small>Remote · Strong experience match</small></div></div>
-                        <div className="landing-job-row"><span>91</span><div><strong>VP, Construction Lending</strong><small>Tampa · Leadership alignment</small></div></div>
-                        <div className="landing-job-row"><span>88</span><div><strong>Senior Director, Servicing</strong><small>Remote · Operations focus</small></div></div>
+                        <div className="landing-job-row"><span>94</span><div><strong>Senior Product Manager</strong><small>Remote · Strong experience match</small></div></div>
+                        <div className="landing-job-row"><span>91</span><div><strong>Operations Director</strong><small>Chicago · Leadership alignment</small></div></div>
+                        <div className="landing-job-row"><span>88</span><div><strong>Customer Success Lead</strong><small>Hybrid · Transferable skills match</small></div></div>
                       </section>
                     </div>
                   </div>
