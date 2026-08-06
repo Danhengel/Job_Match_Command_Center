@@ -9,6 +9,7 @@ import { GuidedJourneyFooter } from "@/components/GuidedJourneyFooter";
 import {
   CAREER_STAGES,
   UTILITY_LINKS,
+  getActiveJourneyItem,
   getCareerStage,
   getCurrentPageLabel,
   isActivePath,
@@ -40,6 +41,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const currentStage = getCareerStage(pathname);
   const currentPageLabel = getCurrentPageLabel(pathname);
+  const activeUtilityItem = getActiveJourneyItem(pathname, UTILITY_LINKS);
 
   useEffect(() => {
     setMenuOpen(false);
@@ -135,6 +137,10 @@ export function AppShell({ children }: { children: ReactNode }) {
           <div className="sidebar-stage-list">
             {CAREER_STAGES.map((stage) => {
               const stageActive = currentStage?.id === stage.id;
+              const activeStageItem = getActiveJourneyItem(
+                pathname,
+                stage.items,
+              );
 
               return (
                 <section
@@ -156,7 +162,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
                   <div className="sidebar-stage-links">
                     {stage.items.map((item) => {
-                      const itemActive = isActivePath(pathname, item.href);
+                      const itemActive = activeStageItem?.href === item.href;
                       return (
                         <Link
                           key={item.href}
@@ -179,7 +185,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           </div>
           <div className="sidebar-utility-links">
             {UTILITY_LINKS.map((item) => {
-              const itemActive = isActivePath(pathname, item.href);
+              const itemActive = activeUtilityItem?.href === item.href;
               return (
                 <Link
                   key={item.href}
