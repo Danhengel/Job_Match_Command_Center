@@ -3,6 +3,7 @@ from sqlalchemy import String, Boolean, DateTime, ForeignKey, Text, Integer, JSO
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.db.base import Base
 
+
 class Resume(Base):
     __tablename__ = "resumes"
 
@@ -22,4 +23,10 @@ class Resume(Base):
     analysis_summary: Mapped[str] = mapped_column(Text, default="")
     analyzed_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime,
+        default=datetime.utcnow,
+        onupdate=datetime.utcnow,
+        nullable=False,
+    )
     profile: Mapped["CareerProfile"] = relationship(back_populates="resumes")
