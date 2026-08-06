@@ -12,6 +12,7 @@ import "./landing.css";
 import "./public-pages.css";
 import "./mobile.css";
 import "./public-readability.css";
+import "./design-system.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 
@@ -105,7 +106,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#062B78",
+  themeColor: "#071426",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
