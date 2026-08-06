@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     access_token_minutes: int = 1440
     redis_url: str = "redis://redis:6379/0"
     rapidapi_key: str = ""
+    brave_search_api_key: str = ""
     usajobs_api_key: str = ""
     usajobs_email: str = ""
     adzuna_app_id: str = ""
