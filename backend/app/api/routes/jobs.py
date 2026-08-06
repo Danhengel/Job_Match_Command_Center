@@ -223,19 +223,19 @@ def search(
     )
     run_title_source(
         "Remote OK",
-        body.use_remoteok,
+        body.use_remotive and body.use_remoteok,
         job_sources.remoteok,
         base_titles,
     )
     run_title_source(
         "Jobicy",
-        body.use_jobicy,
+        body.use_remotive and body.use_jobicy,
         job_sources.jobicy,
         base_titles,
     )
     run_title_source(
         "Himalayas",
-        body.use_himalayas,
+        body.use_remotive and body.use_himalayas,
         job_sources.himalayas,
         base_titles,
     )
