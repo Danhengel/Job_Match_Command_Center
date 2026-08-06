@@ -33,7 +33,7 @@ class Job(Base):
     posted_at: Mapped[str] = mapped_column(String(100), default="")
     salary: Mapped[str] = mapped_column(String(255), default="")
     employment_type: Mapped[str] = mapped_column(
-        String(100),
+        Text,
         default="",
     )
     remote: Mapped[bool] = mapped_column(Boolean, default=False)
@@ -126,3 +126,4 @@ class SearchRun(Base):
         DateTime,
         default=datetime.utcnow,
     )
+
