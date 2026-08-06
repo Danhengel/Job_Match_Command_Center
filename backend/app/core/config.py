@@ -19,6 +19,11 @@ class Settings(BaseSettings):
     adzuna_app_key: str = ""
     jooble_api_key: str = ""
 
+    email_api_key: str = ""
+    email_from: str = "CareerNavIQ <account@careernaviq.com>"
+    password_reset_minutes: int = 30
+    email_verification_minutes: int = 1440
+
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
 
