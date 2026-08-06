@@ -59,6 +59,34 @@
     {
       "name": "Greystone",
       "board": "greystone"
+    },
+    {
+      "name": "Mission Lane",
+      "board": "missionlane"
+    },
+    {
+      "name": "Ocrolus",
+      "board": "ocrolusinc"
+    },
+    {
+      "name": "LendingTree",
+      "board": "lendingtree"
+    },
+    {
+      "name": "Enova International",
+      "board": "enova"
+    },
+    {
+      "name": "Upgrade",
+      "board": "upgrade"
+    },
+    {
+      "name": "Amount",
+      "board": "amount"
+    },
+    {
+      "name": "Hometap",
+      "board": "hometap"
     }
   ],
   "lever": [

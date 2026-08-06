@@ -13,6 +13,8 @@ class Settings(BaseSettings):
     brave_search_api_key: str = ""
     usajobs_api_key: str = ""
     usajobs_email: str = ""
+    careeronestop_user_id: str = ""
+    careeronestop_api_token: str = ""
     adzuna_app_id: str = ""
     adzuna_app_key: str = ""
     jooble_api_key: str = ""

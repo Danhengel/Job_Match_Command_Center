@@ -49,6 +49,16 @@ def test_collect_saved_search_rows_uses_expanded_sources(monkeypatch):
         lambda *args: [_row("USAJOBS")],
     )
     monkeypatch.setattr(
+        saved_search_runner.careeronestop_source,
+        "configured",
+        lambda: True,
+    )
+    monkeypatch.setattr(
+        saved_search_runner.careeronestop_source,
+        "jobs",
+        lambda *args: [_row("CareerOneStop / NLx")],
+    )
+    monkeypatch.setattr(
         saved_search_runner.web_discovery,
         "connector_capabilities",
         lambda: {"brave": True},
@@ -63,7 +73,7 @@ def test_collect_saved_search_rows_uses_expanded_sources(monkeypatch):
         _search(use_remotive=True, use_jsearch=True)
     )
 
-    assert result["raw_count"] == 7
+    assert result["raw_count"] == 8
     assert {
         "Remotive",
         "Remote OK",
@@ -71,6 +81,7 @@ def test_collect_saved_search_rows_uses_expanded_sources(monkeypatch):
         "Himalayas",
         "JSearch / Google Jobs publishers",
         "USAJOBS",
+        "CareerOneStop / NLx",
         "Brave web discovery",
     }.issubset(result["searched_sources"])
     assert any("Adzuna is not configured" in note for note in result["coverage_notes"])
@@ -84,6 +95,11 @@ def test_collect_saved_search_rows_reports_unconfigured_optional_sources(monkeyp
         lambda: {"usajobs": False, "adzuna": False, "jooble": False},
     )
     monkeypatch.setattr(
+        saved_search_runner.careeronestop_source,
+        "configured",
+        lambda: False,
+    )
+    monkeypatch.setattr(
         saved_search_runner.web_discovery,
         "connector_capabilities",
         lambda: {"brave": False},
@@ -93,7 +109,7 @@ def test_collect_saved_search_rows_reports_unconfigured_optional_sources(monkeyp
 
     assert result["rows"] == []
     assert result["searched_sources"] == []
-    assert len(result["coverage_notes"]) == 4
+    assert len(result["coverage_notes"]) == 5
 
 
 def test_saved_generic_career_page_is_filtered_and_audited(monkeypatch):
@@ -101,6 +117,11 @@ def test_saved_generic_career_page_is_filtered_and_audited(monkeypatch):
         saved_search_runner.external_job_sources,
         "connector_capabilities",
         lambda: {"usajobs": False, "adzuna": False, "jooble": False},
+    )
+    monkeypatch.setattr(
+        saved_search_runner.careeronestop_source,
+        "configured",
+        lambda: False,
     )
     monkeypatch.setattr(
         saved_search_runner.web_discovery,
