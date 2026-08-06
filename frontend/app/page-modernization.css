@@ -1,0 +1,334 @@
+/* Route-level refinements built on top of the shared CareerNavIQ design system. */
+
+.profile-summary-grid,
+.pipeline-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.profile-summary-card,
+.pipeline-summary-card {
+  min-height: 126px;
+  padding: 18px;
+  border: 1px solid rgba(82, 119, 176, 0.34);
+  border-radius: 15px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(93, 124, 255, 0.11), transparent 38%),
+    linear-gradient(180deg, rgba(17, 38, 66, 0.96), rgba(10, 26, 48, 0.98));
+  box-shadow: var(--shadow-sm);
+}
+
+.profile-summary-card span,
+.profile-summary-card small,
+.pipeline-summary-card span,
+.pipeline-summary-card small {
+  display: block;
+  color: var(--muted);
+}
+
+.profile-summary-card span,
+.pipeline-summary-card span {
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.profile-summary-card strong,
+.pipeline-summary-card strong {
+  display: block;
+  margin: 10px 0 5px;
+  color: #fff;
+  font-size: 32px;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+.profile-summary-card small,
+.pipeline-summary-card small {
+  font-size: 11px;
+}
+
+.profile-loading-state,
+.pipeline-loading-state {
+  margin-bottom: 18px;
+}
+
+.profile-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.profile-score-ring {
+  display: grid;
+  width: 68px;
+  height: 68px;
+  flex: 0 0 68px;
+  place-items: center;
+  border: 2px solid rgba(94, 234, 212, 0.36);
+  border-radius: 50%;
+  background: linear-gradient(145deg, rgba(23, 84, 83, 0.88), rgba(13, 49, 55, 0.96));
+  color: #8ff2df;
+  text-align: center;
+}
+
+.profile-score-ring strong,
+.profile-score-ring small {
+  display: block;
+}
+
+.profile-score-ring strong {
+  margin-top: 8px;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.profile-score-ring small {
+  margin-top: -18px;
+  color: #9adfd3;
+  font-size: 9px;
+  text-transform: uppercase;
+}
+
+.profile-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 12px;
+}
+
+.profile-meta span,
+.profile-title-tags span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 5px 9px;
+  border: 1px solid rgba(74, 109, 162, 0.34);
+  border-radius: 999px;
+  background: rgba(7, 22, 41, 0.66);
+  color: #aebed2;
+  font-size: 11px;
+}
+
+.profile-title-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 7px;
+  min-height: 42px;
+  margin-top: 2px;
+}
+
+.profile-title-tags span {
+  border-radius: 8px;
+  background: rgba(31, 60, 104, 0.54);
+  color: #cad6e6;
+}
+
+.profile-title-tags p {
+  margin: 0;
+}
+
+.profile-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid rgba(77, 111, 164, 0.25);
+}
+
+.profile-card-footer > span {
+  max-width: 62%;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.pipeline-toolbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin: 28px 0 16px;
+}
+
+.pipeline-toolbar h2 {
+  margin: 2px 0 6px;
+}
+
+.pipeline-toolbar p:last-child {
+  margin-bottom: 0;
+}
+
+.pipeline-search {
+  display: grid;
+  width: min(100%, 360px);
+  gap: 7px;
+}
+
+.pipeline-search span {
+  color: #95a9c2;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.kanban-column-head {
+  display: flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(81, 116, 169, 0.26);
+}
+
+.kanban-column-head > div {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.kanban-column-head h3 {
+  margin: 0;
+}
+
+.kanban-stage-dot {
+  width: 9px;
+  height: 9px;
+  flex: 0 0 9px;
+  border-radius: 50%;
+  background: #7895ff;
+  box-shadow: 0 0 0 4px rgba(120, 149, 255, 0.12);
+}
+
+.kanban-column:nth-child(2) .kanban-stage-dot { background: #5d7cff; }
+.kanban-column:nth-child(3) .kanban-stage-dot { background: #5eb6ea; }
+.kanban-column:nth-child(4) .kanban-stage-dot { background: #5eead4; }
+.kanban-column:nth-child(5) .kanban-stage-dot { background: #61d6a7; }
+.kanban-column:nth-child(6) .kanban-stage-dot { background: #f2c46d; }
+.kanban-column:nth-child(7) .kanban-stage-dot { background: #b69aff; }
+.kanban-column:nth-child(8) .kanban-stage-dot { background: #ff8798; }
+
+.kanban-card-list {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  padding-top: 12px;
+}
+
+.kanban-card {
+  margin-top: 0;
+}
+
+.kanban-card-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.kanban-card-heading strong,
+.kanban-card-heading small {
+  display: block;
+}
+
+.kanban-card-heading small {
+  margin-top: 4px;
+}
+
+.kanban-match-score {
+  display: grid;
+  min-width: 48px;
+  min-height: 34px;
+  place-items: center;
+  border: 1px solid rgba(94, 234, 212, 0.24);
+  border-radius: 9px;
+  background: rgba(22, 84, 80, 0.48);
+  color: #91ebdb;
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.kanban-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.kanban-card-meta span {
+  display: inline-flex;
+  min-height: 24px;
+  align-items: center;
+  padding: 4px 7px;
+  border: 1px solid rgba(75, 108, 158, 0.32);
+  border-radius: 7px;
+  background: rgba(20, 42, 72, 0.66);
+  color: #96aac3;
+  font-size: 10px;
+}
+
+.kanban-card label {
+  margin-top: 2px;
+  color: #8297b2;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.kanban-card-actions {
+  display: grid;
+  margin-top: 2px;
+}
+
+.kanban-empty-stage {
+  display: grid;
+  min-height: 96px;
+  place-items: center;
+  padding: 16px;
+  border: 1px dashed rgba(79, 113, 165, 0.35);
+  border-radius: 11px;
+  background: rgba(6, 20, 37, 0.42);
+  color: #6f86a4;
+  font-size: 11px;
+  text-align: center;
+}
+
+@media (max-width: 1180px) {
+  .profile-summary-grid,
+  .pipeline-summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .profile-summary-grid,
+  .pipeline-summary-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .profile-summary-card,
+  .pipeline-summary-card {
+    min-height: auto;
+  }
+
+  .profile-card-footer,
+  .pipeline-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .profile-card-footer > span {
+    max-width: none;
+  }
+
+  .profile-card-footer .button,
+  .pipeline-search {
+    width: 100%;
+  }
+}
