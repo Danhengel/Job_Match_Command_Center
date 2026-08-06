@@ -12,9 +12,13 @@ export async function api(path: string, options: RequestInit = {}) {
   const token = getToken();
   if (token) headers.Authorization = `Bearer ${token}`;
 
+  const requestPath = path === "/api/jobs/search"
+    ? "/api/jobs/search-all"
+    : path;
+
   let response: Response;
   try {
-    response = await fetch(`${API_URL}${path}`, { ...options, headers });
+    response = await fetch(`${API_URL}${requestPath}`, { ...options, headers });
   } catch {
     throw new Error("Unable to reach the server. Confirm Docker is running and try again.");
   }
