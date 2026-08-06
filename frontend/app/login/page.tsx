@@ -82,7 +82,10 @@ export default function LoginPage() {
               placeholder="you@example.com"
               required
             />
-            <label htmlFor="password">Password</label>
+            <div className="auth-label-row">
+              <label htmlFor="password">Password</label>
+              <Link href="/forgot-password">Forgot password?</Link>
+            </div>
             <input
               id="password"
               type="password"
