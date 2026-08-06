@@ -4,6 +4,11 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { EmptyState, Notice, PageHeader } from "@/components/ui";
 import { api } from "@/lib/api";
+import { RecommendedEmployerCatalog } from "./RecommendedEmployerCatalog";
+import {
+  employerCategoryDetails,
+  type RecommendedEmployer,
+} from "./recommended-employers";
 
 type CareerWatch = {
   id: number;
@@ -74,6 +79,25 @@ export default function CareerWatches() {
       active = false;
     };
   }, []);
+
+  function selectRecommendedEmployer(employer: RecommendedEmployer) {
+    const detail = employerCategoryDetails[employer.category];
+
+    setForm({
+      company: employer.company,
+      career_url: employer.career_url,
+      ats_type: "unknown",
+      board_identifier: "",
+      notes: `Résumé-matched employer • ${detail.label}. Focus: ${detail.focus}. Priority: ${employer.priority}.`,
+    });
+    setError("");
+    setMessage(`${employer.company} is ready in the company watch form. Review it and select Save career watch.`);
+
+    window.requestAnimationFrame(() => {
+      document.getElementById("watch-company")?.scrollIntoView({ behavior: "smooth", block: "center" });
+      document.getElementById("watch-company")?.focus();
+    });
+  }
 
   async function create(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -152,7 +176,7 @@ export default function CareerWatches() {
       <PageHeader
         eyebrow="COMPANY CAREER MONITORING"
         title="Keep priority employers on your radar"
-        description="Save company career pages and ATS board identifiers so CareerNavIQ can keep your target-employer strategy organized and search-ready."
+        description="Use the résumé-matched employer catalog, save company career pages, and organize the organizations most likely to hire for your target work."
         actions={<Link className="button secondary" href="/companies">Company intelligence</Link>}
       />
 
@@ -256,6 +280,8 @@ export default function CareerWatches() {
         </aside>
       </div>
 
+      <RecommendedEmployerCatalog items={items} onSelect={selectRecommendedEmployer} />
+
       <section className="card watch-library">
         <div className="row between wrap">
           <div>
@@ -312,7 +338,7 @@ export default function CareerWatches() {
         ) : (
           <EmptyState
             title="No career pages watched yet"
-            description="Add a priority employer above to build a reusable target-company monitoring list."
+            description="Use the résumé-matched employer catalog above to build your priority company monitoring list."
           />
         )}
       </section>
