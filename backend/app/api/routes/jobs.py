@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 
 from app.core.security import get_current_user
 from app.db.session import get_db
+from app.models.enterprise import CareerPageWatch
 from app.models.job import Job, JobMatch, SearchRun
 from app.models.profile import CareerProfile
 from app.models.resume import Resume
@@ -182,36 +183,106 @@ def search(
     coverage_notes: list[str] = []
     searched_sources: list[str] = []
     source_status: list[dict] = []
-    expanded_titles = expand_search_titles(body.titles)
+    base_titles = list(
+        dict.fromkeys(title.strip() for title in body.titles if title.strip())
+    )
+    expanded_titles = expand_search_titles(base_titles)
 
-    if body.use_remotive:
-        searched_sources.append("Remotive")
-        remotive_jobs = 0
-        remotive_failures = 0
-        for title in expanded_titles:
+    def run_title_source(source_name, enabled, loader, titles):
+        if not enabled:
+            return
+        searched_sources.append(source_name)
+        jobs_found = 0
+        failures = 0
+        for title in titles:
             try:
-                batch = job_sources.remotive(title)
-                remotive_jobs += len(batch)
-                rows += batch
+                batch = loader(title)
+                jobs_found += len(batch)
+                rows.extend(batch)
                 if not batch:
                     coverage_notes.append(
-                        f"Remotive returned no jobs for '{title}'."
+                        f"{source_name} returned no jobs for '{title}'."
                     )
             except Exception as exc:
-                remotive_failures += 1
-                errors.append(f"Remotive {title}: {exc}")
+                failures += 1
+                errors.append(f"{source_name} {title}: {exc}")
         source_status.append(
             source_status_item(
-                "Remotive",
-                remotive_jobs,
-                remotive_failures,
-                len(expanded_titles),
+                source_name,
+                jobs_found,
+                failures,
+                len(titles),
             )
         )
+
+    run_title_source(
+        "Remotive",
+        body.use_remotive,
+        job_sources.remotive,
+        expanded_titles,
+    )
+    run_title_source(
+        "Remote OK",
+        body.use_remoteok,
+        job_sources.remoteok,
+        base_titles,
+    )
+    run_title_source(
+        "Jobicy",
+        body.use_jobicy,
+        job_sources.jobicy,
+        base_titles,
+    )
+    run_title_source(
+        "Himalayas",
+        body.use_himalayas,
+        job_sources.himalayas,
+        base_titles,
+    )
 
     greenhouse_values = list(body.greenhouse_boards)
     lever_values = list(body.lever_boards)
     ashby_values = list(body.ashby_boards)
+    smartrecruiters_values = list(body.smartrecruiters_boards)
+    recruitee_values = list(body.recruitee_boards)
+    workable_values = list(body.workable_boards)
+
+    saved_watches: list[CareerPageWatch] = []
+    if body.use_saved_career_pages:
+        saved_watches = (
+            db.query(CareerPageWatch)
+            .filter(
+                CareerPageWatch.user_id == user.id,
+                CareerPageWatch.active.is_(True),
+            )
+            .order_by(CareerPageWatch.created_at.desc())
+            .limit(250)
+            .all()
+        )
+        unsupported_count = 0
+        for watch in saved_watches:
+            ats_type = (watch.ats_type or "unknown").strip().lower()
+            value = (watch.board_identifier or "").strip() or watch.career_url
+            if ats_type == "greenhouse":
+                greenhouse_values.append(value)
+            elif ats_type == "lever":
+                lever_values.append(value)
+            elif ats_type == "ashby":
+                ashby_values.append(value)
+            elif ats_type == "smartrecruiters":
+                smartrecruiters_values.append(value)
+            elif ats_type == "recruitee":
+                recruitee_values.append(value)
+            elif ats_type == "workable":
+                workable_values.append(value)
+            else:
+                unsupported_count += 1
+        if saved_watches:
+            searched_sources.append("Saved career pages")
+        if unsupported_count:
+            coverage_notes.append(
+                f"{unsupported_count} saved career page(s) use ATS platforms without a direct connector yet; broad web search may still surface their jobs."
+            )
 
     if body.use_catalog:
         catalog = job_sources.employer_catalog()
@@ -225,60 +296,61 @@ def search(
             item["board"] for item in catalog.get("ashby", [])
         ]
         searched_sources.append("Curated employer catalog")
-    elif greenhouse_values or lever_values or ashby_values:
-        searched_sources.append("Custom employer boards")
 
-    unique_greenhouse = list(dict.fromkeys(greenhouse_values))
-    unique_lever = list(dict.fromkeys(lever_values))
-    unique_ashby = list(dict.fromkeys(ashby_values))
-    employer_requests = (
-        len(unique_greenhouse)
-        + len(unique_lever)
-        + len(unique_ashby)
-    )
+    board_groups = [
+        (
+            "Greenhouse",
+            list(dict.fromkeys(value for value in greenhouse_values if value)),
+            job_sources.greenhouse,
+        ),
+        (
+            "Lever",
+            list(dict.fromkeys(value for value in lever_values if value)),
+            job_sources.lever,
+        ),
+        (
+            "Ashby",
+            list(dict.fromkeys(value for value in ashby_values if value)),
+            job_sources.ashby,
+        ),
+        (
+            "SmartRecruiters",
+            list(dict.fromkeys(value for value in smartrecruiters_values if value)),
+            job_sources.smartrecruiters,
+        ),
+        (
+            "Recruitee",
+            list(dict.fromkeys(value for value in recruitee_values if value)),
+            job_sources.recruitee,
+        ),
+        (
+            "Workable",
+            list(dict.fromkeys(value for value in workable_values if value)),
+            job_sources.workable,
+        ),
+    ]
+
     employer_jobs = 0
     employer_failures = 0
-
-    for value in unique_greenhouse:
-        try:
-            batch = job_sources.greenhouse(value)
-            employer_jobs += len(batch)
-            rows += batch
-            if not batch:
-                coverage_notes.append(
-                    f"Greenhouse board '{value}' returned no open jobs."
-                )
-        except Exception as exc:
-            employer_failures += 1
-            errors.append(f"Greenhouse {value}: {exc}")
-
-    for value in unique_lever:
-        try:
-            batch = job_sources.lever(value)
-            employer_jobs += len(batch)
-            rows += batch
-            if not batch:
-                coverage_notes.append(
-                    f"Lever board '{value}' returned no open jobs."
-                )
-        except Exception as exc:
-            employer_failures += 1
-            errors.append(f"Lever {value}: {exc}")
-
-    for value in unique_ashby:
-        try:
-            batch = job_sources.ashby(value)
-            employer_jobs += len(batch)
-            rows += batch
-            if not batch:
-                coverage_notes.append(
-                    f"Ashby board '{value}' returned no open jobs."
-                )
-        except Exception as exc:
-            employer_failures += 1
-            errors.append(f"Ashby {value}: {exc}")
+    employer_requests = 0
+    for source_name, values, loader in board_groups:
+        for value in values:
+            employer_requests += 1
+            try:
+                batch = loader(value)
+                employer_jobs += len(batch)
+                rows.extend(batch)
+                if not batch:
+                    coverage_notes.append(
+                        f"{source_name} board '{value}' returned no open jobs."
+                    )
+            except Exception as exc:
+                employer_failures += 1
+                errors.append(f"{source_name} {value}: {exc}")
 
     if employer_requests:
+        if "Saved career pages" not in searched_sources and not body.use_catalog:
+            searched_sources.append("Custom employer boards")
         source_status.append(
             source_status_item(
                 "Employer career sites",
@@ -297,7 +369,7 @@ def search(
             try:
                 batch = job_sources.jsearch(query)
                 jsearch_jobs += len(batch)
-                rows += batch
+                rows.extend(batch)
                 if not batch:
                     coverage_notes.append(
                         f"JSearch returned no jobs for '{query}'."
