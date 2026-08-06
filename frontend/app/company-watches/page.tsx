@@ -1,14 +1,19 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { EmptyState, Notice, PageHeader } from "@/components/ui";
 import { api } from "@/lib/api";
-import { RecommendedEmployerCatalog } from "./RecommendedEmployerCatalog";
 import {
   employerCategoryDetails,
   type RecommendedEmployer,
-} from "./recommended-employers";
+} from "./employer-catalog-types";
+
+const RecommendedEmployerCatalog = dynamic(
+  () => import("./RecommendedEmployerCatalog").then((module) => module.RecommendedEmployerCatalog),
+  { ssr: false },
+);
 
 type CareerWatch = {
   id: number;
@@ -64,6 +69,7 @@ export default function CareerWatches() {
   const [items, setItems] = useState<CareerWatch[]>([]);
   const [form, setForm] = useState<WatchForm>(emptyForm);
   const [loading, setLoading] = useState(true);
+  const [personalCatalogEnabled, setPersonalCatalogEnabled] = useState(false);
   const [busy, setBusy] = useState<string | null>(null);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -75,6 +81,14 @@ export default function CareerWatches() {
 
   useEffect(() => {
     let active = true;
+
+    api("/api/enterprise/personal-employer-catalog-access")
+      .then((data) => {
+        if (active) setPersonalCatalogEnabled(Boolean(data?.enabled));
+      })
+      .catch(() => {
+        if (active) setPersonalCatalogEnabled(false);
+      });
 
     load()
       .catch((err) => {
@@ -289,7 +303,9 @@ export default function CareerWatches() {
         </aside>
       </div>
 
-      <RecommendedEmployerCatalog items={items} onSelect={selectRecommendedEmployer} />
+      {personalCatalogEnabled ? (
+        <RecommendedEmployerCatalog items={items} onSelect={selectRecommendedEmployer} />
+      ) : null}
 
       <section className="card watch-library">
         <div className="row between wrap">
@@ -347,7 +363,9 @@ export default function CareerWatches() {
         ) : (
           <EmptyState
             title="No career pages saved yet"
-            description="Use the résumé-matched employer catalog above to build your priority company search list."
+            description={personalCatalogEnabled
+              ? "Use your private résumé-matched employer catalog above to build your priority company search list."
+              : "Add a company career page above to build your priority company search list."}
           />
         )}
       </section>
