@@ -1,0 +1,418 @@
+/* CareerNavIQ authenticated contrast repair
+   Loaded last to neutralize legacy dark-theme tokens and hard-coded dark panels. */
+
+.app-shell {
+  /* Replace every legacy design-system token, not only the newer premium aliases. */
+  --shell: #f4f7fb;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --soft: #f8fafc;
+  --border: #d8e1ec;
+  --border-strong: #bcc9d8;
+  --text: #0b1324;
+  --muted: #4b5d73;
+  --muted-strong: #26384f;
+  --primary: #174fc8;
+  --primary-strong: #113da2;
+  --primary-soft: #e8efff;
+  --teal: #0b6f68;
+  --teal-soft: #e3f5f2;
+  --success: #11643f;
+  --warning: #805500;
+  --danger: #a91d35;
+  --shadow-sm: 0 4px 16px rgba(31, 48, 76, 0.06);
+  --shadow-md: 0 10px 28px rgba(31, 48, 76, 0.09);
+}
+
+.app-content,
+.auth-content {
+  color-scheme: light;
+  color: #0b1324;
+}
+
+/* Guaranteed readable type in the workspace. */
+.app-content :is(h1, h2, h3, h4, h5, h6, strong, b),
+.auth-content :is(h1, h2, h3, h4, h5, h6, strong, b) {
+  color: #0b1324;
+}
+
+.app-content :is(p, li, dd, dt, label, small, td, th),
+.auth-content :is(p, li, dd, dt, label, small, td, th) {
+  color: #34465c;
+}
+
+.app-content .muted,
+.app-content [class*="muted"],
+.app-content .helper-text,
+.app-content .supporting-copy,
+.auth-content .muted,
+.auth-content [class*="muted"] {
+  color: #4b5d73 !important;
+}
+
+.app-content a:not(.button),
+.auth-content a:not(.button) {
+  color: #174fc8;
+}
+
+.app-content a:not(.button):hover,
+.auth-content a:not(.button):hover {
+  color: #113da2;
+}
+
+/* Convert legacy dark surfaces to light, high-contrast surfaces. */
+.app-content :is(
+  .priority-card,
+  .activity-item,
+  .notification-row,
+  .automation-row,
+  .analytics-kpi-grid article,
+  .company-detail-kpis article,
+  .analytics-ranking-list > div,
+  .company-role-card,
+  .company-summary-grid article,
+  .watch-summary-grid article,
+  .company-metric-row div,
+  .connector-list > div,
+  .connector-note,
+  .watch-card,
+  .automation-health-grid article,
+  .settings-toggle,
+  .settings-preview,
+  .settings-save-bar,
+  .profile-preference-card,
+  .profile-edit-textareas > div,
+  .profile-edit-save-bar,
+  .analysis-grid > div,
+  .score-bars span,
+  .job-description,
+  .letter-preview,
+  .version-button,
+  .prep-item,
+  .metric-card,
+  .preview
+) {
+  border-color: #d8e1ec !important;
+  background: #ffffff !important;
+  color: #0b1324 !important;
+  box-shadow: 0 4px 16px rgba(31, 48, 76, 0.055) !important;
+}
+
+.app-content :is(
+  .activity-item,
+  .notification-row,
+  .automation-row,
+  .company-role-card,
+  .watch-card,
+  .settings-toggle,
+  .profile-preference-card,
+  .version-button
+):hover {
+  border-color: #b8c6d7 !important;
+  background: #f8fafc !important;
+  color: #0b1324 !important;
+}
+
+/* Open-layout areas should not look like dark cards. */
+.app-content :is(
+  .priority-card,
+  .profile-edit-save-bar,
+  .settings-save-bar,
+  .connector-note,
+  .settings-preview
+) {
+  border-radius: 12px !important;
+}
+
+.app-content :is(.profile-edit-save-bar, .settings-save-bar) {
+  background: rgba(255, 255, 255, 0.97) !important;
+  box-shadow: 0 12px 30px rgba(31, 48, 76, 0.12) !important;
+}
+
+/* Explicit text repair for legacy rules that hard-coded white or pale blue. */
+.app-content :is(
+  .activity-item,
+  .notification-row,
+  .automation-row,
+  .analytics-kpi-grid article,
+  .company-detail-kpis article,
+  .analytics-ranking-list > div,
+  .company-role-card,
+  .company-summary-grid article,
+  .watch-summary-grid article,
+  .company-metric-row div,
+  .connector-list > div,
+  .watch-card,
+  .automation-health-grid article,
+  .settings-toggle,
+  .settings-save-bar,
+  .profile-preference-card,
+  .profile-edit-save-bar,
+  .analysis-grid > div,
+  .score-bars span,
+  .job-description,
+  .letter-preview,
+  .version-button,
+  .prep-item,
+  .metric-card,
+  .preview
+) :is(h1, h2, h3, h4, strong, b, label) {
+  color: #0b1324 !important;
+}
+
+.app-content :is(
+  .activity-item,
+  .notification-row,
+  .automation-row,
+  .analytics-kpi-grid article,
+  .company-detail-kpis article,
+  .analytics-ranking-list > div,
+  .company-role-card,
+  .company-summary-grid article,
+  .watch-summary-grid article,
+  .company-metric-row div,
+  .connector-list > div,
+  .connector-note,
+  .watch-card,
+  .automation-health-grid article,
+  .settings-toggle,
+  .settings-preview,
+  .settings-save-bar,
+  .profile-preference-card,
+  .profile-edit-save-bar,
+  .analysis-grid > div,
+  .score-bars span,
+  .job-description,
+  .letter-preview,
+  .version-button,
+  .prep-item,
+  .metric-card,
+  .preview
+) :is(p, small, span, li) {
+  color: #4b5d73 !important;
+}
+
+/* KPI cards remain visually distinct, but never dark-on-dark. */
+.app-content :is(
+  .analytics-kpi-grid article,
+  .company-detail-kpis article,
+  .company-summary-grid article,
+  .watch-summary-grid article,
+  .automation-health-grid article,
+  .executive-kpi,
+  .executive-metric-card,
+  .command-kpis article,
+  .interview-kpis article,
+  .coach-kpis article,
+  .dashboard-metric-card,
+  .metric-card
+) {
+  border: 1px solid #d8e1ec !important;
+  background: linear-gradient(180deg, #ffffff, #f7f9fc) !important;
+  color: #0b1324 !important;
+  box-shadow: 0 5px 18px rgba(31, 48, 76, 0.06) !important;
+}
+
+.app-content :is(
+  .analytics-kpi-grid article,
+  .company-detail-kpis article,
+  .company-summary-grid article,
+  .watch-summary-grid article,
+  .automation-health-grid article,
+  .executive-kpi,
+  .executive-metric-card,
+  .command-kpis article,
+  .interview-kpis article,
+  .coach-kpis article,
+  .dashboard-metric-card,
+  .metric-card
+) strong {
+  color: #0b1324 !important;
+}
+
+.app-content :is(
+  .analytics-kpi-grid article,
+  .company-detail-kpis article,
+  .company-summary-grid article,
+  .watch-summary-grid article,
+  .automation-health-grid article,
+  .executive-kpi,
+  .executive-metric-card,
+  .command-kpis article,
+  .interview-kpis article,
+  .coach-kpis article,
+  .dashboard-metric-card,
+  .metric-card
+) :is(span, small) {
+  color: #4b5d73 !important;
+}
+
+/* Lists, tables, and form groupings. */
+.app-content fieldset {
+  border-color: #d8e1ec !important;
+  background: #ffffff !important;
+  color: #0b1324 !important;
+}
+
+.app-content legend,
+.app-content fieldset .resume-checkbox-row,
+.app-content ul:not(.public-page ul):not(.landing-page ul) {
+  color: #34465c !important;
+}
+
+.app-content table {
+  border-color: #d8e1ec !important;
+  background: #ffffff !important;
+  color: #0b1324 !important;
+}
+
+.app-content thead,
+.app-content th {
+  background: #f1f5f9 !important;
+  color: #25364b !important;
+}
+
+.app-content td {
+  border-color: #e3e9f1 !important;
+  color: #34465c !important;
+}
+
+/* Tags and metadata use pale backgrounds with dark text. */
+.app-content :is(
+  .badge,
+  .score-pill,
+  .metric-badge,
+  .company-role-meta span,
+  .company-title-list > div > span
+) {
+  border-color: #cbd7e5 !important;
+  background: #eef3f9 !important;
+  color: #26384f !important;
+}
+
+.app-content .score-pill {
+  border-color: #c8d6fb !important;
+  background: #e8efff !important;
+  color: #1746ad !important;
+}
+
+.app-content .warning-badge,
+.app-content .warn-text {
+  border-color: #e6c66f !important;
+  background: #fff7dc !important;
+  color: #704900 !important;
+}
+
+.app-content :is(.success, .notice-success) {
+  color: #11643f !important;
+}
+
+.app-content :is(.error, .notice-error) {
+  color: #a91d35 !important;
+}
+
+/* Notices and alerts. */
+.app-content :is(.notice, .resume-alert) {
+  border-color: #cad6e5 !important;
+  background: #f3f7fc !important;
+  color: #26384f !important;
+  box-shadow: none !important;
+}
+
+.app-content :is(.notice, .resume-alert) :is(strong, span, p) {
+  color: inherit !important;
+}
+
+/* Progress tracks and scoring widgets. */
+.app-content :is(.analytics-track, .analytics-mini-track) {
+  background: #dce5ef !important;
+  box-shadow: inset 0 1px 2px rgba(31, 48, 76, 0.12) !important;
+}
+
+.app-content :is(.score-ring, .job-score) {
+  border-color: #9fd5cc !important;
+  background: #e7f6f3 !important;
+  color: #0b6f68 !important;
+}
+
+.app-content :is(.score-ring, .job-score) small {
+  color: #0b6f68 !important;
+}
+
+/* Buttons must retain contrast even when their labels contain nested spans. */
+.app-content button:not(.secondary):not(.danger),
+.app-content .button:not(.secondary):not(.danger),
+.app-content button:not(.secondary):not(.danger) *,
+.app-content .button:not(.secondary):not(.danger) * {
+  color: #ffffff !important;
+}
+
+.app-content button.secondary,
+.app-content .button.secondary,
+.app-content button.secondary *,
+.app-content .button.secondary * {
+  color: #26384f !important;
+}
+
+.app-content button.danger,
+.app-content .button.danger,
+.app-content button.danger *,
+.app-content .button.danger * {
+  color: #a91d35 !important;
+}
+
+/* Version selectors are secondary controls, not blue primary buttons. */
+.app-content .version-button,
+.app-content .version-button * {
+  color: #26384f !important;
+}
+
+/* Inputs and placeholders. */
+.app-content input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+.app-content select,
+.app-content textarea {
+  border-color: #bcc9d8 !important;
+  background: #ffffff !important;
+  color: #0b1324 !important;
+}
+
+.app-content input::placeholder,
+.app-content textarea::placeholder {
+  color: #66778d !important;
+  opacity: 1 !important;
+}
+
+.app-content input:focus,
+.app-content select:focus,
+.app-content textarea:focus {
+  border-color: #174fc8 !important;
+  box-shadow: 0 0 0 3px rgba(23, 79, 200, 0.14) !important;
+}
+
+/* Preserve the intentionally dark sidebar only. */
+.app-sidebar,
+.app-sidebar * {
+  color-scheme: dark;
+}
+
+.app-sidebar strong,
+.app-sidebar .active,
+.app-sidebar .active * {
+  color: #ffffff;
+}
+
+.app-sidebar small,
+.app-sidebar .sidebar-stage-copy small {
+  color: #a8b8cc;
+}
+
+@media (prefers-contrast: more) {
+  .app-content :is(p, li, dd, dt, label, small, td, th),
+  .auth-content :is(p, li, dd, dt, label, small, td, th) {
+    color: #25364b;
+  }
+
+  .app-content :is(.badge, .score-pill, .metric-badge) {
+    border-color: #9fb0c4 !important;
+  }
+}
