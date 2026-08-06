@@ -231,9 +231,8 @@ export function AppShell({ children }: { children: ReactNode }) {
             <span className="header-brand-copy">
               <strong>{currentPageLabel}</strong>
               <span>
-                {currentStage
-                  ? `Stage ${currentStage.number} of ${CAREER_STAGES.length}: ${currentStage.label}`
-                  : "Career overview and next priorities"}
+                {currentStage?.description
+                  ?? "Career overview and next priorities"}
               </span>
             </span>
           </Link>
@@ -250,26 +249,6 @@ export function AppShell({ children }: { children: ReactNode }) {
             </button>
           </div>
         </header>
-
-        <nav className="career-process-rail" aria-label="Five-stage career process">
-          {CAREER_STAGES.map((stage) => {
-            const stageActive = currentStage?.id === stage.id;
-            return (
-              <Link
-                key={stage.id}
-                href={stage.href}
-                className={`process-stage ${stageActive ? "active" : ""}`}
-                aria-current={stageActive ? "step" : undefined}
-              >
-                <span className="process-stage-number">{stage.number}</span>
-                <span className="process-stage-copy">
-                  <strong>{stage.shortLabel}</strong>
-                  <small>{stage.description}</small>
-                </span>
-              </Link>
-            );
-          })}
-        </nav>
 
         <main className="app-content">
           {children}
