@@ -70,6 +70,37 @@ def send_password_changed_email(email: str) -> None:
     )
 
 
+def send_email_changed_email(old_email: str, new_email: str) -> None:
+    safe_new_email = html.escape(new_email)
+    _send_email(
+        to=old_email,
+        subject="Your CareerNavIQ email address was changed",
+        html_body=(
+            f"<p>Your CareerNavIQ sign-in email was changed to <strong>{safe_new_email}</strong>.</p>"
+            "<p>If you did not make this change, reset your password immediately and contact support.</p>"
+        ),
+        text_body=(
+            f"Your CareerNavIQ sign-in email was changed to {new_email}. "
+            "If you did not make this change, reset your password immediately and contact support."
+        ),
+    )
+
+
+def send_account_deleted_email(email: str) -> None:
+    _send_email(
+        to=email,
+        subject="Your CareerNavIQ account was deleted",
+        html_body=(
+            "<p>Your CareerNavIQ account and associated career data were deleted.</p>"
+            "<p>If you did not request this deletion, contact support immediately.</p>"
+        ),
+        text_body=(
+            "Your CareerNavIQ account and associated career data were deleted. "
+            "If you did not request this deletion, contact support immediately."
+        ),
+    )
+
+
 def send_verification_email(email: str, verification_url: str) -> None:
     safe_url = html.escape(verification_url, quote=True)
     _send_email(
