@@ -72,6 +72,12 @@ export function AppShell({ children }: { children: ReactNode }) {
     if ((event.target as HTMLElement).closest("a")) setMenuOpen(false);
   }
 
+  function signOut() {
+    setMenuOpen(false);
+    localStorage.removeItem("token");
+    window.location.replace("/login");
+  }
+
   return (
     <div className="app-shell">
       <button
@@ -121,6 +127,14 @@ export function AppShell({ children }: { children: ReactNode }) {
               <Link key={href} href={href} className={active(pathname, href) ? "active" : ""}>{label}</Link>
             ))}
           </div>
+          <button
+            type="button"
+            className="button secondary compact"
+            style={{ width: "100%", marginTop: 18 }}
+            onClick={signOut}
+          >
+            Sign out
+          </button>
         </nav>
       </aside>
 
@@ -148,6 +162,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           <div className="header-actions">
             <Link href="/jobs" className="button secondary compact">Search jobs</Link>
             <Link href="/notifications" className="header-link">Alerts</Link>
+            <button type="button" className="button secondary compact" onClick={signOut}>Sign out</button>
           </div>
         </header>
 
