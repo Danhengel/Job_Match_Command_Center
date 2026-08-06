@@ -210,7 +210,7 @@ export function GuidedJourneyFooter({ pathname }: { pathname: string }) {
         </div>
       </div>
 
-      <style jsx>{`
+      <style jsx global>{`
         .guided-journey {
           margin-top: 32px;
           padding: 24px;
@@ -267,7 +267,7 @@ export function GuidedJourneyFooter({ pathname }: { pathname: string }) {
           text-transform: uppercase;
         }
 
-        h2 {
+        .guided-journey h2 {
           margin: 0;
           color: #ffffff;
           font-size: clamp(1.35rem, 2.2vw, 2rem);
@@ -296,7 +296,7 @@ export function GuidedJourneyFooter({ pathname }: { pathname: string }) {
           min-height: 48px;
           border-radius: 13px;
           font-weight: 800;
-          text-decoration: none;
+          text-decoration: none !important;
           transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
         }
 
@@ -306,7 +306,7 @@ export function GuidedJourneyFooter({ pathname }: { pathname: string }) {
           gap: 8px;
           padding: 0 14px;
           border: 1px solid rgba(143, 178, 232, 0.28);
-          color: #c9daf5;
+          color: #c9daf5 !important;
           background: rgba(5, 21, 41, 0.42);
         }
 
@@ -317,7 +317,7 @@ export function GuidedJourneyFooter({ pathname }: { pathname: string }) {
           gap: 12px;
           padding: 0 18px;
           border: 1px solid rgba(121, 151, 255, 0.7);
-          color: #ffffff;
+          color: #ffffff !important;
           background: linear-gradient(135deg, #4d73f6, #685cf3);
           box-shadow: 0 12px 24px rgba(62, 82, 210, 0.28);
           cursor: pointer;
