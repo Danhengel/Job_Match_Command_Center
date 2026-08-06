@@ -1,144 +1,277 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "@/lib/api";
 import styles from "./page.module.css";
 
-type IconName =
-  | "briefcase"
-  | "user"
-  | "location"
-  | "home"
-  | "building"
-  | "target"
-  | "dollar"
-  | "info"
-  | "plus"
-  | "lock";
+type IconProps = {
+  children: ReactNode;
+  className?: string;
+  size?: number;
+};
 
-function Icon({ name, className }: { name: IconName; className?: string }) {
-  const commonProps = {
-    className,
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: 1.8,
-    strokeLinecap: "round" as const,
-    strokeLinejoin: "round" as const,
-    "aria-hidden": true,
-  };
-
-  switch (name) {
-    case "briefcase":
-      return (
-        <svg {...commonProps}>
-          <rect x="3" y="7" width="18" height="12" rx="2" />
-          <path d="M8 7V5.5A1.5 1.5 0 0 1 9.5 4h5A1.5 1.5 0 0 1 16 5.5V7" />
-          <path d="M3 11.5c2.8 1.5 5.8 2.25 9 2.25s6.2-.75 9-2.25" />
-          <path d="M10 13.5h4" />
-        </svg>
-      );
-    case "user":
-      return (
-        <svg {...commonProps}>
-          <circle cx="12" cy="8" r="3.25" />
-          <path d="M5.5 20a6.5 6.5 0 0 1 13 0" />
-        </svg>
-      );
-    case "location":
-      return (
-        <svg {...commonProps}>
-          <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" />
-          <circle cx="12" cy="10" r="2.5" />
-        </svg>
-      );
-    case "home":
-      return (
-        <svg {...commonProps}>
-          <path d="m3 11 9-8 9 8" />
-          <path d="M5.5 9.5V21h13V9.5" />
-          <path d="M9.5 21v-6h5v6" />
-        </svg>
-      );
-    case "building":
-      return (
-        <svg {...commonProps}>
-          <path d="M4 21V5a2 2 0 0 1 2-2h8v18" />
-          <path d="M14 9h4a2 2 0 0 1 2 2v10" />
-          <path d="M8 7h2M8 11h2M8 15h2M17 13h1M17 17h1" />
-          <path d="M2 21h20" />
-        </svg>
-      );
-    case "target":
-      return (
-        <svg {...commonProps}>
-          <circle cx="12" cy="12" r="7" />
-          <circle cx="12" cy="12" r="2.5" />
-          <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
-        </svg>
-      );
-    case "dollar":
-      return (
-        <svg {...commonProps}>
-          <circle cx="12" cy="12" r="9" />
-          <path d="M15 8.5c-.7-.7-1.7-1-3-1-1.7 0-3 .9-3 2.3 0 3.7 6 1.6 6 5.4 0 1.4-1.3 2.3-3 2.3-1.3 0-2.5-.4-3.3-1.2M12 5.5v13" />
-        </svg>
-      );
-    case "info":
-      return (
-        <svg {...commonProps}>
-          <circle cx="12" cy="12" r="9" />
-          <path d="M12 11v5" />
-          <path d="M12 8h.01" />
-        </svg>
-      );
-    case "plus":
-      return (
-        <svg {...commonProps}>
-          <circle cx="12" cy="12" r="9" />
-          <path d="M12 8v8M8 12h8" />
-        </svg>
-      );
-    case "lock":
-      return (
-        <svg {...commonProps}>
-          <rect x="5" y="10" width="14" height="11" rx="2" />
-          <path d="M8 10V7a4 4 0 0 1 8 0v3" />
-        </svg>
-      );
-  }
+function Icon({ children, className, size = 22 }: IconProps) {
+  return (
+    <svg
+      aria-hidden="true"
+      className={className}
+      fill="none"
+      height={size}
+      viewBox="0 0 24 24"
+      width={size}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {children}
+    </svg>
+  );
 }
 
-function PreferenceToggle({
-  icon,
-  label,
-  checked,
-  onChange,
-}: {
-  icon: "home" | "building";
-  label: string;
-  checked: boolean;
-  onChange: (checked: boolean) => void;
-}) {
+function BriefcaseIcon({ className }: { className?: string }) {
   return (
-    <label className={styles.preferenceCard}>
-      <span className={styles.preferenceLabel}>
-        <span className={styles.preferenceIcon}>
-          <Icon name={icon} />
-        </span>
-        {label}
-      </span>
-      <input
-        className={styles.toggleInput}
-        type="checkbox"
-        checked={checked}
-        onChange={(event) => onChange(event.target.checked)}
+    <Icon className={className} size={28}>
+      <path
+        d="M9 7V5.8C9 4.8 9.8 4 10.8 4h2.4c1 0 1.8.8 1.8 1.8V7M4.8 8h14.4A1.8 1.8 0 0 1 21 9.8v8.4a1.8 1.8 0 0 1-1.8 1.8H4.8A1.8 1.8 0 0 1 3 18.2V9.8A1.8 1.8 0 0 1 4.8 8Z"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.8"
       />
-      <span className={styles.toggleTrack} aria-hidden="true">
-        <span className={styles.toggleThumb} />
+      <path
+        d="M3 12.2c2.8 1.3 5.8 2 9 2s6.2-.7 9-2M10.2 14.2v1.6h3.6v-1.6"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.8"
+      />
+    </Icon>
+  );
+}
+
+function UserIcon() {
+  return (
+    <Icon size={21}>
+      <path
+        d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM4.8 20c.7-3.4 3.2-5.2 7.2-5.2s6.5 1.8 7.2 5.2"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.7"
+      />
+    </Icon>
+  );
+}
+
+function LocationIcon() {
+  return (
+    <Icon size={21}>
+      <path
+        d="M20 10c0 5-8 10-8 10S4 15 4 10a8 8 0 1 1 16 0Z"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.7"
+      />
+      <circle cx="12" cy="10" r="2.4" stroke="currentColor" strokeWidth="1.7" />
+    </Icon>
+  );
+}
+
+function TargetIcon() {
+  return (
+    <Icon size={21}>
+      <circle cx="12" cy="12" r="7.5" stroke="currentColor" strokeWidth="1.7" />
+      <circle cx="12" cy="12" r="3.2" stroke="currentColor" strokeWidth="1.7" />
+      <path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke="currentColor" strokeLinecap="round" strokeWidth="1.7" />
+    </Icon>
+  );
+}
+
+function DollarIcon() {
+  return (
+    <Icon size={21}>
+      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.7" />
+      <path
+        d="M15.5 8.3c-.8-.7-1.9-1.1-3.2-1.1-1.8 0-3 .9-3 2.2 0 3.3 6.2 1.5 6.2 5 0 1.4-1.3 2.4-3.3 2.4-1.5 0-2.8-.5-3.7-1.4M12 5.5v13"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.7"
+      />
+    </Icon>
+  );
+}
+
+function HomeIcon() {
+  return (
+    <Icon size={25}>
+      <path
+        d="m3 11 9-7 9 7M5.5 10.5V20h5v-6h3v6h5v-9.5"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.8"
+      />
+    </Icon>
+  );
+}
+
+function BuildingIcon() {
+  return (
+    <Icon size={25}>
+      <path
+        d="M4 21h16M6 21V8h8v13M14 21V4h4v17M9 11h2M9 15h2M16 8h.01M16 12h.01M16 16h.01"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.8"
+      />
+    </Icon>
+  );
+}
+
+function InfoIcon() {
+  return (
+    <Icon size={16}>
+      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.7" />
+      <path d="M12 10.7v5.1M12 7.7h.01" stroke="currentColor" strokeLinecap="round" strokeWidth="2" />
+    </Icon>
+  );
+}
+
+function PlusIcon() {
+  return (
+    <Icon size={20}>
+      <circle cx="12" cy="12" r="9" fill="currentColor" />
+      <path d="M12 8v8M8 12h8" stroke="#3157dd" strokeLinecap="round" strokeWidth="2" />
+    </Icon>
+  );
+}
+
+function LockIcon() {
+  return (
+    <Icon size={17}>
+      <rect x="5" y="10" width="14" height="10" rx="2" stroke="currentColor" strokeWidth="1.6" />
+      <path d="M8.5 10V7.5a3.5 3.5 0 1 1 7 0V10" stroke="currentColor" strokeLinecap="round" strokeWidth="1.6" />
+    </Icon>
+  );
+}
+
+type TextFieldProps = {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  placeholder: string;
+  icon: ReactNode;
+  type?: "text" | "number";
+  min?: string;
+  max?: string;
+  required?: boolean;
+  optional?: boolean;
+};
+
+function TextField({
+  id,
+  label,
+  value,
+  onChange,
+  placeholder,
+  icon,
+  type = "text",
+  min,
+  max,
+  required,
+  optional,
+}: TextFieldProps) {
+  return (
+    <div className={styles.fieldGroup}>
+      <label className={styles.fieldLabel} htmlFor={id}>
+        {label}
+        {optional ? <span> (optional)</span> : null}
+      </label>
+      <div className={styles.inputWrap}>
+        <span className={styles.inputIcon}>{icon}</span>
+        <input
+          className={styles.textInput}
+          id={id}
+          max={max}
+          min={min}
+          onChange={(event) => onChange(event.target.value)}
+          placeholder={placeholder}
+          required={required}
+          type={type}
+          value={value}
+        />
+      </div>
+    </div>
+  );
+}
+
+type ToggleCardProps = {
+  checked: boolean;
+  icon: ReactNode;
+  id: string;
+  label: string;
+  onChange: (checked: boolean) => void;
+};
+
+function ToggleCard({ checked, icon, id, label, onChange }: ToggleCardProps) {
+  return (
+    <label className={`${styles.toggleCard} ${checked ? styles.toggleCardActive : ""}`} htmlFor={id}>
+      <input
+        checked={checked}
+        className={styles.toggleInput}
+        id={id}
+        onChange={(event) => onChange(event.target.checked)}
+        type="checkbox"
+      />
+      <span className={styles.toggleCardIcon}>{icon}</span>
+      <span className={styles.toggleLabel}>{label}</span>
+      <span aria-hidden="true" className={styles.switchTrack}>
+        <span className={styles.switchThumb} />
       </span>
     </label>
+  );
+}
+
+type TextAreaCardProps = {
+  id: string;
+  label: string;
+  placeholder: string;
+  rows?: number;
+  value: string;
+  onChange: (value: string) => void;
+  helpText?: string;
+};
+
+function TextAreaCard({
+  id,
+  label,
+  placeholder,
+  rows = 8,
+  value,
+  onChange,
+  helpText = "One per line",
+}: TextAreaCardProps) {
+  return (
+    <div className={styles.textAreaCard}>
+      <div className={styles.textAreaHeading}>
+        <label htmlFor={id}>{label}</label>
+        <span className={styles.infoIcon} title={`${label}: ${helpText.toLowerCase()}`}>
+          <InfoIcon />
+        </span>
+      </div>
+      <textarea
+        className={styles.textArea}
+        id={id}
+        onChange={(event) => onChange(event.target.value)}
+        placeholder={placeholder}
+        rows={rows}
+        value={value}
+      />
+      <p className={styles.helpText}>{helpText}</p>
+    </div>
   );
 }
 
@@ -156,7 +289,7 @@ export default function NewProfile() {
   const [error, setError] = useState("");
   const [saving, setSaving] = useState(false);
 
-  async function save(event: FormEvent<HTMLFormElement>) {
+  async function save(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError("");
     setSaving(true);
@@ -165,8 +298,8 @@ export default function NewProfile() {
       const profile = await api("/api/profiles", {
         method: "POST",
         body: JSON.stringify({
-          name,
-          home_location: location,
+          name: name.trim(),
+          home_location: location.trim(),
           remote_preferred: remotePreferred,
           hybrid_preferred: hybridPreferred,
           radius_miles: radius ? Number(radius) : 0,
@@ -186,6 +319,7 @@ export default function NewProfile() {
             .filter(Boolean),
         }),
       });
+
       router.push(`/profiles/${profile.id}`);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Could not save profile");
@@ -194,170 +328,160 @@ export default function NewProfile() {
   }
 
   return (
-    <section className={styles.page}>
-      <div className={styles.panel}>
+    <div className={styles.page}>
+      <div aria-hidden="true" className={styles.ambientGlowOne} />
+      <div aria-hidden="true" className={styles.ambientGlowTwo} />
+
+      <form className={styles.profileCard} onSubmit={save}>
         <header className={styles.header}>
           <div className={styles.headerIcon}>
-            <Icon name="briefcase" />
+            <BriefcaseIcon />
           </div>
           <div>
+            <p className={styles.eyebrow}>Career profile setup</p>
             <h1>Create Career Profile</h1>
-            <p>
-              Start with a blank profile and add only the information that applies to you.
-            </p>
+            <p>Define what you are looking for so CareerNavIQ can surface stronger-fit opportunities.</p>
           </div>
         </header>
 
-        <form className={styles.form} onSubmit={save}>
-          <div className={styles.primaryGrid}>
-            <div className={styles.fieldGroup}>
-              <label htmlFor="profile-name">Profile name</label>
-              <div className={styles.inputShell}>
-                <Icon name="user" className={styles.inputIcon} />
-                <input
-                  id="profile-name"
-                  value={name}
-                  onChange={(event) => setName(event.target.value)}
-                  placeholder="Primary profile"
-                  required
-                />
-              </div>
-            </div>
+        <div className={styles.divider} />
 
-            <div className={styles.fieldGroup}>
-              <label htmlFor="home-location">Home location</label>
-              <div className={styles.inputShell}>
-                <Icon name="location" className={styles.inputIcon} />
-                <input
-                  id="home-location"
-                  value={location}
-                  onChange={(event) => setLocation(event.target.value)}
-                  placeholder="Tampa, FL"
-                />
-              </div>
+        <section aria-labelledby="profile-basics" className={styles.section}>
+          <div className={styles.sectionHeading}>
+            <span>01</span>
+            <div>
+              <h2 id="profile-basics">Profile basics</h2>
+              <p>Name this search and tell us where you want to work.</p>
             </div>
           </div>
 
-          <div className={styles.preferenceDetailsGrid}>
-            <div className={styles.preferenceGrid}>
-              <PreferenceToggle
-                icon="home"
-                label="Remote preferred"
+          <div className={styles.basicsGrid}>
+            <TextField
+              icon={<UserIcon />}
+              id="profile-name"
+              label="Profile name"
+              onChange={setName}
+              placeholder="For example: Primary profile"
+              required
+              value={name}
+            />
+            <TextField
+              icon={<LocationIcon />}
+              id="home-location"
+              label="Home location"
+              onChange={setLocation}
+              placeholder="For example: Tampa, FL"
+              value={location}
+            />
+          </div>
+        </section>
+
+        <section aria-labelledby="work-preferences" className={styles.section}>
+          <div className={styles.sectionHeading}>
+            <span>02</span>
+            <div>
+              <h2 id="work-preferences">Work preferences</h2>
+              <p>Set the location flexibility and compensation range that matter to you.</p>
+            </div>
+          </div>
+
+          <div className={styles.preferenceGrid}>
+            <div className={styles.toggleGrid}>
+              <ToggleCard
                 checked={remotePreferred}
+                icon={<HomeIcon />}
+                id="remote-preferred"
+                label="Remote preferred"
                 onChange={setRemotePreferred}
               />
-              <PreferenceToggle
-                icon="building"
-                label="Hybrid preferred"
+              <ToggleCard
                 checked={hybridPreferred}
+                icon={<BuildingIcon />}
+                id="hybrid-preferred"
+                label="Hybrid preferred"
                 onChange={setHybridPreferred}
               />
             </div>
 
-            <div className={styles.numberGrid}>
-              <div className={styles.fieldGroup}>
-                <label htmlFor="search-radius">
-                  Search radius in miles <span>(optional)</span>
-                </label>
-                <div className={styles.inputShell}>
-                  <Icon name="target" className={styles.inputIcon} />
-                  <input
-                    id="search-radius"
-                    type="number"
-                    min="0"
-                    max="500"
-                    value={radius}
-                    onChange={(event) => setRadius(event.target.value)}
-                    placeholder="50"
-                  />
-                </div>
-              </div>
+            <div className={styles.compensationGrid}>
+              <TextField
+                icon={<TargetIcon />}
+                id="search-radius"
+                label="Search radius in miles"
+                max="500"
+                min="0"
+                onChange={setRadius}
+                optional
+                placeholder="For example: 50"
+                type="number"
+                value={radius}
+              />
+              <TextField
+                icon={<DollarIcon />}
+                id="target-salary"
+                label="Minimum or target salary"
+                min="0"
+                onChange={setSalary}
+                optional
+                placeholder="For example: 120000"
+                type="number"
+                value={salary}
+              />
+            </div>
+          </div>
+        </section>
 
-              <div className={styles.fieldGroup}>
-                <label htmlFor="target-salary">
-                  Minimum or target salary <span>(optional)</span>
-                </label>
-                <div className={styles.inputShell}>
-                  <Icon name="dollar" className={styles.inputIcon} />
-                  <input
-                    id="target-salary"
-                    type="number"
-                    min="0"
-                    step="1000"
-                    value={salary}
-                    onChange={(event) => setSalary(event.target.value)}
-                    placeholder="120000"
-                  />
-                </div>
-              </div>
+        <section aria-labelledby="matching-priorities" className={styles.section}>
+          <div className={styles.sectionHeading}>
+            <span>03</span>
+            <div>
+              <h2 id="matching-priorities">Matching priorities</h2>
+              <p>Give CareerNavIQ the signals it should prioritize—and the roles it should avoid.</p>
             </div>
           </div>
 
-          <div className={styles.textareaGrid}>
-            <div className={styles.textareaCard}>
-              <label htmlFor="target-titles">
-                Target titles
-                <Icon name="info" />
-              </label>
-              <textarea
-                id="target-titles"
-                rows={7}
-                value={titles}
-                onChange={(event) => setTitles(event.target.value)}
-                placeholder={"Director of Loan Operations\nConstruction Lending Manager"}
-              />
-              <span className={styles.helperText}>one per line</span>
-            </div>
-
-            <div className={styles.textareaCard}>
-              <label htmlFor="priority-keywords">
-                Priority keywords
-                <Icon name="info" />
-              </label>
-              <textarea
-                id="priority-keywords"
-                rows={7}
-                value={keywords}
-                onChange={(event) => setKeywords(event.target.value)}
-                placeholder={"commercial lending\ncredit risk\nportfolio management"}
-              />
-              <span className={styles.helperText}>one per line</span>
-            </div>
-
-            <div className={styles.textareaCard}>
-              <label htmlFor="exclude-keywords">
-                Exclude keywords
-                <Icon name="info" />
-              </label>
-              <textarea
-                id="exclude-keywords"
-                rows={7}
-                value={exclusions}
-                onChange={(event) => setExclusions(event.target.value)}
-                placeholder={"entry-level\ncommission only"}
-              />
-              <span className={styles.helperText}>one per line</span>
-            </div>
+          <div className={styles.textAreaGrid}>
+            <TextAreaCard
+              id="target-titles"
+              label="Target titles"
+              onChange={setTitles}
+              placeholder={"Director of Loan Operations\nConstruction Lending Manager"}
+              value={titles}
+            />
+            <TextAreaCard
+              id="priority-keywords"
+              label="Priority keywords"
+              onChange={setKeywords}
+              placeholder={"commercial lending\ncredit risk\nportfolio management"}
+              value={keywords}
+            />
+            <TextAreaCard
+              id="exclude-keywords"
+              label="Exclude keywords"
+              onChange={setExclusions}
+              placeholder={"entry-level\ncommission only"}
+              value={exclusions}
+            />
           </div>
+        </section>
 
-          {error ? (
-            <div className={styles.errorMessage} role="alert">
-              {error}
-            </div>
-          ) : null}
-
-          <div className={styles.actionArea}>
-            <button className={styles.submitButton} type="submit" disabled={saving}>
-              <Icon name="plus" />
-              {saving ? "Creating profile..." : "Create profile"}
-            </button>
-            <p className={styles.editNote}>
-              <Icon name="lock" />
-              You can edit your profile anytime
-            </p>
+        {error ? (
+          <div aria-live="polite" className={styles.errorMessage} role="alert">
+            {error}
           </div>
-        </form>
-      </div>
-    </section>
+        ) : null}
+
+        <footer className={styles.footer}>
+          <button className={styles.submitButton} disabled={saving} type="submit">
+            <PlusIcon />
+            <span>{saving ? "Creating profile…" : "Create profile"}</span>
+          </button>
+          <p>
+            <LockIcon />
+            You can edit your profile anytime
+          </p>
+        </footer>
+      </form>
+    </div>
   );
 }
