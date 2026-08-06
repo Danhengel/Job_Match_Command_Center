@@ -17,6 +17,7 @@ import "./page-modernization.css";
 import "./company-modernization.css";
 import "./insight-modernization.css";
 import "./operational-modernization.css";
+import "./settings-modernization.css";
 import "./auth-modernization.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
