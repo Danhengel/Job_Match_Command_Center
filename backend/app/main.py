@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
-from app.api.routes import auth, health, profiles, resumes, dashboard, jobs, job_search_all, job_freshness, tailoring, applications, intelligence, automation, recruiting, enterprise
+from app.api.routes import auth, account, health, profiles, resumes, dashboard, jobs, job_search_all, job_freshness, tailoring, applications, intelligence, automation, recruiting, enterprise
 
 from app.services.scheduler import start_scheduler
 
@@ -18,6 +18,7 @@ app.add_middleware(
 
 app.include_router(health.router)
 app.include_router(auth.router)
+app.include_router(account.router)
 app.include_router(profiles.router)
 app.include_router(resumes.router)
 app.include_router(dashboard.router)

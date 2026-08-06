@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState, type MouseEvent, type ReactNode } from "react";
 import { BrandCompass } from "@/components/BrandCompass";
 import { GuidedJourneyFooter } from "@/components/GuidedJourneyFooter";
+import { api } from "@/lib/api";
 import { endAuthenticatedSession } from "@/lib/sessionStorage";
 
 const sections = [
@@ -55,6 +56,7 @@ const tools = [
   ["/reports/weekly", "Weekly report"],
   ["/automation", "Automation"],
   ["/settings/automation", "Automation settings"],
+  ["/account", "Account settings"],
 ] as const;
 
 const mobileNavigation = [
@@ -77,21 +79,53 @@ const publicPaths = new Set([
   "/interview-preparation",
 ]);
 
+const authenticationPaths = new Set([
+  "/login",
+  "/register",
+  "/forgot-password",
+  "/reset-password",
+  "/verify-email",
+]);
+
 function active(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
+function initials(fullName: string) {
+  const parts = fullName.trim().split(/\s+/).filter(Boolean);
+  return parts.slice(0, 2).map((part) => part[0]?.toUpperCase()).join("") || "CN";
+}
+
+type CurrentUser = { id: number; email: string; full_name: string };
+
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [accountMenuOpen, setAccountMenuOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
 
   useEffect(() => {
     setMenuOpen(false);
+    setAccountMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (pathname === "/" || publicPaths.has(pathname) || authenticationPaths.has(pathname)) return;
+    let mounted = true;
+    api("/api/auth/me")
+      .then((user: CurrentUser) => {
+        if (mounted) setCurrentUser(user);
+      })
+      .catch(() => undefined);
+    return () => { mounted = false; };
   }, [pathname]);
 
   useEffect(() => {
     function closeOnEscape(event: KeyboardEvent) {
-      if (event.key === "Escape") setMenuOpen(false);
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        setAccountMenuOpen(false);
+      }
     }
 
     document.body.classList.toggle("mobile-menu-open", menuOpen);
@@ -107,7 +141,7 @@ export function AppShell({ children }: { children: ReactNode }) {
     return <>{children}</>;
   }
 
-  if (pathname === "/login" || pathname === "/register") {
+  if (authenticationPaths.has(pathname)) {
     return <main className="auth-content">{children}</main>;
   }
 
@@ -117,6 +151,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   function signOut() {
     setMenuOpen(false);
+    setAccountMenuOpen(false);
     endAuthenticatedSession();
     window.location.replace("/login");
   }
@@ -239,7 +274,32 @@ export function AppShell({ children }: { children: ReactNode }) {
           <div className="header-actions">
             <Link href="/jobs" className="button secondary compact">Search jobs</Link>
             <Link href="/notifications" className="header-link">Alerts</Link>
-            <button type="button" className="button secondary compact" onClick={signOut}>Sign out</button>
+            <div className="header-account">
+              <button
+                type="button"
+                className="header-account-button"
+                aria-haspopup="menu"
+                aria-expanded={accountMenuOpen}
+                onClick={() => setAccountMenuOpen((open) => !open)}
+              >
+                <span className="header-account-avatar">{initials(currentUser?.full_name || "CareerNavIQ")}</span>
+                <span>{currentUser?.full_name?.split(" ")[0] || "Account"}</span>
+                <span aria-hidden="true">⌄</span>
+              </button>
+              {accountMenuOpen ? (
+                <div className="header-account-menu" role="menu">
+                  <div className="header-account-summary">
+                    <strong>{currentUser?.full_name || "CareerNavIQ account"}</strong>
+                    <span>{currentUser?.email || "Loading account…"}</span>
+                  </div>
+                  <Link href="/account" role="menuitem">Account settings</Link>
+                  <Link href="/profiles" role="menuitem">Career profiles</Link>
+                  <Link href="/resumes" role="menuitem">Résumé library</Link>
+                  <Link href="/notifications" role="menuitem">Notifications</Link>
+                  <button type="button" role="menuitem" onClick={signOut}>Sign out</button>
+                </div>
+              ) : null}
+            </div>
           </div>
         </header>
 

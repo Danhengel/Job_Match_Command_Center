@@ -15,6 +15,14 @@ export default function RegisterPage() {
   const [busy, setBusy] = useState(false);
   const router = useRouter();
 
+  const requirements = {
+    length: password.length >= 8,
+    uppercase: /[A-Z]/.test(password),
+    lowercase: /[a-z]/.test(password),
+    number: /\d/.test(password),
+  };
+  const passwordReady = Object.values(requirements).every(Boolean);
+
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError("");
@@ -106,8 +114,14 @@ export default function RegisterPage() {
               onChange={(event) => setPassword(event.target.value)}
               required
             />
+            <div className="password-requirements" aria-label="Password requirements">
+              <span className={requirements.length ? "met" : ""}>At least 8 characters</span>
+              <span className={requirements.uppercase ? "met" : ""}>Uppercase letter</span>
+              <span className={requirements.lowercase ? "met" : ""}>Lowercase letter</span>
+              <span className={requirements.number ? "met" : ""}>Number</span>
+            </div>
             {error ? <p className="auth-error" role="alert">{error}</p> : null}
-            <button className="auth-submit" type="submit" disabled={busy}>
+            <button className="auth-submit" type="submit" disabled={busy || !passwordReady}>
               {busy ? "Creating your account…" : "Create my CareerNavIQ account"}
             </button>
           </form>

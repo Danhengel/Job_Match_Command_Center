@@ -22,6 +22,7 @@ import "./workspace-modernization.css";
 import "./auth-modernization.css";
 import "./resume-layout.css";
 import "./company-watch-catalog.css";
+import "./account.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 
