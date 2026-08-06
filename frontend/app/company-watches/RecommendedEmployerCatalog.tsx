@@ -18,6 +18,40 @@ type RecommendedEmployerCatalogProps = {
   onSelect: (employer: RecommendedEmployer) => void;
 };
 
+const additionalEmployers: RecommendedEmployer[] = [
+  {
+    company: "Axos Bank",
+    career_url: "https://www.axosbank.com/careers",
+    category: "Banking & credit unions",
+    priority: "Top match",
+  },
+  {
+    company: "Wings Credit Union",
+    career_url: "https://www.wingscu.com/careers",
+    category: "Banking & credit unions",
+    priority: "Top match",
+  },
+  {
+    company: "Nuvision Credit Union",
+    career_url: "https://nuvisionfederal.com/careers",
+    category: "Banking & credit unions",
+    priority: "Strong match",
+  },
+  {
+    company: "Hoosier Hills Credit Union",
+    career_url: "https://www.hoosierhills.com/careers",
+    category: "Banking & credit unions",
+    priority: "Top match",
+  },
+  {
+    company: "Coastal Community Bank",
+    career_url: "https://www.coastalbank.com/careers/",
+    category: "Banking & credit unions",
+    priority: "Top match",
+  },
+];
+
+const catalogEmployers = [...recommendedEmployers, ...additionalEmployers];
 const categoryOptions = Object.keys(employerCategoryDetails) as EmployerCategory[];
 const priorityRank = { "Top match": 0, "Strong match": 1 } as const;
 
@@ -46,7 +80,7 @@ export function RecommendedEmployerCatalog({ items, onSelect }: RecommendedEmplo
   const filteredEmployers = useMemo(() => {
     const search = normalize(query);
 
-    return recommendedEmployers
+    return catalogEmployers
       .filter((employer) => category === "all" || employer.category === category)
       .filter((employer) => priority === "all" || employer.priority === priority)
       .filter((employer) => {
@@ -64,10 +98,10 @@ export function RecommendedEmployerCatalog({ items, onSelect }: RecommendedEmplo
   }, [category, priority, query]);
 
   const summary = useMemo(() => ({
-    total: recommendedEmployers.length,
-    topMatches: recommendedEmployers.filter((employer) => employer.priority === "Top match").length,
+    total: catalogEmployers.length,
+    topMatches: catalogEmployers.filter((employer) => employer.priority === "Top match").length,
     visible: filteredEmployers.length,
-    saved: recommendedEmployers.filter((employer) => isWatched(employer)).length,
+    saved: catalogEmployers.filter((employer) => isWatched(employer)).length,
   }), [filteredEmployers, watchedCompanies, watchedUrls]);
 
   return (
@@ -77,8 +111,9 @@ export function RecommendedEmployerCatalog({ items, onSelect }: RecommendedEmplo
           <p className="eyebrow">RÉSUMÉ-MATCHED EMPLOYERS</p>
           <h2>Priority company watch list</h2>
           <p className="muted">
-            A comprehensive employer catalog matched to construction lending, CRE servicing, credit administration,
+            A curated employer catalog matched to construction lending, CRE servicing, credit administration,
             affordable housing, capital-program delivery, portfolio governance, and operations transformation.
+            Career pages can change, so confirm the employer page before applying.
           </p>
         </div>
       </div>
