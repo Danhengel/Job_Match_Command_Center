@@ -9,6 +9,7 @@ from fastapi.responses import JSONResponse
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from app.api.routes.auth import _frontend_link, _issue_account_token
 from app.core.config import settings
 from app.core.security import (
     create_access_token,
@@ -32,8 +33,12 @@ from app.schemas.account import (
     NotificationPreferences,
 )
 from app.schemas.auth import MessageResponse
-from app.services.email_service import send_password_changed_email, send_verification_email
-from app.api.routes.auth import _frontend_link, _issue_account_token
+from app.services.email_service import (
+    send_account_deleted_email,
+    send_email_changed_email,
+    send_password_changed_email,
+    send_verification_email,
+)
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/account", tags=["Account"])
@@ -91,6 +96,7 @@ def update_account(
 ):
     new_token = None
     verification_token = None
+    old_email_for_notification = None
 
     if body.full_name is not None:
         user.full_name = body.full_name.strip()
@@ -115,6 +121,7 @@ def update_account(
             if existing:
                 raise HTTPException(status_code=409, detail="Email is already registered")
 
+            old_email_for_notification = user.email
             user.email = normalized_email
             user.email_verified_at = None
             user.auth_version = int(user.auth_version or 1) + 1
@@ -138,6 +145,12 @@ def update_account(
             )
         except Exception:
             logger.exception("Unable to send verification email for user %s", user.id)
+
+    if old_email_for_notification:
+        try:
+            send_email_changed_email(old_email_for_notification, user.email)
+        except Exception:
+            logger.exception("Unable to send email change notice for user %s", user.id)
 
     return AccountUpdateResponse(account=_account(user), access_token=new_token)
 
@@ -258,6 +271,8 @@ def delete_account(
     if not verify_password(body.password, user.password_hash):
         raise HTTPException(status_code=400, detail="Current password is incorrect")
 
+    deleted_email = user.email
+    deleted_user_id = user.id
     resume_files = [
         RESUME_STORAGE_ROOT / row.stored_filename
         for row in (
@@ -269,10 +284,23 @@ def delete_account(
     ]
     db.delete(user)
     db.commit()
+
     for path in resume_files:
         try:
             if path.exists():
                 path.unlink()
         except OSError:
-            logger.exception("Unable to remove stored resume after deleting user %s", user.id)
+            logger.exception(
+                "Unable to remove stored resume after deleting user %s",
+                deleted_user_id,
+            )
+
+    try:
+        send_account_deleted_email(deleted_email)
+    except Exception:
+        logger.exception(
+            "Unable to send account deletion confirmation for user %s",
+            deleted_user_id,
+        )
+
     return MessageResponse(message="Your CareerNavIQ account has been deleted.")
