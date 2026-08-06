@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type MouseEvent, type ReactNode } from "react";
+import { BrandCompass } from "@/components/BrandCompass";
 import { endAuthenticatedSession } from "@/lib/sessionStorage";
 
 const sections = [
@@ -79,23 +80,6 @@ function active(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-function CompassMark() {
-  return (
-    <svg aria-hidden="true" fill="none" viewBox="0 0 32 32">
-      <circle cx="16" cy="16" r="11.2" stroke="currentColor" strokeWidth="1.7" />
-      <path
-        d="m20.9 10.7-2.5 7.7-7.7 2.5 2.5-7.7 7.7-2.5Z"
-        fill="currentColor"
-        stroke="currentColor"
-        strokeLinejoin="round"
-        strokeWidth="1.2"
-      />
-      <circle cx="16" cy="16" r="1.5" fill="#5eead4" />
-      <path d="M16 2.8v2.4M16 26.8v2.4M2.8 16h2.4M26.8 16h2.4" stroke="currentColor" strokeLinecap="round" strokeWidth="1.5" />
-    </svg>
-  );
-}
-
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -153,7 +137,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       >
         <div className="sidebar-brand-row">
           <Link href="/dashboard" className="sidebar-brand" aria-label="CareerNavIQ dashboard">
-            <span className="brand-mark"><CompassMark /></span>
+            <span className="brand-mark"><BrandCompass /></span>
             <span>
               <strong>CareerNavIQ</strong>
               <small>AI career operating system</small>
@@ -244,7 +228,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           </button>
 
           <Link href="/dashboard" className="header-brand" aria-label="CareerNavIQ dashboard">
-            <span className="header-brand-mark"><CompassMark /></span>
+            <span className="header-brand-mark"><BrandCompass /></span>
             <span className="header-brand-copy">
               <strong>CareerNavIQ</strong>
               <span>Navigate your next career move with clarity.</span>
