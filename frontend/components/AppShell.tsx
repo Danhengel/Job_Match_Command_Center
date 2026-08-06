@@ -6,14 +6,54 @@ import { useEffect, useState, type MouseEvent, type ReactNode } from "react";
 import { endAuthenticatedSession } from "@/lib/sessionStorage";
 
 const sections = [
-  { label: "Build your profile", items: [["/profiles", "Career profile"], ["/resumes", "Résumé library"], ["/resumes/studio", "Resume Studio"]] },
-  { label: "Discover opportunities", items: [["/jobs", "Smart job search"], ["/companies", "Companies"], ["/company-watches", "Career watches"]] },
-  { label: "Prepare applications", items: [["/coach", "Application studio"], ["/outreach", "Outreach Studio"]] },
-  { label: "Apply and track", items: [["/applications", "Application pipeline"], ["/crm", "Recruiter CRM"]] },
-  { label: "Interview and follow up", items: [["/interviews", "Interview center"], ["/interview-coach", "AI interview coach"], ["/calendar", "Career calendar"], ["/notifications", "Notifications"]] },
+  {
+    label: "Build your profile",
+    items: [
+      ["/profiles", "Career profile"],
+      ["/resumes", "Résumé library"],
+      ["/resumes/studio", "Resume Studio"],
+    ],
+  },
+  {
+    label: "Discover opportunities",
+    items: [
+      ["/jobs", "Smart job search"],
+      ["/companies", "Companies"],
+      ["/company-watches", "Career watches"],
+    ],
+  },
+  {
+    label: "Prepare applications",
+    items: [
+      ["/coach", "Application studio"],
+      ["/outreach", "Outreach Studio"],
+    ],
+  },
+  {
+    label: "Apply and track",
+    items: [
+      ["/applications", "Application pipeline"],
+      ["/crm", "Recruiter CRM"],
+    ],
+  },
+  {
+    label: "Interview and follow up",
+    items: [
+      ["/interviews", "Interview center"],
+      ["/interview-coach", "AI interview coach"],
+      ["/calendar", "Career calendar"],
+      ["/notifications", "Notifications"],
+    ],
+  },
 ] as const;
 
-const tools = [["/command-center", "Command center"], ["/analytics", "Analytics"], ["/reports/weekly", "Weekly report"], ["/automation", "Automation"], ["/settings/automation", "Automation settings"]] as const;
+const tools = [
+  ["/command-center", "Command center"],
+  ["/analytics", "Analytics"],
+  ["/reports/weekly", "Weekly report"],
+  ["/automation", "Automation"],
+  ["/settings/automation", "Automation settings"],
+] as const;
 
 const mobileNavigation = [
   ["/dashboard", "⌂", "Home"],
@@ -37,6 +77,23 @@ const publicPaths = new Set([
 
 function active(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
+}
+
+function CompassMark() {
+  return (
+    <svg aria-hidden="true" fill="none" viewBox="0 0 32 32">
+      <circle cx="16" cy="16" r="11.2" stroke="currentColor" strokeWidth="1.7" />
+      <path
+        d="m20.9 10.7-2.5 7.7-7.7 2.5 2.5-7.7 7.7-2.5Z"
+        fill="currentColor"
+        stroke="currentColor"
+        strokeLinejoin="round"
+        strokeWidth="1.2"
+      />
+      <circle cx="16" cy="16" r="1.5" fill="#5eead4" />
+      <path d="M16 2.8v2.4M16 26.8v2.4M2.8 16h2.4M26.8 16h2.4" stroke="currentColor" strokeLinecap="round" strokeWidth="1.5" />
+    </svg>
+  );
 }
 
 export function AppShell({ children }: { children: ReactNode }) {
@@ -95,9 +152,12 @@ export function AppShell({ children }: { children: ReactNode }) {
         onClick={closeMenuFromLink}
       >
         <div className="sidebar-brand-row">
-          <Link href="/dashboard" className="sidebar-brand">
-            <span className="brand-mark">C</span>
-            <span><strong>CareerNavIQ</strong><small>Your career command center</small></span>
+          <Link href="/dashboard" className="sidebar-brand" aria-label="CareerNavIQ dashboard">
+            <span className="brand-mark"><CompassMark /></span>
+            <span>
+              <strong>CareerNavIQ</strong>
+              <small>AI career operating system</small>
+            </span>
           </Link>
           <button
             type="button"
@@ -110,24 +170,55 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
 
         <nav className="sidebar-nav" aria-label="Career journey">
-          <Link href="/dashboard" className={`sidebar-dashboard ${active(pathname, "/dashboard") ? "active" : ""}`}>Dashboard</Link>
+          <Link
+            href="/dashboard"
+            className={`sidebar-dashboard ${active(pathname, "/dashboard") ? "active" : ""}`}
+            aria-current={active(pathname, "/dashboard") ? "page" : undefined}
+          >
+            Dashboard
+          </Link>
+
           <p className="sidebar-kicker">Career journey</p>
           {sections.map((section, index) => (
             <section className="sidebar-step" key={section.label}>
-              <div className="sidebar-step-heading"><strong>{index + 1}. {section.label}</strong></div>
+              <div className="sidebar-step-heading">
+                <strong>{index + 1}. {section.label}</strong>
+              </div>
               <div className="sidebar-step-links">
-                {section.items.map(([href, label]) => (
-                  <Link key={href} href={href} className={active(pathname, href) ? "active" : ""}>{label}</Link>
-                ))}
+                {section.items.map(([href, label]) => {
+                  const isActive = active(pathname, href);
+                  return (
+                    <Link
+                      key={href}
+                      href={href}
+                      className={isActive ? "active" : ""}
+                      aria-current={isActive ? "page" : undefined}
+                    >
+                      {label}
+                    </Link>
+                  );
+                })}
               </div>
             </section>
           ))}
+
           <p className="sidebar-kicker">Insights and tools</p>
           <div className="sidebar-step-links">
-            {tools.map(([href, label]) => (
-              <Link key={href} href={href} className={active(pathname, href) ? "active" : ""}>{label}</Link>
-            ))}
+            {tools.map(([href, label]) => {
+              const isActive = active(pathname, href);
+              return (
+                <Link
+                  key={href}
+                  href={href}
+                  className={isActive ? "active" : ""}
+                  aria-current={isActive ? "page" : undefined}
+                >
+                  {label}
+                </Link>
+              );
+            })}
           </div>
+
           <button
             type="button"
             className="button secondary compact"
@@ -152,11 +243,11 @@ export function AppShell({ children }: { children: ReactNode }) {
             <span aria-hidden="true">☰</span>
           </button>
 
-          <Link href="/dashboard" className="header-brand">
-            <span className="header-brand-mark">C</span>
+          <Link href="/dashboard" className="header-brand" aria-label="CareerNavIQ dashboard">
+            <span className="header-brand-mark"><CompassMark /></span>
             <span className="header-brand-copy">
               <strong>CareerNavIQ</strong>
-              <span>Turn your experience into the right next opportunity.</span>
+              <span>Navigate your next career move with clarity.</span>
             </span>
           </Link>
 
@@ -171,17 +262,20 @@ export function AppShell({ children }: { children: ReactNode }) {
       </div>
 
       <nav className="mobile-bottom-nav" aria-label="Primary mobile navigation">
-        {mobileNavigation.map(([href, icon, label]) => (
-          <Link
-            key={href}
-            href={href}
-            className={active(pathname, href) ? "active" : ""}
-            aria-current={active(pathname, href) ? "page" : undefined}
-          >
-            <span className="mobile-nav-icon" aria-hidden="true">{icon}</span>
-            <small>{label}</small>
-          </Link>
-        ))}
+        {mobileNavigation.map(([href, icon, label]) => {
+          const isActive = active(pathname, href);
+          return (
+            <Link
+              key={href}
+              href={href}
+              className={isActive ? "active" : ""}
+              aria-current={isActive ? "page" : undefined}
+            >
+              <span className="mobile-nav-icon" aria-hidden="true">{icon}</span>
+              <small>{label}</small>
+            </Link>
+          );
+        })}
         <button
           type="button"
           className={menuOpen ? "active" : ""}
