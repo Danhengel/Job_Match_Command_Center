@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { api } from "@/lib/api";
+import { startAuthenticatedSession } from "@/lib/sessionStorage";
 
 export default function RegisterPage() {
   const [fullName, setFullName] = useState("");
@@ -20,7 +21,7 @@ export default function RegisterPage() {
         method: "POST",
         body: JSON.stringify({ full_name: fullName, email, password }),
       });
-      localStorage.setItem("token", result.access_token);
+      startAuthenticatedSession(result.access_token);
       router.push("/dashboard");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Registration failed");
