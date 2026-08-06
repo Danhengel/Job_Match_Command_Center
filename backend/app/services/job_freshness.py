@@ -24,6 +24,7 @@ CLOSED_MARKERS = (
     "position is no longer available",
     "position no longer available",
     "this position has been filled",
+    "position has been filled",
     "job posting has expired",
     "this job has expired",
     "job has been removed",
