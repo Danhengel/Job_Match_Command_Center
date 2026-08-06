@@ -1,4 +1,5 @@
 from app.models.user import User
+from app.models.password_reset_token import PasswordResetToken
 from app.models.profile import CareerProfile
 from app.models.resume import Resume
 from app.models.job import Job, JobMatch
