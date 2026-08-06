@@ -1,0 +1,223 @@
+export type EmployerPriority = "Top match" | "Strong match";
+
+export type EmployerCategory =
+  | "Banking & credit unions"
+  | "CRE finance & servicing"
+  | "Affordable housing & impact"
+  | "Asset management & private credit"
+  | "Fintech & lending technology"
+  | "Capital programs & consulting"
+  | "Real estate development & housing";
+
+export type RecommendedEmployer = {
+  company: string;
+  career_url: string;
+  category: EmployerCategory;
+  priority: EmployerPriority;
+};
+
+export const employerCategoryDetails: Record<EmployerCategory, { label: string; focus: string }> = {
+  "Banking & credit unions": {
+    label: "Banking & credit unions",
+    focus: "construction lending, commercial loan operations, credit administration, servicing, portfolio governance, and risk leadership",
+  },
+  "CRE finance & servicing": {
+    label: "CRE finance & servicing",
+    focus: "construction draws, CRE loan servicing, asset management, special servicing, credit administration, and operational controls",
+  },
+  "Affordable housing & impact": {
+    label: "Affordable housing & impact",
+    focus: "LIHTC, CDFI and community development finance, capital deployment, fund management, and compliance",
+  },
+  "Asset management & private credit": {
+    label: "Asset management & private credit",
+    focus: "real estate debt, portfolio management, loan management, credit risk, and institutional operations",
+  },
+  "Fintech & lending technology": {
+    label: "Fintech & lending technology",
+    focus: "commercial lending platforms, banking operations, implementation, workflow automation, and servicing transformation",
+  },
+  "Capital programs & consulting": {
+    label: "Capital programs & consulting",
+    focus: "large capital programs, public-sector delivery, PMO leadership, operations transformation, controls, and risk",
+  },
+  "Real estate development & housing": {
+    label: "Real estate development & housing",
+    focus: "construction oversight, capital projects, affordable housing development, portfolio operations, and governance",
+  },
+};
+
+function group(
+  category: EmployerCategory,
+  employers: Array<[string, string, EmployerPriority]>,
+): RecommendedEmployer[] {
+  return employers.map(([company, career_url, priority]) => ({
+    company,
+    career_url,
+    category,
+    priority,
+  }));
+}
+
+export const recommendedEmployers: RecommendedEmployer[] = [
+  ...group("Banking & credit unions", [
+    ["Wells Fargo", "https://www.wellsfargojobs.com/", "Top match"],
+    ["JPMorgan Chase", "https://careers.jpmorgan.com/", "Strong match"],
+    ["Bank of America", "https://careers.bankofamerica.com/", "Top match"],
+    ["Citi", "https://jobs.citi.com/", "Top match"],
+    ["U.S. Bank", "https://careers.usbank.com/", "Top match"],
+    ["PNC", "https://careers.pnc.com/", "Top match"],
+    ["Truist", "https://careers.truist.com/", "Top match"],
+    ["Capital One", "https://www.capitalonecareers.com/", "Top match"],
+    ["Fifth Third Bank", "https://www.53.com/content/fifth-third/en/careers.html", "Top match"],
+    ["Regions Bank", "https://careers.regions.com/", "Top match"],
+    ["M&T Bank", "https://www.mtb.com/careers", "Top match"],
+    ["First Citizens Bank", "https://jobs.firstcitizens.com/", "Top match"],
+    ["BMO", "https://jobs.bmo.com/", "Strong match"],
+    ["KeyBank", "https://www.key.com/about/careers.html", "Top match"],
+    ["Huntington Bank", "https://careers.huntington.com/", "Top match"],
+    ["Citizens", "https://jobs.citizensbank.com/", "Strong match"],
+    ["Synovus", "https://careers.synovus.com/", "Top match"],
+    ["SouthState Bank", "https://careers.southstatebank.com/", "Top match"],
+    ["Valley Bank", "https://www.valley.com/careers", "Strong match"],
+    ["Zions Bancorporation", "https://careers.zionsbancorporation.com/", "Strong match"],
+    ["Webster Bank", "https://careers.websterbank.com/", "Strong match"],
+    ["TD Bank", "https://jobs.td.com/", "Strong match"],
+    ["MUFG Americas", "https://careers.mufgamericas.com/", "Top match"],
+    ["VyStar Credit Union", "https://vystarcu.org/careers", "Top match"],
+    ["Suncoast Credit Union", "https://careers.suncoastcreditunion.com/", "Top match"],
+    ["Seacoast Bank", "https://www.seacoastbank.com/careers", "Strong match"],
+    ["First Horizon Bank", "https://careers.firsthorizon.com/", "Top match"],
+    ["BankUnited", "https://www.bankunited.com/about-us/careers", "Strong match"],
+    ["Hancock Whitney", "https://careers.hancockwhitney.com/", "Strong match"],
+    ["Cadence Bank", "https://careers.cadencebank.com/", "Strong match"],
+    ["Climate First Bank", "https://www.climatefirstbank.com/careers/", "Top match"],
+    ["Raymond James", "https://www.raymondjames.com/careers", "Top match"],
+    ["GTE Financial", "https://www.gtefinancial.org/about/careers", "Strong match"],
+    ["Grow Financial Federal Credit Union", "https://www.growfinancial.org/about/careers/", "Strong match"],
+    ["MIDFLORIDA Credit Union", "https://www.midflorida.com/about-us/careers/", "Strong match"],
+  ]),
+  ...group("CRE finance & servicing", [
+    ["Trimont", "https://trimont.com/careers/", "Top match"],
+    ["SitusAMC", "https://www.situsamc.com/careers", "Top match"],
+    ["Berkadia", "https://careers.berkadia.com/", "Top match"],
+    ["CBRE", "https://www.cbre.com/careers", "Top match"],
+    ["JLL", "https://www.jll.com/en/careers", "Strong match"],
+    ["Cushman & Wakefield", "https://careers.cushmanwakefield.com/", "Strong match"],
+    ["Walker & Dunlop", "https://careers.walkerdunlop.com/", "Top match"],
+    ["Greystone", "https://www.greystone.com/careers", "Top match"],
+    ["Newmark", "https://www.nmrk.com/careers", "Strong match"],
+    ["Rialto Capital", "https://www.rialtocapital.com/careers/", "Top match"],
+    ["Arbor Realty Trust", "https://arbor.com/careers/", "Top match"],
+    ["Ready Capital", "https://readycapital.com/about/careers/", "Top match"],
+    ["Merchants Capital", "https://merchantscapital.com/careers/", "Top match"],
+    ["BWE", "https://bwe.com/about/careers/", "Top match"],
+    ["Churchill Stateside Group", "https://csgfirst.com/team/join-our-team", "Top match"],
+    ["Peachtree Group", "https://www.peachtreegroup.com/careers/", "Strong match"],
+    ["Lima One Capital", "https://www.limaone.com/careers/", "Top match"],
+    ["Kiavi", "https://www.kiavi.com/careers", "Strong match"],
+    ["RCN Capital", "https://rcncapital.com/careers/", "Top match"],
+    ["Builders Capital", "https://builders-capital.com/careers/", "Top match"],
+    ["CoreVest", "https://www.corevestfinance.com/careers/", "Strong match"],
+    ["LendingOne", "https://lendingone.com/careers/", "Strong match"],
+  ]),
+  ...group("Affordable housing & impact", [
+    ["Enterprise Community Partners", "https://www.enterprisecommunity.org/careers", "Top match"],
+    ["Local Initiatives Support Corporation (LISC)", "https://www.lisc.org/careers/", "Top match"],
+    ["NeighborWorks America", "https://www.neighborworks.org/About-Us/Careers", "Top match"],
+    ["Low Income Investment Fund", "https://www.liifund.org/careers/", "Top match"],
+    ["Reinvestment Fund", "https://www.reinvestment.com/careers/", "Top match"],
+    ["Momentus Capital", "https://momentuscap.org/careers/", "Top match"],
+    ["IFF", "https://iff.org/careers/", "Top match"],
+    ["Nonprofit Finance Fund", "https://nff.org/careers/", "Top match"],
+    ["The Community Preservation Corporation", "https://communityp.com/careers/", "Top match"],
+    ["CAHEC", "https://www.cahec.com/careers/", "Top match"],
+    ["CREA", "https://www.creallc.com/careers/", "Top match"],
+    ["National Equity Fund", "https://www.nefinc.org/careers/", "Top match"],
+    ["Hunt Capital Partners", "https://huntcapitalpartners.com/careers/", "Top match"],
+    ["Boston Financial", "https://www.bostonfinancial.com/careers/", "Top match"],
+    ["Mercy Housing", "https://www.mercyhousing.org/careers/", "Strong match"],
+    ["Preservation of Affordable Housing", "https://www.poah.org/careers/", "Top match"],
+    ["National Church Residences", "https://www.nationalchurchresidences.org/careers/", "Strong match"],
+    ["Beacon Communities", "https://www.beaconcommunitiesllc.com/careers/", "Strong match"],
+  ]),
+  ...group("Asset management & private credit", [
+    ["New York Life", "https://jobs.newyorklife.com/", "Top match"],
+    ["PGIM", "https://jobs.prudential.com/pgim", "Top match"],
+    ["TIAA / Nuveen", "https://careers.tiaa.org/", "Top match"],
+    ["Aegon Asset Management", "https://www.aegon.com/careers", "Top match"],
+    ["MetLife", "https://jobs.metlife.com/", "Strong match"],
+    ["Principal Financial Group", "https://careers.principal.com/", "Strong match"],
+    ["Barings", "https://careers.barings.com/", "Top match"],
+    ["Invesco", "https://careers.invesco.com/", "Strong match"],
+    ["Ares Management", "https://www.aresmgmt.com/careers", "Top match"],
+    ["Blackstone", "https://www.blackstone.com/careers/", "Strong match"],
+    ["Apollo", "https://www.apollo.com/careers", "Strong match"],
+    ["KKR", "https://www.kkr.com/careers", "Strong match"],
+    ["Starwood Capital Group", "https://www.starwoodcapital.com/careers/", "Top match"],
+    ["Brookfield", "https://careers.brookfield.com/", "Strong match"],
+    ["Franklin Templeton", "https://www.franklintempletoncareers.com/", "Strong match"],
+    ["AllianceBernstein", "https://www.alliancebernstein.com/corporate/en/careers.html", "Strong match"],
+  ]),
+  ...group("Fintech & lending technology", [
+    ["Nymbus", "https://www.nymbus.com/careers/", "Top match"],
+    ["nCino", "https://www.ncino.com/careers", "Top match"],
+    ["Finastra", "https://careers.finastra.com/", "Top match"],
+    ["FIS", "https://careers.fisglobal.com/", "Top match"],
+    ["Fiserv", "https://www.careers.fiserv.com/", "Top match"],
+    ["Jack Henry", "https://careers.jackhenry.com/", "Top match"],
+    ["Abrigo", "https://www.abrigo.com/careers/", "Top match"],
+    ["SS&C Technologies", "https://careers.ssctech.com/", "Strong match"],
+    ["Temenos", "https://www.temenos.com/careers/", "Strong match"],
+    ["Blend", "https://blend.com/company/careers/", "Strong match"],
+    ["Brex", "https://www.brex.com/careers", "Top match"],
+    ["Mission Lane", "https://www.missionlane.com/careers", "Top match"],
+    ["Cross River", "https://www.crossriver.com/careers", "Strong match"],
+    ["Live Oak Bank", "https://www.liveoak.bank/careers/", "Top match"],
+    ["Customers Bank", "https://www.customersbank.com/careers/", "Strong match"],
+    ["Engage fi", "https://www.engagefi.com/careers/", "Top match"],
+    ["NTT DATA", "https://careers.nttdata.com/", "Top match"],
+  ]),
+  ...group("Capital programs & consulting", [
+    ["AECOM", "https://aecom.com/careers/", "Top match"],
+    ["Jacobs", "https://careers.jacobs.com/", "Top match"],
+    ["WSP", "https://www.wsp.com/en-us/careers", "Top match"],
+    ["Arcadis", "https://careers.arcadis.com/", "Top match"],
+    ["HDR", "https://www.hdrinc.com/careers", "Strong match"],
+    ["Tetra Tech", "https://www.tetratech.com/en/careers", "Top match"],
+    ["Guidehouse", "https://careers.guidehouse.com/", "Top match"],
+    ["Deloitte", "https://www.deloitte.com/us/en/careers.html", "Top match"],
+    ["Accenture", "https://www.accenture.com/us-en/careers", "Strong match"],
+    ["Booz Allen Hamilton", "https://careers.boozallen.com/", "Strong match"],
+    ["CGI", "https://www.cgi.com/us/en-us/careers", "Strong match"],
+    ["ICF", "https://careers.icf.com/", "Top match"],
+    ["Maximus", "https://maximus.com/careers", "Top match"],
+    ["Public Consulting Group", "https://careers.publicconsultinggroup.com/", "Top match"],
+    ["Alvarez & Marsal", "https://careers.alvarezandmarsal.com/", "Top match"],
+    ["KPMG", "https://www.kpmguscareers.com/", "Strong match"],
+    ["EY", "https://careers.ey.com/", "Strong match"],
+    ["PwC", "https://jobs.us.pwc.com/", "Strong match"],
+    ["Grant Thornton", "https://careers.grantthornton.com/", "Strong match"],
+    ["Ankura", "https://ankura.com/careers", "Top match"],
+    ["Huron", "https://careers.huronconsultinggroup.com/", "Top match"],
+    ["Crowe", "https://careers.crowe.com/", "Strong match"],
+    ["Protiviti", "https://www.protiviti.com/us-en/careers", "Strong match"],
+  ]),
+  ...group("Real estate development & housing", [
+    ["Hines", "https://www.hines.com/careers", "Strong match"],
+    ["Greystar", "https://jobs.greystar.com/", "Strong match"],
+    ["Related Companies", "https://www.related.com/careers", "Strong match"],
+    ["Lendlease", "https://www.lendlease.com/us/careers/", "Top match"],
+    ["Mill Creek Residential", "https://careers.millcreekplaces.com/", "Strong match"],
+    ["Bozzuto", "https://careers.bozzuto.com/", "Strong match"],
+    ["Dominium", "https://www.dominiumapartments.com/careers/", "Top match"],
+    ["WinnCompanies", "https://www.winncompanies.com/careers", "Top match"],
+    ["The NRP Group", "https://www.nrpgroup.com/careers/", "Top match"],
+    ["Pennrose", "https://www.pennrose.com/careers/", "Top match"],
+    ["The Michaels Organization", "https://tmo.com/careers/", "Top match"],
+    ["Fairstead", "https://www.fairstead.com/careers", "Top match"],
+    ["Avanath Capital Management", "https://www.avanath.com/careers/", "Top match"],
+    ["Related Group", "https://relatedgroup.com/careers/", "Strong match"],
+    ["McCormack Baron Salazar", "https://www.mccormackbaron.com/careers/", "Top match"],
+  ]),
+];
