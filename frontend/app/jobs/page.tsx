@@ -39,14 +39,6 @@ type Result = {
   };
 };
 
-type SourceStatus = {
-  source: string;
-  status: "success" | "partial" | "failed" | "empty";
-  jobs: number;
-  failures: number;
-  requests: number;
-};
-
 type History = {
   id: number;
   searched_sources: string[];
@@ -56,8 +48,6 @@ type History = {
   matched_count: number;
   minimum_score: number;
   source_counts: Record<string, number>;
-  source_status: SourceStatus[];
-  coverage_notes: string[];
   created_at: string;
 };
 
@@ -75,7 +65,6 @@ type SearchSummary = {
   cache: boolean;
   searchedSources: string[];
   sourceCounts: Record<string, number>;
-  sourceStatus: SourceStatus[];
   coverageNotes: string[];
 };
 
@@ -129,14 +118,6 @@ function postedLabel(value: string) {
 }
 
 
-function statusLabel(status: SourceStatus["status"]) {
-  if (status === "success") return "Successful";
-  if (status === "partial") return "Partial coverage";
-  if (status === "failed") return "Unavailable";
-  return "No jobs returned";
-}
-
-
 export default function JobsPage() {
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [profileId, setProfileId] = useState("");
@@ -148,6 +129,7 @@ export default function JobsPage() {
   const [results, setResults] = useState<Result[]>([]);
   const [errors, setErrors] = useState<string[]>([]);
   const [busy, setBusy] = useState(false);
+  const [loadingSaved, setLoadingSaved] = useState(false);
   const [summary, setSummary] = useState<SearchSummary | null>(
     null,
   );
@@ -173,27 +155,96 @@ export default function JobsPage() {
       .then(setHistory)
       .catch(() => undefined);
 
+  async function loadSavedMatches(id: string) {
+    if (!id) {
+      setResults([]);
+      return;
+    }
+
+    setLoadingSaved(true);
+    setErrors([]);
+    setTopBelow([]);
+    setSummary(null);
+
+    try {
+      const data = await api(`/api/jobs/matches/${id}`);
+      setResults(Array.isArray(data) ? data : []);
+    } catch (error) {
+      setResults([]);
+      setErrors([
+        error instanceof Error
+          ? error.message
+          : "Could not load saved job matches",
+      ]);
+    } finally {
+      setLoadingSaved(false);
+    }
+  }
+
   useEffect(() => {
     let active = true;
-    Promise.all([
-      api("/api/profiles"),
-      api("/api/jobs/catalog"),
-    ]).then(([profileData, catalogData]) => {
-      if (!active) return;
-      setProfiles(profileData);
-      setCatalog(catalogData);
-      if (profileData[0]) {
-        setProfileId(String(profileData[0].id));
-        setTitles(
-          (profileData[0].target_titles || []).join("\n"),
+
+    async function loadPage() {
+      try {
+        const [profileData, catalogData, historyData] =
+          await Promise.all([
+            api("/api/profiles"),
+            api("/api/jobs/catalog"),
+            api("/api/jobs/history").catch(() => []),
+          ]);
+
+        if (!active) return;
+
+        setProfiles(profileData);
+        setCatalog(catalogData);
+        setHistory(historyData);
+
+        const savedLocation = window.localStorage.getItem(
+          "careeros-search-location",
         );
+        if (savedLocation) setLocation(savedLocation);
+
+        if (profileData[0]) {
+          const firstProfileId = String(profileData[0].id);
+          setProfileId(firstProfileId);
+          setTitles(
+            (profileData[0].target_titles || []).join("\n"),
+          );
+
+          setLoadingSaved(true);
+          try {
+            const savedMatches = await api(
+              `/api/jobs/matches/${firstProfileId}`,
+            );
+            if (active) {
+              setResults(
+                Array.isArray(savedMatches) ? savedMatches : [],
+              );
+            }
+          } catch (error) {
+            if (active) {
+              setErrors([
+                error instanceof Error
+                  ? error.message
+                  : "Could not load saved job matches",
+              ]);
+            }
+          } finally {
+            if (active) setLoadingSaved(false);
+          }
+        }
+      } catch (error) {
+        if (!active) return;
+        setErrors([
+          error instanceof Error
+            ? error.message
+            : "Could not load the jobs page",
+        ]);
       }
-      const saved = window.localStorage.getItem(
-        "careeros-search-location",
-      );
-      if (saved) setLocation(saved);
-    });
-    void loadHistory();
+    }
+
+    void loadPage();
+
     return () => {
       active = false;
     };
@@ -245,14 +296,16 @@ export default function JobsPage() {
     });
   }, [results, remoteOnly, resultQuery, sortMode]);
 
-  function selectProfile(id: string) {
+  async function selectProfile(id: string) {
     setProfileId(id);
+    setResults([]);
     const profile = profiles.find(
       (item) => String(item.id) === id,
     );
     if (profile) {
       setTitles((profile.target_titles || []).join("\n"));
     }
+    await loadSavedMatches(id);
   }
 
   async function search(event: React.FormEvent) {
@@ -305,7 +358,6 @@ export default function JobsPage() {
         cache: Boolean(data.cache?.connected),
         searchedSources: data.searched_sources || [],
         sourceCounts: data.source_counts || {},
-        sourceStatus: data.source_status || [],
         coverageNotes: data.coverage_notes || [],
       });
       await loadHistory();
@@ -328,10 +380,7 @@ export default function JobsPage() {
         title="Find your strongest opportunities"
         description="Search employer career sites and broad job-search publishers, remove duplicates, and rank every role against your profile and résumé."
         actions={
-          <Link
-            className="button secondary"
-            href="/profiles"
-          >
+          <Link className="button secondary" href="/profiles">
             Review career profile
           </Link>
         }
@@ -356,27 +405,21 @@ export default function JobsPage() {
       </section>
 
       <div className="jobs-shell-grid">
-        <form
-          className="card jobs-filter-card"
-          onSubmit={search}
-        >
+        <form className="card jobs-filter-card" onSubmit={search}>
           <p className="eyebrow">SEARCH CRITERIA</p>
           <h2>Build your search</h2>
 
           <label>Career profile</label>
           <select
             value={profileId}
-            onChange={(event) =>
-              selectProfile(event.target.value)
-            }
+            onChange={(event) => {
+              void selectProfile(event.target.value);
+            }}
             required
           >
             <option value="">Select profile</option>
             {profiles.map((profile) => (
-              <option
-                key={profile.id}
-                value={profile.id}
-              >
+              <option key={profile.id} value={profile.id}>
                 {profile.name}
               </option>
             ))}
@@ -386,9 +429,7 @@ export default function JobsPage() {
           <textarea
             rows={7}
             value={titles}
-            onChange={(event) =>
-              setTitles(event.target.value)
-            }
+            onChange={(event) => setTitles(event.target.value)}
             placeholder={
               "Director, Loan Operations\n"
               + "VP, Construction Lending"
@@ -398,15 +439,11 @@ export default function JobsPage() {
           <label>Location or remote preference</label>
           <input
             value={location}
-            onChange={(event) =>
-              setLocation(event.target.value)
-            }
+            onChange={(event) => setLocation(event.target.value)}
             placeholder="Tampa, Florida or Remote"
           />
 
-          <label>
-            Minimum match score: {minimum}%
-          </label>
+          <label>Minimum match score: {minimum}%</label>
           <input
             type="range"
             min="0"
@@ -451,57 +488,33 @@ export default function JobsPage() {
                   setUseJSearch(event.target.checked)
                 }
               />
-              {" "}Broad web search through Google Jobs
-              publishers
+              {" "}Broad web search through Google Jobs publishers
             </label>
           </div>
 
-          {useJSearch ? (
-            <p className="muted">
-              Broad search is enabled by default. CareerNavIQ
-              will identify the original publisher—such as
-              Indeed, LinkedIn, ZipRecruiter, or another site—
-              whenever the provider returns it.
-            </p>
-          ) : null}
-
           <details>
-            <summary>
-              Add specific company career boards
-            </summary>
-            <label>
-              Greenhouse board tokens or URLs
-            </label>
+            <summary>Add specific company career boards</summary>
+            <label>Greenhouse board tokens or URLs</label>
             <textarea
               rows={3}
               value={greenhouse}
-              onChange={(event) =>
-                setGreenhouse(event.target.value)
-              }
+              onChange={(event) => setGreenhouse(event.target.value)}
             />
             <label>Lever site names or URLs</label>
             <textarea
               rows={3}
               value={lever}
-              onChange={(event) =>
-                setLever(event.target.value)
-              }
+              onChange={(event) => setLever(event.target.value)}
             />
             <label>Ashby board names or URLs</label>
             <textarea
               rows={3}
               value={ashby}
-              onChange={(event) =>
-                setAshby(event.target.value)
-              }
+              onChange={(event) => setAshby(event.target.value)}
             />
           </details>
 
-          <button
-            disabled={
-              busy || !profileId || !titles.trim()
-            }
-          >
+          <button disabled={busy || !profileId || !titles.trim()}>
             {busy
               ? "Searching and auditing sources…"
               : "Search all enabled sources"}
@@ -509,189 +522,115 @@ export default function JobsPage() {
         </form>
 
         <div className="jobs-insight-stack">
+          {loadingSaved ? (
+            <Notice title="Loading saved opportunities" tone="info">
+              <p>
+                CareerNavIQ is restoring the ranked matches already
+                saved for this profile.
+              </p>
+            </Notice>
+          ) : null}
+
           {busy ? (
+            <Notice title="Searching current opportunities" tone="info">
+              <p>
+                CareerNavIQ is checking enabled sources, removing
+                duplicates, and recalculating match scores.
+              </p>
+            </Notice>
+          ) : null}
+
+          {!summary && results.length && !loadingSaved && !busy ? (
             <Notice
-              title="Searching current opportunities"
+              title={`${results.length} saved opportunities restored`}
               tone="info"
             >
               <p>
-                CareerNavIQ is checking enabled sources,
-                removing duplicate postings, identifying
-                publishers, and calculating match scores.
+                These ranked jobs were saved from earlier searches.
+                Run a new search to refresh the list.
               </p>
             </Notice>
           ) : null}
 
           {summary ? (
-            <>
-              <section className="card">
-                <p className="eyebrow">SEARCH SUMMARY</p>
-                <h2>
-                  {summary.matched} ranked opportunities
-                </h2>
-                <div className="source-health">
-                  <div>
-                    <strong>{summary.raw}</strong>
-                    <span>Raw postings found</span>
-                  </div>
-                  <div>
-                    <strong>{summary.unique}</strong>
-                    <span>Unique jobs found</span>
-                  </div>
-                  <div>
-                    <strong>{summary.matched}</strong>
-                    <span>Above your threshold</span>
-                  </div>
-                </div>
-                <p className="muted">
-                  Search cache:{" "}
-                  {summary.cache
-                    ? "connected"
-                    : "offline"}
-                </p>
-              </section>
-
-              <section className="card">
-                <div className="row between">
-                  <div>
-                    <p className="eyebrow">
-                      SOURCE COVERAGE
-                    </p>
-                    <h2>Search audit</h2>
-                  </div>
-                  <span className="muted">
-                    {publisherEntries.length} publishers
-                    represented
-                  </span>
-                </div>
-
-                {summary.sourceStatus.map((item) => (
-                  <div
-                    className="history-row"
-                    key={item.source}
-                  >
-                    <strong>
-                      {item.source}:{" "}
-                      {statusLabel(item.status)}
-                    </strong>
-                    <small>
-                      {item.jobs} postings •{" "}
-                      {item.requests} request
-                      {item.requests === 1 ? "" : "s"}
-                      {item.failures
-                        ? ` • ${item.failures} failed`
-                        : ""}
-                    </small>
-                  </div>
-                ))}
-
-                <details className="provider-details">
-                  <summary>
-                    View publisher breakdown
-                  </summary>
-                  {publisherEntries.length ? (
-                    publisherEntries.map(
-                      ([publisher, count]) => (
-                        <div
-                          className="history-row"
-                          key={publisher}
-                        >
-                          <strong>{publisher}</strong>
-                          <small>
-                            {count} posting
-                            {count === 1 ? "" : "s"}
-                          </small>
-                        </div>
-                      ),
-                    )
-                  ) : (
-                    <p className="muted">
-                      No publisher data was returned.
-                    </p>
-                  )}
-                </details>
-
-                {summary.coverageNotes.length ? (
-                  <details className="provider-details">
-                    <summary>
-                      View no-result notices
-                    </summary>
-                    {summary.coverageNotes.map(
-                      (note, index) => (
-                        <p key={index}>{note}</p>
-                      ),
-                    )}
-                  </details>
-                ) : null}
-              </section>
-            </>
-          ) : (
             <section className="card">
-              <p className="eyebrow">HOW IT WORKS</p>
-              <h2>Search broadly. Verify coverage.</h2>
+              <p className="eyebrow">SEARCH SUMMARY</p>
+              <h2>{summary.matched} ranked opportunities</h2>
+              <div className="source-health">
+                <div>
+                  <strong>{summary.raw}</strong>
+                  <span>Raw postings found</span>
+                </div>
+                <div>
+                  <strong>{summary.unique}</strong>
+                  <span>Unique jobs found</span>
+                </div>
+                <div>
+                  <strong>{summary.matched}</strong>
+                  <span>Above your threshold</span>
+                </div>
+              </div>
               <p className="muted">
-                CareerNavIQ checks enabled sources, removes
-                duplicate postings, identifies publishers,
-                compares each role with your profile and
-                résumé, and explains the evidence behind the
-                score.
+                Search cache: {summary.cache ? "connected" : "offline"}
               </p>
+              {publisherEntries.length ? (
+                <details className="provider-details">
+                  <summary>View publisher breakdown</summary>
+                  {publisherEntries.map(([publisher, count]) => (
+                    <div className="history-row" key={publisher}>
+                      <strong>{publisher}</strong>
+                      <small>
+                        {count} posting{count === 1 ? "" : "s"}
+                      </small>
+                    </div>
+                  ))}
+                </details>
+              ) : null}
+              {summary.coverageNotes.length ? (
+                <details className="provider-details">
+                  <summary>View no-result notices</summary>
+                  {summary.coverageNotes.map((note, index) => (
+                    <p key={index}>{note}</p>
+                  ))}
+                </details>
+              ) : null}
             </section>
-          )}
+          ) : null}
 
           {groupedNotices.length ? (
             <Notice
-              title={`${errors.length} source coverage issue${
+              title={`${errors.length} issue${
                 errors.length === 1 ? "" : "s"
-              }`}
+              } found`}
               tone="warning"
             >
-              <p>
-                Results from successful sources are still
-                shown. Review the details to identify a failed
-                board, API, or provider request.
-              </p>
-              <details className="provider-details">
-                <summary>View technical details</summary>
-                {groupedNotices.map((notice, index) => (
-                  <p key={index}>
-                    {notice.message}
-                    {notice.count > 1
-                      ? ` (${notice.count} similar notices)`
-                      : ""}
-                  </p>
-                ))}
-              </details>
+              {groupedNotices.map((notice, index) => (
+                <p key={index}>
+                  {notice.message}
+                  {notice.count > 1
+                    ? ` (${notice.count} similar notices)`
+                    : ""}
+                </p>
+              ))}
             </Notice>
           ) : null}
 
           <section className="card">
             <div className="row between">
               <div>
-                <p className="eyebrow">
-                  RECENT SEARCHES
-                </p>
+                <p className="eyebrow">RECENT SEARCHES</p>
                 <h2>Your search activity</h2>
               </div>
               <span className="muted">Last five</span>
             </div>
             {history.slice(0, 5).map((item) => (
-              <div
-                className="history-row"
-                key={item.id}
-              >
+              <div className="history-row" key={item.id}>
                 <strong>
-                  {item.unique_count} unique •{" "}
-                  {item.matched_count} matches
+                  {item.unique_count} unique • {item.matched_count} matches
                 </strong>
                 <small>
-                  {item.searched_sources.join(" + ")
-                    || "Custom boards"}
-                  {" "}•{" "}
-                  {Object.keys(
-                    item.source_counts || {},
-                  ).length} publishers • threshold{" "}
-                  {item.minimum_score}
+                  {item.searched_sources.join(" + ") || "Custom boards"}
+                  {" "}• threshold {item.minimum_score}
                 </small>
               </div>
             ))}
@@ -709,16 +648,13 @@ export default function JobsPage() {
           <p className="eyebrow">RANKED RESULTS</p>
           <h2>Best opportunities</h2>
           <span className="muted">
-            Showing {visibleResults.length} of{" "}
-            {results.length}
+            Showing {visibleResults.length} of {results.length}
           </span>
         </div>
         <div className="result-controls">
           <input
             value={resultQuery}
-            onChange={(event) =>
-              setResultQuery(event.target.value)
-            }
+            onChange={(event) => setResultQuery(event.target.value)}
             placeholder="Filter by title, company, skill, publisher…"
             aria-label="Filter results"
           />
@@ -726,18 +662,14 @@ export default function JobsPage() {
             <input
               type="checkbox"
               checked={remoteOnly}
-              onChange={(event) =>
-                setRemoteOnly(event.target.checked)
-              }
+              onChange={(event) => setRemoteOnly(event.target.checked)}
             />
             {" "}Remote only
           </label>
           <select
             value={sortMode}
             onChange={(event) =>
-              setSortMode(
-                event.target.value as SortMode,
-              )
+              setSortMode(event.target.value as SortMode)
             }
             aria-label="Sort results"
           >
@@ -756,9 +688,7 @@ export default function JobsPage() {
           <div className="row between job-card-heading">
             <div>
               <div className="row wrap">
-                <span className="badge">
-                  {result.job.source}
-                </span>
+                <span className="badge">{result.job.source}</span>
                 {result.job.remote ? (
                   <span className="badge">Remote</span>
                 ) : null}
@@ -776,9 +706,8 @@ export default function JobsPage() {
               <h2>{result.job.title}</h2>
               <p className="muted">
                 {result.job.company} •{" "}
-                {result.job.location
-                  || "Location not listed"}{" "}
-                • {postedLabel(result.job.posted_at)}
+                {result.job.location || "Location not listed"} •{" "}
+                {postedLabel(result.job.posted_at)}
               </p>
             </div>
             <div className="job-score-modern">
@@ -788,54 +717,40 @@ export default function JobsPage() {
           </div>
 
           <p>
-            <strong>
-              {matchLabel(result.match.score)}.
-            </strong>{" "}
+            <strong>{matchLabel(result.match.score)}.</strong>{" "}
             {result.match.explanation}
           </p>
 
           <div className="match-evidence-grid">
             <div>
               <span>Title alignment</span>
-              <strong>
-                {result.match.title_score}
-              </strong>
+              <strong>{result.match.title_score}</strong>
             </div>
             <div>
               <span>Skills alignment</span>
-              <strong>
-                {result.match.keyword_score}
-              </strong>
+              <strong>{result.match.keyword_score}</strong>
             </div>
             <div>
               <span>Location fit</span>
-              <strong>
-                {result.match.location_score}
-              </strong>
+              <strong>{result.match.location_score}</strong>
             </div>
             <div>
               <span>Résumé evidence</span>
-              <strong>
-                {result.match.resume_score}
-              </strong>
+              <strong>{result.match.resume_score}</strong>
             </div>
           </div>
 
           {result.match.matched_keywords.length ? (
             <p>
               <strong>Matched evidence:</strong>{" "}
-              {result.match.matched_keywords
-                .slice(0, 10)
-                .join(" • ")}
+              {result.match.matched_keywords.slice(0, 10).join(" • ")}
             </p>
           ) : null}
 
           {result.match.missing_keywords.length ? (
             <p className="muted">
               <strong>Potential gaps:</strong>{" "}
-              {result.match.missing_keywords
-                .slice(0, 6)
-                .join(" • ")}
+              {result.match.missing_keywords.slice(0, 6).join(" • ")}
             </p>
           ) : null}
 
@@ -849,18 +764,13 @@ export default function JobsPage() {
           <div className="row wrap job-actions">
             <Link
               className="button"
-              href={
-                `/jobs/${result.job.id}`
-                + `?profile_id=${profileId}`
-              }
+              href={`/jobs/${result.job.id}?profile_id=${profileId}`}
             >
               Analyze and tailor
             </Link>
             <Link
               className="button secondary"
-              href={
-                `/applications?job_id=${result.job.id}`
-              }
+              href={`/applications?job_id=${result.job.id}`}
             >
               Track application
             </Link>
@@ -887,29 +797,25 @@ export default function JobsPage() {
         <section className="card">
           <h2>Closest results below your threshold</h2>
           <p className="muted">
-            These opportunities were found but did not clear
-            the current minimum match score.
+            These opportunities were found but did not clear the current
+            minimum match score.
           </p>
           {topBelow.map((item, index) => (
-            <div
-              className="history-row"
-              key={index}
-            >
-              <strong>
-                {item.score} • {item.title}
-              </strong>
-              <small>
-                {item.company} • {item.source}
-              </small>
+            <div className="history-row" key={index}>
+              <strong>{item.score} • {item.title}</strong>
+              <small>{item.company} • {item.source}</small>
             </div>
           ))}
         </section>
       ) : null}
 
-      {!results.length && !topBelow.length && !busy ? (
+      {!results.length
+      && !topBelow.length
+      && !busy
+      && !loadingSaved ? (
         <EmptyState
-          title="Ready to discover opportunities"
-          description="Select a profile, confirm your target titles and location, then search all enabled sources."
+          title="No saved matches yet"
+          description="Confirm the profile and target titles above, then run a search to save and display ranked opportunities."
         />
       ) : null}
     </>
