@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { BrandCompass } from "@/components/BrandCompass";
 import { api } from "@/lib/api";
@@ -9,21 +9,26 @@ import { api } from "@/lib/api";
 function VerifyEmailContent() {
   const searchParams = useSearchParams();
   const token = searchParams.get("token") || "";
-  const [message, setMessage] = useState("Verifying your email address…");
-  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState(token ? "" : "This verification link is missing its security token.");
+  const [busy, setBusy] = useState(false);
 
-  useEffect(() => {
-    if (!token) {
-      setError("This verification link is missing its security token.");
-      return;
+  async function verifyEmail() {
+    if (!token) return;
+    setBusy(true);
+    setError("");
+    try {
+      const result = await api("/api/auth/verify-email", {
+        method: "POST",
+        body: JSON.stringify({ token }),
+      });
+      setMessage(result.message);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unable to verify your email");
+    } finally {
+      setBusy(false);
     }
-    api("/api/auth/verify-email", {
-      method: "POST",
-      body: JSON.stringify({ token }),
-    })
-      .then((result) => setMessage(result.message))
-      .catch((err) => setError(err instanceof Error ? err.message : "Unable to verify your email"));
-  }, [token]);
+  }
 
   return (
     <div className="auth-page">
@@ -43,8 +48,17 @@ function VerifyEmailContent() {
         <div className="auth-card">
           <div className="auth-mobile-brand"><span className="auth-brand-mark"><BrandCompass /></span><strong>CareerNavIQ</strong></div>
           <p className="eyebrow">VERIFY EMAIL</p>
-          <h1>{error ? "Link unavailable" : "Email verification"}</h1>
-          {error ? <p className="auth-error" role="alert">{error}</p> : <div className="auth-success" role="status"><strong>{message}</strong></div>}
+          <h1>{error ? "Link unavailable" : message ? "Email verified" : "Confirm your email"}</h1>
+          {error ? <p className="auth-error" role="alert">{error}</p> : null}
+          {message ? <div className="auth-success" role="status"><strong>{message}</strong></div> : null}
+          {!error && !message ? (
+            <>
+              <p className="auth-card-intro">Confirm that you opened this link to verify your CareerNavIQ email address.</p>
+              <button className="auth-submit" type="button" onClick={verifyEmail} disabled={busy}>
+                {busy ? "Verifying…" : "Verify email address"}
+              </button>
+            </>
+          ) : null}
           <p className="auth-switch"><Link href="/login">Continue to sign in</Link></p>
         </div>
       </section>
