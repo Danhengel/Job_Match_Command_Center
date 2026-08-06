@@ -13,7 +13,7 @@ export async function api(path: string, options: RequestInit = {}) {
   if (token) headers.Authorization = `Bearer ${token}`;
 
   const requestPath = path === "/api/jobs/search"
-    ? "/api/jobs/search-all"
+    ? "/api/jobs/search-everywhere"
     : path;
 
   let response: Response;
