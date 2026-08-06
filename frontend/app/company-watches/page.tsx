@@ -41,15 +41,24 @@ const atsOptions = [
   "greenhouse",
   "lever",
   "ashby",
+  "smartrecruiters",
+  "recruitee",
+  "workable",
   "workday",
   "icims",
   "oracle",
-  "smartrecruiters",
   "successfactors",
   "ukg",
 ];
 
-const liveConnectors = new Set(["greenhouse", "lever", "ashby"]);
+const liveConnectors = new Set([
+  "greenhouse",
+  "lever",
+  "ashby",
+  "smartrecruiters",
+  "recruitee",
+  "workable",
+]);
 
 export default function CareerWatches() {
   const [items, setItems] = useState<CareerWatch[]>([]);
@@ -91,7 +100,7 @@ export default function CareerWatches() {
       notes: `Résumé-matched employer • ${detail.label}. Focus: ${detail.focus}. Priority: ${employer.priority}.`,
     });
     setError("");
-    setMessage(`${employer.company} is ready in the company watch form. Review it and select Save career watch.`);
+    setMessage(`${employer.company} is ready in the company watch form. Review it and select Save career page.`);
 
     window.requestAnimationFrame(() => {
       document.getElementById("watch-company")?.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -117,10 +126,10 @@ export default function CareerWatches() {
         }),
       });
       setForm(emptyForm);
-      setMessage("Career page watch added.");
+      setMessage("Career page saved.");
       await load();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Unable to save watch.");
+      setError(err instanceof Error ? err.message : "Unable to save career page.");
     } finally {
       setBusy(null);
     }
@@ -139,14 +148,14 @@ export default function CareerWatches() {
       setMessage(`${item.company} is now ${item.active ? "paused" : "active"}.`);
       await load();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Unable to update watch.");
+      setError(err instanceof Error ? err.message : "Unable to update career page.");
     } finally {
       setBusy(null);
     }
   }
 
   async function remove(item: CareerWatch) {
-    const confirmed = window.confirm(`Delete the career watch for ${item.company}?`);
+    const confirmed = window.confirm(`Delete the saved career page for ${item.company}?`);
     if (!confirmed) return;
 
     setBusy(`delete-${item.id}`);
@@ -155,10 +164,10 @@ export default function CareerWatches() {
 
     try {
       await api(`/api/enterprise/career-watches/${item.id}`, { method: "DELETE" });
-      setMessage(`${item.company} was removed from career watches.`);
+      setMessage(`${item.company} was removed from your saved career pages.`);
       await load();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Unable to delete watch.");
+      setError(err instanceof Error ? err.message : "Unable to delete career page.");
     } finally {
       setBusy(null);
     }
@@ -174,25 +183,25 @@ export default function CareerWatches() {
   return (
     <>
       <PageHeader
-        eyebrow="COMPANY CAREER MONITORING"
+        eyebrow="COMPANY CAREER TRACKING"
         title="Keep priority employers on your radar"
-        description="Use the résumé-matched employer catalog, save company career pages, and organize the organizations most likely to hire for your target work."
+        description="Save company career pages in one place. Supported ATS pages are searched directly, while other employers can still appear through CareerNavIQ’s broad web job search."
         actions={<Link className="button secondary" href="/companies">Company intelligence</Link>}
       />
 
       {error ? (
-        <Notice title="Career watches need attention" tone="error"><p>{error}</p></Notice>
+        <Notice title="Career pages need attention" tone="error"><p>{error}</p></Notice>
       ) : null}
       {message ? (
-        <Notice title="Career watch updated" tone="success"><p>{message}</p></Notice>
+        <Notice title="Career page updated" tone="success"><p>{message}</p></Notice>
       ) : null}
 
       {!loading && items.length ? (
-        <section className="watch-summary-grid" aria-label="Career watch summary">
-          <article><span>Watched companies</span><strong>{summary.total}</strong><small>saved career pages</small></article>
-          <article><span>Active watches</span><strong>{summary.active}</strong><small>included in monitoring</small></article>
-          <article><span>Live connectors</span><strong>{summary.connected}</strong><small>Greenhouse, Lever, or Ashby</small></article>
-          <article><span>Paused</span><strong>{summary.paused}</strong><small>temporarily inactive</small></article>
+        <section className="watch-summary-grid" aria-label="Career page summary">
+          <article><span>Saved companies</span><strong>{summary.total}</strong><small>career pages in your library</small></article>
+          <article><span>Active pages</span><strong>{summary.active}</strong><small>included in job searches</small></article>
+          <article><span>Direct connectors</span><strong>{summary.connected}</strong><small>searched directly by ATS</small></article>
+          <article><span>Paused</span><strong>{summary.paused}</strong><small>excluded from active searches</small></article>
         </section>
       ) : null}
 
@@ -200,7 +209,7 @@ export default function CareerWatches() {
         <form className="card watch-form" onSubmit={create}>
           <div className="watch-panel-heading">
             <p className="eyebrow">ADD CAREER PAGE</p>
-            <h2>Create a company watch</h2>
+            <h2>Save a company career page</h2>
             <p className="muted">Store the public career page and, when available, the employer’s ATS board identifier.</p>
           </div>
 
@@ -257,25 +266,25 @@ export default function CareerWatches() {
           />
 
           <button type="submit" disabled={busy === "create"}>
-            {busy === "create" ? "Saving watch…" : "Save career watch"}
+            {busy === "create" ? "Saving page…" : "Save career page"}
           </button>
         </form>
 
         <aside className="card connector-panel">
-          <p className="eyebrow">CONNECTOR READINESS</p>
-          <h2>Supported search sources</h2>
-          <p className="muted">CareerNavIQ can use board identifiers from these platforms in targeted searches today.</p>
+          <p className="eyebrow">SEARCH COVERAGE</p>
+          <h2>Direct ATS connectors</h2>
+          <p className="muted">Active saved pages on these platforms are searched directly whenever you run a job search.</p>
           <div className="connector-list">
-            {["greenhouse", "lever", "ashby"].map((connector) => (
+            {["greenhouse", "lever", "ashby", "smartrecruiters", "recruitee", "workable"].map((connector) => (
               <div key={connector}>
                 <span className="connector-status-dot" />
-                <div><strong>{connector}</strong><small>Live connector</small></div>
+                <div><strong>{connector}</strong><small>Direct search connector</small></div>
               </div>
             ))}
           </div>
           <div className="connector-note">
-            <strong>Other platforms remain useful</strong>
-            <p>Workday, iCIMS, Oracle, SmartRecruiters, SuccessFactors, and UKG pages are stored so you can revisit them and use future connectors.</p>
+            <strong>Covered through broad web search</strong>
+            <p>Workday, iCIMS, Oracle, SuccessFactors, UKG, and unknown career platforms are not searched directly yet. Their open jobs may still appear through CareerNavIQ’s broad Google Jobs publisher search.</p>
           </div>
         </aside>
       </div>
@@ -285,14 +294,14 @@ export default function CareerWatches() {
       <section className="card watch-library">
         <div className="row between wrap">
           <div>
-            <p className="eyebrow">WATCH LIBRARY</p>
-            <h2>Monitored career pages</h2>
+            <p className="eyebrow">CAREER PAGE LIBRARY</p>
+            <h2>Saved career pages</h2>
           </div>
           <span className="muted">{items.length} saved compan{items.length === 1 ? "y" : "ies"}</span>
         </div>
 
         {loading ? (
-          <div className="watch-loading-state"><h3>Loading career watches…</h3></div>
+          <div className="watch-loading-state"><h3>Loading saved career pages…</h3></div>
         ) : items.length ? (
           <div className="watch-card-grid">
             {items.map((item) => (
@@ -337,8 +346,8 @@ export default function CareerWatches() {
           </div>
         ) : (
           <EmptyState
-            title="No career pages watched yet"
-            description="Use the résumé-matched employer catalog above to build your priority company monitoring list."
+            title="No career pages saved yet"
+            description="Use the résumé-matched employer catalog above to build your priority company search list."
           />
         )}
       </section>
