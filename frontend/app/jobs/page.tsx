@@ -96,10 +96,10 @@ function uniqueNotices(errors: string[]) {
 
 
 function matchLabel(score: number) {
-  if (score >= 85) return "Excellent match";
-  if (score >= 70) return "Strong match";
-  if (score >= 55) return "Good match";
-  return "Possible match";
+  if (score >= 85) return "Exceptional alignment";
+  if (score >= 70) return "Strong alignment";
+  if (score >= 55) return "Meaningful alignment";
+  return "Exploratory alignment";
 }
 
 
@@ -376,40 +376,40 @@ export default function JobsPage() {
   return (
     <>
       <PageHeader
-        eyebrow="UNIVERSAL JOB SEARCH"
-        title="Find your strongest opportunities"
-        description="Search employer career sites and broad job-search publishers, remove duplicates, and rank every role against your profile and résumé."
+        eyebrow="PRIVATE MARKET INTELLIGENCE"
+        title="Read the market through your mandate"
+        description="Review the broad market, remove noise and duplication, and evaluate each opportunity against your position, evidence, and ambition."
         actions={
           <Link className="button secondary" href="/profiles">
-            Review career profile
+            Review executive position
           </Link>
         }
       />
 
       <section className="universal-search-bar">
         <div>
-          <span>Searching for</span>
+          <span>Opportunity mandate</span>
           <strong>
             {titles.split("\n").filter(Boolean).length || 0}
             {" "}target titles
           </strong>
         </div>
         <div>
-          <span>Preferred market</span>
+          <span>Market geography</span>
           <strong>{location || "Any location"}</strong>
         </div>
         <div>
-          <span>Minimum fit</span>
-          <strong>{minimum}% match</strong>
+          <span>Selection threshold</span>
+          <strong>{minimum}% alignment</strong>
         </div>
       </section>
 
       <div className="jobs-shell-grid">
         <form className="card jobs-filter-card" onSubmit={search}>
-          <p className="eyebrow">SEARCH CRITERIA</p>
-          <h2>Build your search</h2>
+          <p className="eyebrow">THE MANDATE</p>
+          <h2>Set the intelligence brief</h2>
 
-          <label>Career profile</label>
+          <label>Executive position</label>
           <select
             value={profileId}
             onChange={(event) => {
@@ -417,7 +417,7 @@ export default function JobsPage() {
             }}
             required
           >
-            <option value="">Select profile</option>
+            <option value="">Select position</option>
             {profiles.map((profile) => (
               <option key={profile.id} value={profile.id}>
                 {profile.name}
@@ -425,7 +425,7 @@ export default function JobsPage() {
             ))}
           </select>
 
-          <label>Target titles, one per line</label>
+          <label>Target positions, one per line</label>
           <textarea
             rows={7}
             value={titles}
@@ -436,14 +436,14 @@ export default function JobsPage() {
             }
           />
 
-          <label>Location or remote preference</label>
+          <label>Market geography or remote preference</label>
           <input
             value={location}
             onChange={(event) => setLocation(event.target.value)}
             placeholder="Tampa, Florida or Remote"
           />
 
-          <label>Minimum match score: {minimum}%</label>
+          <label>Minimum alignment: {minimum}%</label>
           <input
             type="range"
             min="0"
@@ -454,7 +454,7 @@ export default function JobsPage() {
             }
           />
 
-          <div className="source-options">
+          <div className="source-options" aria-label="Intelligence sources">
             <label>
               <input
                 type="checkbox"
@@ -463,7 +463,7 @@ export default function JobsPage() {
                   setUseCatalog(event.target.checked)
                 }
               />
-              {" "}Employer career sites{" "}
+              {" "}Direct organization sources{" "}
               {catalog
                 ? `(${catalog.greenhouse
                     + catalog.lever
@@ -478,7 +478,7 @@ export default function JobsPage() {
                   setUseRemotive(event.target.checked)
                 }
               />
-              {" "}Remote job feed
+              {" "}Remote opportunity intelligence
             </label>
             <label>
               <input
@@ -488,12 +488,12 @@ export default function JobsPage() {
                   setUseJSearch(event.target.checked)
                 }
               />
-              {" "}Broad web search through Google Jobs publishers
+              {" "}Broad-market publisher intelligence
             </label>
           </div>
 
           <details>
-            <summary>Add specific company career boards</summary>
+            <summary>Add selected organization sources</summary>
             <label>Greenhouse board tokens or URLs</label>
             <textarea
               rows={3}
@@ -516,62 +516,62 @@ export default function JobsPage() {
 
           <button disabled={busy || !profileId || !titles.trim()}>
             {busy
-              ? "Searching and auditing sources…"
-              : "Search all enabled sources"}
+              ? "Reviewing and auditing the market…"
+              : "Commission market review"}
           </button>
         </form>
 
         <div className="jobs-insight-stack">
           {loadingSaved ? (
-            <Notice title="Loading saved opportunities" tone="info">
+            <Notice title="Preparing saved intelligence" tone="info">
               <p>
-                CareerNavIQ is restoring the ranked matches already
-                saved for this profile.
+                CareerNavIQ is restoring selected opportunities already
+                evaluated for this position.
               </p>
             </Notice>
           ) : null}
 
           {busy ? (
-            <Notice title="Searching current opportunities" tone="info">
+            <Notice title="Reviewing the current market" tone="info">
               <p>
-                CareerNavIQ is checking enabled sources, removing
-                duplicates, and recalculating match scores.
+                CareerNavIQ is reading enabled sources, removing noise,
+                and recalculating opportunity alignment.
               </p>
             </Notice>
           ) : null}
 
           {!summary && results.length && !loadingSaved && !busy ? (
             <Notice
-              title={`${results.length} saved opportunities restored`}
+              title={`${results.length} selected opportunities restored`}
               tone="info"
             >
               <p>
-                These ranked jobs were saved from earlier searches.
-                Run a new search to refresh the list.
+                These opportunity dossiers were retained from earlier market reviews.
+                Commission a new review to refresh the intelligence.
               </p>
             </Notice>
           ) : null}
 
           {summary ? (
             <section className="card">
-              <p className="eyebrow">SEARCH SUMMARY</p>
-              <h2>{summary.matched} ranked opportunities</h2>
+              <p className="eyebrow">MARKET REVIEW</p>
+              <h2>{summary.matched} selected opportunities</h2>
               <div className="source-health">
                 <div>
                   <strong>{summary.raw}</strong>
-                  <span>Raw postings found</span>
+                  <span>Signals reviewed</span>
                 </div>
                 <div>
                   <strong>{summary.unique}</strong>
-                  <span>Unique jobs found</span>
+                  <span>Distinct opportunities</span>
                 </div>
                 <div>
                   <strong>{summary.matched}</strong>
-                  <span>Above your threshold</span>
+                  <span>Selected for review</span>
                 </div>
               </div>
               <p className="muted">
-                Search cache: {summary.cache ? "connected" : "offline"}
+                Intelligence cache: {summary.cache ? "connected" : "offline"}
               </p>
               {publisherEntries.length ? (
                 <details className="provider-details">
@@ -618,15 +618,15 @@ export default function JobsPage() {
           <section className="card">
             <div className="row between">
               <div>
-                <p className="eyebrow">RECENT SEARCHES</p>
-                <h2>Your search activity</h2>
+                <p className="eyebrow">INTELLIGENCE LEDGER</p>
+                <h2>Recent market reviews</h2>
               </div>
               <span className="muted">Last five</span>
             </div>
             {history.slice(0, 5).map((item) => (
               <div className="history-row" key={item.id}>
                 <strong>
-                  {item.unique_count} unique • {item.matched_count} matches
+                  {item.unique_count} reviewed • {item.matched_count} selected
                 </strong>
                 <small>
                   {item.searched_sources.join(" + ") || "Custom boards"}
@@ -636,7 +636,7 @@ export default function JobsPage() {
             ))}
             {!history.length ? (
               <p className="muted">
-                Your completed searches will appear here.
+                Your completed market reviews will appear here.
               </p>
             ) : null}
           </section>
@@ -645,8 +645,8 @@ export default function JobsPage() {
 
       <section className="results-toolbar">
         <div>
-          <p className="eyebrow">RANKED RESULTS</p>
-          <h2>Best opportunities</h2>
+          <p className="eyebrow">SELECTED INTELLIGENCE</p>
+          <h2>Opportunity dossiers</h2>
           <span className="muted">
             Showing {visibleResults.length} of {results.length}
           </span>
@@ -655,8 +655,8 @@ export default function JobsPage() {
           <input
             value={resultQuery}
             onChange={(event) => setResultQuery(event.target.value)}
-            placeholder="Filter by title, company, skill, publisher…"
-            aria-label="Filter results"
+            placeholder="Refine by position, organization, evidence, source…"
+            aria-label="Refine opportunity dossiers"
           />
           <label className="inline-check">
             <input
@@ -673,9 +673,9 @@ export default function JobsPage() {
             }
             aria-label="Sort results"
           >
-            <option value="match">Highest match</option>
-            <option value="newest">Newest posting</option>
-            <option value="company">Company name</option>
+            <option value="match">Highest alignment</option>
+            <option value="newest">Newest intelligence</option>
+            <option value="company">Organization name</option>
           </select>
         </div>
       </section>
@@ -712,7 +712,7 @@ export default function JobsPage() {
             </div>
             <div className="job-score-modern">
               {result.match.score}
-              <small>match</small>
+              <small>alignment</small>
             </div>
           </div>
 
@@ -756,7 +756,7 @@ export default function JobsPage() {
 
           {result.match.concerns.length ? (
             <p className="warn-text">
-              <strong>Review before applying:</strong>{" "}
+              <strong>Consider before advancing:</strong>{" "}
               {result.match.concerns.join(" • ")}
             </p>
           ) : null}
@@ -766,13 +766,13 @@ export default function JobsPage() {
               className="button"
               href={`/jobs/${result.job.id}?profile_id=${profileId}`}
             >
-              Analyze and tailor
+              Open opportunity dossier
             </Link>
             <Link
               className="button secondary"
               href={`/applications?job_id=${result.job.id}`}
             >
-              Track application
+              Add to portfolio
             </Link>
             <a
               className="button secondary"
@@ -780,7 +780,7 @@ export default function JobsPage() {
               target="_blank"
               rel="noreferrer"
             >
-              Open posting
+              View source
             </a>
           </div>
         </article>
@@ -788,17 +788,17 @@ export default function JobsPage() {
 
       {!visibleResults.length && results.length ? (
         <EmptyState
-          title="No results match the current filters"
-          description="Clear the result filter or turn off Remote only to see the full ranked list."
+          title="No dossiers match the current refinement"
+          description="Clear the refinement or turn off Remote only to see the full selected set."
         />
       ) : null}
 
       {!results.length && topBelow.length ? (
         <section className="card">
-          <h2>Closest results below your threshold</h2>
+          <h2>Signals just below your threshold</h2>
           <p className="muted">
-            These opportunities were found but did not clear the current
-            minimum match score.
+            These opportunities were identified but did not clear the current
+            minimum alignment threshold.
           </p>
           {topBelow.map((item, index) => (
             <div className="history-row" key={index}>
@@ -814,8 +814,8 @@ export default function JobsPage() {
       && !busy
       && !loadingSaved ? (
         <EmptyState
-          title="No saved matches yet"
-          description="Confirm the profile and target titles above, then run a search to save and display ranked opportunities."
+          title="No selected intelligence yet"
+          description="Confirm the position and opportunity mandate above, then commission a market review."
         />
       ) : null}
     </>

@@ -17,75 +17,75 @@ export const CAREER_STAGES: CareerStage[] = [
   {
     id: "foundation",
     number: 1,
-    label: "Build your foundation",
-    shortLabel: "Build",
-    description: "Profile, résumé, and positioning",
+    label: "Define your position",
+    shortLabel: "Position",
+    description: "Narrative, evidence, and executive presence",
     href: "/profiles",
     items: [
-      { href: "/profiles", label: "Career profile" },
-      { href: "/resumes", label: "Résumé library" },
-      { href: "/resumes/studio", label: "Résumé Studio" },
+      { href: "/profiles", label: "Executive profile" },
+      { href: "/resumes", label: "Career archive" },
+      { href: "/resumes/studio", label: "Positioning atelier" },
     ],
   },
   {
     id: "discover",
     number: 2,
-    label: "Discover opportunities",
-    shortLabel: "Discover",
-    description: "Jobs, companies, and alerts",
+    label: "Read the market",
+    shortLabel: "Intelligence",
+    description: "Opportunities, organizations, and signals",
     href: "/jobs",
     items: [
-      { href: "/jobs", label: "Job search" },
-      { href: "/companies", label: "Companies" },
-      { href: "/company-watches", label: "Career watches" },
+      { href: "/jobs", label: "Opportunity intelligence" },
+      { href: "/companies", label: "Organization dossiers" },
+      { href: "/company-watches", label: "Market watchlist" },
     ],
   },
   {
     id: "prepare",
     number: 3,
-    label: "Prepare your application",
-    shortLabel: "Prepare",
-    description: "Tailoring and outreach",
+    label: "Shape your approach",
+    shortLabel: "Distinguish",
+    description: "Positioning, materials, and correspondence",
     href: "/coach",
     items: [
-      { href: "/coach", label: "Application Studio" },
-      { href: "/outreach", label: "Outreach Studio" },
+      { href: "/coach", label: "Opportunity strategy" },
+      { href: "/outreach", label: "Correspondence studio" },
     ],
   },
   {
     id: "track",
     number: 4,
-    label: "Apply and track",
-    shortLabel: "Track",
-    description: "Pipeline and relationships",
+    label: "Manage your portfolio",
+    shortLabel: "Portfolio",
+    description: "Active pursuits and relationship capital",
     href: "/applications",
     items: [
-      { href: "/applications", label: "Application pipeline" },
-      { href: "/crm", label: "Recruiter CRM" },
+      { href: "/applications", label: "Opportunity portfolio" },
+      { href: "/crm", label: "Relationship capital" },
     ],
   },
   {
     id: "interview",
     number: 5,
-    label: "Interview and follow up",
-    shortLabel: "Interview",
-    description: "Preparation, calendar, and follow-up",
+    label: "Advance with intent",
+    shortLabel: "Advance",
+    description: "Briefings, rehearsals, and decisive follow-through",
     href: "/interviews",
     items: [
-      { href: "/interviews", label: "Interview center" },
-      { href: "/interview-coach", label: "AI interview coach" },
-      { href: "/calendar", label: "Career calendar" },
-      { href: "/notifications", label: "Notifications" },
+      { href: "/interviews", label: "Interview briefings" },
+      { href: "/interview-coach", label: "Rehearsal room" },
+      { href: "/calendar", label: "Engagement calendar" },
+      { href: "/notifications", label: "Private briefings" },
     ],
   },
 ];
 
 export const UTILITY_LINKS: CareerJourneyItem[] = [
-  { href: "/command-center", label: "Command center" },
-  { href: "/analytics", label: "Analytics" },
-  { href: "/reports/weekly", label: "Weekly report" },
-  { href: "/automation", label: "Automation" },
-  { href: "/settings/automation", label: "Settings" },
+  { href: "/command-center", label: "Intelligence desk" },
+  { href: "/analytics", label: "Portfolio analytics" },
+  { href: "/reports/weekly", label: "Weekly briefing" },
+  { href: "/automation", label: "Private concierge" },
+  { href: "/settings/automation", label: "Preferences" },
 ];
 
 export function isActivePath(pathname: string, href: string) {
@@ -108,10 +108,10 @@ export function getCareerStage(pathname: string) {
 }
 
 export function getCurrentPageLabel(pathname: string) {
-  if (pathname === "/dashboard") return "Dashboard";
+  if (pathname === "/dashboard") return "Private office";
 
   return getActiveJourneyItem(pathname, [
     ...CAREER_STAGES.flatMap((stage) => stage.items),
     ...UTILITY_LINKS,
-  ])?.label ?? "Career workspace";
+  ])?.label ?? "Private career office";
 }

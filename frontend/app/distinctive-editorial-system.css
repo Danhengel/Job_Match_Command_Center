@@ -1,0 +1,1081 @@
+/* CareerNavIQ editorial workspace
+   A distinctive, calm career-intelligence identity that avoids conventional
+   blue job-board chrome, pill-heavy controls, and stacks of rounded cards. */
+
+.app-shell {
+  --editorial-canvas: #f1eee7;
+  --editorial-paper: #faf8f2;
+  --editorial-ink: #1d1c18;
+  --editorial-copy: #494740;
+  --editorial-muted: #716e65;
+  --editorial-line: #d5cfc2;
+  --editorial-line-strong: #b5ac9d;
+  --editorial-plum: #8a704a;
+  --editorial-plum-deep: #6f5737;
+  --editorial-plum-soft: #eee7db;
+  --editorial-sage: #445b50;
+  --editorial-sage-soft: #e2e8e3;
+  --v3-bg: var(--editorial-canvas);
+  --v3-surface: var(--editorial-paper);
+  --v3-surface-soft: #f7f4ee;
+  --v3-ink: var(--editorial-ink);
+  --v3-copy: var(--editorial-copy);
+  --v3-muted: var(--editorial-muted);
+  --v3-line: var(--editorial-line);
+  --v3-line-strong: var(--editorial-line-strong);
+  --v3-primary: var(--editorial-plum);
+  --v3-primary-hover: var(--editorial-plum-deep);
+  --v3-primary-soft: var(--editorial-plum-soft);
+  --primary: var(--editorial-plum);
+  --accent: var(--editorial-sage);
+  background: var(--editorial-canvas);
+  color: var(--editorial-ink);
+}
+
+.app-workspace,
+.app-content {
+  background: var(--editorial-canvas) !important;
+}
+
+.app-content {
+  width: min(1420px, calc(100% - 72px));
+  padding-top: 46px;
+}
+
+/* Private-office navigation: charcoal, architectural, and deliberately quiet. */
+.app-sidebar {
+  width: var(--sidebar-width, 264px);
+  padding: 22px 16px 26px;
+  border-right: 1px solid #2e2c26 !important;
+  background: #1b1a17 !important;
+  box-shadow: none !important;
+}
+
+.app-sidebar,
+.app-sidebar * {
+  color: #d9d3c7 !important;
+}
+
+.sidebar-brand {
+  padding: 3px 8px 24px;
+}
+
+.sidebar-brand .brand-mark,
+.header-brand-mark {
+  border: 1px solid #a98c60 !important;
+  border-radius: 9px !important;
+  background: #25231e !important;
+  color: #c7a977 !important;
+  box-shadow: none !important;
+}
+
+.sidebar-brand strong,
+.sidebar-dashboard.active,
+.sidebar-dashboard:hover,
+.sidebar-stage.active .sidebar-stage-summary,
+.sidebar-stage-summary:hover,
+.sidebar-stage-links a:hover,
+.sidebar-stage-links a.active,
+.sidebar-utility-links a:hover,
+.sidebar-utility-links a.active {
+  color: #fffdf7 !important;
+}
+
+.sidebar-brand small,
+.sidebar-stage-copy small,
+.sidebar-dashboard small,
+.sidebar-stage-links a,
+.sidebar-utility-links a,
+.sidebar-signout {
+  color: #aaa397 !important;
+}
+
+.sidebar-section-heading {
+  margin-top: 22px;
+  color: #827a6e !important;
+  letter-spacing: .12em;
+}
+
+.sidebar-dashboard,
+.sidebar-stage-summary,
+.sidebar-stage-links a,
+.sidebar-utility-links a {
+  border-radius: 6px !important;
+}
+
+.sidebar-dashboard.active,
+.sidebar-stage.active .sidebar-stage-summary,
+.sidebar-stage-links a.active,
+.sidebar-utility-links a.active {
+  background: rgba(201, 171, 119, .105) !important;
+  box-shadow: inset 2px 0 0 #b89663 !important;
+}
+
+.sidebar-dashboard:hover,
+.sidebar-stage-summary:hover,
+.sidebar-stage-links a:hover,
+.sidebar-utility-links a:hover,
+.sidebar-signout:hover {
+  background: rgba(255, 255, 255, .045) !important;
+}
+
+.sidebar-dashboard-icon,
+.sidebar-stage-number,
+.sidebar-stage.active .sidebar-stage-number {
+  border: 1px solid #4c483f !important;
+  background: transparent !important;
+  color: #c2a575 !important;
+  box-shadow: none !important;
+}
+
+/* Header reads like a workspace folio, not a search site toolbar. */
+.app-header {
+  min-height: 62px;
+  padding: 9px 34px;
+  border-bottom: 1px solid var(--editorial-line) !important;
+  background: rgba(251, 250, 246, .9) !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(14px);
+}
+
+.header-brand-copy strong {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -.015em;
+}
+
+/* Editorial hierarchy gives the product a recognizable point of view. */
+.app-shell :is(h1, h2) {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 600 !important;
+  letter-spacing: -.035em !important;
+}
+
+.app-shell :is(.page-header, .hero, .executive-hero, .resume-page-hero, .command-hero) {
+  min-height: 0;
+  margin-bottom: 44px;
+  padding: 22px 0 32px 28px;
+  border: 0 !important;
+  border-left: 4px solid var(--editorial-plum) !important;
+  border-bottom: 1px solid var(--editorial-line) !important;
+}
+
+.app-shell :is(.page-header, .hero, .executive-hero, .resume-page-hero, .command-hero)::before {
+  display: none !important;
+}
+
+.app-shell :is(.page-header, .hero, .executive-hero, .resume-page-hero, .command-hero) h1 {
+  max-width: 900px;
+  font-size: clamp(38px, 4.2vw, 64px);
+  line-height: .98;
+}
+
+.app-shell .eyebrow {
+  color: var(--editorial-plum) !important;
+  letter-spacing: .19em;
+}
+
+/* Fewer floating objects: useful records become ruled editorial rows. */
+.app-shell :is(.job-card-modern, .crm-contact-card, .company-role-card, .watch-card, .activity-item, .notification-row, .automation-row, .profile-preference-card, .settings-toggle) {
+  border: 0 !important;
+  border-top: 1px solid var(--editorial-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.app-shell :is(.job-card-modern, .crm-contact-card, .company-role-card, .watch-card, .activity-item, .notification-row, .automation-row, .profile-preference-card, .settings-toggle):hover {
+  border-color: var(--editorial-line-strong) !important;
+  background: rgba(251, 250, 246, .72) !important;
+  transform: none;
+  box-shadow: inset 4px 0 0 var(--editorial-sage) !important;
+}
+
+.app-shell :is(.metric-card, .executive-kpis article, .analytics-kpi-grid article, .company-detail-kpis article, .company-summary-grid article, .watch-summary-grid article, .automation-health-grid article, .company-metric-row div) {
+  border: 0 !important;
+  border-left: 1px solid var(--editorial-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.app-shell :is(.metric-card, .executive-kpis article, .analytics-kpi-grid article):first-child {
+  border-left: 0 !important;
+}
+
+/* Compact, confident controls: no Indeed-blue buttons or pill language. */
+.app-shell button,
+.app-shell .button {
+  min-height: 40px;
+  border-color: var(--editorial-plum) !important;
+  border-radius: 6px !important;
+  background: var(--editorial-plum) !important;
+  box-shadow: none !important;
+}
+
+.app-shell button:hover:not(:disabled),
+.app-shell .button:hover {
+  border-color: var(--editorial-plum-deep) !important;
+  background: var(--editorial-plum-deep) !important;
+}
+
+.app-shell :is(button.secondary, .button.secondary, .version-button) {
+  border-color: var(--editorial-line-strong) !important;
+  border-radius: 6px !important;
+  background: transparent !important;
+  color: var(--editorial-ink) !important;
+}
+
+.app-shell input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+.app-shell select,
+.app-shell textarea,
+.app-shell .job-description,
+.app-shell .letter-preview,
+.app-shell .preview {
+  border-color: var(--editorial-line-strong) !important;
+  border-radius: 6px !important;
+  background: var(--editorial-paper) !important;
+  box-shadow: none !important;
+}
+
+.app-shell :is(.badge, .status-badge, .pill, [class*="badge"], [class*="pill"]) {
+  border-radius: 4px !important;
+  background: var(--editorial-sage-soft) !important;
+  color: #385247 !important;
+  letter-spacing: .025em;
+}
+
+.app-shell a:focus-visible,
+.app-shell button:focus-visible,
+.app-shell input:focus-visible,
+.app-shell select:focus-visible,
+.app-shell textarea:focus-visible,
+.app-shell summary:focus-visible {
+  outline-color: rgba(93, 66, 108, .34);
+}
+
+/* The private office is composed as a working brief, not a dashboard grid. */
+.app-shell .command-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 48px;
+  min-height: 330px;
+  padding: 56px 48px 42px !important;
+  border: 0 !important;
+  background:
+    linear-gradient(112deg, rgba(255, 255, 255, .055), transparent 48%),
+    #1b1a17 !important;
+  color: #f5f0e6 !important;
+}
+
+.app-shell .command-hero::after {
+  position: absolute;
+  top: 28px;
+  right: 30px;
+  width: 108px;
+  height: 108px;
+  border: 1px solid rgba(194, 165, 117, .42);
+  border-radius: 50%;
+  content: "";
+}
+
+.app-shell .command-hero h1,
+.app-shell .command-hero p,
+.app-shell .command-hero strong {
+  color: #f5f0e6 !important;
+}
+
+.app-shell .command-hero h1 {
+  max-width: 880px;
+  font-size: clamp(48px, 6vw, 84px);
+}
+
+.app-shell .command-hero .eyebrow {
+  color: #c2a575 !important;
+}
+
+.app-shell .command-hero p:not(.eyebrow) {
+  max-width: 720px;
+  color: #c4beb2 !important;
+}
+
+.app-shell .command-hero .button {
+  border-color: #c2a575 !important;
+  background: #c2a575 !important;
+  color: #1b1a17 !important;
+}
+
+.app-shell .command-hero .button.secondary {
+  border-color: #6b655b !important;
+  background: transparent !important;
+  color: #f5f0e6 !important;
+}
+
+.app-shell .health-ring {
+  background: conic-gradient(#c2a575 var(--health), #3b3933 0) !important;
+  box-shadow: none !important;
+}
+
+.app-shell .health-ring > div {
+  background: #1b1a17 !important;
+}
+
+.app-shell .health-ring strong,
+.app-shell .health-ring span {
+  color: #f5f0e6 !important;
+}
+
+.app-shell .command-kpis {
+  padding: 8px 0 42px;
+  border-bottom: 1px solid var(--editorial-line);
+}
+
+.app-shell .command-kpis article {
+  border: 0 !important;
+  border-left: 1px solid var(--editorial-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.app-shell .command-kpis article:first-child {
+  border-left: 0 !important;
+}
+
+.app-shell .command-kpis strong,
+.app-shell .countdown strong,
+.app-shell .command-count {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 500 !important;
+  color: var(--editorial-ink) !important;
+}
+
+.app-shell .command-grid {
+  gap: 0 !important;
+  border-bottom: 1px solid var(--editorial-line);
+}
+
+.app-shell .command-grid > .command-panel {
+  margin: 0 !important;
+  padding: 42px 38px !important;
+}
+
+.app-shell .command-grid > .command-panel + .command-panel {
+  border-top: 0 !important;
+  border-left: 1px solid var(--editorial-line) !important;
+}
+
+.app-shell .priority-number {
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--editorial-plum) !important;
+}
+
+.app-shell :is(.funnel-track, .goal-track, .landing-progress) {
+  border-radius: 0 !important;
+  background: #ded8cd !important;
+}
+
+.app-shell :is(.funnel-track, .goal-track) > div {
+  border-radius: 0 !important;
+  background: var(--editorial-sage) !important;
+}
+
+.app-shell table {
+  border-color: var(--editorial-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+/* Market intelligence is presented as a mandate and a set of dossiers. */
+.app-shell .universal-search-bar {
+  margin: -14px 0 48px;
+  padding: 22px 0;
+  border: 0 !important;
+  border-top: 1px solid var(--editorial-line) !important;
+  border-bottom: 1px solid var(--editorial-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.app-shell .universal-search-bar > div + div {
+  border-left: 1px solid var(--editorial-line);
+}
+
+.app-shell .jobs-shell-grid {
+  grid-template-columns: minmax(360px, .72fr) minmax(0, 1.28fr);
+  gap: 52px;
+  align-items: start;
+  margin-bottom: 64px;
+}
+
+.app-shell .jobs-filter-card {
+  position: sticky;
+  top: 92px;
+  padding: 34px !important;
+  border: 1px solid #2d2b26 !important;
+  border-radius: 0 !important;
+  background: #1d1c18 !important;
+  color: #eee8dc !important;
+}
+
+.app-shell .jobs-filter-card h2,
+.app-shell .jobs-filter-card label,
+.app-shell .jobs-filter-card summary,
+.app-shell .jobs-filter-card strong {
+  color: #eee8dc !important;
+}
+
+.app-shell .jobs-filter-card .eyebrow {
+  color: #c2a575 !important;
+}
+
+.app-shell .jobs-filter-card input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+.app-shell .jobs-filter-card select,
+.app-shell .jobs-filter-card textarea {
+  border-color: #5a554b !important;
+  background: #27251f !important;
+  color: #f4efe5 !important;
+}
+
+.app-shell .jobs-filter-card input[type="range"] {
+  accent-color: #c2a575;
+}
+
+.app-shell .jobs-filter-card button {
+  border-color: #c2a575 !important;
+  background: #c2a575 !important;
+  color: #1b1a17 !important;
+}
+
+.app-shell .source-options {
+  padding: 18px 0;
+  border-top: 1px solid #3f3c35;
+  border-bottom: 1px solid #3f3c35;
+}
+
+.app-shell .jobs-insight-stack > :is(.card, section) {
+  padding: 28px 0 !important;
+  border-top: 1px solid var(--editorial-line) !important;
+}
+
+.app-shell .results-toolbar {
+  margin-top: 18px;
+  padding: 34px 0;
+  border: 0 !important;
+  border-top: 1px solid var(--editorial-ink) !important;
+  border-bottom: 1px solid var(--editorial-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.app-shell .job-card-modern {
+  position: relative;
+  margin: 0 !important;
+  padding: 38px 22px 40px 32px !important;
+  border-top: 0 !important;
+  border-bottom: 1px solid var(--editorial-line) !important;
+}
+
+.app-shell .job-card-modern::before {
+  position: absolute;
+  top: 43px;
+  left: 0;
+  color: var(--editorial-plum);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 13px;
+  content: "CN";
+}
+
+.app-shell .job-card-modern h2 {
+  margin-top: 17px;
+  font-size: clamp(28px, 3vw, 42px);
+}
+
+.app-shell .job-score-modern {
+  border: 1px solid var(--editorial-line-strong) !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  color: var(--editorial-ink) !important;
+  font-family: Georgia, "Times New Roman", serif;
+  box-shadow: none !important;
+}
+
+.app-shell .match-evidence-grid {
+  border-top: 1px solid var(--editorial-line);
+  border-bottom: 1px solid var(--editorial-line);
+}
+
+.app-shell .match-evidence-grid > div {
+  padding: 18px 14px !important;
+  border: 0 !important;
+  border-right: 1px solid var(--editorial-line) !important;
+}
+
+.app-shell .match-evidence-grid > div:last-child {
+  border-right: 0 !important;
+}
+
+.app-shell thead {
+  background: #e8e3d9 !important;
+}
+
+.app-shell :is(.empty-state, .empty, .no-results, .loading-state):not(:empty) {
+  border-color: var(--editorial-line-strong) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+.app-shell :is(.empty-state, .empty, .no-results, .loading-state):not(:empty)::after {
+  display: none !important;
+}
+
+/* Public experience: an editorial private-members' office rather than SaaS/job-board marketing. */
+.landing-page,
+.public-page {
+  --luxury-ink: #181713;
+  --luxury-coal: #22211c;
+  --luxury-bone: #f4f0e7;
+  --luxury-paper: #faf8f2;
+  --luxury-brass: #aa8b5b;
+  --luxury-brass-light: #c4a873;
+  --luxury-sage: #465b50;
+  --luxury-copy: #57534b;
+  --luxury-muted: #79736a;
+  --luxury-line: #d4ccbd;
+  --landing-navy: var(--luxury-ink);
+  --landing-navy-dark: var(--luxury-ink);
+  --landing-blue: var(--luxury-brass);
+  --landing-cyan: var(--luxury-brass-light);
+  --landing-green: var(--luxury-sage);
+  --landing-text: var(--luxury-ink);
+  --landing-muted: var(--luxury-copy);
+  --landing-shell: var(--luxury-bone);
+  --landing-border: var(--luxury-line);
+  --public-navy: var(--luxury-ink);
+  --public-navy-dark: var(--luxury-ink);
+  --public-blue: var(--luxury-brass);
+  --public-cyan: var(--luxury-brass-light);
+  --public-green: var(--luxury-sage);
+  --public-text: var(--luxury-ink);
+  --public-muted: var(--luxury-copy);
+  --public-shell: var(--luxury-bone);
+  --public-border: var(--luxury-line);
+  background: var(--luxury-paper);
+  color: var(--luxury-ink);
+}
+
+.landing-header,
+.public-header {
+  border-color: rgba(207, 198, 183, .72) !important;
+  background: rgba(250, 248, 242, .9) !important;
+  box-shadow: none !important;
+}
+
+.landing-header-inner,
+.public-header-inner {
+  min-height: 88px;
+}
+
+.landing-container,
+.public-container {
+  width: min(1320px, calc(100% - 64px));
+}
+
+.landing-compass,
+.public-compass {
+  border: 1px solid #9f8257;
+  border-radius: 50%;
+  background: var(--luxury-ink) !important;
+  color: #c6aa79;
+  box-shadow: none;
+}
+
+.landing-wordmark,
+.public-wordmark {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -.025em;
+}
+
+.landing-wordmark > span,
+.public-wordmark > span {
+  color: var(--luxury-ink) !important;
+}
+
+.landing-nav,
+.public-nav {
+  gap: 34px;
+  color: #504d46;
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: .055em;
+  text-transform: uppercase;
+}
+
+.landing-nav a:hover,
+.public-nav a:hover {
+  color: #7f643e !important;
+}
+
+.landing-nav .landing-nav-cta,
+.public-nav .public-nav-cta {
+  padding: 12px 19px;
+  border: 1px solid var(--luxury-ink);
+  border-radius: 2px;
+  background: var(--luxury-ink);
+  color: var(--luxury-bone) !important;
+  box-shadow: none;
+}
+
+.landing-hero {
+  min-height: 760px;
+  padding: 118px 0 104px;
+  background:
+    radial-gradient(circle at 74% 38%, rgba(183, 151, 99, .13), transparent 28%),
+    linear-gradient(115deg, #191814 0%, #24221d 58%, #181713 100%);
+}
+
+.landing-hero::before {
+  background:
+    linear-gradient(90deg, transparent 0 8%, rgba(196, 168, 115, .11) 8% calc(8% + 1px), transparent calc(8% + 1px) 92%, rgba(196, 168, 115, .11) 92% calc(92% + 1px), transparent calc(92% + 1px)),
+    linear-gradient(rgba(255, 255, 255, .018) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 42px;
+  mask-image: none;
+}
+
+.landing-hero-grid {
+  grid-template-columns: minmax(0, .88fr) minmax(540px, 1.12fr);
+  gap: 84px;
+}
+
+.landing-eyebrow,
+.public-eyebrow {
+  color: var(--luxury-brass-light) !important;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .24em;
+}
+
+.landing-hero h1,
+.public-hero h1,
+.landing-section h2,
+.landing-final-card h2,
+.public-page h1,
+.public-page h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 500 !important;
+  letter-spacing: -.045em !important;
+}
+
+.landing-hero h1 {
+  max-width: 720px;
+  color: #f3eee4;
+  font-size: clamp(62px, 6.2vw, 94px);
+  line-height: .94;
+}
+
+.landing-hero-lead {
+  max-width: 650px;
+  color: #bdb6aa;
+  font-size: 18px;
+  line-height: 1.82;
+}
+
+.landing-button {
+  min-height: 54px;
+  padding: 0 23px;
+  border-radius: 2px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  box-shadow: none !important;
+}
+
+.landing-button-primary,
+.public-button-primary {
+  border-color: var(--luxury-brass-light);
+  background: var(--luxury-brass-light) !important;
+  color: var(--luxury-ink) !important;
+}
+
+.landing-button-secondary,
+.public-button-secondary {
+  border-color: #5f5a51;
+  background: transparent;
+  color: #eee8dc !important;
+}
+
+.landing-proof-row {
+  color: #aaa397;
+  font-size: 11px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.landing-check {
+  border: 1px solid #6d655a;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--luxury-brass-light);
+}
+
+.landing-preview-glow {
+  display: none;
+}
+
+.landing-dashboard-window {
+  overflow: hidden;
+  border: 1px solid #5a554c;
+  border-radius: 0;
+  background: #f0ece3;
+  box-shadow: 28px 38px 0 rgba(0, 0, 0, .14), 0 45px 110px rgba(0, 0, 0, .36);
+  transform: rotateY(-3deg) rotateX(1deg);
+}
+
+.landing-dashboard-topbar {
+  border-color: #d2cabc;
+  background: #e8e2d7;
+}
+
+.landing-preview-label,
+.landing-green-pill {
+  border: 1px solid #b8ac99;
+  border-radius: 2px !important;
+  background: transparent !important;
+  color: #665944 !important;
+}
+
+.landing-dashboard-body {
+  grid-template-columns: 64px minmax(0, 1fr);
+  background: #f4f0e8;
+}
+
+.landing-preview-sidebar {
+  background: #22211c;
+}
+
+.landing-preview-sidebar span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #615b51;
+}
+
+.landing-preview-sidebar span.active {
+  background: var(--luxury-brass-light);
+  box-shadow: 0 0 0 7px rgba(196, 168, 115, .11);
+}
+
+.landing-preview-content {
+  padding: 32px;
+}
+
+.landing-preview-stats {
+  border-top: 1px solid #cec6b8;
+  border-bottom: 1px solid #cec6b8;
+}
+
+.landing-preview-stats > div,
+.landing-preview-card,
+.landing-job-row {
+  border-color: #d3cbbb !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.landing-preview-card button {
+  border-radius: 2px !important;
+  background: var(--luxury-ink) !important;
+}
+
+.landing-value-strip {
+  border: 0;
+  background: #e9e3d8;
+}
+
+.landing-value-grid article {
+  border-color: #c9c0b0 !important;
+}
+
+.landing-value-number,
+.landing-steps article > span {
+  font-family: Georgia, "Times New Roman", serif;
+  color: #93754a !important;
+}
+
+.landing-section {
+  padding-block: 126px;
+  background: var(--luxury-paper) !important;
+}
+
+.landing-section-heading h2,
+.landing-feature-intro h2 {
+  max-width: 880px;
+  font-size: clamp(48px, 5vw, 76px);
+  line-height: 1;
+}
+
+.landing-steps,
+.landing-feature-grid {
+  gap: 0;
+  border-top: 1px solid var(--luxury-line);
+}
+
+.landing-steps article,
+.landing-feature-grid article {
+  border: 0 !important;
+  border-right: 1px solid var(--luxury-line) !important;
+  border-bottom: 1px solid var(--luxury-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.landing-steps article:last-child,
+.landing-feature-grid article:nth-child(3n) {
+  border-right: 0 !important;
+}
+
+.landing-feature-grid article > span {
+  color: #957749 !important;
+}
+
+.landing-final-cta {
+  background: #f0ece3;
+}
+
+.landing-final-card {
+  border: 1px solid #3b3932;
+  border-radius: 0;
+  background: #1b1a17;
+  box-shadow: none;
+}
+
+.landing-final-card h2,
+.landing-final-card p {
+  color: #f2ede3 !important;
+}
+
+.landing-footer {
+  border: 0;
+  background: #12110f;
+  color: #aaa397;
+}
+
+.landing-footer .landing-wordmark > span,
+.landing-footer a {
+  color: #e9e3d7 !important;
+}
+
+/* Interior public pages inherit the same material and typography. */
+.public-hero {
+  background: #1b1a17 !important;
+}
+
+.public-hero::before {
+  background-image: linear-gradient(rgba(196, 168, 115, .06) 1px, transparent 1px);
+  background-size: 100% 44px;
+}
+
+.public-hero h1 {
+  color: #f3eee4 !important;
+}
+
+.public-intro,
+.public-updated,
+.public-breadcrumb {
+  color: #b9b2a6 !important;
+}
+
+.public-button {
+  border-radius: 2px !important;
+  box-shadow: none !important;
+}
+
+.public-page :is(.public-card, article, .public-content-card) {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Access pages continue the private-members' experience. */
+.auth-content,
+.auth-form-panel {
+  background: #f1eee7 !important;
+}
+
+.auth-brand-panel {
+  background:
+    linear-gradient(90deg, transparent 0 10%, rgba(196, 168, 115, .09) 10% calc(10% + 1px), transparent calc(10% + 1px) 90%, rgba(196, 168, 115, .09) 90% calc(90% + 1px), transparent calc(90% + 1px)),
+    #1b1a17 !important;
+}
+
+.auth-brand-panel::after {
+  border-color: rgba(196, 168, 115, .2) !important;
+  box-shadow: 0 0 0 58px rgba(196, 168, 115, .035), 0 0 0 116px rgba(196, 168, 115, .02) !important;
+}
+
+.auth-brand-mark {
+  border-color: #9f8257 !important;
+  border-radius: 50% !important;
+  background: #24221e !important;
+  color: #c4a873 !important;
+  box-shadow: none !important;
+}
+
+.auth-brand-copy strong,
+.auth-mobile-brand strong,
+.auth-message h1,
+.auth-card h1 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 500 !important;
+  letter-spacing: -.04em !important;
+}
+
+.auth-brand-copy small,
+.auth-message > p:not(.eyebrow),
+.auth-feature-grid span,
+.auth-brand-footer {
+  color: #aaa397 !important;
+}
+
+.auth-message .eyebrow,
+.auth-card .eyebrow {
+  color: #aa8b5b !important;
+  font-size: 10px;
+  letter-spacing: .22em;
+}
+
+.auth-feature-grid {
+  gap: 0;
+  border-top: 1px solid #454139;
+}
+
+.auth-feature-grid div {
+  padding: 20px 16px;
+  border: 0 !important;
+  border-bottom: 1px solid #454139 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+.auth-card {
+  border: 0 !important;
+  border-top: 1px solid #aa8b5b !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.auth-card::before {
+  display: none !important;
+}
+
+.auth-card h1 {
+  color: #1d1c18 !important;
+}
+
+.auth-card-intro,
+.auth-switch,
+.auth-security-note {
+  color: #716e65 !important;
+}
+
+.auth-form label {
+  color: #47443d !important;
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.auth-form input {
+  border-color: #b5ac9d !important;
+  border-radius: 2px !important;
+  background: #faf8f2 !important;
+  box-shadow: none !important;
+}
+
+.auth-form input:focus {
+  border-color: #8a704a !important;
+  box-shadow: 0 0 0 2px rgba(138, 112, 74, .13) !important;
+}
+
+.auth-submit {
+  border-radius: 2px !important;
+  background: #1d1c18 !important;
+  color: #f4f0e7 !important;
+  box-shadow: none !important;
+  letter-spacing: .055em;
+}
+
+.auth-switch a {
+  color: #755c3b !important;
+}
+
+.auth-security-dot {
+  background: #53695d !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 900px) {
+  .app-content {
+    width: min(100% - 32px, 1420px);
+    padding-top: 28px;
+  }
+
+  .app-sidebar {
+    background: #1b1a17 !important;
+  }
+
+  .app-header {
+    padding-inline: 16px;
+  }
+
+  .app-shell :is(.page-header, .hero, .executive-hero, .resume-page-hero, .command-hero) {
+    padding: 12px 0 26px 18px;
+  }
+
+  .app-shell .command-hero {
+    grid-template-columns: 1fr;
+    padding: 38px 28px !important;
+  }
+
+  .app-shell .jobs-shell-grid {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+
+  .app-shell .jobs-filter-card {
+    position: static;
+  }
+
+  .app-shell .universal-search-bar > div + div {
+    border-left: 0;
+    border-top: 1px solid var(--editorial-line);
+  }
+
+  .landing-container,
+  .public-container {
+    width: min(100% - 32px, 1320px);
+  }
+
+  .landing-hero {
+    min-height: auto;
+    padding: 82px 0;
+  }
+
+  .landing-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 62px;
+  }
+
+  .landing-hero h1 {
+    font-size: clamp(52px, 14vw, 76px);
+  }
+}

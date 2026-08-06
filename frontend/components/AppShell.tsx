@@ -17,10 +17,10 @@ import {
 import { endAuthenticatedSession } from "@/lib/sessionStorage";
 
 const mobileNavigation = [
-  ["/dashboard", "⌂", "Home"],
-  ["/jobs", "⌕", "Jobs"],
-  ["/applications", "✓", "Track"],
-  ["/interviews", "◎", "Interview"],
+  ["/dashboard", "⌂", "Office"],
+  ["/jobs", "◇", "Intelligence"],
+  ["/applications", "▤", "Portfolio"],
+  ["/interviews", "◎", "Briefings"],
 ] as const;
 
 const publicPaths = new Set([
@@ -103,7 +103,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <span className="brand-mark"><BrandCompass /></span>
             <span>
               <strong>CareerNavIQ</strong>
-              <small>Your career command center</small>
+              <small>Private career intelligence</small>
             </span>
           </Link>
           <button
@@ -124,14 +124,14 @@ export function AppShell({ children }: { children: ReactNode }) {
           >
             <span className="sidebar-dashboard-icon" aria-hidden="true">⌂</span>
             <span>
-              <strong>Dashboard</strong>
-              <small>Priorities and progress</small>
+              <strong>Private office</strong>
+              <small>Your daily executive brief</small>
             </span>
           </Link>
 
           <div className="sidebar-section-heading">
-            <span>Career process</span>
-            <small>5 stages</small>
+            <span>Advisory path</span>
+            <small>5 disciplines</small>
           </div>
 
           <div className="sidebar-stage-list">
@@ -181,7 +181,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           </div>
 
           <div className="sidebar-section-heading sidebar-tools-heading">
-            <span>Insights and tools</span>
+            <span>Private office</span>
           </div>
           <div className="sidebar-utility-links">
             {UTILITY_LINKS.map((item) => {
@@ -232,14 +232,14 @@ export function AppShell({ children }: { children: ReactNode }) {
               <strong>{currentPageLabel}</strong>
               <span>
                 {currentStage?.description
-                  ?? "Career overview and next priorities"}
+                  ?? "Intelligence, priorities, and next decisions"}
               </span>
             </span>
           </Link>
 
           <div className="header-actions">
-            <Link href="/jobs" className="button compact">Search jobs</Link>
-            <Link href="/notifications" className="header-link">Alerts</Link>
+            <Link href="/jobs" className="button compact">Explore intelligence</Link>
+            <Link href="/notifications" className="header-link">Briefings</Link>
             <button
               type="button"
               className="button secondary compact header-signout"

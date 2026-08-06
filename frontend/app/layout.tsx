@@ -26,12 +26,13 @@ import "./experience-overhaul.css";
 import "./premium-visual-system.css";
 import "./contrast-repair.css";
 import "./premium-platform-v3.css";
+import "./distinctive-editorial-system.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 
 const SITE_URL = "https://careernaviq.com";
 const SITE_DESCRIPTION =
-  "CareerNavIQ is an AI-powered career command center for finding stronger-fit jobs, tailoring resumes, tracking applications, and preparing for interviews.";
+  "CareerNavIQ is a private career-intelligence office for shaping your position, evaluating opportunities, managing relationships, and advancing with intent.";
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -70,7 +71,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   applicationName: "CareerNavIQ",
   title: {
-    default: "CareerNavIQ | AI-Powered Career Command Center",
+    default: "CareerNavIQ | Private Career Intelligence",
     template: "%s | CareerNavIQ",
   },
   description: SITE_DESCRIPTION,
@@ -94,12 +95,12 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "/",
     siteName: "CareerNavIQ",
-    title: "CareerNavIQ | Navigate Your Next Career Move",
+    title: "CareerNavIQ | Your Private Career Office",
     description: SITE_DESCRIPTION,
   },
   twitter: {
     card: "summary",
-    title: "CareerNavIQ | Navigate Your Next Career Move",
+    title: "CareerNavIQ | Your Private Career Office",
     description: SITE_DESCRIPTION,
   },
   robots: {
@@ -119,7 +120,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#10213D",
+  themeColor: "#181713",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

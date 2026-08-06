@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "CareerNavIQ | Navigate your next career move",
+  title: "CareerNavIQ | Your private career office",
   description:
-    "Find stronger-fit opportunities, tailor your resume, track applications, and prepare for interviews in one intelligent career workspace.",
+    "A private career-intelligence office for leaders who want to shape their position, evaluate the market, and advance with intent.",
 };
 
 function CompassMark({ className = "" }: { className?: string }) {
@@ -39,10 +39,10 @@ export default function HomePage() {
           </Link>
 
           <nav className="landing-nav" aria-label="Public navigation">
-            <a href="#how-it-works">How it works</a>
-            <a href="#features">Features</a>
-            <Link href="/login">Sign in</Link>
-            <Link href="/register" className="landing-nav-cta">Get started</Link>
+            <a href="#how-it-works">Method</a>
+            <a href="#features">Private office</a>
+            <Link href="/login">Member access</Link>
+            <Link href="/register" className="landing-nav-cta">Request access</Link>
           </nav>
         </div>
       </header>
@@ -51,27 +51,27 @@ export default function HomePage() {
         <section className="landing-hero">
           <div className="landing-container landing-hero-grid">
             <div className="landing-hero-copy">
-              <p className="landing-eyebrow">YOUR AI-POWERED CAREER WORKSPACE</p>
-              <h1>Navigate your next career move with confidence.</h1>
+              <p className="landing-eyebrow">PRIVATE CAREER INTELLIGENCE</p>
+              <h1>Your career deserves a private office.</h1>
               <p className="landing-hero-lead">
-                CareerNavIQ brings job discovery, resume optimization, application tracking,
-                interview preparation, and career insights into one clear command center.
+                CareerNavIQ brings your experience, ambitions, relationships, and market
+                opportunities into one composed system for better decisions.
               </p>
 
               <div className="landing-hero-actions">
                 <Link href="/register" className="landing-button landing-button-primary">
-                  Build my career command center
+                  Establish my private office
                   <span aria-hidden="true">→</span>
                 </Link>
                 <a href="#how-it-works" className="landing-button landing-button-secondary">
-                  See how it works
+                  Discover the method
                 </a>
               </div>
 
               <div className="landing-proof-row" aria-label="CareerNavIQ benefits">
-                <span><CheckIcon /> One organized workspace</span>
-                <span><CheckIcon /> Personalized career direction</span>
-                <span><CheckIcon /> Built for every step</span>
+                <span><CheckIcon /> Discreet by design</span>
+                <span><CheckIcon /> Personal intelligence</span>
+                <span><CheckIcon /> Decisions with intent</span>
               </div>
             </div>
 
@@ -83,7 +83,7 @@ export default function HomePage() {
                     <CompassMark className="landing-compass-small" />
                     <strong>CareerNavIQ</strong>
                   </div>
-                  <span className="landing-preview-label">Illustrative preview</span>
+                  <span className="landing-preview-label">Private office preview</span>
                 </div>
 
                 <div className="landing-dashboard-body">
@@ -98,33 +98,33 @@ export default function HomePage() {
                   <div className="landing-preview-content">
                     <div className="landing-preview-heading">
                       <div>
-                        <small>YOUR CAREER COMMAND CENTER</small>
-                        <strong>Your personalized dashboard</strong>
+                        <small>THE MORNING BRIEF</small>
+                        <strong>Your private career office</strong>
                       </div>
-                      <span>3 actions today</span>
+                      <span>3 decisions today</span>
                     </div>
 
                     <div className="landing-preview-stats">
-                      <div><small>Strong matches</small><strong>12</strong><span>Illustrative count</span></div>
-                      <div><small>Applications</small><strong>5</strong><span>1 needs follow-up</span></div>
-                      <div><small>Interviews</small><strong>2</strong><span>Preparation ready</span></div>
+                      <div><small>Priority signals</small><strong>12</strong><span>Market intelligence</span></div>
+                      <div><small>Active pursuits</small><strong>5</strong><span>1 decision due</span></div>
+                      <div><small>Briefings</small><strong>2</strong><span>Preparation ready</span></div>
                     </div>
 
                     <div className="landing-preview-grid">
                       <section className="landing-preview-card landing-preview-priority">
                         <div className="landing-card-heading">
-                          <div><small>NEXT BEST ACTION</small><strong>Complete your target role profile</strong></div>
+                          <div><small>PRIORITY ADVISORY</small><strong>Refine your opportunity thesis</strong></div>
                           <span>72%</span>
                         </div>
-                        <p>Sharper preferences improve your matches and recommendations.</p>
+                        <p>A precise mandate brings sharper intelligence and better decisions.</p>
                         <div className="landing-progress"><span /></div>
-                        <button type="button" tabIndex={-1}>Continue setup</button>
+                        <button type="button" tabIndex={-1}>Review advisory</button>
                       </section>
 
                       <section className="landing-preview-card">
                         <div className="landing-card-heading">
-                          <div><small>TOP OPPORTUNITIES</small><strong>Illustrative strong-fit roles</strong></div>
-                          <span className="landing-green-pill">Demo</span>
+                          <div><small>MARKET INTELLIGENCE</small><strong>Selected opportunities</strong></div>
+                          <span className="landing-green-pill">Private brief</span>
                         </div>
                         <div className="landing-job-row"><span>94</span><div><strong>Senior Product Manager</strong><small>Remote · Strong experience match</small></div></div>
                         <div className="landing-job-row"><span>91</span><div><strong>Operations Director</strong><small>Chicago · Leadership alignment</small></div></div>
@@ -142,15 +142,15 @@ export default function HomePage() {
           <div className="landing-container landing-value-grid">
             <article>
               <span className="landing-value-number">01</span>
-              <div><h2>Find opportunities</h2><p>Focus on roles aligned with your experience, goals, location, and preferences.</p></div>
+              <div><h2>Define your position</h2><p>Clarify the value, evidence, and ambition that shape your next chapter.</p></div>
             </article>
             <article>
               <span className="landing-value-number">02</span>
-              <div><h2>Track progress</h2><p>Manage applications, contacts, interviews, follow-ups, and deadlines in one place.</p></div>
+              <div><h2>Read the market</h2><p>Evaluate organizations, opportunities, and signals through your personal mandate.</p></div>
             </article>
             <article>
               <span className="landing-value-number">03</span>
-              <div><h2>Achieve more</h2><p>Strengthen your resume, prepare better answers, and make smarter career decisions.</p></div>
+              <div><h2>Advance with intent</h2><p>Manage every pursuit, relationship, conversation, and decision with precision.</p></div>
             </article>
           </div>
         </section>
@@ -158,17 +158,17 @@ export default function HomePage() {
         <section id="how-it-works" className="landing-section landing-how">
           <div className="landing-container">
             <div className="landing-section-heading">
-              <p className="landing-eyebrow">A CLEARER WAY FORWARD</p>
-              <h2>From scattered job search to focused career strategy.</h2>
-              <p>CareerNavIQ organizes the journey into five connected steps, so you always know what to do next.</p>
+              <p className="landing-eyebrow">A MORE DELIBERATE WAY FORWARD</p>
+              <h2>From reactive searching to deliberate career architecture.</h2>
+              <p>CareerNavIQ brings the rigor of a private advisory office to every important career decision.</p>
             </div>
 
             <div className="landing-steps">
-              <article><span>1</span><h3>Build your profile</h3><p>Bring your experience, strengths, goals, and preferences into one career profile.</p></article>
-              <article><span>2</span><h3>Discover matches</h3><p>Search and prioritize opportunities that fit where you want to go next.</p></article>
-              <article><span>3</span><h3>Tailor and prepare</h3><p>Strengthen your resume, outreach, and positioning for each opportunity.</p></article>
-              <article><span>4</span><h3>Apply and track</h3><p>Keep every application, contact, deadline, and follow-up moving forward.</p></article>
-              <article><span>5</span><h3>Interview and improve</h3><p>Prepare evidence-backed stories and use insights to sharpen your strategy.</p></article>
+              <article><span>1</span><h3>Establish your position</h3><p>Distill your experience, strengths, ambition, and point of view.</p></article>
+              <article><span>2</span><h3>Develop intelligence</h3><p>Read the market through opportunities aligned to your personal mandate.</p></article>
+              <article><span>3</span><h3>Shape the approach</h3><p>Create precise materials and correspondence for each serious pursuit.</p></article>
+              <article><span>4</span><h3>Manage the portfolio</h3><p>Keep every relationship, commitment, deadline, and next decision in view.</p></article>
+              <article><span>5</span><h3>Advance decisively</h3><p>Prepare your evidence, rehearse the conversation, and follow through with intent.</p></article>
             </div>
           </div>
         </section>
@@ -176,22 +176,22 @@ export default function HomePage() {
         <section id="features" className="landing-section landing-features-section">
           <div className="landing-container landing-features-layout">
             <div className="landing-feature-intro">
-              <p className="landing-eyebrow">EVERYTHING IN ONE PLACE</p>
-              <h2>Your complete career operating system—without the clutter.</h2>
+              <p className="landing-eyebrow">YOUR PRIVATE CAREER OFFICE</p>
+              <h2>A singular view of the career you are building.</h2>
               <p>
-                Stop juggling job boards, spreadsheets, documents, notes, and calendar reminders.
-                CareerNavIQ connects the work so each action supports the next.
+                Replace fragmented tools and reactive searching with a composed environment
+                where intelligence, evidence, relationships, and decisions stay connected.
               </p>
-              <Link href="/register" className="landing-text-link">Create your workspace <span aria-hidden="true">→</span></Link>
+              <Link href="/register" className="landing-text-link">Enter the private office <span aria-hidden="true">→</span></Link>
             </div>
 
             <div className="landing-feature-grid">
-              <article><span aria-hidden="true">⌕</span><h3>Smart job search</h3><p>Discover and compare opportunities using the criteria that matter to you.</p></article>
-              <article><span aria-hidden="true">✦</span><h3>Resume studio</h3><p>Translate your experience into stronger, role-specific positioning.</p></article>
-              <article><span aria-hidden="true">✓</span><h3>Application pipeline</h3><p>See every application stage, priority, deadline, and next action.</p></article>
-              <article><span aria-hidden="true">◎</span><h3>Interview preparation</h3><p>Build stories, practice questions, and prepare focused talking points.</p></article>
-              <article><span aria-hidden="true">◇</span><h3>Recruiter CRM</h3><p>Organize the people, conversations, and follow-ups behind your search.</p></article>
-              <article><span aria-hidden="true">↗</span><h3>Career insights</h3><p>Use your activity and outcomes to make better decisions over time.</p></article>
+              <article><span aria-hidden="true">◇</span><h3>Opportunity intelligence</h3><p>Evaluate selected opportunities against the mandate that matters to you.</p></article>
+              <article><span aria-hidden="true">✦</span><h3>Positioning atelier</h3><p>Translate your experience into a compelling, evidence-led narrative.</p></article>
+              <article><span aria-hidden="true">▤</span><h3>Opportunity portfolio</h3><p>See every active pursuit, decision, commitment, and next move.</p></article>
+              <article><span aria-hidden="true">◎</span><h3>Executive briefings</h3><p>Prepare your stories, questions, and point of view for pivotal conversations.</p></article>
+              <article><span aria-hidden="true">◌</span><h3>Relationship capital</h3><p>Steward the people, conversations, and follow-through behind every opportunity.</p></article>
+              <article><span aria-hidden="true">↗</span><h3>Portfolio intelligence</h3><p>Use patterns and outcomes to make sharper decisions over time.</p></article>
             </div>
           </div>
         </section>
@@ -200,11 +200,11 @@ export default function HomePage() {
           <div className="landing-container landing-final-card">
             <CompassMark className="landing-final-compass" />
             <div>
-              <p className="landing-eyebrow">YOUR NEXT OPPORTUNITY STARTS WITH A BETTER SYSTEM</p>
-              <h2>Turn your experience into the right next opportunity.</h2>
-              <p>Create your CareerNavIQ workspace and take control of every step in your career search.</p>
+              <p className="landing-eyebrow">THE NEXT CHAPTER SHOULD BE DELIBERATE</p>
+              <h2>Build it with intelligence, precision, and intent.</h2>
+              <p>Establish your CareerNavIQ private office and bring every important career decision into focus.</p>
             </div>
-            <Link href="/register" className="landing-button landing-button-light">Create my account <span aria-hidden="true">→</span></Link>
+            <Link href="/register" className="landing-button landing-button-light">Request private access <span aria-hidden="true">→</span></Link>
           </div>
         </section>
       </main>
@@ -220,11 +220,11 @@ export default function HomePage() {
                 <span className="landing-word-iq">IQ</span>
               </span>
             </Link>
-            <p>Find opportunities. Track progress. Achieve more.</p>
+            <p>Private intelligence for a career built with intent.</p>
           </div>
           <div className="landing-footer-links">
-            <Link href="/login">Sign in</Link>
-            <Link href="/register">Create account</Link>
+            <Link href="/login">Member access</Link>
+            <Link href="/register">Request access</Link>
             <span>CareerNavIQ.com</span>
           </div>
         </div>
