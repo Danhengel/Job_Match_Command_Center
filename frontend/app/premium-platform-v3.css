@@ -1,0 +1,436 @@
+/* CareerNavIQ premium platform v3
+   Final visual authority: calm, high-contrast, image-supported, and intentionally unboxed. */
+
+.app-shell {
+  --v3-bg: #f6f8fc;
+  --v3-surface: #ffffff;
+  --v3-surface-soft: #f9fbfd;
+  --v3-ink: #14213d;
+  --v3-copy: #33415c;
+  --v3-muted: #5d6b82;
+  --v3-faint: #7b879a;
+  --v3-line: #dfe5ee;
+  --v3-line-strong: #cdd6e3;
+  --v3-primary: #2952cc;
+  --v3-primary-hover: #1f43b3;
+  --v3-primary-soft: #edf2ff;
+  --v3-accent: #16806f;
+  --v3-accent-soft: #eaf7f4;
+  --v3-success: #16794d;
+  --v3-warning: #a15c00;
+  --v3-danger: #b4233a;
+  --v3-sidebar: #10213d;
+  --v3-sidebar-2: #172c4d;
+  --v3-radius: 18px;
+  --v3-shadow: 0 14px 38px rgba(34, 55, 91, 0.08);
+  --text: var(--v3-ink);
+  --muted: var(--v3-muted);
+  --border: var(--v3-line);
+  --panel: var(--v3-surface);
+  --surface: var(--v3-surface);
+  --surface-soft: var(--v3-surface-soft);
+  --primary: var(--v3-primary);
+  --accent: var(--v3-accent);
+  --success: var(--v3-success);
+  --warning: var(--v3-warning);
+  --danger: var(--v3-danger);
+  background: var(--v3-bg);
+  color: var(--v3-ink);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.app-workspace,
+.app-content {
+  background: var(--v3-bg) !important;
+  color: var(--v3-ink) !important;
+}
+
+.app-content {
+  width: min(1500px, calc(100% - 56px));
+  padding: 36px 0 80px;
+}
+
+.app-shell h1,
+.app-shell h2,
+.app-shell h3,
+.app-shell h4,
+.app-shell h5,
+.app-shell h6,
+.app-shell strong,
+.app-shell b {
+  color: var(--v3-ink) !important;
+}
+
+.app-shell p,
+.app-shell li,
+.app-shell td,
+.app-shell th,
+.app-shell label,
+.app-shell dd,
+.app-shell span:not(.sidebar-brand span):not(.sidebar-stage-number):not(.badge):not(.status-badge):not(.pill) {
+  color: var(--v3-copy);
+}
+
+.app-shell .muted,
+.app-shell [class*="muted"],
+.app-shell small,
+.app-shell .helper-text,
+.app-shell .supporting-copy {
+  color: var(--v3-muted) !important;
+}
+
+/* Premium chrome */
+.app-sidebar {
+  background:
+    radial-gradient(circle at 15% -8%, rgba(91, 120, 230, 0.34), transparent 30%),
+    linear-gradient(180deg, var(--v3-sidebar-2), var(--v3-sidebar));
+  border-right: 0;
+  box-shadow: 18px 0 48px rgba(16, 33, 61, 0.12);
+}
+
+.app-sidebar,
+.app-sidebar * {
+  color: #dce6f3;
+}
+
+.sidebar-brand strong,
+.sidebar-stage.active .sidebar-stage-summary,
+.sidebar-dashboard.active,
+.sidebar-dashboard:hover,
+.sidebar-stage-summary:hover,
+.sidebar-stage-links a:hover,
+.sidebar-stage-links a.active,
+.sidebar-utility-links a:hover,
+.sidebar-utility-links a.active {
+  color: #ffffff !important;
+}
+
+.sidebar-brand small,
+.sidebar-stage-copy small,
+.sidebar-dashboard small,
+.sidebar-stage-links a,
+.sidebar-utility-links a,
+.sidebar-signout {
+  color: #aebdd1 !important;
+}
+
+.sidebar-dashboard,
+.sidebar-stage,
+.sidebar-stage-summary,
+.sidebar-utility-links a,
+.sidebar-signout {
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.sidebar-dashboard.active,
+.sidebar-stage.active .sidebar-stage-summary,
+.sidebar-stage-links a.active,
+.sidebar-utility-links a.active {
+  background: rgba(255,255,255,0.10) !important;
+  box-shadow: inset 3px 0 0 #7ee2cf !important;
+}
+
+.sidebar-brand .brand-mark,
+.header-brand-mark {
+  background: linear-gradient(145deg, #7ee2cf, #7b8ff0) !important;
+  color: #10213d !important;
+  border: 0 !important;
+}
+
+.app-header {
+  min-height: 68px;
+  padding: 11px 26px;
+  border-bottom: 1px solid rgba(205, 214, 227, 0.86);
+  background: rgba(255,255,255,0.94) !important;
+  box-shadow: 0 8px 28px rgba(34,55,91,0.055);
+  backdrop-filter: blur(16px);
+}
+
+.header-brand-copy strong {
+  color: var(--v3-ink) !important;
+}
+
+/* Hero areas with real visual interest */
+.app-shell :is(.page-header, .hero, .executive-hero, .resume-page-hero, .command-hero) {
+  position: relative;
+  min-height: 250px;
+  overflow: hidden;
+  margin: 0 0 38px;
+  padding: 38px min(41%, 560px) 38px 0;
+  border: 0 !important;
+  border-bottom: 1px solid var(--v3-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.app-shell :is(.page-header, .hero, .executive-hero, .resume-page-hero, .command-hero)::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: 8px;
+  right: 0;
+  width: min(39%, 520px);
+  height: 220px;
+  border-radius: 24px;
+  background: url('/premium-career-visual.svg') center/contain no-repeat;
+  filter: saturate(.94);
+}
+
+.app-shell :is(.page-header, .hero, .executive-hero, .resume-page-hero, .command-hero) > * {
+  position: relative;
+  z-index: 1;
+}
+
+.app-shell :is(.page-header, .hero, .executive-hero, .resume-page-hero, .command-hero) h1 {
+  max-width: 760px;
+  margin: 6px 0 14px;
+  color: var(--v3-ink) !important;
+  font-size: clamp(36px, 4.4vw, 58px);
+  font-weight: 820;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+}
+
+.app-shell :is(.page-header, .hero, .executive-hero, .resume-page-hero, .command-hero) p:not(.eyebrow) {
+  max-width: 720px;
+  color: var(--v3-muted) !important;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.app-shell .eyebrow {
+  color: var(--v3-primary) !important;
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+
+/* Open composition: remove box-on-box styling */
+.app-shell :is(.card, .dashboard-panel, .command-panel, .studio-panel, .resume-upload-panel, .resume-library-panel, .resume-analysis-panel, .outreach-controls, .outreach-editor, .outreach-guidance, .analytics-panel, .settings-card, .watch-form, .connector-panel) {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.app-shell :is(.card, .dashboard-panel, .command-panel, .studio-panel, .analytics-panel, .settings-card) {
+  padding: 0 !important;
+}
+
+.app-shell :is(.card, .dashboard-panel, .command-panel, .studio-panel, .analytics-panel, .settings-card) + :is(.card, .dashboard-panel, .command-panel, .studio-panel, .analytics-panel, .settings-card) {
+  margin-top: 38px !important;
+  padding-top: 34px !important;
+  border-top: 1px solid var(--v3-line) !important;
+}
+
+/* Purposeful cards only */
+.app-shell :is(.job-card-modern, .crm-contact-card, .kanban-column, .studio-resume-option, .interview-event-card, .star-story-list article, .practice-history article, .history-row, .company-role-card, .watch-card, .activity-item, .notification-row, .automation-row, .profile-preference-card, .settings-toggle) {
+  border: 1px solid var(--v3-line) !important;
+  border-radius: var(--v3-radius) !important;
+  background: var(--v3-surface) !important;
+  color: var(--v3-ink) !important;
+  box-shadow: var(--v3-shadow) !important;
+}
+
+.app-shell :is(.job-card-modern, .crm-contact-card, .company-role-card, .watch-card, .activity-item, .notification-row, .automation-row, .profile-preference-card, .settings-toggle):hover {
+  border-color: #b9c5d5 !important;
+  background: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 20px 44px rgba(34,55,91,.12) !important;
+}
+
+/* KPI cards are restrained and highly readable */
+.app-shell :is(.metric-card, .executive-kpis article, .analytics-kpi-grid article, .company-detail-kpis article, .company-summary-grid article, .watch-summary-grid article, .automation-health-grid article, .company-metric-row div) {
+  border: 1px solid var(--v3-line) !important;
+  border-radius: 16px !important;
+  background: linear-gradient(180deg, #ffffff, #f8faff) !important;
+  color: var(--v3-ink) !important;
+  box-shadow: 0 8px 24px rgba(34,55,91,.06) !important;
+}
+
+.app-shell :is(.metric-card, .executive-kpis article, .analytics-kpi-grid article, .company-detail-kpis article, .company-summary-grid article, .watch-summary-grid article, .automation-health-grid article) strong {
+  color: var(--v3-ink) !important;
+}
+
+/* Nested blocks become clean rows */
+.app-shell :is(.quick-action, .studio-step, .priority-item, .command-actions a, .funnel-stage-card, .source-health div, .match-evidence-grid div, .outreach-context, .interview-checklist, .insight-list div, .analytics-ranking-list > div, .connector-list > div, .score-bars span, .analysis-grid > div, .prep-item, .profile-edit-textareas > div) {
+  border: 0 !important;
+  border-bottom: 1px solid var(--v3-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--v3-ink) !important;
+  box-shadow: none !important;
+}
+
+/* Controls */
+.app-shell button,
+.app-shell .button {
+  min-height: 42px;
+  padding: 10px 16px;
+  border: 1px solid var(--v3-primary) !important;
+  border-radius: 11px !important;
+  background: var(--v3-primary) !important;
+  color: #ffffff !important;
+  font-weight: 760;
+  box-shadow: 0 8px 18px rgba(41,82,204,.18) !important;
+}
+
+.app-shell button:hover:not(:disabled),
+.app-shell .button:hover {
+  border-color: var(--v3-primary-hover) !important;
+  background: var(--v3-primary-hover) !important;
+  color: #ffffff !important;
+  transform: translateY(-1px);
+}
+
+.app-shell :is(button.secondary, .button.secondary, .version-button) {
+  border-color: var(--v3-line-strong) !important;
+  background: #ffffff !important;
+  color: var(--v3-ink) !important;
+  box-shadow: none !important;
+}
+
+.app-shell :is(button.secondary, .button.secondary, .version-button):hover {
+  background: #f3f6fb !important;
+  color: var(--v3-ink) !important;
+}
+
+.app-shell input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+.app-shell select,
+.app-shell textarea,
+.app-shell .job-description,
+.app-shell .letter-preview,
+.app-shell .preview {
+  border: 1px solid var(--v3-line-strong) !important;
+  border-radius: 11px !important;
+  background: #ffffff !important;
+  color: var(--v3-ink) !important;
+  box-shadow: 0 1px 2px rgba(34,55,91,.03) !important;
+}
+
+.app-shell input::placeholder,
+.app-shell textarea::placeholder {
+  color: #7d8999 !important;
+}
+
+.app-shell input:focus,
+.app-shell select:focus,
+.app-shell textarea:focus {
+  border-color: var(--v3-primary) !important;
+  box-shadow: 0 0 0 3px rgba(41,82,204,.14) !important;
+}
+
+/* Status colors are reserved for meaning */
+.app-shell :is(.badge, .pill, .status-badge) {
+  border-radius: 999px !important;
+  font-weight: 760;
+}
+
+.app-shell .success,
+.app-shell [class*="success"] {
+  color: var(--v3-success) !important;
+}
+
+.app-shell .warning-badge,
+.app-shell .warn-text,
+.app-shell [class*="warning"] {
+  color: var(--v3-warning) !important;
+}
+
+.app-shell [class*="danger"],
+.app-shell [class*="error"] {
+  color: var(--v3-danger) !important;
+}
+
+/* Save bars stay prominent without becoming dark slabs */
+.app-shell :is(.settings-save-bar, .profile-edit-save-bar) {
+  border: 1px solid var(--v3-line-strong) !important;
+  border-radius: 16px !important;
+  background: rgba(255,255,255,.96) !important;
+  color: var(--v3-ink) !important;
+  box-shadow: 0 18px 42px rgba(34,55,91,.13) !important;
+}
+
+.app-shell :is(.settings-save-bar, .profile-edit-save-bar) strong {
+  color: var(--v3-ink) !important;
+}
+
+/* Tables */
+.app-shell table {
+  overflow: hidden;
+  border: 1px solid var(--v3-line);
+  border-radius: 14px;
+  background: #fff;
+}
+
+.app-shell thead {
+  background: #f2f5fa !important;
+}
+
+.app-shell th {
+  color: var(--v3-ink) !important;
+}
+
+.app-shell tbody tr + tr td {
+  border-top: 1px solid var(--v3-line);
+}
+
+/* Rich empty states with illustration */
+.app-shell :is(.empty-state, .empty, .no-results, .loading-state):not(:empty) {
+  position: relative;
+  min-height: 190px;
+  padding: 34px 240px 34px 28px !important;
+  border: 1px dashed var(--v3-line-strong) !important;
+  border-radius: 18px !important;
+  background: linear-gradient(135deg, #ffffff, #f5f8ff) !important;
+}
+
+.app-shell :is(.empty-state, .empty, .no-results, .loading-state):not(:empty)::after {
+  content: "";
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 200px;
+  height: 150px;
+  background: url('/premium-career-visual.svg') center/contain no-repeat;
+  opacity: .78;
+}
+
+/* Responsive */
+@media (max-width: 1050px) {
+  .app-shell :is(.page-header, .hero, .executive-hero, .resume-page-hero, .command-hero) {
+    min-height: 0;
+    padding-right: 0;
+  }
+
+  .app-shell :is(.page-header, .hero, .executive-hero, .resume-page-hero, .command-hero)::before {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .app-content {
+    width: min(100% - 28px, 1500px);
+    padding-top: 24px;
+  }
+
+  .app-shell :is(.page-header, .hero, .executive-hero, .resume-page-hero, .command-hero) {
+    margin-bottom: 28px;
+    padding: 14px 0 24px;
+  }
+
+  .app-shell :is(.page-header, .hero, .executive-hero, .resume-page-hero, .command-hero) h1 {
+    font-size: clamp(32px, 11vw, 44px);
+  }
+
+  .app-shell :is(.empty-state, .empty, .no-results, .loading-state):not(:empty) {
+    padding: 26px !important;
+  }
+
+  .app-shell :is(.empty-state, .empty, .no-results, .loading-state):not(:empty)::after {
+    display: none;
+  }
+}
