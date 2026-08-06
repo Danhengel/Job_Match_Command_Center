@@ -20,6 +20,7 @@ from app.core.security import (
 )
 from app.db.base import Base
 from app.db.session import get_db
+from app.models.password_reset_token import PasswordResetToken
 from app.models.profile import CareerProfile
 from app.models.resume import Resume
 from app.models.user import User
@@ -121,6 +122,12 @@ def update_account(
             if existing:
                 raise HTTPException(status_code=409, detail="Email is already registered")
 
+            now = datetime.utcnow()
+            db.query(PasswordResetToken).filter(
+                PasswordResetToken.user_id == user.id,
+                PasswordResetToken.used_at.is_(None),
+            ).update({PasswordResetToken.used_at: now}, synchronize_session=False)
+
             old_email_for_notification = user.email
             user.email = normalized_email
             user.email_verified_at = None
@@ -167,9 +174,14 @@ def change_password(
         raise HTTPException(status_code=400, detail="New password must be different")
 
     validate_password_strength(body.new_password)
+    now = datetime.utcnow()
     user.password_hash = hash_password(body.new_password)
-    user.password_changed_at = datetime.utcnow()
+    user.password_changed_at = now
     user.auth_version = int(user.auth_version or 1) + 1
+    db.query(PasswordResetToken).filter(
+        PasswordResetToken.user_id == user.id,
+        PasswordResetToken.used_at.is_(None),
+    ).update({PasswordResetToken.used_at: now}, synchronize_session=False)
     db.commit()
 
     try:
