@@ -1,0 +1,13 @@
+/* Résumé Studio layout refinement:
+   keep Add Résumé and Library together, with Analysis directly below. */
+@media (min-width: 1251px) {
+  .resume-studio-grid {
+    grid-template-columns: 280px minmax(500px, 1fr);
+  }
+
+  .resume-analysis-panel {
+    position: static;
+    grid-column: 1 / -1;
+    min-height: auto;
+  }
+}
