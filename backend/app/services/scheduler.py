@@ -13,6 +13,7 @@ from app.services.automation_service import (
     notification_exists,
     refresh_smart_notifications,
 )
+from app.services.job_freshness import verify_stale_jobs
 from app.services.report_service import build_weekly_report
 from app.services.saved_search_runner import run_saved_search
 
@@ -201,6 +202,11 @@ def run_automation_cycle(now_utc: datetime | None = None) -> dict:
             except Exception as exc:
                 db.rollback()
                 results.append({"user_id": user.id, "error": str(exc)})
+        try:
+            freshness = verify_stale_jobs(db)
+        except Exception as exc:
+            db.rollback()
+            freshness = {"checked": 0, "error": str(exc)}
         summary = {
             "users_processed": len(results),
             "searches_run": sum(item.get("searches_run", 0) for item in results),
@@ -211,6 +217,7 @@ def run_automation_cycle(now_utc: datetime | None = None) -> dict:
                 + item.get("weekly_reports_created", 0)
                 for item in results
             ),
+            "job_freshness": freshness,
             "results": results,
         }
         _scheduler_state["last_result"] = summary
