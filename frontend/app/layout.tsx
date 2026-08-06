@@ -25,6 +25,7 @@ import "./company-watch-catalog.css";
 import "./experience-overhaul.css";
 import "./premium-visual-system.css";
 import "./contrast-repair.css";
+import "./premium-platform-v3.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 
@@ -118,7 +119,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#071426",
+  themeColor: "#10213D",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
