@@ -16,12 +16,12 @@ from app.models.profile import CareerProfile
 from app.models.resume import Resume
 from app.models.user import User
 from app.schemas.jobs import JobSearchRequest
-from app.services import external_job_sources, job_sources
+from app.services import external_job_sources, job_sources, web_discovery
 from app.services.job_matcher import match_job
 
 
 router = APIRouter(prefix="/api/jobs", tags=["Jobs"])
-MAX_EXTERNAL_TITLES = 8
+MAX_EXTERNAL_TITLES = 6
 MAX_EXTERNAL_WORKERS = 8
 
 
@@ -35,6 +35,10 @@ def normalized_job_key(company: str, title: str, location: str) -> str:
 
 def capability_note(source: str) -> str:
     notes = {
+        "Brave web discovery": (
+            "Brave web discovery is installed but inactive until "
+            "BRAVE_SEARCH_API_KEY is configured."
+        ),
         "USAJOBS": (
             "USAJOBS connector is installed but inactive until "
             "USAJOBS_API_KEY and USAJOBS_EMAIL are configured."
@@ -88,8 +92,16 @@ def query_titles(body: JobSearchRequest, base: dict) -> list[str]:
 
 
 def configured_external_sources():
-    capabilities = external_job_sources.connector_capabilities()
+    capabilities = {
+        **external_job_sources.connector_capabilities(),
+        **web_discovery.connector_capabilities(),
+    }
     source_specs = [
+        (
+            "Brave web discovery",
+            capabilities["brave"],
+            web_discovery.brave_jobs,
+        ),
         (
             "USAJOBS",
             capabilities["usajobs"],
@@ -341,7 +353,7 @@ def search_everywhere(
 ):
     base = search_all(body=body, user=user, db=db)
     profile, resume_text = profile_context(body, user, db)
-    capabilities, source_specs = configured_external_sources()
+    _capabilities, source_specs = configured_external_sources()
     titles = query_titles(body, base)
     supplemental_locations = maximum_coverage_locations(body.jsearch_location)
 
@@ -428,7 +440,6 @@ def search_everywhere(
             "coverage_notes": list(dict.fromkeys(coverage_notes)),
             "searched_sources": list(dict.fromkeys(searched_sources)),
             "source_status": source_status,
-            "connector_setup": capabilities,
             "external_titles_searched": titles,
             "coverage_locations": coverage_locations,
         }
@@ -437,3 +448,13 @@ def search_everywhere(
     update_search_run(base, user, db)
     db.commit()
     return base
+
+
+@router.post("/search")
+def universal_search(
+    body: JobSearchRequest,
+    user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    """Keep the existing frontend route while enabling maximum coverage."""
+    return search_everywhere(body=body, user=user, db=db)
