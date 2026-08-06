@@ -16,7 +16,12 @@ from app.models.profile import CareerProfile
 from app.models.resume import Resume
 from app.models.user import User
 from app.schemas.jobs import JobSearchRequest
-from app.services import external_job_sources, job_sources, web_discovery
+from app.services import (
+    careeronestop_source,
+    external_job_sources,
+    job_sources,
+    web_discovery,
+)
 from app.services.job_matcher import match_job
 
 
@@ -42,6 +47,11 @@ def capability_note(source: str) -> str:
         "USAJOBS": (
             "USAJOBS connector is installed but inactive until "
             "USAJOBS_API_KEY and USAJOBS_EMAIL are configured."
+        ),
+        "CareerOneStop / NLx": (
+            "CareerOneStop is installed but inactive until "
+            "CAREERONESTOP_USER_ID and CAREERONESTOP_API_TOKEN "
+            "are configured."
         ),
         "Adzuna": (
             "Adzuna connector is installed but inactive until "
@@ -95,6 +105,7 @@ def configured_external_sources():
     capabilities = {
         **external_job_sources.connector_capabilities(),
         **web_discovery.connector_capabilities(),
+        "careeronestop": careeronestop_source.configured(),
     }
     source_specs = [
         (
@@ -106,6 +117,11 @@ def configured_external_sources():
             "USAJOBS",
             capabilities["usajobs"],
             external_job_sources.usajobs,
+        ),
+        (
+            "CareerOneStop / NLx",
+            capabilities["careeronestop"],
+            careeronestop_source.jobs,
         ),
         (
             "Adzuna",
