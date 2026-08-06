@@ -9,9 +9,10 @@ from app.models.automation import AutomationPreference, Notification, SavedSearc
 from app.models.profile import CareerProfile
 from app.models.user import User
 from app.schemas.automation import AutomationPreferenceUpdate, SavedSearchCreate, SavedSearchUpdate
-from app.services.automation_service import build_daily_digest, refresh_smart_notifications, run_saved_search
+from app.services.automation_service import build_daily_digest, refresh_smart_notifications
 from app.services.calendar_service import build_calendar_timeline
 from app.services.report_service import build_weekly_report
+from app.services.saved_search_runner import run_saved_search
 from app.services.scheduler import run_user_automation, scheduler_status
 
 router = APIRouter(prefix="/api/automation", tags=["Automation"])

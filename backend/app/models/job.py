@@ -46,6 +46,19 @@ class Job(Base):
         DateTime,
         default=datetime.utcnow,
     )
+    verified_at: Mapped[datetime | None] = mapped_column(
+        DateTime,
+        nullable=True,
+    )
+    closed_at: Mapped[datetime | None] = mapped_column(
+        DateTime,
+        nullable=True,
+    )
+    verification_status: Mapped[str] = mapped_column(
+        String(50),
+        default="unverified",
+        index=True,
+    )
 
 
 class JobMatch(Base):
