@@ -92,20 +92,26 @@ export function isActivePath(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
+export function getActiveJourneyItem(
+  pathname: string,
+  items: CareerJourneyItem[],
+) {
+  return [...items]
+    .sort((left, right) => right.href.length - left.href.length)
+    .find((item) => isActivePath(pathname, item.href));
+}
+
 export function getCareerStage(pathname: string) {
   return CAREER_STAGES.find((stage) =>
-    stage.items.some((item) => isActivePath(pathname, item.href)),
+    Boolean(getActiveJourneyItem(pathname, stage.items)),
   );
 }
 
 export function getCurrentPageLabel(pathname: string) {
   if (pathname === "/dashboard") return "Dashboard";
 
-  const allItems = [
+  return getActiveJourneyItem(pathname, [
     ...CAREER_STAGES.flatMap((stage) => stage.items),
     ...UTILITY_LINKS,
-  ].sort((left, right) => right.href.length - left.href.length);
-
-  return allItems.find((item) => isActivePath(pathname, item.href))?.label
-    ?? "Career workspace";
+  ])?.label ?? "Career workspace";
 }
