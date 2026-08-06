@@ -12,7 +12,12 @@ from app.models.enterprise import CareerPageWatch
 from app.models.job import Job, JobMatch
 from app.models.profile import CareerProfile
 from app.models.resume import Resume
-from app.services import external_job_sources, job_sources, web_discovery
+from app.services import (
+    careeronestop_source,
+    external_job_sources,
+    job_sources,
+    web_discovery,
+)
 from app.services.job_matcher import match_job
 
 
@@ -163,6 +168,22 @@ def collect_saved_search_rows(
                 tasks.append((source, loader, (title, location), False, None))
         else:
             coverage_notes.append(f"{source} is not configured for automated searches.")
+
+    if careeronestop_source.configured():
+        for title in titles:
+            tasks.append(
+                (
+                    "CareerOneStop / NLx",
+                    careeronestop_source.jobs,
+                    (title, location),
+                    False,
+                    None,
+                )
+            )
+    else:
+        coverage_notes.append(
+            "CareerOneStop / NLx is not configured for automated searches."
+        )
 
     if web_discovery.connector_capabilities().get("brave"):
         for title in titles:
