@@ -21,8 +21,10 @@ app.include_router(auth.router)
 app.include_router(profiles.router)
 app.include_router(resumes.router)
 app.include_router(dashboard.router)
-app.include_router(jobs.router)
+# Register universal search before the legacy router so /api/jobs/search
+# keeps the existing frontend contract while using the expanded pipeline.
 app.include_router(job_search_all.router)
+app.include_router(jobs.router)
 
 app.include_router(tailoring.router)
 
