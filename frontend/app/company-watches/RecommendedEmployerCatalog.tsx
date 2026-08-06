@@ -3,10 +3,10 @@
 import { useMemo, useState } from "react";
 import {
   employerCategoryDetails,
-  recommendedEmployers,
   type EmployerCategory,
   type RecommendedEmployer,
-} from "./recommended-employers";
+} from "./employer-catalog-types";
+import { recommendedEmployers } from "./recommended-employers";
 
 type WatchedEmployer = {
   company: string;
@@ -108,10 +108,10 @@ export function RecommendedEmployerCatalog({ items, onSelect }: RecommendedEmplo
     <section className="card recommended-employer-catalog">
       <div className="recommended-employer-heading">
         <div>
-          <p className="eyebrow">RÉSUMÉ-MATCHED EMPLOYERS</p>
-          <h2>Priority company watch list</h2>
+          <p className="eyebrow">YOUR RÉSUMÉ-MATCHED EMPLOYERS</p>
+          <h2>Private priority company watch list</h2>
           <p className="muted">
-            A curated employer catalog matched to construction lending, CRE servicing, credit administration,
+            Your private employer catalog matched to construction lending, CRE servicing, credit administration,
             affordable housing, capital-program delivery, portfolio governance, and operations transformation.
             Career pages can change, so confirm the employer page before applying.
           </p>
