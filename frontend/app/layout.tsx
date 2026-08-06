@@ -14,6 +14,7 @@ import "./mobile.css";
 import "./public-readability.css";
 import "./design-system.css";
 import "./page-modernization.css";
+import "./company-modernization.css";
 import "./auth-modernization.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
