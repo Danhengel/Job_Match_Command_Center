@@ -91,6 +91,7 @@ def _consume_account_token(
             PasswordResetToken.purpose == purpose,
             PasswordResetToken.used_at.is_(None),
         )
+        .with_for_update()
         .first()
     )
     if not token:
@@ -204,6 +205,8 @@ def reset_password(body: ResetPasswordRequest, db: Session = Depends(get_db)):
     user = db.get(User, token.user_id)
     if not user or not user.is_active:
         raise HTTPException(status_code=400, detail="This link is no longer valid")
+    if verify_password(body.password, user.password_hash):
+        raise HTTPException(status_code=400, detail="New password must be different")
 
     now = datetime.utcnow()
     user.password_hash = hash_password(body.password)
