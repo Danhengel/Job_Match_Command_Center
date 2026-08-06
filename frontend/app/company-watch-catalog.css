@@ -1,0 +1,194 @@
+.recommended-employer-catalog {
+  margin-top: 24px;
+}
+
+.recommended-employer-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.recommended-employer-heading h2 {
+  margin-bottom: 8px;
+}
+
+.recommended-employer-heading .muted {
+  max-width: 920px;
+  margin-bottom: 0;
+}
+
+.recommended-employer-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.recommended-employer-summary article {
+  padding: 15px;
+  border: 1px solid var(--border-subtle, #263b59);
+  border-radius: 13px;
+  background: rgba(10, 24, 42, 0.72);
+}
+
+.recommended-employer-summary span,
+.recommended-employer-summary small {
+  display: block;
+  color: var(--text-muted, #9db0c9);
+}
+
+.recommended-employer-summary strong {
+  display: block;
+  margin: 7px 0 3px;
+  font-size: 27px;
+}
+
+.recommended-employer-controls {
+  display: grid;
+  grid-template-columns: minmax(260px, 1.4fr) minmax(220px, 1fr) minmax(180px, 0.75fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.recommended-employer-controls label {
+  display: grid;
+  gap: 7px;
+  color: var(--text-muted, #b8c7db);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.recommended-employer-controls input,
+.recommended-employer-controls select {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--border-strong, #334b6c);
+  border-radius: 10px;
+  background: var(--surface-deep, #0b1728);
+  color: var(--text-primary, #f4f7fb);
+}
+
+.recommended-employer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.recommended-employer-card {
+  display: flex;
+  min-width: 0;
+  min-height: 320px;
+  flex-direction: column;
+  padding: 17px;
+  border: 1px solid var(--border-subtle, #2a405f);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(18, 36, 61, 0.96), rgba(8, 22, 39, 0.96));
+  transition: transform 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.recommended-employer-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-blue, #5d7cff);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16);
+}
+
+.recommended-employer-card.recommended-employer-saved {
+  border-color: rgba(94, 234, 212, 0.72);
+  box-shadow: inset 0 0 0 1px rgba(94, 234, 212, 0.12);
+}
+
+.recommended-employer-card-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.recommended-employer-card-heading > div:last-child {
+  min-width: 0;
+}
+
+.recommended-employer-card h3 {
+  margin: 10px 0 3px;
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.recommended-employer-card small {
+  color: var(--text-muted, #9db0c9);
+}
+
+.recommended-employer-mark {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  place-items: center;
+  border: 1px solid rgba(116, 192, 252, 0.42);
+  border-radius: 12px;
+  background: rgba(49, 94, 152, 0.28);
+  color: #d8efff;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.recommended-employer-card > p {
+  flex: 1;
+  margin: 17px 0 14px;
+  color: var(--text-secondary, #c9d6e7);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.recommended-employer-card > a {
+  display: block;
+  overflow: hidden;
+  margin-bottom: 14px;
+  color: var(--accent-light, #8ed2ff);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.recommended-employer-card > a:hover {
+  text-decoration: underline;
+}
+
+.recommended-employer-card > button {
+  width: 100%;
+}
+
+.recommended-employer-empty {
+  padding: 42px 20px;
+  border: 1px dashed var(--border-strong, #334b6c);
+  border-radius: 14px;
+  text-align: center;
+}
+
+@media (max-width: 1180px) {
+  .recommended-employer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .recommended-employer-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .recommended-employer-heading {
+    flex-direction: column;
+  }
+
+  .recommended-employer-controls,
+  .recommended-employer-grid,
+  .recommended-employer-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .recommended-employer-card {
+    min-height: auto;
+  }
+}
