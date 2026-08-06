@@ -3,65 +3,23 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type MouseEvent, type ReactNode } from "react";
+
 import { BrandCompass } from "@/components/BrandCompass";
 import { GuidedJourneyFooter } from "@/components/GuidedJourneyFooter";
+import {
+  CAREER_STAGES,
+  UTILITY_LINKS,
+  getCareerStage,
+  getCurrentPageLabel,
+  isActivePath,
+} from "@/lib/careerJourney";
 import { endAuthenticatedSession } from "@/lib/sessionStorage";
-
-const sections = [
-  {
-    label: "Build your profile",
-    items: [
-      ["/profiles", "Career profile"],
-      ["/resumes", "Résumé library"],
-      ["/resumes/studio", "Resume Studio"],
-    ],
-  },
-  {
-    label: "Discover opportunities",
-    items: [
-      ["/jobs", "Smart job search"],
-      ["/companies", "Companies"],
-      ["/company-watches", "Career watches"],
-    ],
-  },
-  {
-    label: "Prepare applications",
-    items: [
-      ["/coach", "Application studio"],
-      ["/outreach", "Outreach Studio"],
-    ],
-  },
-  {
-    label: "Apply and track",
-    items: [
-      ["/applications", "Application pipeline"],
-      ["/crm", "Recruiter CRM"],
-    ],
-  },
-  {
-    label: "Interview and follow up",
-    items: [
-      ["/interviews", "Interview center"],
-      ["/interview-coach", "AI interview coach"],
-      ["/calendar", "Career calendar"],
-      ["/notifications", "Notifications"],
-    ],
-  },
-] as const;
-
-const tools = [
-  ["/command-center", "Command center"],
-  ["/analytics", "Analytics"],
-  ["/reports/weekly", "Weekly report"],
-  ["/automation", "Automation"],
-  ["/settings/automation", "Automation settings"],
-] as const;
 
 const mobileNavigation = [
   ["/dashboard", "⌂", "Home"],
   ["/jobs", "⌕", "Jobs"],
   ["/applications", "✓", "Track"],
-  ["/interviews", "◎", "Prepare"],
+  ["/interviews", "◎", "Interview"],
 ] as const;
 
 const publicPaths = new Set([
@@ -77,13 +35,11 @@ const publicPaths = new Set([
   "/interview-preparation",
 ]);
 
-function active(pathname: string, href: string) {
-  return pathname === href || pathname.startsWith(`${href}/`);
-}
-
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const currentStage = getCareerStage(pathname);
+  const currentPageLabel = getCurrentPageLabel(pathname);
 
   useEffect(() => {
     setMenuOpen(false);
@@ -137,11 +93,15 @@ export function AppShell({ children }: { children: ReactNode }) {
         onClick={closeMenuFromLink}
       >
         <div className="sidebar-brand-row">
-          <Link href="/dashboard" className="sidebar-brand" aria-label="CareerNavIQ dashboard">
+          <Link
+            href="/dashboard"
+            className="sidebar-brand"
+            aria-label="CareerNavIQ dashboard"
+          >
             <span className="brand-mark"><BrandCompass /></span>
             <span>
               <strong>CareerNavIQ</strong>
-              <small>AI career operating system</small>
+              <small>Your career command center</small>
             </span>
           </Link>
           <button
@@ -154,51 +114,80 @@ export function AppShell({ children }: { children: ReactNode }) {
           </button>
         </div>
 
-        <nav className="sidebar-nav" aria-label="Career journey">
+        <nav className="sidebar-nav" aria-label="Career workflow">
           <Link
             href="/dashboard"
-            className={`sidebar-dashboard ${active(pathname, "/dashboard") ? "active" : ""}`}
-            aria-current={active(pathname, "/dashboard") ? "page" : undefined}
+            className={`sidebar-dashboard ${isActivePath(pathname, "/dashboard") ? "active" : ""}`}
+            aria-current={isActivePath(pathname, "/dashboard") ? "page" : undefined}
           >
-            Dashboard
+            <span className="sidebar-dashboard-icon" aria-hidden="true">⌂</span>
+            <span>
+              <strong>Dashboard</strong>
+              <small>Priorities and progress</small>
+            </span>
           </Link>
 
-          <p className="sidebar-kicker">Career journey</p>
-          {sections.map((section, index) => (
-            <section className="sidebar-step" key={section.label}>
-              <div className="sidebar-step-heading">
-                <strong>{index + 1}. {section.label}</strong>
-              </div>
-              <div className="sidebar-step-links">
-                {section.items.map(([href, label]) => {
-                  const isActive = active(pathname, href);
-                  return (
-                    <Link
-                      key={href}
-                      href={href}
-                      className={isActive ? "active" : ""}
-                      aria-current={isActive ? "page" : undefined}
-                    >
-                      {label}
-                    </Link>
-                  );
-                })}
-              </div>
-            </section>
-          ))}
+          <div className="sidebar-section-heading">
+            <span>Career process</span>
+            <small>5 stages</small>
+          </div>
 
-          <p className="sidebar-kicker">Insights and tools</p>
-          <div className="sidebar-step-links">
-            {tools.map(([href, label]) => {
-              const isActive = active(pathname, href);
+          <div className="sidebar-stage-list">
+            {CAREER_STAGES.map((stage) => {
+              const stageActive = currentStage?.id === stage.id;
+
+              return (
+                <section
+                  className={`sidebar-stage ${stageActive ? "active" : ""}`}
+                  key={stage.id}
+                >
+                  <Link
+                    href={stage.href}
+                    className="sidebar-stage-summary"
+                    aria-current={stageActive ? "step" : undefined}
+                  >
+                    <span className="sidebar-stage-number">{stage.number}</span>
+                    <span className="sidebar-stage-copy">
+                      <strong>{stage.shortLabel}</strong>
+                      <small>{stage.description}</small>
+                    </span>
+                    <span className="sidebar-stage-arrow" aria-hidden="true">›</span>
+                  </Link>
+
+                  <div className="sidebar-stage-links">
+                    {stage.items.map((item) => {
+                      const itemActive = isActivePath(pathname, item.href);
+                      return (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          className={itemActive ? "active" : ""}
+                          aria-current={itemActive ? "page" : undefined}
+                        >
+                          {item.label}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </section>
+              );
+            })}
+          </div>
+
+          <div className="sidebar-section-heading sidebar-tools-heading">
+            <span>Insights and tools</span>
+          </div>
+          <div className="sidebar-utility-links">
+            {UTILITY_LINKS.map((item) => {
+              const itemActive = isActivePath(pathname, item.href);
               return (
                 <Link
-                  key={href}
-                  href={href}
-                  className={isActive ? "active" : ""}
-                  aria-current={isActive ? "page" : undefined}
+                  key={item.href}
+                  href={item.href}
+                  className={itemActive ? "active" : ""}
+                  aria-current={itemActive ? "page" : undefined}
                 >
-                  {label}
+                  {item.label}
                 </Link>
               );
             })}
@@ -206,8 +195,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
           <button
             type="button"
-            className="button secondary compact"
-            style={{ width: "100%", marginTop: 18 }}
+            className="sidebar-signout"
             onClick={signOut}
           >
             Sign out
@@ -228,20 +216,54 @@ export function AppShell({ children }: { children: ReactNode }) {
             <span aria-hidden="true">☰</span>
           </button>
 
-          <Link href="/dashboard" className="header-brand" aria-label="CareerNavIQ dashboard">
+          <Link
+            href="/dashboard"
+            className="header-brand"
+            aria-label="CareerNavIQ dashboard"
+          >
             <span className="header-brand-mark"><BrandCompass /></span>
             <span className="header-brand-copy">
-              <strong>CareerNavIQ</strong>
-              <span>Navigate your next career move with clarity.</span>
+              <strong>{currentPageLabel}</strong>
+              <span>
+                {currentStage
+                  ? `Stage ${currentStage.number} of ${CAREER_STAGES.length}: ${currentStage.label}`
+                  : "Career overview and next priorities"}
+              </span>
             </span>
           </Link>
 
           <div className="header-actions">
-            <Link href="/jobs" className="button secondary compact">Search jobs</Link>
+            <Link href="/jobs" className="button compact">Search jobs</Link>
             <Link href="/notifications" className="header-link">Alerts</Link>
-            <button type="button" className="button secondary compact" onClick={signOut}>Sign out</button>
+            <button
+              type="button"
+              className="button secondary compact header-signout"
+              onClick={signOut}
+            >
+              Sign out
+            </button>
           </div>
         </header>
+
+        <nav className="career-process-rail" aria-label="Five-stage career process">
+          {CAREER_STAGES.map((stage) => {
+            const stageActive = currentStage?.id === stage.id;
+            return (
+              <Link
+                key={stage.id}
+                href={stage.href}
+                className={`process-stage ${stageActive ? "active" : ""}`}
+                aria-current={stageActive ? "step" : undefined}
+              >
+                <span className="process-stage-number">{stage.number}</span>
+                <span className="process-stage-copy">
+                  <strong>{stage.shortLabel}</strong>
+                  <small>{stage.description}</small>
+                </span>
+              </Link>
+            );
+          })}
+        </nav>
 
         <main className="app-content">
           {children}
@@ -251,13 +273,13 @@ export function AppShell({ children }: { children: ReactNode }) {
 
       <nav className="mobile-bottom-nav" aria-label="Primary mobile navigation">
         {mobileNavigation.map(([href, icon, label]) => {
-          const isActive = active(pathname, href);
+          const itemActive = isActivePath(pathname, href);
           return (
             <Link
               key={href}
               href={href}
-              className={isActive ? "active" : ""}
-              aria-current={isActive ? "page" : undefined}
+              className={itemActive ? "active" : ""}
+              aria-current={itemActive ? "page" : undefined}
             >
               <span className="mobile-nav-icon" aria-hidden="true">{icon}</span>
               <small>{label}</small>
