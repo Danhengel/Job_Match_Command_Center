@@ -2,14 +2,15 @@
 
 import Link from "next/link";
 
+import { CAREER_STAGES, getCareerStage } from "@/lib/careerJourney";
+
 type JourneyLink = {
   href: string;
   label: string;
 };
 
-type JourneyStep = {
+type JourneyAction = {
   matches: (pathname: string) => boolean;
-  step: number;
   title: string;
   description: string;
   back?: JourneyLink;
@@ -17,174 +18,156 @@ type JourneyStep = {
   nextDisabled?: string;
 };
 
-const TOTAL_STEPS = 14;
-
-const journeySteps: JourneyStep[] = [
+const journeyActions: JourneyAction[] = [
   {
     matches: (pathname) => pathname === "/profiles",
-    step: 1,
-    title: "Build your career profile",
-    description: "Start by defining the roles, locations, compensation, and priorities CareerNavIQ should use for matching.",
+    title: "Define what a strong opportunity looks like",
+    description: "Create or review the career profile that controls your role, location, compensation, and match preferences.",
     back: { href: "/dashboard", label: "Dashboard" },
     next: { href: "/profiles/new", label: "Create career profile" },
   },
   {
     matches: (pathname) => pathname === "/profiles/new",
-    step: 1,
-    title: "Complete your career profile",
-    description: "Save this profile before moving forward so your résumé and job matches stay connected to the right goals.",
+    title: "Save your search foundation",
+    description: "Complete the profile so every résumé analysis, job search, and application stays connected to the right goal.",
     back: { href: "/profiles", label: "Career profiles" },
-    nextDisabled: "Save profile to continue",
+    nextDisabled: "Save the profile to continue",
   },
   {
-    matches: (pathname) => /^\/profiles\/[^/]+$/.test(pathname),
-    step: 1,
-    title: "Your search foundation is ready",
-    description: "Next, add the résumé CareerNavIQ should analyze and use as the foundation for matching and tailoring.",
+    matches: (pathname) => /^\/profiles\/[^/]+/.test(pathname),
+    title: "Add the résumé that supports this goal",
+    description: "Your profile is the target. Your résumé supplies the evidence CareerNavIQ uses to rank and tailor opportunities.",
     back: { href: "/profiles", label: "Career profiles" },
-    next: { href: "/resumes", label: "Upload your résumé" },
+    next: { href: "/resumes", label: "Open résumé library" },
   },
   {
     matches: (pathname) => pathname === "/resumes",
-    step: 2,
-    title: "Turn your résumé into career intelligence",
-    description: "After your primary résumé is uploaded, move into Résumé Studio to review its strengths and improve its positioning.",
+    title: "Turn your résumé into usable evidence",
+    description: "Choose your primary résumé, then review its positioning, strengths, and missing evidence in Résumé Studio.",
     back: { href: "/profiles", label: "Career profile" },
     next: { href: "/resumes/studio", label: "Open Résumé Studio" },
   },
   {
     matches: (pathname) => pathname.startsWith("/resumes/studio"),
-    step: 3,
-    title: "Put your résumé to work",
-    description: "Use your profile and résumé intelligence to discover stronger-fit opportunities.",
+    title: "Use your foundation to find opportunities",
+    description: "Your profile and résumé are ready to power a targeted search across employers and job publishers.",
     back: { href: "/resumes", label: "Résumé library" },
-    next: { href: "/jobs", label: "Find matching jobs" },
+    next: { href: "/jobs", label: "Search jobs" },
   },
   {
     matches: (pathname) => /^\/jobs\/[^/]+/.test(pathname),
-    step: 4,
-    title: "Prepare a focused application",
-    description: "Use the selected opportunity to tailor your résumé, positioning, and application materials.",
+    title: "Convert this match into an application",
+    description: "Carry the selected role into Application Studio to tailor your résumé and application evidence.",
     back: { href: "/jobs", label: "Job search" },
-    next: { href: "/coach", label: "Tailor your application" },
+    next: { href: "/coach", label: "Prepare application" },
   },
   {
     matches: (pathname) => pathname === "/jobs",
-    step: 4,
-    title: "Expand your opportunity research",
-    description: "Review target employers and identify the organizations most aligned with your next move.",
+    title: "Prioritize the employers behind your matches",
+    description: "Use company research and career watches to focus your effort on organizations worth pursuing.",
     back: { href: "/resumes/studio", label: "Résumé Studio" },
     next: { href: "/companies", label: "Explore companies" },
   },
   {
     matches: (pathname) => pathname.startsWith("/companies"),
-    step: 5,
-    title: "Keep the right employers on your radar",
-    description: "Create focused career watches so important openings and company activity are easier to follow.",
+    title: "Keep important employers visible",
+    description: "Create career watches for the companies you want to monitor before moving into application preparation.",
     back: { href: "/jobs", label: "Job search" },
-    next: { href: "/company-watches", label: "Set career watches" },
+    next: { href: "/company-watches", label: "Create career watches" },
   },
   {
     matches: (pathname) => pathname.startsWith("/company-watches"),
-    step: 6,
-    title: "Convert opportunities into applications",
-    description: "When a role is worth pursuing, prepare a tailored application that connects your experience to the employer’s needs.",
+    title: "Prepare the strongest application",
+    description: "Use your match evidence and employer research to create focused, role-specific materials.",
     back: { href: "/companies", label: "Companies" },
     next: { href: "/coach", label: "Open Application Studio" },
   },
   {
     matches: (pathname) => pathname.startsWith("/coach"),
-    step: 7,
-    title: "Strengthen your outreach",
-    description: "Create concise, personalized messages for recruiters, hiring managers, and professional contacts.",
-    back: { href: "/company-watches", label: "Career watches" },
-    next: { href: "/outreach", label: "Prepare outreach" },
+    title: "Add a personal outreach strategy",
+    description: "Support the application with concise messages for recruiters, hiring managers, and professional contacts.",
+    back: { href: "/jobs", label: "Job search" },
+    next: { href: "/outreach", label: "Create outreach" },
   },
   {
     matches: (pathname) => pathname.startsWith("/outreach"),
-    step: 8,
-    title: "Track the application",
-    description: "Add the opportunity to your pipeline so deadlines, follow-ups, and progress stay visible.",
+    title: "Track the opportunity and every commitment",
+    description: "Move the role into your pipeline so status, deadlines, contacts, and follow-ups remain visible.",
     back: { href: "/coach", label: "Application Studio" },
     next: { href: "/applications", label: "Open application pipeline" },
   },
   {
     matches: (pathname) => pathname.startsWith("/applications"),
-    step: 9,
-    title: "Build the relationships behind the search",
-    description: "Organize recruiter and hiring-team contacts connected to your active opportunities.",
+    title: "Connect the people behind the application",
+    description: "Organize recruiter and hiring-team relationships so each application has a clear follow-up plan.",
     back: { href: "/outreach", label: "Outreach Studio" },
-    next: { href: "/crm", label: "Manage recruiter relationships" },
+    next: { href: "/crm", label: "Open recruiter CRM" },
   },
   {
     matches: (pathname) => pathname.startsWith("/crm"),
-    step: 10,
-    title: "Prepare for the conversation",
-    description: "Move from relationship tracking into structured interview preparation for your most important opportunities.",
+    title: "Prepare for the next conversation",
+    description: "Move active opportunities and relationship context into structured interview preparation.",
     back: { href: "/applications", label: "Application pipeline" },
     next: { href: "/interviews", label: "Open interview center" },
   },
   {
     matches: (pathname) => pathname === "/interviews" || /^\/interviews\/[^/]+/.test(pathname),
-    step: 11,
-    title: "Practice your strongest responses",
-    description: "Use AI-guided preparation to sharpen your stories, examples, and answers before the interview.",
+    title: "Practice the stories that prove your fit",
+    description: "Use AI-guided practice to strengthen your answers, examples, and questions before the interview.",
     back: { href: "/crm", label: "Recruiter CRM" },
     next: { href: "/interview-coach", label: "Practice with AI coach" },
   },
   {
     matches: (pathname) => pathname.startsWith("/interview-coach"),
-    step: 12,
-    title: "Put every commitment on the calendar",
-    description: "Schedule interviews, preparation blocks, and follow-up dates so nothing important is missed.",
+    title: "Put interviews and follow-ups on the calendar",
+    description: "Schedule preparation blocks, interview events, and follow-up dates so nothing is left to memory.",
     back: { href: "/interviews", label: "Interview center" },
     next: { href: "/calendar", label: "Open career calendar" },
   },
   {
     matches: (pathname) => pathname.startsWith("/calendar"),
-    step: 13,
-    title: "Stay ahead of important updates",
-    description: "Review alerts and reminders connected to your search, applications, interviews, and follow-ups.",
+    title: "Review the updates that need action",
+    description: "Use notifications to catch search updates, application activity, interview reminders, and due follow-ups.",
     back: { href: "/interview-coach", label: "AI interview coach" },
     next: { href: "/notifications", label: "Review notifications" },
   },
   {
     matches: (pathname) => pathname.startsWith("/notifications"),
-    step: 14,
-    title: "Your guided journey is connected",
-    description: "Return to the dashboard for a complete view of your career search and the next actions that need attention.",
+    title: "Return to your command center",
+    description: "The full process is connected. Use the dashboard to identify the highest-value action to take next.",
     back: { href: "/calendar", label: "Career calendar" },
     next: { href: "/dashboard", label: "Return to dashboard" },
   },
 ];
 
 export function GuidedJourneyFooter({ pathname }: { pathname: string }) {
-  const current = journeySteps.find((item) => item.matches(pathname));
+  const stage = getCareerStage(pathname);
+  const current = journeyActions.find((item) => item.matches(pathname));
 
-  if (!current) return null;
+  if (!stage || !current) return null;
 
-  const progress = Math.round((current.step / TOTAL_STEPS) * 100);
+  const progress = Math.round((stage.number / CAREER_STAGES.length) * 100);
 
   return (
     <section className="guided-journey" aria-labelledby="guided-journey-title">
       <div className="guided-journey-progress-row">
-        <span>Career journey</span>
-        <span>Step {current.step} of {TOTAL_STEPS}</span>
+        <span>Career process</span>
+        <span>Stage {stage.number} of {CAREER_STAGES.length}</span>
       </div>
       <div
         className="guided-journey-progress"
         role="progressbar"
-        aria-label="Career journey progress"
+        aria-label="Career process progress"
         aria-valuemin={1}
-        aria-valuemax={TOTAL_STEPS}
-        aria-valuenow={current.step}
+        aria-valuemax={CAREER_STAGES.length}
+        aria-valuenow={stage.number}
       >
         <span style={{ width: `${progress}%` }} />
       </div>
 
       <div className="guided-journey-content">
         <div>
-          <p className="guided-journey-kicker">Recommended next step</p>
+          <p className="guided-journey-kicker">Next best action</p>
           <h2 id="guided-journey-title">{current.title}</h2>
           <p>{current.description}</p>
         </div>
@@ -199,189 +182,16 @@ export function GuidedJourneyFooter({ pathname }: { pathname: string }) {
 
           {current.next ? (
             <Link className="guided-journey-next" href={current.next.href}>
-              <span>Next: {current.next.label}</span>
+              <span>{current.next.label}</span>
               <span aria-hidden="true">→</span>
             </Link>
           ) : (
             <button className="guided-journey-next disabled" type="button" disabled>
-              {current.nextDisabled ?? "Complete this step to continue"}
+              {current.nextDisabled ?? "Complete this action to continue"}
             </button>
           )}
         </div>
       </div>
-
-      <style jsx global>{`
-        .guided-journey {
-          margin-top: 32px;
-          padding: 24px;
-          border: 1px solid rgba(102, 153, 255, 0.3);
-          border-radius: 22px;
-          background:
-            radial-gradient(circle at 92% 0%, rgba(80, 111, 255, 0.18), transparent 38%),
-            linear-gradient(145deg, rgba(14, 38, 70, 0.98), rgba(8, 27, 50, 0.98));
-          box-shadow: 0 22px 48px rgba(1, 10, 24, 0.24);
-        }
-
-        .guided-journey-progress-row {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 16px;
-          color: #9fbcf2;
-          font-size: 0.78rem;
-          font-weight: 800;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
-        }
-
-        .guided-journey-progress {
-          height: 5px;
-          margin-top: 10px;
-          overflow: hidden;
-          border-radius: 999px;
-          background: rgba(139, 175, 235, 0.15);
-        }
-
-        .guided-journey-progress span {
-          display: block;
-          height: 100%;
-          border-radius: inherit;
-          background: linear-gradient(90deg, #56c8c3, #6484ff);
-          transition: width 220ms ease;
-        }
-
-        .guided-journey-content {
-          display: grid;
-          grid-template-columns: minmax(0, 1fr) auto;
-          align-items: end;
-          gap: 32px;
-          margin-top: 22px;
-        }
-
-        .guided-journey-kicker {
-          margin: 0 0 6px;
-          color: #75d8d1;
-          font-size: 0.8rem;
-          font-weight: 850;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
-        }
-
-        .guided-journey h2 {
-          margin: 0;
-          color: #ffffff;
-          font-size: clamp(1.35rem, 2.2vw, 2rem);
-          line-height: 1.12;
-          letter-spacing: -0.03em;
-        }
-
-        .guided-journey-content p:not(.guided-journey-kicker) {
-          max-width: 760px;
-          margin: 10px 0 0;
-          color: #a9c3ea;
-          font-size: 1rem;
-          line-height: 1.6;
-        }
-
-        .guided-journey-actions {
-          display: flex;
-          align-items: center;
-          justify-content: flex-end;
-          gap: 12px;
-          white-space: nowrap;
-        }
-
-        .guided-journey-back,
-        .guided-journey-next {
-          min-height: 48px;
-          border-radius: 13px;
-          font-weight: 800;
-          text-decoration: none !important;
-          transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
-        }
-
-        .guided-journey-back {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          padding: 0 14px;
-          border: 1px solid rgba(143, 178, 232, 0.28);
-          color: #c9daf5 !important;
-          background: rgba(5, 21, 41, 0.42);
-        }
-
-        .guided-journey-next {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          gap: 12px;
-          padding: 0 18px;
-          border: 1px solid rgba(121, 151, 255, 0.7);
-          color: #ffffff !important;
-          background: linear-gradient(135deg, #4d73f6, #685cf3);
-          box-shadow: 0 12px 24px rgba(62, 82, 210, 0.28);
-          cursor: pointer;
-        }
-
-        .guided-journey-back:hover,
-        .guided-journey-next:hover {
-          transform: translateY(-1px);
-        }
-
-        .guided-journey-back:hover {
-          border-color: rgba(143, 178, 232, 0.55);
-          background: rgba(21, 46, 79, 0.72);
-        }
-
-        .guided-journey-next:hover {
-          background: linear-gradient(135deg, #5c80ff, #7467ff);
-        }
-
-        .guided-journey-next.disabled {
-          opacity: 0.5;
-          box-shadow: none;
-          cursor: not-allowed;
-        }
-
-        @media (max-width: 900px) {
-          .guided-journey-content {
-            grid-template-columns: 1fr;
-            align-items: stretch;
-            gap: 22px;
-          }
-
-          .guided-journey-actions {
-            justify-content: space-between;
-            white-space: normal;
-          }
-        }
-
-        @media (max-width: 620px) {
-          .guided-journey {
-            margin-top: 24px;
-            margin-bottom: 78px;
-            padding: 20px;
-            border-radius: 18px;
-          }
-
-          .guided-journey-progress-row {
-            align-items: flex-start;
-            font-size: 0.7rem;
-          }
-
-          .guided-journey-actions {
-            flex-direction: column-reverse;
-            align-items: stretch;
-          }
-
-          .guided-journey-back,
-          .guided-journey-next {
-            width: 100%;
-            justify-content: center;
-            text-align: center;
-          }
-        }
-      `}</style>
     </section>
   );
 }
