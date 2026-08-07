@@ -28,6 +28,7 @@ import "./contrast-repair.css";
 import "./premium-platform-v3.css";
 import "./distinctive-editorial-system.css";
 import "./profile-readability-fix.css";
+import "./executive-nautical-v4.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 
