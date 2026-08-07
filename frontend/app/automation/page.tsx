@@ -35,7 +35,7 @@ type FormState = {
 
 const initialForm: FormState = {
   profileId: "",
-  name: "Daily Executive Brief",
+  name: "Daily Opportunity Route",
   titles: "Construction Loan Administration\nCommercial Loan Operations\nCRE Loan Operations",
   location: "Remote",
   minimumScore: 50,
@@ -72,7 +72,7 @@ export default function AutomationPage() {
         profileId: current.profileId || (loadedProfiles[0] ? String(loadedProfiles[0].id) : ""),
       }));
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Unable to load standing briefs.");
+      setError(err instanceof Error ? err.message : "Unable to load scheduled routes.");
     } finally {
       setLoading(false);
     }
@@ -96,9 +96,9 @@ export default function AutomationPage() {
 
     const titleList = form.titles.split("\n").map((value) => value.trim()).filter(Boolean);
     if (!form.profileId) return setError("Select a career profile.");
-    if (!form.name.trim()) return setError("Enter a name for this brief.");
+    if (!form.name.trim()) return setError("Enter a name for this route.");
     if (!titleList.length) return setError("Enter at least one target title.");
-    if (!form.useCatalog && !form.useRemotive && !form.useJsearch) return setError("Select at least one intelligence source.");
+    if (!form.useCatalog && !form.useRemotive && !form.useJsearch) return setError("Select at least one opportunity source.");
 
     setSaving(true);
     try {
@@ -117,11 +117,11 @@ export default function AutomationPage() {
           active: true,
         }),
       });
-      setMessage("Standing market brief created.");
+      setMessage("Scheduled opportunity route created.");
       setForm((current) => ({ ...initialForm, profileId: current.profileId }));
       await load();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Could not save the standing brief.");
+      setError(err instanceof Error ? err.message : "Could not save the scheduled route.");
     } finally {
       setSaving(false);
     }
@@ -136,7 +136,7 @@ export default function AutomationPage() {
       setMessage(`${item.name} completed${count ? ` with ${count} selected signals` : ""}.`);
       await load();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Standing brief review failed.");
+      setError(err instanceof Error ? err.message : "Scheduled route search failed.");
     } finally {
       setWorkingId(null);
     }
@@ -153,7 +153,7 @@ export default function AutomationPage() {
       setMessage(`${item.name} ${item.active ? "paused" : "resumed"}.`);
       await load();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Unable to update the standing brief.");
+      setError(err instanceof Error ? err.message : "Unable to update the scheduled route.");
     } finally {
       setWorkingId(null);
     }
@@ -168,7 +168,7 @@ export default function AutomationPage() {
       setMessage(`${item.name} deleted.`);
       await load();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Unable to delete the standing brief.");
+      setError(err instanceof Error ? err.message : "Unable to delete the scheduled route.");
     } finally {
       setWorkingId(null);
     }
@@ -178,9 +178,9 @@ export default function AutomationPage() {
     <>
       <section className="executive-hero">
         <div>
-          <p className="eyebrow">AUTOMATION CENTER</p>
-          <h1>Standing market briefs</h1>
-          <p className="muted">Create focused searches, choose their data sources, run them on demand, and keep recurring discovery organized.</p>
+          <p className="eyebrow">ROUTE ASSISTANT</p>
+          <h1>Scheduled opportunity routes</h1>
+          <p className="muted">Create focused searches, choose their sources, run them on demand, and keep recurring discovery on course.</p>
         </div>
         <div className="executive-actions">
           <button className="secondary" type="button" disabled={loading} onClick={() => void load()}>{loading ? "Refreshing…" : "Refresh"}</button>
@@ -188,9 +188,9 @@ export default function AutomationPage() {
       </section>
 
       <section className="executive-kpis">
-        <article className="executive-kpi"><span>Standing briefs</span><strong>{items.length}</strong><small>configured mandates</small></article>
-        <article className="executive-kpi"><span>Active briefs</span><strong>{activeCount}</strong><small>eligible for scheduled review</small></article>
-        <article className="executive-kpi"><span>Selected signals</span><strong>{totalMatches}</strong><small>across the latest completed reviews</small></article>
+        <article className="executive-kpi"><span>Scheduled routes</span><strong>{items.length}</strong><small>configured searches</small></article>
+        <article className="executive-kpi"><span>Active routes</span><strong>{activeCount}</strong><small>eligible for scheduled search</small></article>
+        <article className="executive-kpi"><span>Route signals</span><strong>{totalMatches}</strong><small>across the latest completed searches</small></article>
       </section>
 
       {error ? <section className="resume-alert resume-alert-error"><strong>Action required</strong><span>{error}</span></section> : null}
@@ -198,13 +198,13 @@ export default function AutomationPage() {
 
       <div className="two-col">
         <form className="card" onSubmit={createSearch}>
-          <p className="eyebrow">NEW AUTOMATION</p>
-          <h2>Commission a standing brief</h2>
-          <label>Career mandate</label>
+          <p className="eyebrow">NEW SCHEDULED ROUTE</p>
+          <h2>Map a recurring opportunity search</h2>
+          <label>Career compass</label>
           <select value={form.profileId} onChange={(event) => setForm({ ...form, profileId: event.target.value })}>
             {profiles.map((profile) => <option key={profile.id} value={profile.id}>{profile.name}</option>)}
           </select>
-          <label>Brief name</label>
+          <label>Route name</label>
           <input value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} />
           <label>Target titles, one per line</label>
           <textarea rows={7} value={form.titles} onChange={(event) => setForm({ ...form, titles: event.target.value })} />
@@ -215,35 +215,35 @@ export default function AutomationPage() {
           <label>Minimum alignment score: {form.minimumScore}</label>
           <input type="range" min="0" max="100" value={form.minimumScore} onChange={(event) => setForm({ ...form, minimumScore: Number(event.target.value) })} />
           <fieldset>
-            <legend>Intelligence sources</legend>
+            <legend>Opportunity sources</legend>
             <label className="resume-checkbox-row"><input type="checkbox" checked={form.useCatalog} onChange={(event) => setForm({ ...form, useCatalog: event.target.checked })} /> Employer catalog</label>
             <label className="resume-checkbox-row"><input type="checkbox" checked={form.useRemotive} onChange={(event) => setForm({ ...form, useRemotive: event.target.checked })} /> Remote feed</label>
             <label className="resume-checkbox-row"><input type="checkbox" checked={form.useJsearch} onChange={(event) => setForm({ ...form, useJsearch: event.target.checked })} /> JSearch provider</label>
           </fieldset>
-          <button disabled={saving || !profiles.length}>{saving ? "Saving…" : "Commission brief"}</button>
+          <button disabled={saving || !profiles.length}>{saving ? "Saving…" : "Save scheduled route"}</button>
         </form>
 
         <section className="card">
           <p className="eyebrow">HOW IT WORKS</p>
           <h2>Transparent automation</h2>
-          <p className="muted">Active briefs are eligible for the configured schedule. Manual reviews execute immediately and update the selected-signal count and last-review timestamp.</p>
+          <p className="muted">Active routes are eligible for the configured schedule. Manual searches run immediately and update the signal count and last-search timestamp.</p>
           <ul>
-            <li>Higher score thresholds produce a smaller, more focused review queue.</li>
+            <li>Higher score thresholds produce a smaller, more focused route map.</li>
             <li>Provider availability can vary; failed providers should not erase successful results from other sources.</li>
-            <li>New high-alignment opportunities are surfaced through CareerNavIQ briefings and digest data.</li>
+            <li>New high-alignment opportunities appear in CareerNavIQ route updates.</li>
           </ul>
         </section>
       </div>
 
       <section className="card">
-        <div className="row between"><div><p className="eyebrow">PRIVATE LEDGER</p><h2>Standing market briefs</h2></div><span className="badge">{activeCount} active</span></div>
-        {loading ? <p className="muted">Loading standing briefs…</p> : items.map((item) => (
+        <div className="row between"><div><p className="eyebrow">ROUTE LOG</p><h2>Scheduled opportunity routes</h2></div><span className="badge">{activeCount} active</span></div>
+        {loading ? <p className="muted">Loading scheduled routes…</p> : items.map((item) => (
           <article className="automation-row" key={item.id}>
             <div>
               <div className="row wrap"><strong>{item.name}</strong><span className={`badge ${item.active ? "" : "warning-badge"}`}>{item.active ? "Active" : "Paused"}</span><span className="badge">{item.cadence}</span></div>
               <small>{item.titles.join(" · ")} · {item.location} · minimum score {item.minimum_score}</small>
               <small>Sources: {[item.use_catalog && "catalog", item.use_remotive && "remote feed", item.use_jsearch && "JSearch"].filter(Boolean).join(" · ") || "none"}</small>
-              <small>Last review: {item.last_run_at ? new Date(item.last_run_at).toLocaleString() : "Never"} · {item.last_result_count} selected signals</small>
+              <small>Last search: {item.last_run_at ? new Date(item.last_run_at).toLocaleString() : "Never"} · {item.last_result_count} route signals</small>
             </div>
             <div className="row wrap">
               <button type="button" disabled={workingId === item.id} onClick={() => void runSearch(item)}>{workingId === item.id ? "Working…" : "Run now"}</button>
@@ -252,7 +252,7 @@ export default function AutomationPage() {
             </div>
           </article>
         ))}
-        {!loading && !items.length ? <p className="muted">No standing briefs yet. Commission one above to begin.</p> : null}
+        {!loading && !items.length ? <p className="muted">No scheduled routes yet. Map one above to begin.</p> : null}
       </section>
     </>
   );

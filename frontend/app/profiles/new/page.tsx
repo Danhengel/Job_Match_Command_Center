@@ -335,12 +335,12 @@ export default function NewProfile() {
       <form className={styles.profileCard} onSubmit={save}>
         <header className={styles.header}>
           <div className={styles.headerIcon}>
-            <BriefcaseIcon />
+            <TargetIcon />
           </div>
           <div>
-            <p className={styles.eyebrow}>Private career mandate</p>
-            <h1>Establish your career mandate</h1>
-            <p>Define the position, geography, and evidence that should guide your private opportunity office.</p>
+            <p className={styles.eyebrow}>Your career direction</p>
+            <h1>Set the route for your next move</h1>
+            <p>Define the roles, geography, priorities, and evidence that should guide your opportunity search.</p>
           </div>
         </header>
 
@@ -350,8 +350,8 @@ export default function NewProfile() {
           <div className={styles.sectionHeading}>
             <span>01</span>
             <div>
-              <h2 id="profile-basics">Mandate foundation</h2>
-              <p>Name this mandate and define the market in which you want to operate.</p>
+              <h2 id="profile-basics">Route foundation</h2>
+              <p>Name this route and define the opportunity landscape you want to explore.</p>
             </div>
           </div>
 
@@ -359,9 +359,9 @@ export default function NewProfile() {
             <TextField
               icon={<UserIcon />}
               id="profile-name"
-              label="Mandate name"
+              label="Route name"
               onChange={setName}
-              placeholder="For example: Executive operating mandate"
+              placeholder="For example: Commercial lending leadership route"
               required
               value={name}
             />
@@ -380,7 +380,7 @@ export default function NewProfile() {
           <div className={styles.sectionHeading}>
             <span>02</span>
             <div>
-              <h2 id="work-preferences">Operating parameters</h2>
+              <h2 id="work-preferences">Route boundaries</h2>
               <p>Set the geographic flexibility and compensation threshold that matter to you.</p>
             </div>
           </div>
@@ -474,7 +474,7 @@ export default function NewProfile() {
         <footer className={styles.footer}>
           <button className={styles.submitButton} disabled={saving} type="submit">
             <PlusIcon />
-            <span>{saving ? "Establishing mandate…" : "Establish mandate"}</span>
+            <span>{saving ? "Mapping your route…" : "Set my direction"}</span>
           </button>
           <p>
             <LockIcon />

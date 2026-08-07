@@ -267,8 +267,8 @@ export default function ResumesPage() {
     <>
       <section className="resume-page-hero">
         <div>
-          <p className="eyebrow">RESUME STUDIO</p>
-          <h1>Executive Résumé Library</h1>
+          <p className="eyebrow">EXPERIENCE LIBRARY</p>
+          <h1>Your résumé route starts here</h1>
           <p className="muted">
             Upload, analyze, manage, download, and designate your primary
             résumé.
@@ -276,7 +276,7 @@ export default function ResumesPage() {
         </div>
 
         <div className="resume-profile-control">
-          <label htmlFor="resume-profile">Career profile</label>
+          <label htmlFor="resume-profile">Career compass</label>
           <select
             id="resume-profile"
             value={profileId}
@@ -315,7 +315,7 @@ export default function ResumesPage() {
           <input
             id="resume-name"
             value={resumeName}
-            placeholder="Executive Master Résumé"
+            placeholder="Primary Career Résumé"
             onChange={(event) => setResumeName(event.target.value)}
           />
 
@@ -472,7 +472,7 @@ export default function ResumesPage() {
 
         <aside className="resume-analysis-panel">
           <p className="eyebrow">ANALYSIS</p>
-          <h2>Résumé intelligence</h2>
+          <h2>Résumé insights</h2>
 
           {!selectedResume ? (
             <div className="resume-empty-state">

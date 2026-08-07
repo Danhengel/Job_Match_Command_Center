@@ -58,7 +58,7 @@ export default function Coach() {
       setError(
         requestError instanceof Error
           ? requestError.message
-          : "Advisory request failed",
+          : "Guidance request failed",
       );
     } finally {
       setBusy(false);
@@ -68,23 +68,23 @@ export default function Coach() {
   return (
     <>
       <PageHeader
-        eyebrow="PRIVATE ADVISORY"
-        title="Sharpen the next career decision"
-        description="Bring your position, active pursuits, and accumulated evidence into one focused advisory conversation."
+        eyebrow="ROUTE GUIDANCE"
+        title="Choose your next move with a clearer bearing"
+        description="Bring your career direction, active applications, and saved evidence into one focused guidance conversation."
       />
 
       <div className="coach-brief-grid">
         <form className="card coach-brief-form" onSubmit={ask}>
-          <p className="eyebrow">THE BRIEF</p>
-          <h2>Set the decision context</h2>
+          <p className="eyebrow">SET YOUR BEARING</p>
+          <h2>Give the route context</h2>
 
-          <label htmlFor="coach-profile">Executive position</label>
+          <label htmlFor="coach-profile">Career direction</label>
           <select
             id="coach-profile"
             value={profileId}
             onChange={(event) => setProfileId(event.target.value)}
           >
-            <option value="">General advisory</option>
+            <option value="">General route guidance</option>
             {profiles.map((profile) => (
               <option key={profile.id} value={profile.id}>{profile.name}</option>
             ))}
@@ -114,7 +114,7 @@ export default function Coach() {
 
           {error ? <p className="error" role="alert">{error}</p> : null}
           <button disabled={busy || !question.trim()}>
-            {busy ? "Preparing counsel…" : "Request private counsel"}
+            {busy ? "Mapping guidance…" : "Get navigation guidance"}
           </button>
         </form>
 
@@ -143,8 +143,8 @@ export default function Coach() {
       <section className="card coach-history-panel">
         <div className="coach-history-heading">
           <div>
-            <p className="eyebrow">ADVISORY RECORD</p>
-            <h2>Prior counsel</h2>
+            <p className="eyebrow">ROUTE LOG</p>
+            <h2>Prior guidance</h2>
           </div>
           <span>{history.length} conversations</span>
         </div>
@@ -157,7 +157,7 @@ export default function Coach() {
           </article>
         ))}
         {!history.length ? (
-          <p className="muted">Your advisory record will appear here.</p>
+          <p className="muted">Your guidance history will appear here.</p>
         ) : null}
       </section>
     </>

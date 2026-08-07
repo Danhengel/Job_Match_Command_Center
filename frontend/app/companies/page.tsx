@@ -37,7 +37,7 @@ export default function Companies() {
 
     load()
       .catch((err) => {
-        if (active) setError(err instanceof Error ? err.message : "Unable to load company intelligence.");
+        if (active) setError(err instanceof Error ? err.message : "Unable to load the employer landscape.");
       })
       .finally(() => {
         if (active) setLoading(false);
@@ -91,32 +91,32 @@ export default function Companies() {
   return (
     <>
       <PageHeader
-        eyebrow="COMPANY INTELLIGENCE"
-        title="Know the companies behind your opportunities"
+        eyebrow="EMPLOYER LANDSCAPE"
+        title="Map the employers behind your opportunities"
         description="Compare hiring activity, remote availability, salary transparency, and your existing application history before deciding where to focus."
-        actions={<Link className="button secondary" href="/company-watches">Manage career watches</Link>}
+        actions={<Link className="button secondary" href="/company-watches">Manage route watches</Link>}
       />
 
       {error ? (
-        <Notice title="Company intelligence needs attention" tone="error">
+        <Notice title="Employer landscape needs attention" tone="error">
           <p>{error}</p>
         </Notice>
       ) : null}
 
       {!loading && items.length ? (
-        <section className="company-summary-grid" aria-label="Company intelligence summary">
+        <section className="company-summary-grid" aria-label="Employer landscape summary">
           <article><span>Companies</span><strong>{summary.companies}</strong><small>in your opportunity data</small></article>
           <article><span>Open jobs</span><strong>{summary.openJobs}</strong><small>across tracked companies</small></article>
-          <article><span>Career watches</span><strong>{summary.watched}</strong><small>companies monitored</small></article>
+          <article><span>Route watches</span><strong>{summary.watched}</strong><small>employers monitored</small></article>
           <article><span>Applications</span><strong>{summary.applications}</strong><small>connected to companies</small></article>
         </section>
       ) : null}
 
       <section className="company-toolbar">
         <div>
-          <p className="eyebrow">COMPANY DIRECTORY</p>
+          <p className="eyebrow">EMPLOYER MAP</p>
           <h2>{visibleCompanies.length} compan{visibleCompanies.length === 1 ? "y" : "ies"}</h2>
-          <p className="muted">Open a company workspace to review its jobs, titles, and application activity.</p>
+          <p className="muted">Open an employer to review its jobs, titles, and application activity.</p>
         </div>
         <label htmlFor="company-search">
           <span>Filter companies</span>
@@ -133,8 +133,8 @@ export default function Companies() {
       {loading ? (
         <section className="card">
           <p className="eyebrow">LOADING</p>
-          <h2>Building your company intelligence view…</h2>
-          <p className="muted">CareerNavIQ is connecting aligned opportunities and portfolio activity.</p>
+          <h2>Mapping your employer landscape…</h2>
+          <p className="muted">CareerNavIQ is connecting aligned opportunities and application activity.</p>
         </section>
       ) : null}
 
@@ -192,10 +192,10 @@ export default function Companies() {
 
       {!loading && !visibleCompanies.length && !error ? (
         <EmptyState
-          title={query ? "No organizations meet this filter" : "No organization intelligence yet"}
+          title={query ? "No employers meet this filter" : "No employer routes yet"}
           description={query
             ? "Try a broader company name or role title."
-            : "Review the market or save active pursuits to populate organization and opportunity intelligence."}
+            : "Explore the opportunity map or save active applications to populate your employer landscape."}
           action={query
             ? <button type="button" className="secondary" onClick={() => setQuery("")}>Clear filter</button>
             : <Link className="button" href="/jobs">Search current jobs</Link>}

@@ -113,9 +113,9 @@ export function RecommendedEmployerCatalog({ items, onSelect }: RecommendedEmplo
       <div className="recommended-employer-heading">
         <div>
           <p className="eyebrow">YOUR RÉSUMÉ-ALIGNED EMPLOYERS</p>
-          <h2>Private organization watchlist</h2>
+          <h2>Personalized employer map</h2>
           <p className="muted">
-            Your private employer catalog aligned to construction lending, CRE servicing, credit administration,
+            Your employer map aligned to construction lending, CRE servicing, credit administration,
             affordable housing, capital-program delivery, portfolio governance, and operations transformation.
             Career pages can change, so confirm the employer page before applying.
           </p>

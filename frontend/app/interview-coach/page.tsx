@@ -144,8 +144,8 @@ export default function InterviewCoach() {
 
   return <>
     <section className="executive-hero coach-hero">
-      <div><p className="eyebrow">AI INTERVIEW COACH</p><h1>Practice answers that sound specific, credible, and executive-ready.</h1><p className="muted">Choose an opportunity, practice one question at a time, strengthen your STAR structure, and build a reusable story library.</p></div>
-      <div className="executive-actions"><Link className="button secondary" href="/interviews">Interview Center</Link><Link className="button" href="/outreach">Thank-you Studio</Link></div>
+      <div><p className="eyebrow">INTERVIEW PRACTICE GUIDE</p><h1>Practice answers that move the conversation forward.</h1><p className="muted">Choose an opportunity, practice one question at a time, strengthen your STAR structure, and build a reusable story library.</p></div>
+      <div className="executive-actions"><Link className="button secondary" href="/interviews">Interview path</Link><Link className="button" href="/outreach">Follow-up outreach</Link></div>
     </section>
 
     <section className="coach-kpis">

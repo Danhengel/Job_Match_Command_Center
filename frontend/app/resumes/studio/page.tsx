@@ -104,7 +104,7 @@ export default function ResumeStudioPage() {
         </aside>
 
         <section className="studio-panel studio-intelligence-panel">
-          {loading ? <EmptyState title="Loading résumé intelligence" description="CareerNavIQ is retrieving your résumé evidence and analysis." /> : !selected ? (
+          {loading ? <EmptyState title="Loading résumé insights" description="CareerNavIQ is retrieving your résumé evidence and analysis." /> : !selected ? (
             <EmptyState title="No résumé is ready" description="Upload a master résumé before starting job-specific tailoring." action={<Link className="button" href="/resumes">Open résumé library</Link>} />
           ) : (
             <>
@@ -136,7 +136,7 @@ export default function ResumeStudioPage() {
             <span>Target titles</span><strong>{selectedProfile?.target_titles?.slice(0, 3).join(" • ") || "Add target titles in your profile"}</strong>
           </div>
           <Link className="button" href="/jobs">Find a job to tailor</Link>
-          <Link className="button secondary" href="/applications">Review application pipeline</Link>
+          <Link className="button secondary" href="/applications">Review application tracker</Link>
           <p className="studio-trust-note"><strong>Truth-first generation:</strong> missing keywords are flagged for verification rather than inserted as unsupported claims.</p>
         </aside>
       </div>

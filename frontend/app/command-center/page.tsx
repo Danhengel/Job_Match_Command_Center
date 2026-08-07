@@ -96,7 +96,7 @@ export default function CommandCenterPage() {
       setError(
         err instanceof Error
           ? err.message
-          : "Unable to load the Executive Command Center."
+          : "Unable to load the Navigation Hub."
       );
     } finally {
       setRefreshing(false);
@@ -122,7 +122,7 @@ export default function CommandCenterPage() {
   if (error && !data) {
     return (
       <section className="card">
-        <h1>Command Center unavailable</h1>
+        <h1>Navigation Hub unavailable</h1>
         <p className="error">{error}</p>
         <button onClick={loadDashboard}>Try again</button>
       </section>
@@ -132,7 +132,7 @@ export default function CommandCenterPage() {
   if (!data) {
     return (
       <section className="card">
-        <h2>Loading Executive Command Center…</h2>
+        <h2>Loading your route overview…</h2>
       </section>
     );
   }
@@ -143,21 +143,21 @@ export default function CommandCenterPage() {
     <>
       <section className="executive-hero">
         <div>
-          <p className="eyebrow">PRIVATE INTELLIGENCE DESK</p>
-          <h1>Executive portfolio intelligence</h1>
+          <p className="eyebrow">ROUTE OVERVIEW</p>
+          <h1>See your full career route</h1>
           <p className="muted">
-            Monitor opportunities, applications, interviews, recruiter
-            relationships, and your highest-priority next actions.
+            Follow opportunities, applications, interviews, recruiter
+            relationships, and the highest-priority waypoints ahead.
           </p>
         </div>
 
         <div className="row wrap">
           <button onClick={loadDashboard} disabled={refreshing}>
-            {refreshing ? "Refreshing…" : "Refresh dashboard"}
+            {refreshing ? "Refreshing…" : "Refresh route"}
           </button>
 
           <Link className="button secondary" href="/jobs">
-            Review the market
+            Explore opportunity map
           </Link>
         </div>
       </section>
@@ -214,7 +214,7 @@ export default function CommandCenterPage() {
         <article className="executive-metric-card">
           <span>Unread alerts</span>
           <strong>{metrics.unread_notifications}</strong>
-          <small>Opportunities, briefs, and follow-ups</small>
+          <small>Opportunities, updates, and follow-ups</small>
         </article>
       </section>
 
@@ -222,8 +222,8 @@ export default function CommandCenterPage() {
         <article className="card command-priorities">
           <div className="row between">
             <div>
-              <p className="eyebrow">ACTION CENTER</p>
-              <h2>Today’s priorities</h2>
+              <p className="eyebrow">NEXT WAYPOINTS</p>
+              <h2>Today’s route</h2>
             </div>
 
             <Link className="button secondary" href="/notifications">
@@ -261,8 +261,8 @@ export default function CommandCenterPage() {
         </article>
 
         <article className="card">
-          <p className="eyebrow">CAREER STRATEGY</p>
-          <h2>Performance signals</h2>
+          <p className="eyebrow">NAVIGATION SIGNALS</p>
+          <h2>Progress and direction</h2>
 
           <div className="strategy-stat">
             <span>Interview conversion</span>
@@ -305,7 +305,7 @@ export default function CommandCenterPage() {
             ))
           ) : (
             <p className="muted">
-              Add and progress applications to generate strategy insights.
+              Add and progress applications to reveal useful route signals.
             </p>
           )}
         </article>
@@ -314,12 +314,12 @@ export default function CommandCenterPage() {
       <section className="card">
         <div className="row between">
           <div>
-            <p className="eyebrow">PORTFOLIO MOVEMENT</p>
-            <h2>Pursuits by stage</h2>
+            <p className="eyebrow">ROUTE MOVEMENT</p>
+            <h2>Applications by stage</h2>
           </div>
 
           <Link className="button secondary" href="/applications">
-            Open portfolio
+            Open tracker
           </Link>
         </div>
 
@@ -354,7 +354,7 @@ export default function CommandCenterPage() {
         <article className="card">
           <div className="row between">
             <div>
-              <p className="eyebrow">OPPORTUNITY QUEUE</p>
+              <p className="eyebrow">STRONGEST ROUTE OPTIONS</p>
               <h2>Highest-alignment opportunities</h2>
             </div>
 
@@ -387,7 +387,7 @@ export default function CommandCenterPage() {
             ))
           ) : (
             <p className="muted">
-              Commission a market review to populate the opportunity queue.
+              Search the opportunity map to reveal possible routes.
             </p>
           )}
         </article>
@@ -395,12 +395,12 @@ export default function CommandCenterPage() {
         <article className="card">
           <div className="row between">
             <div>
-              <p className="eyebrow">INTERVIEW AGENDA</p>
+              <p className="eyebrow">INTERVIEW WAYPOINTS</p>
               <h2>Upcoming interviews</h2>
             </div>
 
             <Link className="button secondary" href="/interviews">
-              Interview calendar
+              View interview path
             </Link>
           </div>
 
@@ -448,37 +448,37 @@ export default function CommandCenterPage() {
       </section>
 
       <section className="card">
-        <p className="eyebrow">QUICK ACTIONS</p>
-        <h2>Continue your market review</h2>
+        <p className="eyebrow">ROUTE TOOLS</p>
+        <h2>Choose your next move</h2>
 
         <div className="executive-action-grid">
           <Link className="executive-action-card" href="/jobs">
-            <strong>Read the current market</strong>
-            <span>Review and rank selected opportunities.</span>
+            <strong>Explore the opportunity map</strong>
+            <span>Find and compare your strongest routes.</span>
           </Link>
 
           <Link className="executive-action-card" href="/applications">
-            <strong>Manage pipeline</strong>
-            <span>Advance pursuits through each decision stage.</span>
+            <strong>Open application tracker</strong>
+            <span>Move applications from waypoint to waypoint.</span>
           </Link>
 
           <Link className="executive-action-card" href="/resumes">
-            <strong>Tailor a résumé</strong>
+            <strong>Build a résumé route</strong>
             <span>Create and manage role-specific versions.</span>
           </Link>
 
           <Link className="executive-action-card" href="/crm">
-            <strong>Contact recruiters</strong>
-            <span>Review relationships and follow-ups.</span>
+            <strong>Navigate your network</strong>
+            <span>Review recruiter relationships and follow-ups.</span>
           </Link>
 
           <Link className="executive-action-card" href="/automation">
-            <strong>Commission standing briefs</strong>
+            <strong>Schedule route searches</strong>
             <span>Monitor fresh opportunity signals automatically.</span>
           </Link>
 
           <Link className="executive-action-card" href="/coach">
-            <strong>Ask Career Coach</strong>
+            <strong>Ask the navigation guide</strong>
             <span>Get guidance grounded in your saved data.</span>
           </Link>
         </div>

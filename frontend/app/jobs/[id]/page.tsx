@@ -54,10 +54,10 @@ export default function JobWorkspace(){
   catch(e){setError(e instanceof Error?e.message:"Application save failed")} finally{setBusy(false)}
  }
  async function copy(text:string){await navigator.clipboard.writeText(text)}
- if(!profileId)return <div className="card"><h2>Career mandate required</h2><p>Open this opportunity from Market Intelligence.</p></div>;
+ if(!profileId)return <div className="card"><h2>Career direction required</h2><p>Open this opportunity from the Opportunity Map.</p></div>;
  if(!data)return <div className="card"><h2>Loading opportunity workspace…</h2>{error&&<p className="error">{error}</p>}</div>;
 
- return <><div className="hero"><p className="eyebrow">APPLICATION WORKSPACE</p><h1>{data.job.title}</h1><p className="muted">{data.job.company} · {data.job.location||"Location not listed"} · {data.job.source}</p><div className="row wrap"><a className="button secondary" href={data.job.url} target="_blank">Original posting</a><button onClick={()=>saveApplication("wishlist")} disabled={busy}>Save to pipeline</button><button onClick={()=>saveApplication("applied")} disabled={busy}>Mark applied</button>{applicationId&&<a className="button secondary" href={`/applications/${applicationId}`}>Open application</a>}{data.job.salary&&<span className="badge metric-badge">{data.job.salary}</span>}</div></div>
+ return <><div className="hero"><p className="eyebrow">OPPORTUNITY ROUTE</p><h1>{data.job.title}</h1><p className="muted">{data.job.company} · {data.job.location||"Location not listed"} · {data.job.source}</p><div className="row wrap"><a className="button secondary" href={data.job.url} target="_blank">Original posting</a><button onClick={()=>saveApplication("wishlist")} disabled={busy}>Add to tracker</button><button onClick={()=>saveApplication("applied")} disabled={busy}>Mark applied</button>{applicationId&&<a className="button secondary" href={`/applications/${applicationId}`}>Open application route</a>}{data.job.salary&&<span className="badge metric-badge">{data.job.salary}</span>}</div></div>
  {error&&<div className="card"><p className="error">{error}</p></div>}
  <div className="two-col tailor-layout"><div>
   <div className="card"><div className="row between"><h2>Alignment analysis</h2>{data.match&&<div className="job-score">{data.match.score}<small>alignment</small></div>}</div>

@@ -34,12 +34,12 @@ export type PublicPageData = {
 export const publicPages: Record<string, PublicPageData> = {
   features: {
     slug: "features",
-    title: "One workspace for every stage of your job search",
+    title: "One navigation system for every stage of your career move",
     eyebrow: "CAREERNAVIQ FEATURES",
     description:
       "Explore CareerNavIQ features for AI-assisted job discovery, resume optimization, application tracking, recruiter management, interview preparation, and career insights.",
     intro:
-      "CareerNavIQ replaces scattered job boards, spreadsheets, notes, documents, and reminders with one connected career command center. Each feature is designed to help you decide what matters next and move forward with less friction.",
+      "CareerNavIQ replaces scattered job boards, spreadsheets, notes, documents, and reminders with one connected career-navigation system. Each feature helps you see where you are, choose what matters next, and move forward with less friction.",
     keywords: [
       "career management software",
       "AI job search platform",
@@ -62,19 +62,19 @@ export const publicPages: Record<string, PublicPageData> = {
       },
       {
         icon: "✓",
-        title: "Application pipeline",
+        title: "Waypoint tracker",
         description:
           "Track every opportunity from discovery through application, interview, follow-up, offer, or closure without losing important next steps.",
       },
       {
         icon: "◇",
-        title: "Recruiter CRM",
+        title: "Network map",
         description:
           "Keep recruiter, hiring-manager, and networking conversations connected to the roles and follow-ups they support.",
       },
       {
         icon: "◎",
-        title: "Interview center",
+        title: "Interview path",
         description:
           "Build role-specific preparation plans, practice likely questions, and organize evidence-backed stories before each conversation.",
       },
@@ -96,7 +96,7 @@ export const publicPages: Record<string, PublicPageData> = {
       {
         title: "Built around the decisions job seekers actually make",
         paragraphs: [
-          "CareerNavIQ is organized around a practical career journey: build your profile, discover opportunities, tailor and prepare, apply and track, then interview and improve. The platform is designed to show the next useful action rather than simply displaying more information.",
+          "CareerNavIQ is organized around a practical route: set your direction, explore opportunities, prepare each move, track your waypoints, then navigate interviews. The platform is designed to show the next useful action rather than simply displaying more information.",
         ],
         bullets: [
           "Know which opportunities deserve your attention",
@@ -117,7 +117,7 @@ export const publicPages: Record<string, PublicPageData> = {
       {
         question: "Is CareerNavIQ a job board?",
         answer:
-          "CareerNavIQ is broader than a job board. It helps you discover opportunities, evaluate fit, prepare materials, track applications, manage contacts, and prepare for interviews in one workspace.",
+          "CareerNavIQ is broader than a job board. It helps you discover opportunities, evaluate fit, prepare materials, track applications, manage contacts, and prepare for interviews along one connected route.",
       },
       {
         question: "Can I use CareerNavIQ for more than one target role?",
@@ -130,7 +130,7 @@ export const publicPages: Record<string, PublicPageData> = {
           "No. It helps you manage and improve resume versions so you can present the most relevant evidence for each opportunity.",
       },
     ],
-    primaryCta: "Create my career workspace",
+    primaryCta: "Map my career route",
     secondaryCta: "Explore AI job search",
   },
 
@@ -139,10 +139,10 @@ export const publicPages: Record<string, PublicPageData> = {
     title: "A clearer system for navigating your career",
     eyebrow: "ABOUT CAREERNAVIQ",
     description:
-      "Learn why CareerNavIQ was created and how its career command center helps job seekers organize opportunities, applications, relationships, and interview preparation.",
+      "Learn why CareerNavIQ was created and how its career-navigation system helps job seekers organize opportunities, applications, relationships, and interview preparation.",
     intro:
       "CareerNavIQ was created around a simple idea: talented people should not need a patchwork of job boards, spreadsheets, documents, notes, and reminders to manage one of the most important transitions in their lives.",
-    keywords: ["about CareerNavIQ", "career command center", "career technology platform"],
+    keywords: ["about CareerNavIQ", "career navigation system", "career technology platform"],
     cards: [
       {
         icon: "01",
@@ -160,7 +160,7 @@ export const publicPages: Record<string, PublicPageData> = {
         icon: "03",
         title: "Progress you can see",
         description:
-          "A career transition feels more manageable when the next action, important follow-up, and overall pipeline are visible.",
+          "A career transition feels more manageable when the next waypoint, important follow-up, and overall route are visible.",
       },
     ],
     sections: [
@@ -200,9 +200,9 @@ export const publicPages: Record<string, PublicPageData> = {
     title: "Start building a better job-search system",
     eyebrow: "CAREERNAVIQ PRICING",
     description:
-      "CareerNavIQ is currently available in early access. Review the current beta access model and what is included in the career command center.",
+      "CareerNavIQ is currently available in early access. Review the current beta access model and what is included in the career-navigation system.",
     intro:
-      "CareerNavIQ is currently in early access while the product is refined with real user feedback. Early-access users can explore the connected career workspace without committing to a paid plan.",
+      "CareerNavIQ is currently in early access while the product is refined with real user feedback. Early-access users can explore the connected career-navigation system without committing to a paid plan.",
     keywords: ["CareerNavIQ pricing", "job search software pricing", "career platform early access"],
     cards: [
       {
@@ -233,7 +233,7 @@ export const publicPages: Record<string, PublicPageData> = {
         bullets: [
           "Career profile and resume library",
           "Opportunity discovery and saved searches",
-          "Application pipeline and follow-up tracking",
+          "Application waypoints and follow-up tracking",
           "Recruiter and networking contact management",
           "Interview preparation and career reporting",
         ],
@@ -422,7 +422,7 @@ export const publicPages: Record<string, PublicPageData> = {
     title: "Track every job application and the next action it needs",
     eyebrow: "JOB APPLICATION TRACKER",
     description:
-      "Organize job applications, stages, follow-ups, contacts, interviews, notes, and deadlines in the CareerNavIQ application pipeline.",
+      "Organize job applications, stages, follow-ups, contacts, interviews, notes, and deadlines in the CareerNavIQ waypoint tracker.",
     intro:
       "A job application tracker should answer more than where you applied. It should show what changed, who is involved, what is due next, and where your attention can improve the outcome.",
     keywords: [
@@ -430,12 +430,12 @@ export const publicPages: Record<string, PublicPageData> = {
       "application tracking spreadsheet alternative",
       "track job applications",
       "job search organizer",
-      "career pipeline",
+      "career route tracker",
     ],
     cards: [
       {
         icon: "✓",
-        title: "Pipeline visibility",
+        title: "Route visibility",
         description:
           "See opportunities across saved, preparing, applied, interviewing, offer, closed, and other meaningful stages.",
       },

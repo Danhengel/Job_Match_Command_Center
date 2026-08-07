@@ -226,7 +226,7 @@ export default function EditProfile({ params }: { params: Promise<{ id: string }
           </section>
 
           <footer className="profile-edit-save-bar">
-            <div><strong>Executive position changes</strong><span>Updates affect future opportunity scoring and standing market briefs.</span></div>
+            <div><strong>Career direction changes</strong><span>Updates affect future opportunity scoring and standing route searches.</span></div>
             <div className="row wrap">
               <Link className="button secondary" href={`/profiles/${id}`}>Cancel</Link>
               <button type="submit" disabled={saving}>{saving ? "Saving changes…" : "Save profile changes"}</button>
