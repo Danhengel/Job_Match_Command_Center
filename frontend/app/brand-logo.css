@@ -1,9 +1,9 @@
 /* CareerNavIQ sitewide logo system
-   Uses one approved wordmark and one compact compass mark across public,
+   Uses the exact approved wordmark artwork and one compact compass mark across public,
    authentication, desktop app, and mobile app surfaces. */
 
 :root {
-  --careernaviq-logo: url("/careernaviq-logo.svg");
+  --careernaviq-logo: url("/careernaviq-logo.png");
   --careernaviq-mark: url("/careernaviq-mark.svg");
 }
 
