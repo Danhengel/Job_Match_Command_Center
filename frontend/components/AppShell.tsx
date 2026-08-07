@@ -17,10 +17,10 @@ import {
 import { endAuthenticatedSession } from "@/lib/sessionStorage";
 
 const mobileNavigation = [
-  ["/dashboard", "⌖", "Navigate"],
-  ["/jobs", "◇", "Explore"],
-  ["/applications", "●", "Track"],
-  ["/interviews", "◎", "Interview"],
+  ["/dashboard", "⌖", "Briefing"],
+  ["/jobs", "◇", "Opportunities"],
+  ["/applications", "●", "Pipeline"],
+  ["/interviews", "◎", "Interviews"],
 ] as const;
 
 const publicPaths = new Set([
@@ -80,7 +80,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div className="app-shell">
+    <div className="app-shell executive-suite">
       <button
         type="button"
         className={`mobile-nav-overlay ${menuOpen ? "visible" : ""}`}
@@ -98,12 +98,12 @@ export function AppShell({ children }: { children: ReactNode }) {
           <Link
             href="/dashboard"
             className="sidebar-brand"
-            aria-label="CareerNavIQ dashboard"
+            aria-label="CareerNavIQ executive briefing"
           >
             <span className="brand-mark"><BrandCompass /></span>
             <span>
               <strong>CareerNavIQ</strong>
-              <small>Intelligent career navigation</small>
+              <small>Executive career intelligence</small>
             </span>
           </Link>
           <button
@@ -116,7 +116,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           </button>
         </div>
 
-        <nav className="sidebar-nav" aria-label="Career workflow">
+        <nav className="sidebar-nav" aria-label="Executive career workflow">
           <Link
             href="/dashboard"
             className={`sidebar-dashboard ${isActivePath(pathname, "/dashboard") ? "active" : ""}`}
@@ -124,14 +124,14 @@ export function AppShell({ children }: { children: ReactNode }) {
           >
             <span className="sidebar-dashboard-icon" aria-hidden="true">⌖</span>
             <span>
-              <strong>Navigation hub</strong>
-              <small>Direction, progress, and next moves</small>
+              <strong>Executive briefing</strong>
+              <small>Position, priorities, and next decisions</small>
             </span>
           </Link>
 
           <div className="sidebar-section-heading">
-            <span>Your route</span>
-            <small>5 waypoints</small>
+            <span>Career mandate</span>
+            <small>5 workstreams</small>
           </div>
 
           <div className="sidebar-stage-list">
@@ -180,7 +180,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           </div>
 
           <div className="sidebar-section-heading sidebar-tools-heading">
-            <span>Navigation tools</span>
+            <span>Advisory tools</span>
           </div>
           <div className="sidebar-utility-links">
             {UTILITY_LINKS.map((item) => {
@@ -224,20 +224,20 @@ export function AppShell({ children }: { children: ReactNode }) {
           <Link
             href="/dashboard"
             className="header-brand"
-            aria-label="CareerNavIQ dashboard"
+            aria-label="CareerNavIQ executive briefing"
           >
             <span className="header-brand-mark"><BrandCompass /></span>
             <span className="header-brand-copy">
               <strong>{currentPageLabel}</strong>
               <span>
                 {currentStage?.description
-                  ?? "Direction, progress, and next moves"}
+                  ?? "Position, priorities, and next decisions"}
               </span>
             </span>
           </Link>
 
           <div className="header-actions">
-            <Link href="/jobs" className="button compact">Explore routes</Link>
+            <Link href="/jobs" className="button compact">Review opportunities</Link>
             <Link href="/notifications" className="header-link">Updates</Link>
             <button
               type="button"
