@@ -1,0 +1,80 @@
+/* Profile-card readability pass.
+   Loaded last so the career-profile chips and CTA remain readable over every legacy theme layer. */
+
+.app-content .profile-card .badge,
+.app-content .profile-card .score-pill,
+.app-content .profile-card .profile-meta span,
+.app-content .profile-card .profile-title-tags span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 7px 11px;
+  line-height: 1.25;
+  text-shadow: none;
+}
+
+.app-content .profile-card .badge {
+  border: 1px solid #b8c9de !important;
+  background: #eef3f9 !important;
+  color: #17324f !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+}
+
+.app-content .profile-card .score-pill {
+  border: 1px solid #b9c9ec !important;
+  background: #e8efff !important;
+  color: #1746ad !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+}
+
+.app-content .profile-card .profile-meta span {
+  border: 1px solid #b9d3cf !important;
+  background: #edf7f5 !important;
+  color: #174f50 !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+}
+
+.app-content .profile-card .profile-title-tags span {
+  border: 1px solid #bfd0e7 !important;
+  border-radius: 9px !important;
+  background: #edf3fb !important;
+  color: #143a62 !important;
+  font-size: 13px !important;
+  font-weight: 750 !important;
+}
+
+.app-content .profile-card-footer .button.secondary {
+  min-height: 42px;
+  padding: 9px 16px;
+  border: 1px solid #0b3156 !important;
+  border-radius: 10px;
+  background: #0b3156 !important;
+  color: #ffffff !important;
+  font-size: 13px;
+  font-weight: 800;
+  box-shadow: 0 4px 12px rgba(11, 49, 86, 0.16);
+}
+
+.app-content .profile-card-footer .button.secondary:hover,
+.app-content .profile-card-footer .button.secondary:focus-visible {
+  border-color: #124875 !important;
+  background: #124875 !important;
+  color: #ffffff !important;
+}
+
+.app-content .profile-card-footer .button.secondary:focus-visible {
+  outline: 3px solid rgba(23, 79, 200, 0.22);
+  outline-offset: 2px;
+}
+
+@media (max-width: 760px) {
+  .app-content .profile-card .profile-meta span,
+  .app-content .profile-card .profile-title-tags span {
+    width: auto;
+    max-width: 100%;
+    white-space: normal;
+  }
+}
