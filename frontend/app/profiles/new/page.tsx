@@ -1,94 +1,10 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import Link from "next/link";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { ExecutivePanel, Notice, PageHeader, SectionHeader } from "@/components/ui";
 import { api } from "@/lib/api";
-import styles from "./page.module.css";
-
-type IconProps = { children: ReactNode; size?: number };
-function Icon({ children, size = 22 }: IconProps) {
-  return <svg aria-hidden="true" fill="none" height={size} viewBox="0 0 24 24" width={size} xmlns="http://www.w3.org/2000/svg">{children}</svg>;
-}
-
-function UserIcon() {
-  return <Icon size={21}><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM4.8 20c.7-3.4 3.2-5.2 7.2-5.2s6.5 1.8 7.2 5.2" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.7" /></Icon>;
-}
-function LocationIcon() {
-  return <Icon size={21}><path d="M20 10c0 5-8 10-8 10S4 15 4 10a8 8 0 1 1 16 0Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.7" /><circle cx="12" cy="10" r="2.4" stroke="currentColor" strokeWidth="1.7" /></Icon>;
-}
-function TargetIcon({ size = 21 }: { size?: number }) {
-  return <Icon size={size}><circle cx="12" cy="12" r="7.5" stroke="currentColor" strokeWidth="1.7" /><circle cx="12" cy="12" r="3.2" stroke="currentColor" strokeWidth="1.7" /><path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke="currentColor" strokeLinecap="round" strokeWidth="1.7" /></Icon>;
-}
-function DollarIcon() {
-  return <Icon size={21}><circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.7" /><path d="M15.5 8.3c-.8-.7-1.9-1.1-3.2-1.1-1.8 0-3 .9-3 2.2 0 3.3 6.2 1.5 6.2 5 0 1.4-1.3 2.4-3.3 2.4-1.5 0-2.8-.5-3.7-1.4M12 5.5v13" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.7" /></Icon>;
-}
-function HomeIcon() {
-  return <Icon size={25}><path d="m3 11 9-7 9 7M5.5 10.5V20h5v-6h3v6h5v-9.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" /></Icon>;
-}
-function BuildingIcon() {
-  return <Icon size={25}><path d="M4 21h16M6 21V8h8v13M14 21V4h4v17M9 11h2M9 15h2M16 8h.01M16 12h.01M16 16h.01" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" /></Icon>;
-}
-function InfoIcon() {
-  return <Icon size={16}><circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.7" /><path d="M12 10.7v5.1M12 7.7h.01" stroke="currentColor" strokeLinecap="round" strokeWidth="2" /></Icon>;
-}
-function PlusIcon() {
-  return <Icon size={20}><path d="M12 5v14M5 12h14" stroke="currentColor" strokeLinecap="round" strokeWidth="1.8" /></Icon>;
-}
-function LockIcon() {
-  return <Icon size={17}><rect x="5" y="10" width="14" height="10" rx="2" stroke="currentColor" strokeWidth="1.6" /><path d="M8.5 10V7.5a3.5 3.5 0 1 1 7 0V10" stroke="currentColor" strokeLinecap="round" strokeWidth="1.6" /></Icon>;
-}
-
-type TextFieldProps = {
-  id: string;
-  label: string;
-  value: string;
-  onChange: (value: string) => void;
-  placeholder: string;
-  icon: ReactNode;
-  type?: "text" | "number";
-  min?: string;
-  max?: string;
-  required?: boolean;
-  optional?: boolean;
-};
-
-function TextField({ id, label, value, onChange, placeholder, icon, type = "text", min, max, required, optional }: TextFieldProps) {
-  return (
-    <div className={styles.fieldGroup}>
-      <label className={styles.fieldLabel} htmlFor={id}>{label}{optional ? <span> (optional)</span> : null}</label>
-      <div className={styles.inputWrap}>
-        <span className={styles.inputIcon}>{icon}</span>
-        <input className={styles.textInput} id={id} max={max} min={min} onChange={(event) => onChange(event.target.value)} placeholder={placeholder} required={required} type={type} value={value} />
-      </div>
-    </div>
-  );
-}
-
-type ToggleCardProps = { checked: boolean; icon: ReactNode; id: string; label: string; onChange: (checked: boolean) => void };
-function ToggleCard({ checked, icon, id, label, onChange }: ToggleCardProps) {
-  return (
-    <label className={`${styles.toggleCard} ${checked ? styles.toggleCardActive : ""}`} htmlFor={id}>
-      <input checked={checked} className={styles.toggleInput} id={id} onChange={(event) => onChange(event.target.checked)} type="checkbox" />
-      <span className={styles.toggleCardIcon}>{icon}</span>
-      <span className={styles.toggleLabel}>{label}</span>
-      <span aria-hidden="true" className={styles.switchTrack}><span className={styles.switchThumb} /></span>
-    </label>
-  );
-}
-
-type TextAreaCardProps = { id: string; label: string; placeholder: string; value: string; onChange: (value: string) => void; helpText?: string };
-function TextAreaCard({ id, label, placeholder, value, onChange, helpText = "One per line" }: TextAreaCardProps) {
-  return (
-    <div className={styles.textAreaCard}>
-      <div className={styles.textAreaHeading}>
-        <label htmlFor={id}>{label}</label>
-        <span className={styles.infoIcon} title={`${label}: ${helpText.toLowerCase()}`}><InfoIcon /></span>
-      </div>
-      <textarea className={styles.textArea} id={id} onChange={(event) => onChange(event.target.value)} placeholder={placeholder} rows={8} value={value} />
-      <p className={styles.helpText}>{helpText}</p>
-    </div>
-  );
-}
 
 export default function NewProfile() {
   const router = useRouter();
@@ -131,65 +47,56 @@ export default function NewProfile() {
     }
   }
 
-  return (
-    <div className={styles.page}>
-      <form className={styles.profileCard} onSubmit={save}>
-        <header className={styles.header}>
-          <div className={styles.headerIcon}><TargetIcon size={28} /></div>
-          <div>
-            <p className={styles.eyebrow}>Executive profile</p>
-            <h1>Define the mandate for your next move</h1>
-            <p>Set the roles, geography, compensation, and selection criteria CareerNavIQ should use when evaluating your market.</p>
-          </div>
-        </header>
+  return <>
+    <PageHeader
+      eyebrow="EXECUTIVE PROFILE"
+      title="Define the mandate for your next move"
+      description="Set the roles, geography, compensation, and selection criteria CareerNavIQ should use when evaluating your market."
+      actions={<Link className="button secondary" href="/profiles">Back to profiles</Link>}
+    />
 
-        <section aria-labelledby="profile-basics" className={styles.section}>
-          <div className={styles.sectionHeading}>
-            <span>01</span>
-            <div><h2 id="profile-basics">Search mandate</h2><p>Name this executive profile and establish the market you want to evaluate.</p></div>
-          </div>
-          <div className={styles.basicsGrid}>
-            <TextField icon={<UserIcon />} id="profile-name" label="Profile name" onChange={setName} placeholder="For example: Commercial lending leadership" required value={name} />
-            <TextField icon={<LocationIcon />} id="home-location" label="Home location" onChange={setLocation} placeholder="For example: Tampa, FL" value={location} />
-          </div>
-        </section>
+    {error ? <Notice title="Profile needs attention" tone="error"><p>{error}</p></Notice> : null}
 
-        <section aria-labelledby="work-preferences" className={styles.section}>
-          <div className={styles.sectionHeading}>
-            <span>02</span>
-            <div><h2 id="work-preferences">Work parameters</h2><p>Set the geographic flexibility and compensation threshold that matter to the decision.</p></div>
-          </div>
-          <div className={styles.preferenceGrid}>
-            <div className={styles.toggleGrid}>
-              <ToggleCard checked={remotePreferred} icon={<HomeIcon />} id="remote-preferred" label="Remote preferred" onChange={setRemotePreferred} />
-              <ToggleCard checked={hybridPreferred} icon={<BuildingIcon />} id="hybrid-preferred" label="Hybrid preferred" onChange={setHybridPreferred} />
-            </div>
-            <div className={styles.compensationGrid}>
-              <TextField icon={<TargetIcon />} id="search-radius" label="Local market radius" max="500" min="0" onChange={setRadius} optional placeholder="For example: 50" type="number" value={radius} />
-              <TextField icon={<DollarIcon />} id="target-salary" label="Minimum or target salary" min="0" onChange={setSalary} optional placeholder="For example: 180000" type="number" value={salary} />
-            </div>
-          </div>
-        </section>
+    <form className="profile-edit-form" onSubmit={save}>
+      <ExecutivePanel className="profile-edit-section">
+        <SectionHeader eyebrow="01 · SEARCH MANDATE" title="Profile foundation" description="Name this executive direction and establish the market CareerNavIQ should evaluate." />
+        <div className="profile-edit-two-column">
+          <div><label htmlFor="profile-name">Profile name</label><input id="profile-name" value={name} onChange={(event) => setName(event.target.value)} placeholder="Commercial lending leadership" required /></div>
+          <div><label htmlFor="home-location">Home location</label><input id="home-location" value={location} onChange={(event) => setLocation(event.target.value)} placeholder="Tampa, FL" /></div>
+        </div>
+      </ExecutivePanel>
 
-        <section aria-labelledby="matching-priorities" className={styles.section}>
-          <div className={styles.sectionHeading}>
-            <span>03</span>
-            <div><h2 id="matching-priorities">Selection criteria</h2><p>Define the signals CareerNavIQ should prioritize and the opportunities it should set aside.</p></div>
-          </div>
-          <div className={styles.textAreaGrid}>
-            <TextAreaCard id="target-titles" label="Target titles" onChange={setTitles} placeholder={"Director of Loan Operations\nVP, Construction Lending"} value={titles} />
-            <TextAreaCard id="priority-keywords" label="Priority evidence" onChange={setKeywords} placeholder={"commercial lending\ncredit risk\nportfolio management"} value={keywords} />
-            <TextAreaCard id="exclude-keywords" label="Exclude signals" onChange={setExclusions} placeholder={"entry-level\ncommission only"} value={exclusions} />
-          </div>
-        </section>
+      <ExecutivePanel className="profile-edit-section">
+        <SectionHeader eyebrow="02 · WORK PARAMETERS" title="Geography and compensation" description="Set the flexibility and compensation threshold that matter to the decision." />
+        <div className="profile-preference-grid">
+          <label className="profile-preference-card" htmlFor="remote-preferred">
+            <span><strong>Remote preferred</strong><small>Include fully remote opportunities.</small></span>
+            <input id="remote-preferred" type="checkbox" checked={remotePreferred} onChange={(event) => setRemotePreferred(event.target.checked)} />
+          </label>
+          <label className="profile-preference-card" htmlFor="hybrid-preferred">
+            <span><strong>Hybrid preferred</strong><small>Include roles combining office and remote work.</small></span>
+            <input id="hybrid-preferred" type="checkbox" checked={hybridPreferred} onChange={(event) => setHybridPreferred(event.target.checked)} />
+          </label>
+        </div>
+        <div className="profile-edit-two-column">
+          <div><label htmlFor="search-radius">Local market radius</label><input id="search-radius" type="number" min="0" max="500" value={radius} onChange={(event) => setRadius(event.target.value)} placeholder="50" /></div>
+          <div><label htmlFor="target-salary">Minimum or target salary</label><input id="target-salary" type="number" min="0" step="1000" value={salary} onChange={(event) => setSalary(event.target.value)} placeholder="180000" /></div>
+        </div>
+      </ExecutivePanel>
 
-        {error ? <div aria-live="polite" className={styles.errorMessage} role="alert">{error}</div> : null}
+      <ExecutivePanel className="profile-edit-section">
+        <SectionHeader eyebrow="03 · SELECTION CRITERIA" title="Opportunity filters" description="Define the signals CareerNavIQ should prioritize and the opportunities it should set aside." />
+        <div className="profile-edit-textareas">
+          <div><label htmlFor="target-titles">Target titles</label><textarea id="target-titles" rows={8} value={titles} onChange={(event) => setTitles(event.target.value)} placeholder={"Director of Loan Operations\nVP, Construction Lending"} /><small>One title per line</small></div>
+          <div><label htmlFor="priority-keywords">Priority evidence</label><textarea id="priority-keywords" rows={8} value={keywords} onChange={(event) => setKeywords(event.target.value)} placeholder={"commercial lending\ncredit risk\nportfolio management"} /><small>One skill, industry, or responsibility per line</small></div>
+          <div><label htmlFor="exclude-keywords">Exclude signals</label><textarea id="exclude-keywords" rows={8} value={exclusions} onChange={(event) => setExclusions(event.target.value)} placeholder={"entry-level\ncommission only"} /><small>One excluded term per line</small></div>
+        </div>
+      </ExecutivePanel>
 
-        <footer className={styles.footer}>
-          <button className={styles.submitButton} disabled={saving} type="submit"><PlusIcon /><span>{saving ? "Saving executive profile…" : "Save executive profile"}</span></button>
-          <p><LockIcon /> You can update these parameters at any time</p>
-        </footer>
-      </form>
-    </div>
-  );
+      <footer className="profile-edit-save-bar">
+        <div><strong>Executive profile</strong><span>These settings drive future opportunity scoring and recurring market intelligence.</span></div>
+        <div className="row wrap"><Link className="button secondary" href="/profiles">Cancel</Link><button type="submit" disabled={saving}>{saving ? "Saving profile…" : "Save executive profile"}</button></div>
+      </footer>
+    </form>
+  </>;
 }
