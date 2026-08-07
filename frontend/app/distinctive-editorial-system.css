@@ -3,6 +3,7 @@
    blue job-board chrome, pill-heavy controls, and stacks of rounded cards. */
 
 .app-shell {
+  --sidebar-width: 320px;
   --editorial-canvas: #f1eee7;
   --editorial-paper: #faf8f2;
   --editorial-ink: #1d1c18;
@@ -44,7 +45,7 @@
 
 /* Private-office navigation: charcoal, architectural, and deliberately quiet. */
 .app-sidebar {
-  width: var(--sidebar-width, 264px);
+  width: var(--sidebar-width);
   padding: 22px 16px 26px;
   border-right: 1px solid #2e2c26 !important;
   background: #1b1a17 !important;
@@ -126,6 +127,32 @@
   background: transparent !important;
   color: #c2a575 !important;
   box-shadow: none !important;
+}
+
+.sidebar-stage-summary {
+  grid-template-columns: 28px minmax(0, 1fr) !important;
+  gap: 12px;
+  padding-right: 11px;
+  padding-left: 11px;
+}
+
+.sidebar-stage-copy strong {
+  white-space: nowrap;
+}
+
+.sidebar-stage-copy small {
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+  line-height: 1.35;
+}
+
+.sidebar-stage-arrow {
+  display: none !important;
+}
+
+.sidebar-stage-links {
+  padding-left: 51px;
 }
 
 /* Header reads like a workspace folio, not a search site toolbar. */
@@ -1113,6 +1140,7 @@
   }
 
   .app-sidebar {
+    width: min(88vw, 350px);
     background: #1b1a17 !important;
   }
 

@@ -157,7 +157,6 @@ export function AppShell({ children }: { children: ReactNode }) {
                       <strong>{stage.shortLabel}</strong>
                       <small>{stage.description}</small>
                     </span>
-                    <span className="sidebar-stage-arrow" aria-hidden="true">›</span>
                   </Link>
 
                   <div className="sidebar-stage-links">
