@@ -24,6 +24,7 @@ import "./company-watch-catalog.css";
 import "./experience-overhaul.css";
 import "./executive-platform-v6.css";
 import "./sitewide-consistency-v7.css";
+import "./brand-logo.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 
@@ -39,6 +40,7 @@ const structuredData = {
       "@id": `${SITE_URL}/#organization`,
       name: "CareerNavIQ",
       url: SITE_URL,
+      logo: `${SITE_URL}/careernaviq-logo.svg`,
       description: SITE_DESCRIPTION,
     },
     {
@@ -83,6 +85,10 @@ export const metadata: Metadata = {
   creator: "CareerNavIQ",
   publisher: "CareerNavIQ",
   category: "career technology",
+  icons: {
+    icon: "/careernaviq-mark.svg",
+    shortcut: "/careernaviq-mark.svg",
+  },
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
