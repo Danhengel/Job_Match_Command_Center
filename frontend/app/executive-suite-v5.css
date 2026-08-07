@@ -1,0 +1,649 @@
+/* CareerNavIQ Executive Suite v5
+   A deliberately constrained visual system. This file changes presentation only:
+   color, type, borders, elevation, and control treatment. It does not redefine
+   application geometry, grids, fixed positioning, or page widths. */
+
+:root {
+  --exec-midnight: #071b2c;
+  --exec-navy: #0b2c45;
+  --exec-navy-2: #123f5d;
+  --exec-marine: #1d607e;
+  --exec-teal: #2f7478;
+  --exec-teal-soft: #e4efee;
+  --exec-brass: #b28b4e;
+  --exec-brass-soft: #efe3cb;
+  --exec-canvas: #edf1f2;
+  --exec-paper: #fffdf8;
+  --exec-sailcloth: #f5f1e8;
+  --exec-ink: #0b2437;
+  --exec-copy: #405867;
+  --exec-muted: #6a7d88;
+  --exec-line: #c9d4d8;
+  --exec-line-strong: #aabac1;
+  --exec-success: #3f6f60;
+  --exec-warning: #8d6632;
+  --exec-danger: #91424a;
+  --exec-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  --exec-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body.executive-suite-body {
+  background: var(--exec-canvas);
+  color: var(--exec-ink);
+  font-family: var(--exec-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Authenticated application                                                  */
+/* -------------------------------------------------------------------------- */
+
+.app-shell.executive-suite {
+  --v3-bg: var(--exec-canvas);
+  --v3-surface: var(--exec-paper);
+  --v3-surface-soft: var(--exec-sailcloth);
+  --v3-ink: var(--exec-ink);
+  --v3-copy: var(--exec-copy);
+  --v3-muted: var(--exec-muted);
+  --v3-line: var(--exec-line);
+  --v3-line-strong: var(--exec-line-strong);
+  --v3-primary: var(--exec-navy);
+  --v3-primary-hover: var(--exec-midnight);
+  --v3-primary-soft: #e6edf2;
+  --v3-accent: var(--exec-teal);
+  --v3-accent-soft: var(--exec-teal-soft);
+  --v3-success: var(--exec-success);
+  --v3-warning: var(--exec-warning);
+  --v3-danger: var(--exec-danger);
+  --premium-canvas: var(--exec-canvas);
+  --premium-surface: var(--exec-paper);
+  --premium-surface-soft: var(--exec-sailcloth);
+  --premium-ink: var(--exec-ink);
+  --premium-ink-soft: var(--exec-copy);
+  --premium-muted: var(--exec-muted);
+  --premium-line: var(--exec-line);
+  --premium-line-strong: var(--exec-line-strong);
+  --premium-primary: var(--exec-navy);
+  --premium-primary-hover: var(--exec-midnight);
+  --premium-primary-soft: #e6edf2;
+  --premium-teal: var(--exec-teal);
+  --premium-teal-soft: var(--exec-teal-soft);
+  --text: var(--exec-ink);
+  --muted: var(--exec-muted);
+  --border: var(--exec-line);
+  --panel: var(--exec-paper);
+  --surface: var(--exec-paper);
+  --surface-soft: var(--exec-sailcloth);
+  --primary: var(--exec-navy);
+  --primary-strong: var(--exec-midnight);
+  --accent: var(--exec-teal);
+  background: var(--exec-canvas) !important;
+  color: var(--exec-ink) !important;
+  font-family: var(--exec-sans);
+}
+
+.executive-suite .app-workspace,
+.executive-suite .app-content {
+  background: var(--exec-canvas) !important;
+}
+
+.executive-suite .app-sidebar {
+  border-right-color: #173d56 !important;
+  background:
+    radial-gradient(circle at 16% -2%, rgba(47, 116, 120, 0.16), transparent 28%),
+    linear-gradient(180deg, #0b2c45 0%, #071b2c 100%) !important;
+  box-shadow: 12px 0 34px rgba(7, 27, 44, 0.09) !important;
+}
+
+.executive-suite .app-sidebar,
+.executive-suite .app-sidebar * {
+  color: #d9e4e8 !important;
+}
+
+.executive-suite .sidebar-brand {
+  border-bottom: 1px solid rgba(220, 232, 236, 0.11);
+}
+
+.executive-suite .sidebar-brand .brand-mark,
+.executive-suite .header-brand-mark {
+  border-color: rgba(178, 139, 78, 0.78) !important;
+  background: #123f5d !important;
+  color: #d8b77e !important;
+  box-shadow: none !important;
+}
+
+.executive-suite .sidebar-brand strong {
+  color: #fffdf8 !important;
+  font-family: var(--exec-serif);
+  font-size: 20px;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em;
+}
+
+.executive-suite .sidebar-brand small,
+.executive-suite .sidebar-stage-copy small,
+.executive-suite .sidebar-dashboard small,
+.executive-suite .sidebar-stage-links a,
+.executive-suite .sidebar-utility-links a,
+.executive-suite .sidebar-signout {
+  color: #a9bdc6 !important;
+}
+
+.executive-suite .sidebar-section-heading {
+  color: #819ba8 !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase;
+}
+
+.executive-suite .sidebar-section-heading small {
+  color: #c8a66b !important;
+}
+
+.executive-suite :is(.sidebar-dashboard, .sidebar-stage-summary, .sidebar-stage-links a, .sidebar-utility-links a) {
+  border-radius: 7px !important;
+}
+
+.executive-suite :is(.sidebar-dashboard.active, .sidebar-stage.active .sidebar-stage-summary, .sidebar-stage-links a.active, .sidebar-utility-links a.active) {
+  background: rgba(255, 255, 255, 0.065) !important;
+  color: #fffdf8 !important;
+  box-shadow: inset 3px 0 0 var(--exec-brass) !important;
+}
+
+.executive-suite :is(.sidebar-dashboard:hover, .sidebar-stage-summary:hover, .sidebar-stage-links a:hover, .sidebar-utility-links a:hover, .sidebar-signout:hover) {
+  background: rgba(255, 255, 255, 0.045) !important;
+  color: #fffdf8 !important;
+}
+
+.executive-suite :is(.sidebar-dashboard-icon, .sidebar-stage-number) {
+  border-color: rgba(178, 139, 78, 0.52) !important;
+  background: rgba(18, 63, 93, 0.52) !important;
+  color: #d5b477 !important;
+  box-shadow: none !important;
+}
+
+.executive-suite .app-header {
+  border-bottom-color: var(--exec-line) !important;
+  background: rgba(255, 253, 248, 0.94) !important;
+  box-shadow: 0 8px 24px rgba(7, 27, 44, 0.035) !important;
+  backdrop-filter: blur(16px);
+}
+
+.executive-suite .header-brand-copy strong {
+  color: var(--exec-ink) !important;
+  font-family: var(--exec-serif);
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.018em;
+}
+
+.executive-suite .header-brand-copy span,
+.executive-suite .header-link {
+  color: var(--exec-muted) !important;
+}
+
+.executive-suite .header-link:hover {
+  color: var(--exec-navy) !important;
+}
+
+/* Executive typographic hierarchy. */
+.executive-suite .app-content :is(h1, h2) {
+  color: var(--exec-ink) !important;
+  font-family: var(--exec-serif) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.032em !important;
+}
+
+.executive-suite .app-content h1 {
+  line-height: 1.02;
+}
+
+.executive-suite .app-content :is(h3, h4, h5, h6, strong, b) {
+  color: var(--exec-ink) !important;
+}
+
+.executive-suite .app-content :is(p, li, dd, dt, label, td, th) {
+  color: var(--exec-copy);
+}
+
+.executive-suite .app-content :is(.muted, [class*="muted"], .helper-text, .supporting-copy, small) {
+  color: var(--exec-muted) !important;
+}
+
+.executive-suite .eyebrow {
+  color: var(--exec-marine) !important;
+  font-size: 10px !important;
+  font-weight: 850 !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase;
+}
+
+.executive-suite :is(.page-header, .hero, .executive-hero, .resume-page-hero, .command-hero) {
+  border-left-color: var(--exec-brass) !important;
+  border-bottom-color: var(--exec-line) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Surfaces are quiet and document-like rather than bright SaaS cards. */
+.executive-suite :is(
+  .card,
+  .dashboard-panel,
+  .command-panel,
+  .studio-panel,
+  .analytics-panel,
+  .resume-upload-panel,
+  .resume-library-panel,
+  .resume-analysis-panel,
+  .connector-panel,
+  .settings-card,
+  .outreach-controls,
+  .outreach-editor,
+  .outreach-guidance
+) {
+  border-color: var(--exec-line) !important;
+  border-radius: 8px !important;
+  background: var(--exec-paper) !important;
+  box-shadow: 0 12px 30px rgba(7, 27, 44, 0.045) !important;
+}
+
+.executive-suite :is(
+  .analytics-panel-heading,
+  .watch-panel-heading,
+  .settings-card-heading,
+  .resume-analysis-heading
+) {
+  border-bottom-color: var(--exec-line) !important;
+}
+
+.executive-suite :is(
+  .job-card-modern,
+  .crm-contact-card,
+  .company-role-card,
+  .watch-card,
+  .activity-item,
+  .notification-row,
+  .automation-row,
+  .profile-preference-card,
+  .settings-toggle,
+  .company-card-modern,
+  .resume-library-card,
+  .interview-event-card,
+  .kanban-card,
+  .quick-action,
+  .funnel-stage-card,
+  .executive-action-card,
+  .prep-item,
+  .coach-message,
+  .star-story-list article,
+  .practice-history article,
+  .history-row
+) {
+  border-color: var(--exec-line) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.executive-suite :is(
+  .job-card-modern,
+  .crm-contact-card,
+  .company-role-card,
+  .watch-card,
+  .activity-item,
+  .notification-row,
+  .automation-row,
+  .profile-preference-card,
+  .settings-toggle,
+  .company-card-modern,
+  .resume-library-card,
+  .interview-event-card,
+  .kanban-card,
+  .quick-action,
+  .funnel-stage-card,
+  .executive-action-card,
+  .prep-item,
+  .coach-message,
+  .history-row
+):hover {
+  background: rgba(245, 241, 232, 0.68) !important;
+  box-shadow: inset 3px 0 0 var(--exec-teal) !important;
+  transform: none !important;
+}
+
+.executive-suite :is(.metric-card, .executive-kpi, .executive-metric-card, .command-kpis article, .interview-kpis article, .coach-kpis article, .analytics-kpi-grid article, .pipeline-summary-card, .profile-summary-card) {
+  border-color: var(--exec-line) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.executive-suite :is(.metric-card, .executive-kpi, .executive-metric-card, .command-kpis article, .interview-kpis article, .coach-kpis article, .analytics-kpi-grid article, .pipeline-summary-card, .profile-summary-card) strong {
+  color: var(--exec-ink) !important;
+  font-family: var(--exec-serif);
+  font-weight: 600 !important;
+}
+
+/* Buttons are restrained: one clear decision color, quiet secondary actions. */
+.executive-suite button:not(.mobile-nav-overlay):not(.mobile-menu-button):not(.sidebar-close),
+.executive-suite .button {
+  border-color: var(--exec-navy) !important;
+  border-radius: 7px !important;
+  background: var(--exec-navy) !important;
+  color: #fffdf8 !important;
+  font-weight: 750 !important;
+  box-shadow: 0 5px 14px rgba(11, 44, 69, 0.12) !important;
+}
+
+.executive-suite button:not(.mobile-nav-overlay):not(.mobile-menu-button):not(.sidebar-close):hover:not(:disabled),
+.executive-suite .button:hover {
+  border-color: var(--exec-midnight) !important;
+  background: var(--exec-midnight) !important;
+  color: #fffdf8 !important;
+  transform: none !important;
+}
+
+.executive-suite :is(button.secondary, .button.secondary, .version-button) {
+  border-color: var(--exec-line-strong) !important;
+  background: var(--exec-paper) !important;
+  color: var(--exec-ink) !important;
+  box-shadow: none !important;
+}
+
+.executive-suite :is(button.secondary, .button.secondary, .version-button):hover:not(:disabled) {
+  border-color: var(--exec-navy) !important;
+  background: var(--exec-sailcloth) !important;
+  color: var(--exec-ink) !important;
+}
+
+.executive-suite :is(button.danger, .button.danger) {
+  border-color: #c8a7ab !important;
+  background: #fffafa !important;
+  color: var(--exec-danger) !important;
+}
+
+/* Forms use high-contrast paper controls everywhere. */
+.executive-suite input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+.executive-suite select,
+.executive-suite textarea,
+.executive-suite .job-description,
+.executive-suite .letter-preview,
+.executive-suite .preview {
+  border-color: var(--exec-line-strong) !important;
+  background: #fffefb !important;
+  color: var(--exec-ink) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85) !important;
+}
+
+.executive-suite input::placeholder,
+.executive-suite textarea::placeholder {
+  color: #7b8990 !important;
+  opacity: 1;
+}
+
+.executive-suite :is(input, select, textarea):focus {
+  border-color: var(--exec-marine) !important;
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(29, 96, 126, 0.13) !important;
+}
+
+.executive-suite :is(.badge, .pill, .status-badge, .score-pill) {
+  border-color: #bfd0d4 !important;
+  background: #edf4f4 !important;
+  color: #254f5c !important;
+  font-weight: 750 !important;
+  text-shadow: none !important;
+}
+
+.executive-suite table {
+  border-color: var(--exec-line) !important;
+  background: var(--exec-paper) !important;
+  box-shadow: none !important;
+}
+
+.executive-suite thead {
+  background: var(--exec-sailcloth) !important;
+}
+
+.executive-suite th {
+  color: var(--exec-ink) !important;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.executive-suite tbody tr:hover {
+  background: rgba(228, 239, 238, 0.45) !important;
+}
+
+.executive-suite :is(.progress-track, .funnel-track, .progress) {
+  background: #dce5e7 !important;
+}
+
+.executive-suite :is(.progress-value, .funnel-value, .progress > span) {
+  background: linear-gradient(90deg, var(--exec-teal), var(--exec-marine)) !important;
+}
+
+.executive-suite :is(.empty-state, .empty, .no-results, .loading-state):not(:empty) {
+  border-color: var(--exec-line-strong) !important;
+  background: rgba(255, 253, 248, 0.7) !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Command center: the showcase executive briefing                            */
+/* -------------------------------------------------------------------------- */
+
+.executive-suite .executive-command-center .executive-hero {
+  border: 1px solid #173f59 !important;
+  border-left: 4px solid var(--exec-brass) !important;
+  border-radius: 10px !important;
+  background:
+    radial-gradient(circle at 90% 10%, rgba(47, 116, 120, 0.2), transparent 30%),
+    linear-gradient(135deg, #0b2c45, #071b2c) !important;
+  box-shadow: 0 20px 45px rgba(7, 27, 44, 0.12) !important;
+}
+
+.executive-suite .executive-command-center .executive-hero :is(h1, p, .muted) {
+  color: #fffdf8 !important;
+}
+
+.executive-suite .executive-command-center .executive-hero .eyebrow {
+  color: #d8b77e !important;
+}
+
+.executive-suite .executive-command-center .executive-hero .button.secondary {
+  border-color: rgba(255, 255, 255, 0.38) !important;
+  background: transparent !important;
+  color: #fffdf8 !important;
+}
+
+.executive-suite .executive-command-center .executive-metric-card {
+  border: 1px solid var(--exec-line) !important;
+  border-top: 3px solid var(--exec-brass) !important;
+  border-radius: 8px !important;
+  background: var(--exec-paper) !important;
+  box-shadow: 0 10px 24px rgba(7, 27, 44, 0.04) !important;
+}
+
+.executive-suite .executive-command-center .executive-metric-card > span {
+  color: var(--exec-muted) !important;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+
+.executive-suite .executive-command-center .executive-metric-card strong {
+  color: var(--exec-ink) !important;
+  font-family: var(--exec-serif);
+}
+
+.executive-suite .executive-command-center :is(.executive-priority-row, .executive-job-row, .executive-interview-row) {
+  border-color: var(--exec-line) !important;
+}
+
+.executive-suite .executive-command-center :is(.executive-priority-row, .executive-job-row):hover {
+  background: var(--exec-sailcloth) !important;
+  box-shadow: inset 3px 0 0 var(--exec-teal) !important;
+}
+
+.executive-suite .executive-command-center .executive-job-score {
+  border-color: #a9c0c7 !important;
+  background: #edf4f4 !important;
+  color: var(--exec-navy) !important;
+}
+
+.executive-suite .executive-command-center .priority-arrow {
+  color: var(--exec-brass) !important;
+}
+
+.executive-suite .executive-command-center .strategy-insight {
+  border-left: 2px solid var(--exec-teal);
+  padding-left: 12px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Public / marketing                                                         */
+/* -------------------------------------------------------------------------- */
+
+body.executive-suite-body .landing-page,
+body.executive-suite-body .public-page {
+  background: var(--exec-paper) !important;
+  color: var(--exec-ink) !important;
+  font-family: var(--exec-sans);
+}
+
+body.executive-suite-body :is(.landing-page, .public-page) :is(h1, h2) {
+  font-family: var(--exec-serif) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.04em !important;
+}
+
+body.executive-suite-body :is(.landing-header, .public-header) {
+  border-bottom-color: rgba(201, 212, 216, 0.22) !important;
+  background: rgba(7, 27, 44, 0.96) !important;
+  backdrop-filter: blur(16px);
+}
+
+body.executive-suite-body :is(.landing-wordmark, .public-wordmark) {
+  font-family: var(--exec-serif);
+  font-weight: 600 !important;
+}
+
+body.executive-suite-body :is(.landing-compass, .public-compass) {
+  border-color: rgba(178, 139, 78, 0.76) !important;
+  background: #123f5d !important;
+  color: #d8b77e !important;
+  box-shadow: none !important;
+}
+
+body.executive-suite-body :is(.landing-hero, .public-hero) {
+  background:
+    radial-gradient(circle at 82% 17%, rgba(47, 116, 120, 0.18), transparent 27%),
+    linear-gradient(135deg, #0b2c45 0%, #071b2c 100%) !important;
+}
+
+body.executive-suite-body :is(.landing-hero h1, .public-hero h1) {
+  color: #fffdf8 !important;
+  font-family: var(--exec-serif) !important;
+  font-weight: 600 !important;
+}
+
+body.executive-suite-body :is(.landing-eyebrow, .public-eyebrow) {
+  color: #d8b77e !important;
+}
+
+body.executive-suite-body :is(.landing-hero-lead, .public-intro) {
+  color: #c5d2d7 !important;
+}
+
+body.executive-suite-body :is(.landing-button, .public-button) {
+  border-radius: 7px !important;
+  box-shadow: none !important;
+}
+
+body.executive-suite-body :is(.landing-button-primary, .public-button-primary) {
+  border-color: #d2b16f !important;
+  background: #d2b16f !important;
+  color: var(--exec-midnight) !important;
+}
+
+body.executive-suite-body :is(.landing-button-secondary, .public-button-secondary) {
+  border-color: rgba(255, 255, 255, 0.38) !important;
+  background: transparent !important;
+  color: #fffdf8 !important;
+}
+
+body.executive-suite-body :is(
+  .landing-preview-card,
+  .landing-preview-stats > div,
+  .landing-route-map,
+  .landing-value-grid article,
+  .landing-steps article,
+  .landing-feature-grid article,
+  .public-card,
+  .public-content-block,
+  .public-faq-list details,
+  .public-related-grid a
+) {
+  border-color: var(--exec-line) !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+}
+
+body.executive-suite-body :is(.landing-final-cta, .public-final-cta) {
+  background: var(--exec-sailcloth) !important;
+}
+
+body.executive-suite-body :is(.landing-final-card, .public-final-card) {
+  background: linear-gradient(135deg, var(--exec-navy), var(--exec-midnight)) !important;
+  border-radius: 10px !important;
+  box-shadow: none !important;
+}
+
+body.executive-suite-body :is(.landing-footer, .public-footer) {
+  background: var(--exec-midnight) !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Authentication                                                             */
+/* -------------------------------------------------------------------------- */
+
+body.executive-suite-body .auth-content {
+  background:
+    radial-gradient(circle at 14% 16%, rgba(47, 116, 120, 0.14), transparent 25%),
+    linear-gradient(135deg, #0b2c45 0%, #071b2c 100%) !important;
+}
+
+body.executive-suite-body .auth-content :is(.auth-card, .login-card, .register-card, form) {
+  border-color: rgba(201, 212, 216, 0.42) !important;
+  border-radius: 10px !important;
+  background: rgba(255, 253, 248, 0.98) !important;
+  box-shadow: 0 26px 70px rgba(7, 27, 44, 0.2) !important;
+}
+
+body.executive-suite-body .auth-content :is(h1, h2) {
+  color: var(--exec-ink) !important;
+  font-family: var(--exec-serif) !important;
+}
+
+/* Keep mobile behavior owned by the existing responsive styles. */
+@media (max-width: 760px) {
+  .executive-suite .app-header {
+    box-shadow: 0 5px 16px rgba(7, 27, 44, 0.04) !important;
+  }
+
+  .executive-suite .executive-command-center .executive-hero {
+    border-radius: 8px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.executive-suite-body *,
+  .app-shell.executive-suite * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
