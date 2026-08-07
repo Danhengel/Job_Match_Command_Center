@@ -7,6 +7,13 @@ import { BrandCompass } from "@/components/BrandCompass";
 import { api } from "@/lib/api";
 import { startAuthenticatedSession } from "@/lib/sessionStorage";
 
+const capabilities = [
+  ["01", "Define the mandate", "Clarify the roles, market, compensation, and priorities that matter."],
+  ["02", "Build market intelligence", "Evaluate opportunities through the lens of your executive profile."],
+  ["03", "Manage active pursuits", "Keep applications, relationships, decisions, and follow-up organized."],
+  ["04", "Strengthen your positioning", "Use your own evidence to prepare résumés, outreach, and interviews."],
+] as const;
+
 export default function RegisterPage() {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -38,43 +45,50 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="auth-page">
+    <div className="auth-page executive-auth-page">
       <section className="auth-brand-panel">
         <Link href="/" className="auth-brand" aria-label="CareerNavIQ home">
           <span className="auth-brand-mark"><BrandCompass /></span>
           <span className="auth-brand-copy">
             <strong>CareerNavIQ</strong>
-            <small>Intelligent career navigation.</small>
+            <small>Executive career intelligence</small>
           </span>
         </Link>
 
         <div className="auth-message">
-          <p className="eyebrow">MAP YOUR NEXT MOVE</p>
-          <h1>Build a career route around you.</h1>
-          <p>
-            Turn scattered searching, documents, applications, contacts, and interviews
-            into one connected route with a clear next step.
+          <p className="eyebrow">YOUR PRIVATE CAREER INTELLIGENCE PLATFORM</p>
+          <h1>Make the next move more deliberate.</h1>
+          <p className="auth-lead">
+            Create a private workspace for the strategy, evidence, opportunities, relationships,
+            and preparation behind your next executive move.
           </p>
-          <div className="auth-feature-grid">
-            <div><strong>Career compass</strong><span>Define the direction that fits you.</span></div>
-            <div><strong>Opportunity map</strong><span>Find routes worth exploring.</span></div>
-            <div><strong>Waypoint tracker</strong><span>See every application and next move.</span></div>
-            <div><strong>Interview guide</strong><span>Prepare evidence-led stories with confidence.</span></div>
+
+          <div className="auth-capability-list" aria-label="CareerNavIQ capabilities">
+            {capabilities.map(([number, title, description]) => (
+              <article key={number}>
+                <span>{number}</span>
+                <div><strong>{title}</strong><p>{description}</p></div>
+              </article>
+            ))}
           </div>
         </div>
 
-        <p className="auth-brand-footer">CareerNavIQ · Intelligent navigation for every career move</p>
+        <div className="auth-brand-footer">
+          <span>Private by design.</span>
+          <span>Built for consequential career decisions.</span>
+        </div>
       </section>
 
       <section className="auth-form-panel">
         <div className="auth-card">
           <div className="auth-mobile-brand">
             <span className="auth-brand-mark"><BrandCompass /></span>
-            <strong>CareerNavIQ</strong>
+            <span><strong>CareerNavIQ</strong><small>Executive career intelligence</small></span>
           </div>
-          <p className="eyebrow">START YOUR ROUTE</p>
+
+          <p className="eyebrow">PRIVATE ACCESS</p>
           <h1>Create your account</h1>
-          <p className="auth-card-intro">Set the first waypoint in your CareerNavIQ journey.</p>
+          <p className="auth-card-intro">Establish your private executive career workspace.</p>
 
           <form onSubmit={submit} className="auth-form">
             <label htmlFor="full-name">Full name</label>
@@ -86,6 +100,7 @@ export default function RegisterPage() {
               placeholder="Your full name"
               required
             />
+
             <label htmlFor="email">Email address</label>
             <input
               id="email"
@@ -96,6 +111,7 @@ export default function RegisterPage() {
               placeholder="you@example.com"
               required
             />
+
             <label htmlFor="password">Password</label>
             <input
               id="password"
@@ -106,14 +122,18 @@ export default function RegisterPage() {
               onChange={(event) => setPassword(event.target.value)}
               required
             />
+            <small className="auth-field-note">Use at least 8 characters.</small>
+
             {error ? <p className="auth-error" role="alert">{error}</p> : null}
+
             <button className="auth-submit" type="submit" disabled={busy}>
-              {busy ? "Mapping your route…" : "Start with CareerNavIQ"}
+              {busy ? "Creating workspace…" : "Create CareerNavIQ account"}
             </button>
           </form>
 
-          <p className="auth-switch">Already have an account? <Link href="/login">Open your route</Link></p>
-          <p className="auth-security-note"><span className="auth-security-dot" />Your route and saved career data remain private to your account.</p>
+          <div className="auth-divider" />
+          <p className="auth-switch">Already have an account? <Link href="/login">Sign in</Link></p>
+          <p className="auth-security-note"><span className="auth-security-dot" />Your saved career information remains private to your account.</p>
         </div>
       </section>
     </div>
