@@ -1,0 +1,106 @@
+/* Refined source-coverage treatment for the opportunity map.
+   Keeps partial outages visible without turning them into a large warning block. */
+
+.app-shell .jobs-insight-stack .notice-warning:has(.provider-health-list) {
+  position: relative;
+  overflow: hidden;
+  padding: 26px 28px !important;
+  border: 1px solid var(--editorial-line) !important;
+  border-left: 3px solid #b79350 !important;
+  border-radius: 0 !important;
+  background:
+    linear-gradient(110deg, rgba(29, 96, 126, .055), transparent 54%),
+    var(--editorial-paper) !important;
+  color: var(--editorial-ink) !important;
+  box-shadow: 0 12px 30px rgba(8, 35, 55, .055) !important;
+}
+
+.app-shell .jobs-insight-stack .notice-warning:has(.provider-health-list)::after {
+  position: absolute;
+  top: -34px;
+  right: -34px;
+  width: 112px;
+  height: 112px;
+  border: 1px solid rgba(183, 147, 80, .18);
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
+}
+
+.app-shell .jobs-insight-stack .notice-warning:has(.provider-health-list) > strong {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--editorial-ink) !important;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(22px, 2.1vw, 29px);
+  font-weight: 500 !important;
+  line-height: 1.12;
+}
+
+.app-shell .jobs-insight-stack .notice-warning:has(.provider-health-list) > div > p {
+  max-width: 760px;
+  margin: 0;
+  color: var(--editorial-copy) !important;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.app-shell .jobs-insight-stack .notice-warning:has(.provider-health-list) .provider-health-list {
+  margin-top: 20px;
+  border-top: 1px solid var(--editorial-line) !important;
+}
+
+.app-shell .jobs-insight-stack .notice-warning:has(.provider-health-list) .provider-health-row {
+  align-items: center;
+  min-height: 66px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--editorial-line) !important;
+}
+
+.app-shell .jobs-insight-stack .notice-warning:has(.provider-health-list) .provider-health-row strong {
+  display: block;
+  margin: 0 0 5px !important;
+  color: var(--editorial-ink) !important;
+  font-size: 13px;
+  font-weight: 750 !important;
+  letter-spacing: .01em;
+}
+
+.app-shell .jobs-insight-stack .notice-warning:has(.provider-health-list) .provider-health-row div > span {
+  color: var(--editorial-muted) !important;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.app-shell .jobs-insight-stack .notice-warning:has(.provider-health-list) .provider-health-row > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  padding: 6px 10px;
+  border: 1px solid #c8d7db;
+  border-radius: 999px !important;
+  background: #e8f0f2 !important;
+  color: #244b60 !important;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: .025em;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  .app-shell .jobs-insight-stack .notice-warning:has(.provider-health-list) {
+    padding: 22px 20px !important;
+  }
+
+  .app-shell .jobs-insight-stack .notice-warning:has(.provider-health-list) .provider-health-row {
+    align-items: start;
+  }
+
+  .app-shell .jobs-insight-stack .notice-warning:has(.provider-health-list) .provider-health-row > span {
+    justify-self: start;
+  }
+}
