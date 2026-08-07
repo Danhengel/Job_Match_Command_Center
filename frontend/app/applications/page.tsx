@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { EmptyState, Notice, PageHeader } from "@/components/ui";
+import { EmptyState, MetricStrip, Notice, PageHeader, SectionHeader } from "@/components/ui";
 import { api } from "@/lib/api";
 
 type Application = {
@@ -20,7 +20,7 @@ type Application = {
 };
 
 const stages = [
-  { id: "wishlist", label: "Saved" },
+  { id: "wishlist", label: "Selected" },
   { id: "applied", label: "Applied" },
   { id: "recruiter", label: "Recruiter" },
   { id: "interview", label: "Interview" },
@@ -34,12 +34,17 @@ function stageLabel(status: string) {
   return stages.find((stage) => stage.id === status)?.label || status;
 }
 
-function matchTone(score: number | null) {
+function stageRank(status: string) {
+  const index = stages.findIndex((stage) => stage.id === status);
+  return index === -1 ? stages.length : index;
+}
+
+function alignmentLabel(score: number | null) {
   if (score === null || score === undefined) return "Not scored";
-  if (score >= 85) return "Excellent fit";
-  if (score >= 70) return "Strong fit";
-  if (score >= 55) return "Good fit";
-  return "Possible fit";
+  if (score >= 85) return "Exceptional";
+  if (score >= 70) return "Strong";
+  if (score >= 55) return "Worth review";
+  return "Exploratory";
 }
 
 export default function Applications() {
@@ -47,6 +52,7 @@ export default function Applications() {
   const [loading, setLoading] = useState(true);
   const [movingId, setMovingId] = useState<number | null>(null);
   const [query, setQuery] = useState("");
+  const [stageFilter, setStageFilter] = useState("all");
   const [error, setError] = useState("");
 
   async function load() {
@@ -56,15 +62,13 @@ export default function Applications() {
 
   useEffect(() => {
     let active = true;
-
     load()
       .catch((err) => {
-        if (active) setError(err instanceof Error ? err.message : "Unable to load applications.");
+        if (active) setError(err instanceof Error ? err.message : "Unable to load opportunity portfolio.");
       })
       .finally(() => {
         if (active) setLoading(false);
       });
-
     return () => {
       active = false;
     };
@@ -73,7 +77,6 @@ export default function Applications() {
   async function move(id: number, status: string) {
     setMovingId(id);
     setError("");
-
     try {
       await api(`/api/applications/${id}`, {
         method: "PATCH",
@@ -81,7 +84,7 @@ export default function Applications() {
       });
       await load();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Unable to update application status.");
+      setError(err instanceof Error ? err.message : "Unable to update opportunity status.");
     } finally {
       setMovingId(null);
     }
@@ -89,15 +92,17 @@ export default function Applications() {
 
   const filteredItems = useMemo(() => {
     const normalized = query.trim().toLowerCase();
-    if (!normalized) return items;
-
-    return items.filter((item) =>
-      [item.job.title, item.job.company, item.job.location || "", stageLabel(item.status)]
-        .join(" ")
-        .toLowerCase()
-        .includes(normalized),
-    );
-  }, [items, query]);
+    return items
+      .filter((item) => stageFilter === "all" || item.status === stageFilter)
+      .filter((item) => {
+        if (!normalized) return true;
+        return [item.job.title, item.job.company, item.job.location || "", stageLabel(item.status)]
+          .join(" ")
+          .toLowerCase()
+          .includes(normalized);
+      })
+      .sort((a, b) => stageRank(a.status) - stageRank(b.status) || (b.match_score || 0) - (a.match_score || 0));
+  }, [items, query, stageFilter]);
 
   const summary = useMemo(() => {
     const active = items.filter((item) => !["accepted", "rejected"].includes(item.status)).length;
@@ -107,154 +112,94 @@ export default function Applications() {
     const averageMatch = scored.length
       ? Math.round(scored.reduce((total, item) => total + (item.match_score || 0), 0) / scored.length)
       : 0;
-
     return { active, interviews, offers, averageMatch };
   }, [items]);
 
   return (
     <>
       <PageHeader
-        eyebrow="APPLICATION TRACKER"
-        title="Move every opportunity waypoint by waypoint"
-        description="Follow each role from first interest through offer, keep next moves visible, and make progress without losing context."
-        actions={
-          <div className="row wrap">
-            <Link className="button secondary" href="/jobs">Explore opportunity map</Link>
-            <Link className="button" href="/interviews">Interview path</Link>
-          </div>
-        }
+        eyebrow="OPPORTUNITY PORTFOLIO"
+        title="Manage active pursuits as a decision portfolio"
+        description="Keep role quality, stage, relationships, and next decisions visible without turning your search into a crowded task board."
+        actions={<div className="row wrap"><Link className="button secondary" href="/jobs">Market intelligence</Link><Link className="button" href="/interviews">Interview advisory</Link></div>}
       />
 
-      {error ? (
-        <Notice title="Application tracker needs attention" tone="error">
-          <p>{error}</p>
-        </Notice>
-      ) : null}
+      {error ? <Notice title="Opportunity portfolio needs attention" tone="error"><p>{error}</p></Notice> : null}
 
-      {!loading && items.length ? (
-        <section className="pipeline-summary-grid" aria-label="Application route summary">
-          <article className="pipeline-summary-card">
-            <span>Active applications</span>
-            <strong>{summary.active}</strong>
-            <small>still in progress</small>
-          </article>
-          <article className="pipeline-summary-card">
-            <span>Interview stage</span>
-            <strong>{summary.interviews}</strong>
-            <small>interview or final round</small>
-          </article>
-          <article className="pipeline-summary-card">
-            <span>Offers</span>
-            <strong>{summary.offers}</strong>
-            <small>offer or accepted</small>
-          </article>
-          <article className="pipeline-summary-card">
-            <span>Average alignment</span>
-            <strong>{summary.averageMatch ? `${summary.averageMatch}%` : "—"}</strong>
-            <small>{summary.averageMatch ? "across scored roles" : "no scores available"}</small>
-          </article>
-        </section>
-      ) : null}
-
-      <section className="pipeline-toolbar">
-        <div>
-          <p className="eyebrow">ROUTE BOARD</p>
-          <h2>Application waypoints</h2>
-          <p className="muted">Change a role’s stage directly from its card.</p>
-        </div>
-        <label className="pipeline-search" htmlFor="application-search">
-          <span>Filter applications</span>
-          <input
-            id="application-search"
-            type="search"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search title, company, or stage"
-          />
-        </label>
-      </section>
-
-      {loading ? (
-        <section className="card pipeline-loading-state">
-          <p className="eyebrow">LOADING</p>
-          <h2>Mapping your application route…</h2>
-          <p className="muted">CareerNavIQ is loading every active and completed opportunity.</p>
-        </section>
-      ) : null}
-
-      {!loading && items.length ? (
-        <section className="kanban-board" aria-label="Application route board">
-          {stages.map((stage) => {
-            const stageItems = filteredItems.filter((item) => item.status === stage.id);
-
-            return (
-              <section className="kanban-column" key={stage.id} aria-labelledby={`stage-${stage.id}`}>
-                <header className="kanban-column-head">
-                  <div>
-                    <span className="kanban-stage-dot" aria-hidden="true" />
-                    <h3 id={`stage-${stage.id}`}>{stage.label}</h3>
-                  </div>
-                  <span className="badge">{stageItems.length}</span>
-                </header>
-
-                <div className="kanban-card-list">
-                  {stageItems.map((application) => (
-                    <article className="kanban-card" key={application.id}>
-                      <div className="kanban-card-heading">
-                        <div>
-                          <strong>{application.job.title}</strong>
-                          <small>{application.job.company}</small>
-                        </div>
-                        {typeof application.match_score === "number" ? (
-                          <span className="kanban-match-score">{application.match_score}%</span>
-                        ) : null}
-                      </div>
-
-                      <div className="kanban-card-meta">
-                        <span>{matchTone(application.match_score)}</span>
-                        {application.job.location ? <span>{application.job.location}</span> : null}
-                        {application.job.remote ? <span>Remote</span> : null}
-                      </div>
-
-                      <label htmlFor={`application-stage-${application.id}`}>Current stage</label>
-                      <select
-                        id={`application-stage-${application.id}`}
-                        value={application.status}
-                        disabled={movingId === application.id}
-                        onChange={(event) => void move(application.id, event.target.value)}
-                      >
-                        {stages.map((option) => (
-                          <option key={option.id} value={option.id}>{option.label}</option>
-                        ))}
-                      </select>
-
-                      <div className="kanban-card-actions">
-                        <Link className="button secondary" href={`/applications/${application.id}`}>
-                          Open route details
-                        </Link>
-                      </div>
-                    </article>
-                  ))}
-
-                  {!stageItems.length ? (
-                    <div className="kanban-empty-stage">
-                      <span>No applications meet these filters</span>
-                    </div>
-                  ) : null}
-                </div>
-              </section>
-            );
-          })}
-        </section>
-      ) : null}
-
-      {!loading && !items.length && !error ? (
-        <EmptyState
-          title="Your application route is ready"
-          description="Save an opportunity or create an application to begin tracking outreach, interviews, follow-ups, and offers along one connected path."
-          action={<Link className="button" href="/jobs">Find your first opportunity</Link>}
+      {!loading ? (
+        <MetricStrip
+          ariaLabel="Opportunity portfolio summary"
+          items={[
+            { label: "Active pursuits", value: summary.active, detail: "still in consideration" },
+            { label: "Interview stage", value: summary.interviews, detail: "interview or final round" },
+            { label: "Offers", value: summary.offers, detail: "offer or accepted" },
+            { label: "Average alignment", value: summary.averageMatch ? `${summary.averageMatch}%` : "—", detail: summary.averageMatch ? "across scored roles" : "no scores available" },
+          ]}
         />
       ) : null}
+
+      <section className="executive-panel opportunity-portfolio-panel">
+        <SectionHeader
+          eyebrow="PORTFOLIO REVIEW"
+          title="Current opportunities"
+          description="Prioritize quality and decision clarity. Update a stage in place, then open the full record when more context is needed."
+          actions={
+            <div className="portfolio-controls">
+              <label><span>Search</span><input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Role, company, location" /></label>
+              <label><span>Stage</span><select value={stageFilter} onChange={(event) => setStageFilter(event.target.value)}><option value="all">All stages</option>{stages.map((stage) => <option key={stage.id} value={stage.id}>{stage.label}</option>)}</select></label>
+            </div>
+          }
+        />
+
+        {loading ? <div className="executive-loading-inline"><strong>Preparing portfolio…</strong><span>Loading active and completed opportunities.</span></div> : null}
+
+        {!loading && filteredItems.length ? (
+          <div className="opportunity-portfolio-list">
+            <div className="opportunity-portfolio-head" aria-hidden="true">
+              <span>Opportunity</span><span>Stage</span><span>Alignment</span><span>Decision</span>
+            </div>
+            {filteredItems.map((application) => (
+              <article className="opportunity-portfolio-row" key={application.id}>
+                <div className="opportunity-title-cell">
+                  <strong>{application.job.title}</strong>
+                  <span>{application.job.company}</span>
+                  <small>{application.job.location || "Location not listed"}{application.job.remote ? " · Remote" : ""}</small>
+                </div>
+                <div className="opportunity-stage-cell">
+                  <span className={`portfolio-stage portfolio-stage-${application.status}`}>{stageLabel(application.status)}</span>
+                  <select
+                    aria-label={`Stage for ${application.job.title}`}
+                    value={application.status}
+                    disabled={movingId === application.id}
+                    onChange={(event) => void move(application.id, event.target.value)}
+                  >
+                    {stages.map((option) => <option key={option.id} value={option.id}>{option.label}</option>)}
+                  </select>
+                </div>
+                <div className="opportunity-alignment-cell">
+                  <strong>{typeof application.match_score === "number" ? `${application.match_score}%` : "—"}</strong>
+                  <span>{alignmentLabel(application.match_score)}</span>
+                </div>
+                <div className="opportunity-decision-cell">
+                  <Link className="button secondary" href={`/applications/${application.id}`}>Open opportunity</Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        ) : null}
+
+        {!loading && !filteredItems.length && items.length ? (
+          <EmptyState title="No opportunities match this view" description="Adjust the search or stage filter to return opportunities to the portfolio view." />
+        ) : null}
+
+        {!loading && !items.length && !error ? (
+          <EmptyState
+            title="Your opportunity portfolio is ready"
+            description="Select a strong market opportunity to begin managing application strategy, relationships, interviews, and decisions in one place."
+            action={<Link className="button" href="/jobs">Open market intelligence</Link>}
+          />
+        ) : null}
+      </section>
     </>
   );
 }
