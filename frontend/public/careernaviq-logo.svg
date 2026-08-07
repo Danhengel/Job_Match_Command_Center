@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 280" role="img" aria-labelledby="title desc">
+  <title id="title">CareerNavIQ</title>
+  <desc id="desc">CareerNavIQ wordmark with a navy and gold compass integrated into the IQ monogram.</desc>
+  <g fill="#07376f">
+    <text x="8" y="190" font-family="Georgia, 'Times New Roman', serif" font-size="178" font-weight="600" letter-spacing="-7">CareerNavI</text>
+  </g>
+  <g transform="translate(786 8)">
+    <path d="M107 25c61 0 110 49 110 110s-49 110-110 110S-3 196-3 135 46 25 107 25Zm0 19c-50 0-91 41-91 91s41 91 91 91 91-41 91-91-41-91-91-91Z" fill="#07376f"/>
+    <path d="M178 35c18 25 29 56 29 89 0 76-56 139-129 150 89 5 160-60 160-148 0-37-13-71-35-98-7-9-17-11-25 7Z" fill="#d7a72d"/>
+    <path d="M173 42c11 18 19 39 22 62 5 43-9 83-36 112 36-29 57-74 51-122-3-23-11-44-24-62-4-6-9-5-13 10Z" fill="#f6ce55" opacity=".9"/>
+    <path d="M121 15 92 141 57 245l56-67 24-68 41-85-57 78-28 68 28-156Z" fill="#07376f"/>
+    <path d="m121 55 10 73 69 19-69 14-19 71-13-70-70-16 67-19 25-72Z" fill="#e2ae2f"/>
+    <path d="m120 90 7 40 39 11-39 8-11 40-7-40-40-9 39-10 12-40Z" fill="#ffdf72"/>
+    <path d="M211 9l7 15 15 7-15 7-7 15-7-15-15-7 15-7 7-15Z" fill="#f7d358"/>
+    <path d="M94 224c18 11 40 17 64 17 35 0 68-14 92-39-19 34-56 58-99 58-24 0-46-7-65-19l8-17Z" fill="#07376f"/>
+  </g>
+</svg>
