@@ -78,3 +78,167 @@
     white-space: normal;
   }
 }
+
+/* New-profile route readability repair.
+   The route builder is a CSS-module form whose original dark surface conflicts
+   with the newer global editorial form overrides. This keeps the nautical,
+   executive character while putting the entire form on a high-contrast
+   sailcloth surface. */
+
+.app-content form[class*="profileCard"] {
+  border-color: #c4b58f !important;
+  background:
+    linear-gradient(90deg, transparent 0 9%, rgba(31, 79, 101, 0.035) 9% calc(9% + 1px), transparent calc(9% + 1px) 91%, rgba(31, 79, 101, 0.035) 91% calc(91% + 1px), transparent calc(91% + 1px)),
+    linear-gradient(145deg, #fbfaf4, #f4f1e8) !important;
+  color: #0a2033 !important;
+  box-shadow:
+    0 26px 64px rgba(8, 35, 55, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92) !important;
+}
+
+.app-content form[class*="profileCard"]::before,
+.app-content form[class*="profileCard"]::after {
+  border-color: rgba(183, 147, 80, 0.16) !important;
+}
+
+.app-content form[class*="profileCard"] [class*="headerIcon"] {
+  border-color: #b79350 !important;
+  background: #0f314a !important;
+  color: #d7b66e !important;
+  box-shadow: 0 12px 28px rgba(8, 35, 55, 0.16) !important;
+}
+
+.app-content form[class*="profileCard"] [class*="eyebrow"] {
+  color: #1d607e !important;
+}
+
+.app-content form[class*="profileCard"] [class*="header"] h1,
+.app-content form[class*="profileCard"] [class*="sectionHeading"] h2 {
+  color: #0a2033 !important;
+  text-shadow: none !important;
+}
+
+.app-content form[class*="profileCard"] [class*="header"] p:last-child {
+  color: #425b6c !important;
+}
+
+.app-content form[class*="profileCard"] [class*="divider"],
+.app-content form[class*="profileCard"] [class*="section"] {
+  border-color: #d2c7ad !important;
+}
+
+.app-content form[class*="profileCard"] [class*="divider"] {
+  background: linear-gradient(90deg, rgba(183, 147, 80, 0.64), rgba(183, 147, 80, 0.08)) !important;
+}
+
+.app-content form[class*="profileCard"] [class*="sectionHeading"] > span {
+  border-color: #b79350 !important;
+  background: #efe6d2 !important;
+  color: #6f5124 !important;
+}
+
+.app-content form[class*="profileCard"] [class*="sectionHeading"] p {
+  color: #4f6777 !important;
+}
+
+.app-content form[class*="profileCard"] [class*="fieldLabel"],
+.app-content form[class*="profileCard"] [class*="textAreaHeading"] label {
+  color: #17364d !important;
+  font-weight: 800 !important;
+}
+
+.app-content form[class*="profileCard"] [class*="fieldLabel"] span,
+.app-content form[class*="profileCard"] [class*="helpText"] {
+  color: #5f7180 !important;
+}
+
+.app-content form[class*="profileCard"] [class*="inputIcon"],
+.app-content form[class*="profileCard"] [class*="infoIcon"] {
+  color: #8a6b38 !important;
+}
+
+.app-content form[class*="profileCard"] input:not([type="checkbox"]),
+.app-content form[class*="profileCard"] textarea {
+  border-color: #9fb0ba !important;
+  background: #fffef9 !important;
+  color: #102b3e !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+}
+
+.app-content form[class*="profileCard"] input:not([type="checkbox"])::placeholder,
+.app-content form[class*="profileCard"] textarea::placeholder {
+  color: #746f66 !important;
+  opacity: 1 !important;
+}
+
+.app-content form[class*="profileCard"] input:not([type="checkbox"]):hover,
+.app-content form[class*="profileCard"] textarea:hover {
+  border-color: #718b99 !important;
+}
+
+.app-content form[class*="profileCard"] input:not([type="checkbox"]):focus,
+.app-content form[class*="profileCard"] textarea:focus {
+  border-color: #1d607e !important;
+  background: #ffffff !important;
+  box-shadow: 0 0 0 3px rgba(29, 96, 126, 0.14) !important;
+}
+
+.app-content form[class*="profileCard"] [class*="toggleCard"] {
+  border-color: #b6c3c8 !important;
+  background: linear-gradient(145deg, #f7f4ec, #efebe1) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+.app-content form[class*="profileCard"] [class*="toggleCard"]:hover,
+.app-content form[class*="profileCard"] [class*="toggleCardActive"] {
+  border-color: #8a7447 !important;
+  background: linear-gradient(145deg, #f2ead9, #e9dfca) !important;
+}
+
+.app-content form[class*="profileCard"] [class*="toggleCardIcon"] {
+  color: #1d607e !important;
+}
+
+.app-content form[class*="profileCard"] [class*="toggleLabel"] {
+  color: #17364d !important;
+  font-weight: 800 !important;
+}
+
+.app-content form[class*="profileCard"] [class*="switchTrack"] {
+  border-color: #9aaab2 !important;
+  background: #d8dddc !important;
+}
+
+.app-content form[class*="profileCard"] input[type="checkbox"]:checked ~ [class*="switchTrack"] {
+  border-color: #b79350 !important;
+  background: linear-gradient(90deg, #1d607e, #2e7275) !important;
+}
+
+.app-content form[class*="profileCard"] [class*="switchThumb"] {
+  background: #ffffff !important;
+  box-shadow: 0 2px 6px rgba(8, 35, 55, 0.24) !important;
+}
+
+.app-content form[class*="profileCard"] [class*="textAreaCard"] {
+  border-color: #c8bea7 !important;
+  background: linear-gradient(145deg, #f8f5ee, #f1ede3) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+.app-content form[class*="profileCard"] [class*="submitButton"] {
+  border-color: #0f314a !important;
+  background: #0f314a !important;
+  color: #fffdf7 !important;
+  box-shadow: 0 14px 30px rgba(8, 35, 55, 0.18) !important;
+}
+
+.app-content form[class*="profileCard"] [class*="submitButton"]:hover:not(:disabled),
+.app-content form[class*="profileCard"] [class*="submitButton"]:focus-visible {
+  border-color: #1d607e !important;
+  background: #1d607e !important;
+  color: #ffffff !important;
+}
+
+.app-content form[class*="profileCard"] [class*="footer"] p {
+  color: #536b79 !important;
+}
