@@ -28,6 +28,7 @@ import "./contrast-repair.css";
 import "./premium-platform-v3.css";
 import "./distinctive-editorial-system.css";
 import "./profile-readability-fix.css";
+import "./executive-suite-v5.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 
@@ -128,7 +129,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>
+      <body className="executive-suite-body">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
