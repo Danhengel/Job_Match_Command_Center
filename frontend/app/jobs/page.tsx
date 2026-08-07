@@ -72,7 +72,6 @@ export default function JobsPage() {
   const [profileId, setProfileId] = useState("");
   const [titles, setTitles] = useState("");
   const [location, setLocation] = useState("Tampa, Florida or Remote");
-  const [minimum, setMinimum] = useState(55);
   const [results, setResults] = useState<Result[]>([]);
   const [errors, setErrors] = useState<string[]>([]);
   const [busy, setBusy] = useState(false);
@@ -170,7 +169,7 @@ export default function JobsPage() {
           use_catalog: true,
           use_jsearch: true,
           jsearch_location: location,
-          minimum_score: minimum,
+          minimum_score: 0,
           greenhouse_boards: greenhouse.split("\n").map((value) => value.trim()).filter(Boolean),
           lever_boards: lever.split("\n").map((value) => value.trim()).filter(Boolean),
           ashby_boards: ashby.split("\n").map((value) => value.trim()).filter(Boolean),
@@ -204,14 +203,14 @@ export default function JobsPage() {
         items={[
           { label: "Target positions", value: titles.split("\n").filter(Boolean).length || 0, detail: "roles in scope" },
           { label: "Market", value: location || "Any", detail: remoteOnly ? "remote only" : "location + remote" },
-          { label: "Review threshold", value: `${minimum}%`, detail: "minimum alignment" },
+          { label: "Ranking", value: "Alignment", detail: "no manual cutoff" },
           { label: "Visible opportunities", value: visibleResults.length, detail: results.length ? `${results.length} evaluated` : "awaiting review" },
         ]}
       />
 
       <section className="market-intelligence-layout">
         <form className="executive-panel market-criteria-panel" onSubmit={search}>
-          <SectionHeader eyebrow="SEARCH MANDATE" title="Opportunity criteria" description="Keep the mandate narrow enough to surface roles worth executive attention." />
+          <SectionHeader eyebrow="SEARCH MANDATE" title="Opportunity criteria" description="Keep the mandate narrow enough to surface roles worth executive attention. CareerNavIQ will rank all evaluated opportunities by alignment instead of hiding them behind a threshold." />
 
           <label htmlFor="market-profile">Executive profile</label>
           <select id="market-profile" value={profileId} onChange={(event) => void selectProfile(event.target.value)} required>
@@ -224,12 +223,6 @@ export default function JobsPage() {
 
           <label htmlFor="market-location">Geography or remote preference</label>
           <input id="market-location" value={location} onChange={(event) => setLocation(event.target.value)} placeholder="Tampa, Florida or Remote" />
-
-          <div className="market-threshold-row">
-            <label htmlFor="market-threshold">Minimum alignment</label>
-            <strong>{minimum}%</strong>
-          </div>
-          <input id="market-threshold" type="range" min="0" max="100" value={minimum} onChange={(event) => setMinimum(Number(event.target.value))} />
 
           <details className="advanced-market-sources">
             <summary>Advanced source controls</summary>
@@ -256,7 +249,7 @@ export default function JobsPage() {
             <SectionHeader
               eyebrow="OPPORTUNITY REVIEW"
               title="Current market signals"
-              description={summary ? `${summary.matched} selected from ${summary.unique} unique opportunities reviewed.` : results.length ? "Previously evaluated opportunities for this executive profile." : "Run a market review to evaluate current opportunities."}
+              description={summary ? `${summary.matched} opportunities ranked from ${summary.unique} unique roles reviewed.` : results.length ? "Previously evaluated opportunities for this executive profile." : "Run a market review to evaluate current opportunities."}
               actions={
                 <div className="market-result-controls">
                   <label><span>Filter</span><input type="search" value={resultQuery} onChange={(event) => setResultQuery(event.target.value)} placeholder="Title, company, keyword" /></label>
