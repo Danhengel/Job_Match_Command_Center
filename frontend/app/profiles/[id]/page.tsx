@@ -3,13 +3,75 @@
 import { use, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+
 import { EmptyState, ExecutivePanel, MetricStrip, Notice, PageHeader, SectionHeader } from "@/components/ui";
 import { api, uploadApi } from "@/lib/api";
 
-type P = { id:number; name:string; home_location:string; salary_target:number|null; target_titles:string[]; priority_keywords:string[]; resume_count:number; completeness:number; best_resume_score:number };
-type R = { id:number; name:string; original_filename:string; file_size:number; is_primary:boolean; extracted_text_preview:string; analysis_score:number|null; strengths:string[]; gaps:string[]; metrics_found:string[]; analysis_summary:string };
+type P = {
+  id: number;
+  name: string;
+  home_location: string;
+  remote_preferred: boolean;
+  hybrid_preferred: boolean;
+  radius_miles: number;
+  salary_min: number | null;
+  salary_target: number | null;
+  target_titles: string[];
+  priority_keywords: string[];
+  exclusion_keywords: string[];
+  resume_count: number;
+  primary_resume_id: number | null;
+  completeness: number;
+  best_resume_score: number;
+};
 
-export default function ProfileDetail({ params }: { params: Promise<{ id:string }> }) {
+type R = {
+  id: number;
+  name: string;
+  original_filename: string;
+  file_size: number;
+  is_primary: boolean;
+  extracted_text_preview: string;
+  analysis_score: number | null;
+  strengths: string[];
+  gaps: string[];
+  metrics_found: string[];
+  analysis_summary: string;
+};
+
+type Optimization = {
+  role_family: string;
+  role_family_key: string;
+  confidence: "high" | "medium" | "low";
+  confidence_score: number;
+  recommended_target_titles: string[];
+  recommended_priority_keywords: string[];
+  recommended_exclusion_keywords: string[];
+  recommended_remote_preferred: boolean;
+  recommended_hybrid_preferred: boolean;
+  resume_evidence: string[];
+  reasoning: string;
+  search_ready: boolean;
+};
+
+type OptimizationPreview = {
+  optimization: Optimization;
+  source_resume: { id: number; name: string; original_filename: string; analysis_score: number | null };
+  preserved_preferences: {
+    profile_name: string;
+    home_location: string;
+    radius_miles: number;
+    salary_min: number | null;
+    salary_target: number | null;
+  };
+};
+
+function workMode(remote: boolean, hybrid: boolean) {
+  const modes = [remote ? "Remote" : "", hybrid ? "Hybrid" : ""].filter(Boolean);
+  return modes.length ? modes.join(" + ") : "On-site / flexible";
+}
+
+export default function ProfileDetail({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
   const router = useRouter();
   const [p, setP] = useState<P | null>(null);
@@ -17,9 +79,13 @@ export default function ProfileDetail({ params }: { params: Promise<{ id:string 
   const [file, setFile] = useState<File | null>(null);
   const [resumeName, setResumeName] = useState("Primary Resume");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [busy, setBusy] = useState(false);
   const [analyzing, setAnalyzing] = useState<number | null>(null);
   const [deletingProfile, setDeletingProfile] = useState(false);
+  const [optimization, setOptimization] = useState<OptimizationPreview | null>(null);
+  const [optimizing, setOptimizing] = useState(false);
+  const [applyingOptimization, setApplyingOptimization] = useState(false);
 
   const load = async () => {
     const [profile, rs] = await Promise.all([api(`/api/profiles/${id}`), api(`/api/resumes/profile/${id}`)]);
@@ -27,13 +93,16 @@ export default function ProfileDetail({ params }: { params: Promise<{ id:string 
     setResumes(rs);
   };
 
-  useEffect(() => { void load().catch((e) => setError(e.message)); }, [id]);
+  useEffect(() => {
+    void load().catch((e) => setError(e.message));
+  }, [id]);
 
   async function upload(e: React.FormEvent) {
     e.preventDefault();
     if (!file) return;
     setBusy(true);
     setError("");
+    setSuccess("");
     try {
       const fd = new FormData();
       fd.append("profile_id", id);
@@ -42,6 +111,7 @@ export default function ProfileDetail({ params }: { params: Promise<{ id:string 
       fd.append("file", file);
       await uploadApi("/api/resumes/upload", fd);
       setFile(null);
+      setOptimization(null);
       await load();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Upload failed");
@@ -52,13 +122,66 @@ export default function ProfileDetail({ params }: { params: Promise<{ id:string 
 
   async function analyze(rid: number) {
     setAnalyzing(rid);
-    try { await api(`/api/resumes/${rid}/analyze`, { method: "POST" }); await load(); }
-    catch (e) { setError(e instanceof Error ? e.message : "Analysis failed"); }
-    finally { setAnalyzing(null); }
+    setError("");
+    try {
+      await api(`/api/resumes/${rid}/analyze`, { method: "POST" });
+      await load();
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Analysis failed");
+    } finally {
+      setAnalyzing(null);
+    }
   }
 
-  async function primary(rid: number) { await api(`/api/resumes/${rid}/primary`, { method: "POST" }); await load(); }
-  async function remove(rid: number) { if (!confirm("Delete this résumé version?")) return; await api(`/api/resumes/${rid}`, { method: "DELETE" }); await load(); }
+  async function primary(rid: number) {
+    setError("");
+    await api(`/api/resumes/${rid}/primary`, { method: "POST" });
+    setOptimization(null);
+    await load();
+  }
+
+  async function remove(rid: number) {
+    if (!confirm("Delete this résumé version?")) return;
+    setError("");
+    await api(`/api/resumes/${rid}`, { method: "DELETE" });
+    setOptimization(null);
+    await load();
+  }
+
+  async function previewOptimization() {
+    setOptimizing(true);
+    setError("");
+    setSuccess("");
+    try {
+      const data = await api(`/api/profiles/${id}/optimization-preview`);
+      setOptimization(data);
+    } catch (err) {
+      setOptimization(null);
+      setError(err instanceof Error ? err.message : "Could not optimize this profile from the primary résumé.");
+    } finally {
+      setOptimizing(false);
+    }
+  }
+
+  async function applyOptimization() {
+    if (!optimization) return;
+    setApplyingOptimization(true);
+    setError("");
+    setSuccess("");
+    try {
+      const data = await api(`/api/profiles/${id}/optimize-from-resume`, { method: "POST" });
+      setP(data.profile);
+      setOptimization(null);
+      await load();
+      setSuccess(
+        `Profile optimized for ${data.optimization.role_family}. The primary résumé was reanalyzed and the profile is ready for a fresh market review.`
+      );
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not apply profile recommendations.");
+    } finally {
+      setApplyingOptimization(false);
+    }
+  }
 
   async function deleteProfile() {
     if (!p) return;
@@ -81,6 +204,8 @@ export default function ProfileDetail({ params }: { params: Promise<{ id:string 
 
   if (!p) return <ExecutivePanel><p className="eyebrow">EXECUTIVE PROFILE</p><h2>Loading profile…</h2></ExecutivePanel>;
 
+  const primaryResume = resumes.find((resume) => resume.is_primary) || null;
+
   return <>
     <PageHeader
       eyebrow="EXECUTIVE PROFILE"
@@ -90,6 +215,7 @@ export default function ProfileDetail({ params }: { params: Promise<{ id:string 
     />
 
     {error ? <Notice title="Profile needs attention" tone="error"><p>{error}</p></Notice> : null}
+    {success ? <Notice title="Profile optimization complete" tone="success"><p>{success}</p></Notice> : null}
 
     <MetricStrip
       ariaLabel="Profile readiness"
@@ -99,6 +225,109 @@ export default function ProfileDetail({ params }: { params: Promise<{ id:string 
         { label: "Best résumé", value: p.best_resume_score || "—", detail: p.best_resume_score ? "analysis score" : "not analyzed" },
       ]}
     />
+
+    <ExecutivePanel>
+      <SectionHeader
+        eyebrow="RÉSUMÉ INTELLIGENCE"
+        title="Optimize this profile from the primary résumé"
+        description="CareerNavIQ identifies the strongest career direction in the résumé, recommends adjacent titles and grounded keywords, removes irrelevant search paths, and reanalyzes the résumé after you approve the changes."
+        actions={
+          <button type="button" onClick={() => void previewOptimization()} disabled={optimizing || !primaryResume}>
+            {optimizing ? "Reading résumé…" : optimization ? "Refresh recommendations" : "Review recommendations"}
+          </button>
+        }
+      />
+
+      {!primaryResume ? (
+        <Notice title="A primary résumé is required" tone="warning">
+          <p>Upload a résumé below or mark an existing résumé as primary before running profile optimization.</p>
+        </Notice>
+      ) : !optimization ? (
+        <div className="profile-grid">
+          <article className="card">
+            <p className="eyebrow">PRIMARY RÉSUMÉ</p>
+            <h3>{primaryResume.name}</h3>
+            <p className="muted">{primaryResume.original_filename}</p>
+          </article>
+          <article className="card">
+            <p className="eyebrow">CURRENT MANDATE</p>
+            <h3>{p.target_titles.length || 0} target roles</h3>
+            <p className="muted">{p.priority_keywords.length || 0} priority evidence terms</p>
+          </article>
+          <article className="card">
+            <p className="eyebrow">WORK MODE</p>
+            <h3>{workMode(p.remote_preferred, p.hybrid_preferred)}</h3>
+            <p className="muted">Location and compensation remain under your control.</p>
+          </article>
+        </div>
+      ) : (
+        <div className="grid">
+          <article className="card">
+            <div className="row between wrap">
+              <div>
+                <p className="eyebrow">RECOMMENDED DIRECTION</p>
+                <h2>{optimization.optimization.role_family}</h2>
+              </div>
+              <span className="score-pill">{optimization.optimization.confidence} confidence</span>
+            </div>
+            <p>{optimization.optimization.reasoning}</p>
+            <p className="muted">Source: {optimization.source_resume.name} · {optimization.source_resume.original_filename}</p>
+          </article>
+
+          <div className="profile-grid">
+            <article className="card">
+              <p className="eyebrow">TARGET POSITIONS</p>
+              <h3>{optimization.optimization.recommended_target_titles.length} recommended roles</h3>
+              <div className="row wrap">
+                {optimization.optimization.recommended_target_titles.map((title) => <span className="badge" key={title}>{title}</span>)}
+              </div>
+            </article>
+            <article className="card">
+              <p className="eyebrow">RÉSUMÉ-GROUNDED EVIDENCE</p>
+              <h3>{optimization.optimization.recommended_priority_keywords.length} priority terms</h3>
+              <div className="row wrap">
+                {optimization.optimization.recommended_priority_keywords.map((keyword) => <span className="badge" key={keyword}>{keyword}</span>)}
+              </div>
+            </article>
+            <article className="card">
+              <p className="eyebrow">SEARCH EXCLUSIONS</p>
+              <h3>{optimization.optimization.recommended_exclusion_keywords.length} noise filters</h3>
+              <div className="row wrap">
+                {optimization.optimization.recommended_exclusion_keywords.map((keyword) => <span className="badge" key={keyword}>{keyword}</span>)}
+              </div>
+            </article>
+          </div>
+
+          {optimization.optimization.resume_evidence.length ? (
+            <article className="card">
+              <p className="eyebrow">WHY THIS DIRECTION</p>
+              <h3>Résumé evidence CareerNavIQ recognized</h3>
+              <p>{optimization.optimization.resume_evidence.join(" · ")}</p>
+            </article>
+          ) : null}
+
+          <div className="profile-grid">
+            <article className="card"><p className="eyebrow">LOCATION PRESERVED</p><h3>{optimization.preserved_preferences.home_location || "Not set"}</h3></article>
+            <article className="card"><p className="eyebrow">RADIUS PRESERVED</p><h3>{optimization.preserved_preferences.radius_miles || 0} miles</h3></article>
+            <article className="card"><p className="eyebrow">COMPENSATION PRESERVED</p><h3>{optimization.preserved_preferences.salary_target ? `$${optimization.preserved_preferences.salary_target.toLocaleString()}` : "Not set"}</h3></article>
+            <article className="card"><p className="eyebrow">RECOMMENDED WORK MODE</p><h3>{workMode(optimization.optimization.recommended_remote_preferred, optimization.optimization.recommended_hybrid_preferred)}</h3></article>
+          </div>
+
+          {optimization.optimization.confidence === "low" ? (
+            <Notice title="Review manually before changing this profile" tone="warning">
+              <p>The résumé does not show one dominant career direction strongly enough for CareerNavIQ to apply recommendations automatically.</p>
+            </Notice>
+          ) : (
+            <div className="row wrap">
+              <button className="secondary" type="button" onClick={() => setOptimization(null)} disabled={applyingOptimization}>Cancel</button>
+              <button type="button" onClick={() => void applyOptimization()} disabled={applyingOptimization}>
+                {applyingOptimization ? "Applying recommendations…" : "Apply recommendations and reanalyze"}
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+    </ExecutivePanel>
 
     <section className="two-col">
       <ExecutivePanel>
