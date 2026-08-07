@@ -29,6 +29,7 @@ import "./premium-platform-v3.css";
 import "./distinctive-editorial-system.css";
 import "./profile-readability-fix.css";
 import "./executive-suite-v5.css";
+import "./jobs-coverage-refinement.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 
