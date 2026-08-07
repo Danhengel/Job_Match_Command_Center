@@ -40,7 +40,7 @@ const structuredData = {
       "@id": `${SITE_URL}/#organization`,
       name: "CareerNavIQ",
       url: SITE_URL,
-      logo: `${SITE_URL}/careernaviq-logo.svg`,
+      logo: `${SITE_URL}/careernaviq-logo.png`,
       description: SITE_DESCRIPTION,
     },
     {
