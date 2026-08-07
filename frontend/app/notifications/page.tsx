@@ -142,8 +142,8 @@ export default function Notifications() {
   if (!digest && !error) {
     return (
       <section className="dashboard-panel">
-        <p className="eyebrow">PRIVATE BRIEFING ROOM</p>
-        <h2>Loading your priority inbox…</h2>
+        <p className="eyebrow">ROUTE UPDATES</p>
+        <h2>Loading the waypoints that need attention…</h2>
       </section>
     );
   }
@@ -152,10 +152,10 @@ export default function Notifications() {
     <>
       <section className="executive-hero">
         <div>
-          <p className="eyebrow">PRIVATE BRIEFING ROOM</p>
-          <h1>Attention, without the noise.</h1>
+          <p className="eyebrow">ROUTE UPDATES</p>
+          <h1>Keep the next waypoint in sight.</h1>
           <p className="muted">
-            CareerNavIQ combines high-alignment opportunities, standing-brief results, overdue
+            CareerNavIQ combines high-alignment opportunities, scheduled-search results, overdue
             follow-ups, and upcoming interviews in one actionable inbox.
           </p>
         </div>
@@ -203,9 +203,9 @@ export default function Notifications() {
           <small>strong-fit opportunities</small>
         </article>
         <article className="executive-kpi">
-          <span>Brief updates</span>
+          <span>Route updates</span>
           <strong>{digest?.saved_search_updates || 0}</strong>
-          <small>standing-brief results</small>
+          <small>scheduled-search results</small>
         </article>
         <article className="executive-kpi">
           <span>Interview reminders</span>
@@ -217,7 +217,7 @@ export default function Notifications() {
       <section className="dashboard-panel">
         <div className="row between wrap">
           <div>
-            <p className="eyebrow">PRIORITY INBOX</p>
+            <p className="eyebrow">NEXT WAYPOINTS</p>
             <h2>{visible.length} notification{visible.length === 1 ? "" : "s"}</h2>
           </div>
           <div className="row wrap">

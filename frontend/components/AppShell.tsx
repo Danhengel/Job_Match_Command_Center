@@ -17,10 +17,10 @@ import {
 import { endAuthenticatedSession } from "@/lib/sessionStorage";
 
 const mobileNavigation = [
-  ["/dashboard", "⌂", "Office"],
-  ["/jobs", "◇", "Intelligence"],
-  ["/applications", "▤", "Portfolio"],
-  ["/interviews", "◎", "Briefings"],
+  ["/dashboard", "⌖", "Navigate"],
+  ["/jobs", "◇", "Explore"],
+  ["/applications", "●", "Track"],
+  ["/interviews", "◎", "Interview"],
 ] as const;
 
 const publicPaths = new Set([
@@ -103,7 +103,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <span className="brand-mark"><BrandCompass /></span>
             <span>
               <strong>CareerNavIQ</strong>
-              <small>Private career intelligence</small>
+              <small>Intelligent career navigation</small>
             </span>
           </Link>
           <button
@@ -122,16 +122,16 @@ export function AppShell({ children }: { children: ReactNode }) {
             className={`sidebar-dashboard ${isActivePath(pathname, "/dashboard") ? "active" : ""}`}
             aria-current={isActivePath(pathname, "/dashboard") ? "page" : undefined}
           >
-            <span className="sidebar-dashboard-icon" aria-hidden="true">⌂</span>
+            <span className="sidebar-dashboard-icon" aria-hidden="true">⌖</span>
             <span>
-              <strong>Private office</strong>
-              <small>Your daily executive brief</small>
+              <strong>Navigation hub</strong>
+              <small>Direction, progress, and next moves</small>
             </span>
           </Link>
 
           <div className="sidebar-section-heading">
-            <span>Advisory path</span>
-            <small>5 disciplines</small>
+            <span>Your route</span>
+            <small>5 waypoints</small>
           </div>
 
           <div className="sidebar-stage-list">
@@ -180,7 +180,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           </div>
 
           <div className="sidebar-section-heading sidebar-tools-heading">
-            <span>Private office</span>
+            <span>Navigation tools</span>
           </div>
           <div className="sidebar-utility-links">
             {UTILITY_LINKS.map((item) => {
@@ -231,14 +231,14 @@ export function AppShell({ children }: { children: ReactNode }) {
               <strong>{currentPageLabel}</strong>
               <span>
                 {currentStage?.description
-                  ?? "Intelligence, priorities, and next decisions"}
+                  ?? "Direction, progress, and next moves"}
               </span>
             </span>
           </Link>
 
           <div className="header-actions">
-            <Link href="/jobs" className="button compact">Explore intelligence</Link>
-            <Link href="/notifications" className="header-link">Briefings</Link>
+            <Link href="/jobs" className="button compact">Explore routes</Link>
+            <Link href="/notifications" className="header-link">Updates</Link>
             <button
               type="button"
               className="button secondary compact header-signout"

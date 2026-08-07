@@ -174,7 +174,7 @@ export default function JobsPage() {
       setErrors([
         error instanceof Error
           ? error.message
-          : "Could not load saved opportunity intelligence",
+          : "Could not load saved opportunity routes",
       ]);
     } finally {
       setLoadingSaved(false);
@@ -226,7 +226,7 @@ export default function JobsPage() {
               setErrors([
                 error instanceof Error
                   ? error.message
-                  : "Could not load saved opportunity intelligence",
+                  : "Could not load saved opportunity routes",
               ]);
             }
           } finally {
@@ -376,19 +376,19 @@ export default function JobsPage() {
   return (
     <>
       <PageHeader
-        eyebrow="PRIVATE MARKET INTELLIGENCE"
-        title="Read the market through your mandate"
-        description="Review the broad market, remove noise and duplication, and evaluate each opportunity against your position, evidence, and ambition."
+        eyebrow="OPPORTUNITY MAP"
+        title="Explore routes that match your direction"
+        description="Scan the opportunity landscape, remove noise and duplication, and compare each route against your goals, evidence, and experience."
         actions={
           <Link className="button secondary" href="/profiles">
-            Review executive position
+            Review career compass
           </Link>
         }
       />
 
       <section className="universal-search-bar">
         <div>
-          <span>Opportunity mandate</span>
+          <span>Career direction</span>
           <strong>
             {titles.split("\n").filter(Boolean).length || 0}
             {" "}target titles
@@ -406,10 +406,10 @@ export default function JobsPage() {
 
       <div className="jobs-shell-grid">
         <form className="card jobs-filter-card" onSubmit={search}>
-          <p className="eyebrow">THE MANDATE</p>
-          <h2>Set the intelligence brief</h2>
+          <p className="eyebrow">SET YOUR BEARING</p>
+          <h2>Choose the route criteria</h2>
 
-          <label>Executive position</label>
+          <label>Career compass</label>
           <select
             value={profileId}
             onChange={(event) => {
@@ -417,7 +417,7 @@ export default function JobsPage() {
             }}
             required
           >
-            <option value="">Select position</option>
+            <option value="">Select direction</option>
             {profiles.map((profile) => (
               <option key={profile.id} value={profile.id}>
                 {profile.name}
@@ -454,7 +454,7 @@ export default function JobsPage() {
             }
           />
 
-          <div className="source-options" aria-label="Intelligence sources">
+          <div className="source-options" aria-label="Opportunity sources">
             <label>
               <input
                 type="checkbox"
@@ -478,7 +478,7 @@ export default function JobsPage() {
                   setUseRemotive(event.target.checked)
                 }
               />
-              {" "}Remote opportunity intelligence
+              {" "}Remote opportunity routes
             </label>
             <label>
               <input
@@ -488,7 +488,7 @@ export default function JobsPage() {
                   setUseJSearch(event.target.checked)
                 }
               />
-              {" "}Broad-market publisher intelligence
+              {" "}Broad-market opportunity sources
             </label>
           </div>
 
@@ -517,16 +517,16 @@ export default function JobsPage() {
           <button disabled={busy || !profileId || !titles.trim()}>
             {busy
               ? "Reviewing and auditing the market…"
-              : "Commission market review"}
+              : "Search opportunity routes"}
           </button>
         </form>
 
         <div className="jobs-insight-stack">
           {loadingSaved ? (
-            <Notice title="Preparing saved intelligence" tone="info">
+            <Notice title="Preparing saved routes" tone="info">
               <p>
                 CareerNavIQ is restoring selected opportunities already
-                evaluated for this position.
+                evaluated for this career direction.
               </p>
             </Notice>
           ) : null}
@@ -546,8 +546,8 @@ export default function JobsPage() {
               tone="info"
             >
               <p>
-                These opportunity dossiers were retained from earlier market reviews.
-                Commission a new review to refresh the intelligence.
+                These routes were retained from earlier opportunity searches.
+                Run a new search to refresh the map.
               </p>
             </Notice>
           ) : null}
@@ -571,7 +571,7 @@ export default function JobsPage() {
                 </div>
               </div>
               <p className="muted">
-                Intelligence cache: {summary.cache ? "connected" : "offline"}
+                Route cache: {summary.cache ? "connected" : "offline"}
               </p>
               {publisherEntries.length ? (
                 <details className="provider-details">
@@ -618,8 +618,8 @@ export default function JobsPage() {
           <section className="card">
             <div className="row between">
               <div>
-                <p className="eyebrow">INTELLIGENCE LEDGER</p>
-                <h2>Recent market reviews</h2>
+                <p className="eyebrow">ROUTE HISTORY</p>
+                <h2>Recent opportunity searches</h2>
               </div>
               <span className="muted">Last five</span>
             </div>
@@ -645,8 +645,8 @@ export default function JobsPage() {
 
       <section className="results-toolbar">
         <div>
-          <p className="eyebrow">SELECTED INTELLIGENCE</p>
-          <h2>Opportunity dossiers</h2>
+          <p className="eyebrow">BEST-FIT ROUTES</p>
+          <h2>Mapped opportunities</h2>
           <span className="muted">
             Showing {visibleResults.length} of {results.length}
           </span>
@@ -655,8 +655,8 @@ export default function JobsPage() {
           <input
             value={resultQuery}
             onChange={(event) => setResultQuery(event.target.value)}
-            placeholder="Refine by position, organization, evidence, source…"
-            aria-label="Refine opportunity dossiers"
+            placeholder="Refine by role, employer, evidence, source…"
+            aria-label="Refine mapped opportunities"
           />
           <label className="inline-check">
             <input
@@ -674,7 +674,7 @@ export default function JobsPage() {
             aria-label="Sort results"
           >
             <option value="match">Highest alignment</option>
-            <option value="newest">Newest intelligence</option>
+            <option value="newest">Newest routes</option>
             <option value="company">Organization name</option>
           </select>
         </div>
@@ -766,13 +766,13 @@ export default function JobsPage() {
               className="button"
               href={`/jobs/${result.job.id}?profile_id=${profileId}`}
             >
-              Open opportunity dossier
+              Open route details
             </Link>
             <Link
               className="button secondary"
               href={`/applications?job_id=${result.job.id}`}
             >
-              Add to portfolio
+              Add to tracker
             </Link>
             <a
               className="button secondary"
@@ -788,7 +788,7 @@ export default function JobsPage() {
 
       {!visibleResults.length && results.length ? (
         <EmptyState
-          title="No dossiers match the current refinement"
+          title="No routes match the current refinement"
           description="Clear the refinement or turn off Remote only to see the full selected set."
         />
       ) : null}
@@ -814,8 +814,8 @@ export default function JobsPage() {
       && !busy
       && !loadingSaved ? (
         <EmptyState
-          title="No selected intelligence yet"
-          description="Confirm the position and opportunity mandate above, then commission a market review."
+          title="No mapped opportunities yet"
+          description="Confirm your career direction and route criteria above, then search the opportunity landscape."
         />
       ) : null}
     </>

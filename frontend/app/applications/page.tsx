@@ -114,25 +114,25 @@ export default function Applications() {
   return (
     <>
       <PageHeader
-        eyebrow="APPLICATION PIPELINE"
-        title="Turn opportunities into momentum"
-        description="Track every role from first interest through offer, keep next steps visible, and move applications forward without losing context."
+        eyebrow="APPLICATION TRACKER"
+        title="Move every opportunity waypoint by waypoint"
+        description="Follow each role from first interest through offer, keep next moves visible, and make progress without losing context."
         actions={
           <div className="row wrap">
-            <Link className="button secondary" href="/jobs">Find opportunities</Link>
-            <Link className="button" href="/interviews">Interview center</Link>
+            <Link className="button secondary" href="/jobs">Explore opportunity map</Link>
+            <Link className="button" href="/interviews">Interview path</Link>
           </div>
         }
       />
 
       {error ? (
-        <Notice title="Application pipeline needs attention" tone="error">
+        <Notice title="Application tracker needs attention" tone="error">
           <p>{error}</p>
         </Notice>
       ) : null}
 
       {!loading && items.length ? (
-        <section className="pipeline-summary-grid" aria-label="Application pipeline summary">
+        <section className="pipeline-summary-grid" aria-label="Application route summary">
           <article className="pipeline-summary-card">
             <span>Active applications</span>
             <strong>{summary.active}</strong>
@@ -158,8 +158,8 @@ export default function Applications() {
 
       <section className="pipeline-toolbar">
         <div>
-          <p className="eyebrow">PIPELINE BOARD</p>
-          <h2>Application stages</h2>
+          <p className="eyebrow">ROUTE BOARD</p>
+          <h2>Application waypoints</h2>
           <p className="muted">Change a role’s stage directly from its card.</p>
         </div>
         <label className="pipeline-search" htmlFor="application-search">
@@ -177,13 +177,13 @@ export default function Applications() {
       {loading ? (
         <section className="card pipeline-loading-state">
           <p className="eyebrow">LOADING</p>
-          <h2>Organizing your application pipeline…</h2>
+          <h2>Mapping your application route…</h2>
           <p className="muted">CareerNavIQ is loading every active and completed opportunity.</p>
         </section>
       ) : null}
 
       {!loading && items.length ? (
-        <section className="kanban-board" aria-label="Application pipeline board">
+        <section className="kanban-board" aria-label="Application route board">
           {stages.map((stage) => {
             const stageItems = filteredItems.filter((item) => item.status === stage.id);
 
@@ -230,7 +230,7 @@ export default function Applications() {
 
                       <div className="kanban-card-actions">
                         <Link className="button secondary" href={`/applications/${application.id}`}>
-                          Open workspace
+                          Open route details
                         </Link>
                       </div>
                     </article>
@@ -250,8 +250,8 @@ export default function Applications() {
 
       {!loading && !items.length && !error ? (
         <EmptyState
-          title="Your application pipeline is ready"
-          description="Save a job or create an application to begin tracking outreach, interviews, follow-ups, and offers in one workspace."
+          title="Your application route is ready"
+          description="Save an opportunity or create an application to begin tracking outreach, interviews, follow-ups, and offers along one connected path."
           action={<Link className="button" href="/jobs">Find your first opportunity</Link>}
         />
       ) : null}

@@ -17,74 +17,74 @@ export const CAREER_STAGES: CareerStage[] = [
   {
     id: "foundation",
     number: 1,
-    label: "Define your position",
-    shortLabel: "Position",
-    description: "Narrative, evidence, and executive presence",
+    label: "Set your direction",
+    shortLabel: "Direction",
+    description: "Goals, strengths, and career compass",
     href: "/profiles",
     items: [
-      { href: "/profiles", label: "Executive profile" },
-      { href: "/resumes", label: "Career archive" },
-      { href: "/resumes/studio", label: "Positioning atelier" },
+      { href: "/profiles", label: "Career compass" },
+      { href: "/resumes", label: "Experience library" },
+      { href: "/resumes/studio", label: "Résumé route builder" },
     ],
   },
   {
     id: "discover",
     number: 2,
-    label: "Read the market",
-    shortLabel: "Intelligence",
-    description: "Opportunities, organizations, and signals",
+    label: "Explore possibilities",
+    shortLabel: "Explore",
+    description: "Roles, employers, and route options",
     href: "/jobs",
     items: [
-      { href: "/jobs", label: "Opportunity intelligence" },
-      { href: "/companies", label: "Organization dossiers" },
-      { href: "/company-watches", label: "Market watchlist" },
+      { href: "/jobs", label: "Opportunity map" },
+      { href: "/companies", label: "Employer landscape" },
+      { href: "/company-watches", label: "Route watchlist" },
     ],
   },
   {
     id: "prepare",
     number: 3,
-    label: "Shape your approach",
-    shortLabel: "Distinguish",
-    description: "Positioning, materials, and correspondence",
+    label: "Build your route",
+    shortLabel: "Prepare",
+    description: "Tailored materials and outreach",
     href: "/coach",
     items: [
-      { href: "/coach", label: "Opportunity strategy" },
-      { href: "/outreach", label: "Correspondence studio" },
+      { href: "/coach", label: "Application route" },
+      { href: "/outreach", label: "Outreach studio" },
     ],
   },
   {
     id: "track",
     number: 4,
-    label: "Manage your portfolio",
-    shortLabel: "Portfolio",
-    description: "Active pursuits and relationship capital",
+    label: "Track your progress",
+    shortLabel: "Track",
+    description: "Applications, people, and next waypoints",
     href: "/applications",
     items: [
-      { href: "/applications", label: "Opportunity portfolio" },
-      { href: "/crm", label: "Relationship capital" },
+      { href: "/applications", label: "Application tracker" },
+      { href: "/crm", label: "Network map" },
     ],
   },
   {
     id: "interview",
     number: 5,
-    label: "Advance with intent",
+    label: "Navigate interviews",
     shortLabel: "Advance",
-    description: "Briefings, rehearsals, and decisive follow-through",
+    description: "Interview prep, schedule, and follow-through",
     href: "/interviews",
     items: [
-      { href: "/interviews", label: "Interview briefings" },
-      { href: "/interview-coach", label: "Rehearsal room" },
-      { href: "/calendar", label: "Engagement calendar" },
-      { href: "/notifications", label: "Private briefings" },
+      { href: "/interviews", label: "Interview path" },
+      { href: "/interview-coach", label: "Practice guide" },
+      { href: "/calendar", label: "Route calendar" },
+      { href: "/notifications", label: "Route updates" },
     ],
   },
 ];
 
 export const UTILITY_LINKS: CareerJourneyItem[] = [
-  { href: "/command-center", label: "Intelligence desk" },
-  { href: "/analytics", label: "Portfolio analytics" },
-  { href: "/reports/weekly", label: "Weekly briefing" },
-  { href: "/automation", label: "Private concierge" },
+  { href: "/command-center", label: "Route overview" },
+  { href: "/analytics", label: "Progress insights" },
+  { href: "/reports/weekly", label: "Weekly route review" },
+  { href: "/automation", label: "Route assistant" },
   { href: "/settings/automation", label: "Preferences" },
 ];
 
@@ -108,10 +108,10 @@ export function getCareerStage(pathname: string) {
 }
 
 export function getCurrentPageLabel(pathname: string) {
-  if (pathname === "/dashboard") return "Private office";
+  if (pathname === "/dashboard") return "Navigation hub";
 
   return getActiveJourneyItem(pathname, [
     ...CAREER_STAGES.flatMap((stage) => stage.items),
     ...UTILITY_LINKS,
-  ])?.label ?? "Private career office";
+  ])?.label ?? "Career navigation";
 }

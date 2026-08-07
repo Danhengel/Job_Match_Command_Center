@@ -1,21 +1,21 @@
-/* CareerNavIQ editorial workspace
-   A distinctive, calm career-intelligence identity that avoids conventional
-   blue job-board chrome, pill-heavy controls, and stacks of rounded cards. */
+/* CareerNavIQ editorial navigation system
+   A premium nautical palette built from deep navy, marine blue, sailcloth,
+   sea-glass teal, and restrained compass brass. */
 
 .app-shell {
   --sidebar-width: 320px;
-  --editorial-canvas: #f1eee7;
-  --editorial-paper: #faf8f2;
-  --editorial-ink: #1d1c18;
-  --editorial-copy: #494740;
-  --editorial-muted: #6b685f;
-  --editorial-line: #d5cfc2;
-  --editorial-line-strong: #b5ac9d;
-  --editorial-plum: #8a704a;
-  --editorial-plum-deep: #6f5737;
-  --editorial-plum-soft: #eee7db;
-  --editorial-sage: #445b50;
-  --editorial-sage-soft: #e2e8e3;
+  --editorial-canvas: #edf2f3;
+  --editorial-paper: #fbfaf4;
+  --editorial-ink: #0a2033;
+  --editorial-copy: #3d5567;
+  --editorial-muted: #647786;
+  --editorial-line: #cbd6da;
+  --editorial-line-strong: #9fb0ba;
+  --editorial-plum: #1d607e;
+  --editorial-plum-deep: #12435f;
+  --editorial-plum-soft: #e1edf1;
+  --editorial-sage: #2e7275;
+  --editorial-sage-soft: #dcebea;
   --v3-bg: var(--editorial-canvas);
   --v3-surface: var(--editorial-paper);
   --v3-surface-soft: #f7f4ee;
@@ -27,7 +27,7 @@
   --v3-primary: var(--editorial-plum);
   --v3-primary-hover: var(--editorial-plum-deep);
   --v3-primary-soft: var(--editorial-plum-soft);
-  --v3-faint: #8a867d;
+  --v3-faint: #82929d;
   --v3-accent: var(--editorial-sage);
   --v3-accent-soft: var(--editorial-sage-soft);
   --v3-success: #385247;
@@ -39,7 +39,7 @@
   --premium-ink: var(--editorial-ink);
   --premium-ink-soft: var(--editorial-copy);
   --premium-muted: var(--editorial-muted);
-  --premium-faint: #8a867d;
+  --premium-faint: #82929d;
   --premium-line: var(--editorial-line);
   --premium-line-strong: var(--editorial-line-strong);
   --premium-primary: var(--editorial-plum);
@@ -53,14 +53,14 @@
   --shell: var(--editorial-canvas);
   --panel: var(--editorial-paper);
   --surface: var(--editorial-paper);
-  --surface-raised: #fffdf8;
-  --surface-soft: #f7f4ee;
-  --soft: #eee9df;
+  --surface-raised: #fffef9;
+  --surface-soft: #f4f6f4;
+  --soft: #e7edef;
   --border: var(--editorial-line);
   --border-strong: var(--editorial-line-strong);
   --text: var(--editorial-ink);
   --muted: var(--editorial-muted);
-  --muted-strong: #5d594f;
+  --muted-strong: #506675;
   --primary: var(--editorial-plum);
   --primary-strong: var(--editorial-plum-deep);
   --primary-soft: var(--editorial-plum-soft);
@@ -79,8 +79,8 @@
   --brand-muted: var(--editorial-muted);
   --brand-blue-700: var(--editorial-plum-deep);
   --brand-blue-600: var(--editorial-plum);
-  --brand-blue-500: #a8895b;
-  --brand-teal-400: #7f9588;
+  --brand-blue-500: #3b7f9b;
+  --brand-teal-400: #5b9291;
   --brand-teal-700: var(--editorial-sage);
   --brand-success: #385247;
   --brand-danger: #9b3e45;
@@ -100,8 +100,8 @@
   --surface-deep: var(--editorial-paper);
   --accent-blue: var(--editorial-plum);
   --accent-light: var(--editorial-plum-deep);
-  --shadow-sm: 0 8px 24px rgba(57, 50, 39, .055);
-  --shadow-md: 0 18px 46px rgba(57, 50, 39, .08);
+  --shadow-sm: 0 8px 24px rgba(8, 35, 55, .055);
+  --shadow-md: 0 18px 46px rgba(8, 35, 55, .09);
   background: var(--editorial-canvas);
   color: var(--editorial-ink);
 }
@@ -116,18 +116,18 @@
   padding-top: 46px;
 }
 
-/* Private-office navigation: charcoal, architectural, and deliberately quiet. */
+/* Navigation rail: deep maritime navy with brass compass accents. */
 .app-sidebar {
   width: var(--sidebar-width);
   padding: 22px 16px 26px;
-  border-right: 1px solid #2e2c26 !important;
-  background: #1b1a17 !important;
+  border-right: 1px solid #173a52 !important;
+  background: #081d2f !important;
   box-shadow: none !important;
 }
 
 .app-sidebar,
 .app-sidebar * {
-  color: #d9d3c7 !important;
+  color: #dce7eb !important;
 }
 
 .sidebar-brand {
@@ -136,10 +136,10 @@
 
 .sidebar-brand .brand-mark,
 .header-brand-mark {
-  border: 1px solid #a98c60 !important;
+  border: 1px solid #b79350 !important;
   border-radius: 9px !important;
-  background: #25231e !important;
-  color: #c7a977 !important;
+  background: #0f314a !important;
+  color: #d0ae68 !important;
   box-shadow: none !important;
 }
 
@@ -152,7 +152,7 @@
 .sidebar-stage-links a.active,
 .sidebar-utility-links a:hover,
 .sidebar-utility-links a.active {
-  color: #fffdf7 !important;
+  color: #fffdf5 !important;
 }
 
 .sidebar-brand small,
@@ -161,12 +161,12 @@
 .sidebar-stage-links a,
 .sidebar-utility-links a,
 .sidebar-signout {
-  color: #aaa397 !important;
+  color: #a9bbc5 !important;
 }
 
 .sidebar-section-heading {
   margin-top: 22px;
-  color: #827a6e !important;
+  color: #7891a0 !important;
   letter-spacing: .12em;
 }
 
@@ -181,8 +181,8 @@
 .sidebar-stage.active .sidebar-stage-summary,
 .sidebar-stage-links a.active,
 .sidebar-utility-links a.active {
-  background: rgba(201, 171, 119, .105) !important;
-  box-shadow: inset 2px 0 0 #b89663 !important;
+  background: rgba(74, 139, 164, .16) !important;
+  box-shadow: inset 2px 0 0 #d0ae68 !important;
 }
 
 .sidebar-dashboard:hover,
@@ -196,9 +196,9 @@
 .sidebar-dashboard-icon,
 .sidebar-stage-number,
 .sidebar-stage.active .sidebar-stage-number {
-  border: 1px solid #4c483f !important;
+  border: 1px solid #315268 !important;
   background: transparent !important;
-  color: #c2a575 !important;
+  color: #d0ae68 !important;
   box-shadow: none !important;
 }
 
@@ -556,7 +556,7 @@
   outline-offset: 2px;
 }
 
-/* The private office is composed as a working brief, not a dashboard grid. */
+/* The navigation hub is composed as a route overview, not a dashboard grid. */
 .app-shell .command-hero {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -567,7 +567,7 @@
   border: 0 !important;
   background:
     linear-gradient(112deg, rgba(255, 255, 255, .055), transparent 48%),
-    #1b1a17 !important;
+    #081d2f !important;
   color: #f5f0e6 !important;
 }
 
@@ -605,22 +605,22 @@
 .app-shell .command-hero .button {
   border-color: #c2a575 !important;
   background: #c2a575 !important;
-  color: #1b1a17 !important;
+  color: #081d2f !important;
 }
 
 .app-shell .command-hero .button.secondary {
-  border-color: #6b655b !important;
+  border-color: #486779 !important;
   background: transparent !important;
   color: #f5f0e6 !important;
 }
 
 .app-shell .health-ring {
-  background: conic-gradient(#c2a575 var(--health), #3b3933 0) !important;
+  background: conic-gradient(#d0ae68 var(--health), #29485b 0) !important;
   box-shadow: none !important;
 }
 
 .app-shell .health-ring > div {
-  background: #1b1a17 !important;
+  background: #081d2f !important;
 }
 
 .app-shell .health-ring strong,
@@ -689,22 +689,22 @@
   background: transparent !important;
 }
 
-/* Market intelligence is presented as a mandate and a set of dossiers. */
+/* Opportunity discovery is presented as a mapped set of possible routes. */
 .app-shell .universal-search-bar {
   margin: -14px 0 48px;
   padding: 0;
   border: 0 !important;
-  border-top: 1px solid #3d3932 !important;
-  border-bottom: 1px solid #3d3932 !important;
+  border-top: 1px solid #24455b !important;
+  border-bottom: 1px solid #24455b !important;
   border-radius: 0 !important;
-  background: #1b1a17 !important;
+  background: #081d2f !important;
   box-shadow: none !important;
 }
 
 .app-shell .universal-search-bar > div {
   min-width: 0;
   padding: 21px 18px !important;
-  background: #1b1a17 !important;
+  background: #081d2f !important;
 }
 
 .app-shell .universal-search-bar span {
@@ -759,8 +759,8 @@
 .app-shell .jobs-filter-card input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
 .app-shell .jobs-filter-card select,
 .app-shell .jobs-filter-card textarea {
-  border-color: #5a554b !important;
-  background: #27251f !important;
+  border-color: #486779 !important;
+  background: #0e2c42 !important;
   color: #f4efe5 !important;
 }
 
@@ -771,13 +771,13 @@
 .app-shell .jobs-filter-card button {
   border-color: #c2a575 !important;
   background: #c2a575 !important;
-  color: #1b1a17 !important;
+  color: #081d2f !important;
 }
 
 .app-shell .source-options {
   padding: 18px 0;
-  border-top: 1px solid #3f3c35;
-  border-bottom: 1px solid #3f3c35;
+  border-top: 1px solid #2a4b60;
+  border-bottom: 1px solid #2a4b60;
 }
 
 .app-shell .jobs-insight-stack > :is(.card, section) {
@@ -857,7 +857,7 @@
   display: none !important;
 }
 
-/* Refined emphasis, feedback, and navigation across the private office. */
+/* Refined emphasis, feedback, and navigation across the career journey. */
 .app-shell .coach-brief-grid {
   display: grid;
   grid-template-columns: minmax(340px, .78fr) minmax(0, 1.22fr);
@@ -868,7 +868,7 @@
 
 .app-shell .coach-brief-form {
   padding: 34px !important;
-  border-color: #2f2d27 !important;
+  border-color: #24455b !important;
   background: #1d1c18 !important;
   color: #eee8dc !important;
 }
@@ -882,8 +882,8 @@
 }
 
 .app-shell .coach-brief-form :is(input, select, textarea) {
-  border-color: #5a554b !important;
-  background: #27251f !important;
+  border-color: #486779 !important;
+  background: #0e2c42 !important;
   color: #f4efe5 !important;
 }
 
@@ -892,7 +892,7 @@
   margin-top: 18px;
   border-color: #c2a575 !important;
   background: #c2a575 !important;
-  color: #1b1a17 !important;
+  color: #081d2f !important;
 }
 
 .app-shell .coach-prompt-list {
@@ -959,11 +959,11 @@
 }
 
 .app-shell .priority-card {
-  border: 1px solid #2f2d27 !important;
+  border: 1px solid #24455b !important;
   border-radius: 0 !important;
   background:
     linear-gradient(118deg, rgba(255, 255, 255, .045), transparent 46%),
-    #1b1a17 !important;
+    #081d2f !important;
   color: #f4efe5 !important;
   box-shadow: none !important;
 }
@@ -983,17 +983,17 @@
 .app-shell .priority-card .button {
   border-color: #c2a575 !important;
   background: #c2a575 !important;
-  color: #1b1a17 !important;
+  color: #081d2f !important;
 }
 
 .app-shell .guided-journey {
   margin-top: 64px;
   padding: 30px 32px;
-  border: 1px solid #34312b !important;
+  border: 1px solid #294b60 !important;
   border-radius: 0 !important;
   background:
     linear-gradient(112deg, rgba(255, 255, 255, .04), transparent 54%),
-    #1b1a17 !important;
+    #081d2f !important;
   box-shadow: none !important;
 }
 
@@ -1004,7 +1004,7 @@
 
 .app-shell .guided-journey-progress {
   border-radius: 0;
-  background: #3b3933 !important;
+  background: #29485b !important;
 }
 
 .app-shell .guided-journey-progress span {
@@ -1021,7 +1021,7 @@
 }
 
 .app-shell .guided-journey-back {
-  border-color: #5a554b !important;
+  border-color: #486779 !important;
   border-radius: 4px !important;
   background: transparent !important;
   color: #eee8dc !important;
@@ -1031,22 +1031,22 @@
   border-color: #c2a575 !important;
   border-radius: 4px !important;
   background: #c2a575 !important;
-  color: #1b1a17 !important;
+  color: #081d2f !important;
   box-shadow: none !important;
 }
 
 .app-shell :is(.company-avatar, .watch-company-mark) {
-  border: 1px solid #514b41 !important;
+  border: 1px solid #3e6175 !important;
   border-radius: 4px !important;
-  background: #24221e !important;
+  background: #0e2c42 !important;
   color: #c2a575 !important;
   box-shadow: none !important;
 }
 
 .app-shell :is(.outreach-score, .coach-score) {
-  border: 1px solid #514b41 !important;
+  border: 1px solid #3e6175 !important;
   border-radius: 50% !important;
-  background: #1b1a17 !important;
+  background: #081d2f !important;
   color: #f4efe5 !important;
   box-shadow: none !important;
 }
@@ -1152,9 +1152,9 @@
 }
 
 .app-shell .recommended-employer-mark {
-  border: 1px solid #514b41 !important;
+  border: 1px solid #3e6175 !important;
   border-radius: 4px !important;
-  background: #24221e !important;
+  background: #0e2c42 !important;
   color: #c2a575 !important;
   box-shadow: none !important;
 }
@@ -1272,19 +1272,19 @@
   max-width: 100%;
 }
 
-/* Public experience: an editorial private-members' office rather than SaaS/job-board marketing. */
+/* Public experience: premium chart-room color without literal nautical imagery. */
 .landing-page,
 .public-page {
-  --luxury-ink: #181713;
-  --luxury-coal: #22211c;
-  --luxury-bone: #f4f0e7;
-  --luxury-paper: #faf8f2;
-  --luxury-brass: #aa8b5b;
-  --luxury-brass-light: #c4a873;
-  --luxury-sage: #465b50;
-  --luxury-copy: #57534b;
-  --luxury-muted: #79736a;
-  --luxury-line: #d4ccbd;
+  --luxury-ink: #071b2c;
+  --luxury-coal: #0c2b42;
+  --luxury-bone: #f4f1e8;
+  --luxury-paper: #fbfaf4;
+  --luxury-brass: #b48c4e;
+  --luxury-brass-light: #d0ae68;
+  --luxury-sage: #2e7275;
+  --luxury-copy: #40586a;
+  --luxury-muted: #687d8b;
+  --luxury-line: #cbd6da;
   --landing-navy: var(--luxury-ink);
   --landing-navy-dark: var(--luxury-ink);
   --landing-blue: var(--luxury-brass);
@@ -1309,8 +1309,8 @@
 
 .landing-header,
 .public-header {
-  border-color: rgba(207, 198, 183, .72) !important;
-  background: rgba(250, 248, 242, .9) !important;
+  border-color: rgba(176, 193, 201, .74) !important;
+  background: rgba(251, 250, 244, .92) !important;
   box-shadow: none !important;
 }
 
@@ -1326,10 +1326,10 @@
 
 .landing-compass,
 .public-compass {
-  border: 1px solid #9f8257;
+  border: 1px solid #b79350;
   border-radius: 50%;
   background: var(--luxury-ink) !important;
-  color: #c6aa79;
+  color: #d4b36d;
   box-shadow: none;
 }
 
@@ -1375,14 +1375,16 @@
   min-height: 760px;
   padding: 118px 0 104px;
   background:
-    radial-gradient(circle at 74% 38%, rgba(183, 151, 99, .13), transparent 28%),
-    linear-gradient(115deg, #191814 0%, #24221d 58%, #181713 100%);
+    radial-gradient(circle at 74% 38%, rgba(54, 133, 157, .22), transparent 30%),
+    radial-gradient(circle at 16% 82%, rgba(180, 140, 78, .13), transparent 26%),
+    linear-gradient(115deg, #061725 0%, #0c3049 58%, #071b2c 100%);
 }
 
 .landing-hero::before {
   background:
-    linear-gradient(90deg, transparent 0 8%, rgba(196, 168, 115, .11) 8% calc(8% + 1px), transparent calc(8% + 1px) 92%, rgba(196, 168, 115, .11) 92% calc(92% + 1px), transparent calc(92% + 1px)),
-    linear-gradient(rgba(255, 255, 255, .018) 1px, transparent 1px);
+    radial-gradient(ellipse at 80% 38%, transparent 0 42px, rgba(88, 159, 173, .08) 43px 44px, transparent 45px 73px, rgba(88, 159, 173, .06) 74px 75px, transparent 76px),
+    linear-gradient(90deg, transparent 0 8%, rgba(208, 174, 104, .12) 8% calc(8% + 1px), transparent calc(8% + 1px) 92%, rgba(208, 174, 104, .12) 92% calc(92% + 1px), transparent calc(92% + 1px)),
+    linear-gradient(rgba(255, 255, 255, .02) 1px, transparent 1px);
   background-size: 100% 100%, 100% 42px;
   mask-image: none;
 }
@@ -1420,7 +1422,7 @@
 
 .landing-hero-lead {
   max-width: 650px;
-  color: #bdb6aa;
+  color: #b8c8d0;
   font-size: 18px;
   line-height: 1.82;
 }
@@ -1457,7 +1459,7 @@
 
 .landing-page a.landing-button-secondary,
 .public-button-secondary {
-  border-color: #5f5a51;
+  border-color: #557285;
   background: transparent;
   color: #eee8dc !important;
 }
@@ -1469,20 +1471,20 @@
 }
 
 .landing-page a.landing-button-secondary:hover {
-  border-color: #8c8375;
+  border-color: #84a2b2;
   background: rgba(255, 255, 255, .045) !important;
   color: #fffaf0 !important;
 }
 
 .landing-proof-row {
-  color: #aaa397;
+  color: #aabdc6;
   font-size: 11px;
   letter-spacing: .05em;
   text-transform: uppercase;
 }
 
 .landing-check {
-  border: 1px solid #6d655a;
+  border: 1px solid #648091;
   border-radius: 50%;
   background: transparent;
   color: var(--luxury-brass-light);
@@ -1494,40 +1496,40 @@
 
 .landing-dashboard-window {
   overflow: hidden;
-  border: 1px solid #5a554c;
+  border: 1px solid #496a7e;
   border-radius: 0;
-  background: #f0ece3;
-  box-shadow: 28px 38px 0 rgba(0, 0, 0, .14), 0 45px 110px rgba(0, 0, 0, .36);
+  background: #eef3f3;
+  box-shadow: 28px 38px 0 rgba(3, 22, 35, .18), 0 45px 110px rgba(1, 16, 27, .42);
   transform: rotateY(-3deg) rotateX(1deg);
 }
 
 .landing-dashboard-topbar {
-  border-color: #d2cabc;
-  background: #e8e2d7;
+  border-color: #c5d1d5;
+  background: #e8eeee;
 }
 
 .landing-preview-label,
 .landing-green-pill {
-  border: 1px solid #b8ac99;
+  border: 1px solid #aabcc4;
   border-radius: 2px !important;
   background: transparent !important;
-  color: #665944 !important;
+  color: #315b70 !important;
 }
 
 .landing-dashboard-body {
   grid-template-columns: 64px minmax(0, 1fr);
-  background: #f4f0e8;
+  background: #f4f5f0;
 }
 
 .landing-preview-sidebar {
-  background: #22211c;
+  background: #0a263b;
 }
 
 .landing-preview-sidebar span {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #615b51;
+  background: #587082;
 }
 
 .landing-preview-sidebar span.active {
@@ -1542,25 +1544,25 @@
 .landing-preview-heading small,
 .landing-preview-card small,
 .landing-preview-stats small {
-  color: #765f40 !important;
+  color: #315f75 !important;
 }
 
 .landing-preview-heading > span {
-  border: 1px solid #c5b9a5;
+  border: 1px solid #b6c7cd;
   border-radius: 2px;
-  background: #eee7da;
-  color: #5d4a31;
+  background: #e4edef;
+  color: #244e63;
 }
 
 .landing-preview-stats {
-  border-top: 1px solid #cec6b8;
-  border-bottom: 1px solid #cec6b8;
+  border-top: 1px solid #c7d3d7;
+  border-bottom: 1px solid #c7d3d7;
 }
 
 .landing-preview-stats > div,
 .landing-preview-card,
 .landing-job-row {
-  border-color: #d3cbbb !important;
+  border-color: #cad6da !important;
   border-radius: 0 !important;
   background: transparent !important;
   box-shadow: none !important;
@@ -1575,7 +1577,50 @@
 .landing-preview-stats span,
 .landing-job-row small,
 .landing-preview-priority p {
-  color: #5f5a51 !important;
+  color: #526a79 !important;
+}
+
+.landing-route-map {
+  border-color: #bdccd1;
+  border-radius: 0;
+  background:
+    repeating-radial-gradient(ellipse at 76% 42%, transparent 0 9px, rgba(46, 114, 117, .09) 10px 11px, transparent 12px 18px),
+    #e8efef;
+}
+
+.landing-route-contour {
+  stroke: #abc4c7;
+}
+
+.landing-route-line {
+  stroke: #1d607e;
+  stroke-width: 2.2;
+  stroke-dasharray: 7 6;
+}
+
+.landing-route-map circle {
+  fill: #f4f1e8;
+  stroke: #1d607e;
+}
+
+.landing-route-map .landing-route-destination {
+  fill: #b48c4e;
+  stroke: #e8efef;
+}
+
+.landing-route-map > span,
+.landing-route-map > strong {
+  background: rgba(232, 239, 239, .92);
+}
+
+.landing-route-map > span {
+  color: #315f75;
+}
+
+.landing-route-map > strong {
+  color: var(--luxury-ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 600;
 }
 
 .landing-preview-priority .landing-card-heading > span {
@@ -1591,25 +1636,25 @@
 }
 
 .landing-job-row > span {
-  border: 1px solid #c8baa1;
+  border: 1px solid #b6c9cf;
   border-radius: 50%;
-  background: #eee6d7;
-  color: #6a5335;
+  background: #e3edef;
+  color: #24576d;
 }
 
 .landing-preview-card button {
   border-radius: 2px !important;
   background: var(--luxury-ink) !important;
-  color: #f4f0e8 !important;
+  color: #f4f1e8 !important;
 }
 
 .landing-value-strip {
   border: 0;
-  background: #e9e3d8;
+  background: #e4ebeb;
 }
 
 .landing-value-grid article {
-  border-color: #c9c0b0 !important;
+  border-color: #c1ced2 !important;
 }
 
 .landing-value-number,
@@ -1621,6 +1666,11 @@
 .landing-section {
   padding-block: 126px;
   background: var(--luxury-paper) !important;
+}
+
+.landing-section .landing-eyebrow,
+.landing-feature-intro .landing-eyebrow {
+  color: #1d607e !important;
 }
 
 .landing-section-heading h2,
@@ -1660,9 +1710,9 @@
 }
 
 .landing-final-card {
-  border: 1px solid #3b3932;
+  border: 1px solid #294a5e;
   border-radius: 0;
-  background: #1b1a17;
+  background: #081d2f;
   box-shadow: none;
 }
 
@@ -1673,8 +1723,8 @@
 
 .landing-footer {
   border: 0;
-  background: #12110f;
-  color: #aaa397;
+  background: #061624;
+  color: #9fb3be;
 }
 
 .landing-footer .landing-wordmark > span,
@@ -1684,11 +1734,13 @@
 
 /* Interior public pages inherit the same material and typography. */
 .public-hero {
-  background: #1b1a17 !important;
+  background: #081d2f !important;
 }
 
 .public-hero::before {
-  background-image: linear-gradient(rgba(196, 168, 115, .06) 1px, transparent 1px);
+  background-image:
+    radial-gradient(ellipse at 78% 42%, transparent 0 32px, rgba(76, 145, 159, .08) 33px 34px, transparent 35px 58px, rgba(76, 145, 159, .06) 59px 60px, transparent 61px),
+    linear-gradient(rgba(208, 174, 104, .06) 1px, transparent 1px);
   background-size: 100% 44px;
 }
 
@@ -1712,28 +1764,29 @@
   box-shadow: none !important;
 }
 
-/* Access pages continue the private-members' experience. */
+/* Access pages continue the nautical navigation palette. */
 .auth-content,
 .auth-form-panel {
-  background: #f1eee7 !important;
+  background: #edf2f3 !important;
 }
 
 .auth-brand-panel {
   background:
-    linear-gradient(90deg, transparent 0 10%, rgba(196, 168, 115, .09) 10% calc(10% + 1px), transparent calc(10% + 1px) 90%, rgba(196, 168, 115, .09) 90% calc(90% + 1px), transparent calc(90% + 1px)),
-    #1b1a17 !important;
+    radial-gradient(ellipse at 75% 45%, transparent 0 44px, rgba(71, 143, 158, .09) 45px 46px, transparent 47px 78px, rgba(71, 143, 158, .06) 79px 80px, transparent 81px),
+    linear-gradient(90deg, transparent 0 10%, rgba(208, 174, 104, .11) 10% calc(10% + 1px), transparent calc(10% + 1px) 90%, rgba(208, 174, 104, .11) 90% calc(90% + 1px), transparent calc(90% + 1px)),
+    #081d2f !important;
 }
 
 .auth-brand-panel::after {
-  border-color: rgba(196, 168, 115, .2) !important;
-  box-shadow: 0 0 0 58px rgba(196, 168, 115, .035), 0 0 0 116px rgba(196, 168, 115, .02) !important;
+  border-color: rgba(208, 174, 104, .23) !important;
+  box-shadow: 0 0 0 58px rgba(71, 143, 158, .04), 0 0 0 116px rgba(71, 143, 158, .024) !important;
 }
 
 .auth-brand-mark {
-  border-color: #9f8257 !important;
+  border-color: #b79350 !important;
   border-radius: 50% !important;
-  background: #24221e !important;
-  color: #c4a873 !important;
+  background: #0f314a !important;
+  color: #d0ae68 !important;
   box-shadow: none !important;
 }
 
@@ -1750,7 +1803,7 @@
 .auth-message > p:not(.eyebrow),
 .auth-feature-grid span,
 .auth-brand-footer {
-  color: #aaa397 !important;
+  color: #a9bbc5 !important;
 }
 
 /* Explicit contrast roles prevent global heading/strong rules from leaking
@@ -1758,44 +1811,44 @@
 .auth-content .auth-brand-panel .auth-brand-copy strong,
 .auth-content .auth-brand-panel .auth-message h1,
 .auth-content .auth-brand-panel .auth-feature-grid strong {
-  color: #f4f0e7 !important;
+  color: #f4f1e8 !important;
 }
 
 .auth-content .auth-brand-panel .auth-brand-copy small,
 .auth-content .auth-brand-panel .auth-message > p:not(.eyebrow),
 .auth-content .auth-brand-panel .auth-feature-grid span,
 .auth-content .auth-brand-panel .auth-brand-footer {
-  color: #c8c0b3 !important;
+  color: #bdccd2 !important;
 }
 
 .auth-content .auth-brand-panel .auth-brand-copy small,
 .auth-content .auth-brand-panel .auth-message .eyebrow {
-  color: #c8a66d !important;
+  color: #d0ae68 !important;
 }
 
 .auth-message .eyebrow,
 .auth-card .eyebrow {
-  color: #aa8b5b !important;
+  color: #1d607e !important;
   font-size: 10px;
   letter-spacing: .22em;
 }
 
 .auth-feature-grid {
   gap: 0;
-  border-top: 1px solid #454139;
+  border-top: 1px solid #315268;
 }
 
 .auth-feature-grid div {
   padding: 20px 16px;
   border: 0 !important;
-  border-bottom: 1px solid #454139 !important;
+  border-bottom: 1px solid #315268 !important;
   border-radius: 0 !important;
   background: transparent !important;
 }
 
 .auth-card {
   border: 0 !important;
-  border-top: 1px solid #aa8b5b !important;
+  border-top: 1px solid #1d607e !important;
   border-radius: 0 !important;
   background: transparent !important;
   box-shadow: none !important;
@@ -1806,38 +1859,38 @@
 }
 
 .auth-card h1 {
-  color: #1d1c18 !important;
+  color: #0a2033 !important;
 }
 
 .auth-card-intro,
 .auth-switch,
 .auth-security-note {
-  color: #716e65 !important;
+  color: #647786 !important;
 }
 
 .auth-form label {
-  color: #47443d !important;
+  color: #3d5567 !important;
   font-size: 11px;
   letter-spacing: .08em;
   text-transform: uppercase;
 }
 
 .auth-form input {
-  border-color: #b5ac9d !important;
+  border-color: #9fb0ba !important;
   border-radius: 2px !important;
-  background: #faf8f2 !important;
+  background: #fbfaf4 !important;
   box-shadow: none !important;
 }
 
 .auth-form input:focus {
-  border-color: #8a704a !important;
-  box-shadow: 0 0 0 2px rgba(138, 112, 74, .13) !important;
+  border-color: #1d607e !important;
+  box-shadow: 0 0 0 2px rgba(29, 96, 126, .14) !important;
 }
 
 .auth-submit {
   border-radius: 2px !important;
-  background: #1d1c18 !important;
-  color: #f4f0e7 !important;
+  background: #0a2033 !important;
+  color: #f4f1e8 !important;
   box-shadow: none !important;
   letter-spacing: .055em;
   text-shadow: none !important;
@@ -1846,17 +1899,17 @@
 .auth-form input:-webkit-autofill,
 .auth-form input:-webkit-autofill:hover,
 .auth-form input:-webkit-autofill:focus {
-  -webkit-text-fill-color: #1d1c18 !important;
-  box-shadow: 0 0 0 1000px #faf8f2 inset !important;
-  caret-color: #1d1c18;
+  -webkit-text-fill-color: #0a2033 !important;
+  box-shadow: 0 0 0 1000px #fbfaf4 inset !important;
+  caret-color: #0a2033;
 }
 
 .auth-switch a {
-  color: #755c3b !important;
+  color: #195876 !important;
 }
 
 .auth-security-dot {
-  background: #53695d !important;
+  background: #2e7275 !important;
   box-shadow: none !important;
 }
 
@@ -1898,7 +1951,7 @@
 
   .app-sidebar {
     width: min(88vw, 350px);
-    background: #1b1a17 !important;
+  background: #081d2f !important;
   }
 
   .app-shell .mobile-nav-overlay {

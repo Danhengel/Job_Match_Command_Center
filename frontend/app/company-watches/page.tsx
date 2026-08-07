@@ -197,10 +197,10 @@ export default function CareerWatches() {
   return (
     <>
       <PageHeader
-        eyebrow="COMPANY CAREER TRACKING"
-        title="Keep priority employers on your radar"
-        description="Keep organization career pages in one place. Supported ATS pages are reviewed directly, while other employers can still appear through CareerNavIQ’s broader market scan."
-        actions={<Link className="button secondary" href="/companies">Company intelligence</Link>}
+        eyebrow="ROUTE WATCHLIST"
+        title="Keep priority employers on your map"
+        description="Keep employer career pages in one place. Supported ATS pages are searched directly, while other employers can still appear through CareerNavIQ’s broader opportunity scan."
+        actions={<Link className="button secondary" href="/companies">Employer landscape</Link>}
       />
 
       {error ? (
@@ -213,7 +213,7 @@ export default function CareerWatches() {
       {!loading && items.length ? (
         <section className="watch-summary-grid" aria-label="Career page summary">
           <article><span>Saved companies</span><strong>{summary.total}</strong><small>career pages in your library</small></article>
-          <article><span>Active pages</span><strong>{summary.active}</strong><small>included in market reviews</small></article>
+          <article><span>Active pages</span><strong>{summary.active}</strong><small>included in route searches</small></article>
           <article><span>Direct connectors</span><strong>{summary.connected}</strong><small>searched directly by ATS</small></article>
           <article><span>Paused</span><strong>{summary.paused}</strong><small>excluded from active searches</small></article>
         </section>
@@ -287,7 +287,7 @@ export default function CareerWatches() {
         <aside className="card connector-panel">
           <p className="eyebrow">SEARCH COVERAGE</p>
           <h2>Direct ATS connectors</h2>
-          <p className="muted">Active saved pages on these platforms are reviewed directly whenever you commission a market review.</p>
+          <p className="muted">Active saved pages on these platforms are searched directly whenever you run an opportunity search.</p>
           <div className="connector-list">
             {["greenhouse", "lever", "ashby", "smartrecruiters", "recruitee", "workable"].map((connector) => (
               <div key={connector}>
@@ -364,7 +364,7 @@ export default function CareerWatches() {
           <EmptyState
             title="No career pages saved yet"
             description={personalCatalogEnabled
-              ? "Use your private résumé-aligned employer catalog above to build your priority organization ledger."
+              ? "Use your résumé-aligned employer map above to build your priority route watchlist."
               : "Add a company career page above to build your priority company search list."}
           />
         )}

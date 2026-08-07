@@ -141,16 +141,16 @@ export default function RecruiterCRM() {
     <>
       <section className="executive-hero crm-hero">
         <div>
-          <p className="eyebrow">RECRUITER CRM</p>
-          <h1>Build relationships that move opportunities forward.</h1>
+          <p className="eyebrow">NETWORK MAP</p>
+          <h1>Keep every relationship connected to your route.</h1>
           <p className="muted">
             Track recruiters and hiring managers, prioritize follow-ups,
-            and keep every conversation connected to your career strategy.
+            and keep every conversation connected to your career direction.
           </p>
         </div>
         <div className="executive-actions">
-          <Link className="button secondary" href="/applications">Applications</Link>
-          <Link className="button" href="/interviews">Interview Center</Link>
+          <Link className="button secondary" href="/applications">Application tracker</Link>
+          <Link className="button" href="/interviews">Interview path</Link>
         </div>
       </section>
 
@@ -281,7 +281,7 @@ export default function RecruiterCRM() {
         <div className="crm-toolbar">
           <div>
             <p className="eyebrow">CONTACTS</p>
-            <h2>Relationship pipeline</h2>
+            <h2>Relationship route</h2>
           </div>
           <input
             value={query}

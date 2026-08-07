@@ -44,26 +44,26 @@ export default function RegisterPage() {
           <span className="auth-brand-mark"><BrandCompass /></span>
           <span className="auth-brand-copy">
             <strong>CareerNavIQ</strong>
-            <small>Private career intelligence.</small>
+            <small>Intelligent career navigation.</small>
           </span>
         </Link>
 
         <div className="auth-message">
-          <p className="eyebrow">ESTABLISH YOUR PRIVATE OFFICE</p>
-          <h1>Build the next chapter with intent.</h1>
+          <p className="eyebrow">MAP YOUR NEXT MOVE</p>
+          <h1>Build a career route around you.</h1>
           <p>
-            Replace reactive searching and fragmented tools with a composed system
-            for intelligence, positioning, relationships, and decisive action.
+            Turn scattered searching, documents, applications, contacts, and interviews
+            into one connected route with a clear next step.
           </p>
           <div className="auth-feature-grid">
-            <div><strong>Your executive position</strong><span>Distill the evidence behind your value.</span></div>
-            <div><strong>Private intelligence</strong><span>Focus on the opportunities that matter.</span></div>
-            <div><strong>Opportunity portfolio</strong><span>See every decision and next move.</span></div>
-            <div><strong>Executive briefings</strong><span>Prepare evidence-led stories with precision.</span></div>
+            <div><strong>Career compass</strong><span>Define the direction that fits you.</span></div>
+            <div><strong>Opportunity map</strong><span>Find routes worth exploring.</span></div>
+            <div><strong>Waypoint tracker</strong><span>See every application and next move.</span></div>
+            <div><strong>Interview guide</strong><span>Prepare evidence-led stories with confidence.</span></div>
           </div>
         </div>
 
-        <p className="auth-brand-footer">CareerNavIQ · Private intelligence for a career built with intent</p>
+        <p className="auth-brand-footer">CareerNavIQ · Intelligent navigation for every career move</p>
       </section>
 
       <section className="auth-form-panel">
@@ -72,9 +72,9 @@ export default function RegisterPage() {
             <span className="auth-brand-mark"><BrandCompass /></span>
             <strong>CareerNavIQ</strong>
           </div>
-          <p className="eyebrow">PRIVATE ACCESS</p>
-          <h1>Establish your office</h1>
-          <p className="auth-card-intro">Begin your private CareerNavIQ experience.</p>
+          <p className="eyebrow">START YOUR ROUTE</p>
+          <h1>Create your account</h1>
+          <p className="auth-card-intro">Set the first waypoint in your CareerNavIQ journey.</p>
 
           <form onSubmit={submit} className="auth-form">
             <label htmlFor="full-name">Full name</label>
@@ -108,12 +108,12 @@ export default function RegisterPage() {
             />
             {error ? <p className="auth-error" role="alert">{error}</p> : null}
             <button className="auth-submit" type="submit" disabled={busy}>
-              {busy ? "Establishing your office…" : "Request CareerNavIQ access"}
+              {busy ? "Mapping your route…" : "Start with CareerNavIQ"}
             </button>
           </form>
 
-          <p className="auth-switch">Already a member? <Link href="/login">Enter your office</Link></p>
-          <p className="auth-security-note"><span className="auth-security-dot" />Your workspace and saved career data remain private to your account.</p>
+          <p className="auth-switch">Already have an account? <Link href="/login">Open your route</Link></p>
+          <p className="auth-security-note"><span className="auth-security-dot" />Your route and saved career data remain private to your account.</p>
         </div>
       </section>
     </div>

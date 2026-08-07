@@ -408,6 +408,77 @@
   font-size: 8px;
 }
 
+.landing-route-map {
+  position: relative;
+  display: grid;
+  min-height: 78px;
+  margin-top: 12px;
+  padding: 15px 18px;
+  overflow: hidden;
+  align-content: center;
+  border: 1px solid #dce6ef;
+  border-radius: 14px;
+  background: #f8fbfd;
+}
+
+.landing-route-map svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.landing-route-map path {
+  fill: none;
+}
+
+.landing-route-contour {
+  stroke: #d8e2e8;
+  stroke-width: 1.2;
+}
+
+.landing-route-line {
+  stroke: var(--landing-blue);
+  stroke-width: 2.4;
+  stroke-dasharray: 6 5;
+}
+
+.landing-route-map circle {
+  fill: #fff;
+  stroke: var(--landing-blue);
+  stroke-width: 2.2;
+}
+
+.landing-route-map .landing-route-destination {
+  fill: var(--landing-green);
+  stroke: #fff;
+  stroke-width: 3;
+}
+
+.landing-route-map > span,
+.landing-route-map > strong {
+  position: relative;
+  z-index: 1;
+  width: max-content;
+  max-width: 70%;
+  padding-right: 5px;
+  background: rgba(248, 251, 253, .86);
+}
+
+.landing-route-map > span {
+  color: #6c8092;
+  font-size: 8px;
+  font-weight: 850;
+  letter-spacing: .9px;
+  text-transform: uppercase;
+}
+
+.landing-route-map > strong {
+  margin-top: 4px;
+  color: var(--landing-navy-dark);
+  font-size: 11px;
+}
+
 .landing-preview-grid {
   display: grid;
   grid-template-columns: 0.92fr 1.08fr;

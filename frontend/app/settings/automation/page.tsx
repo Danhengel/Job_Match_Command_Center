@@ -196,7 +196,7 @@ export default function AutomationSettings() {
               </div>
 
               <label className="settings-toggle" htmlFor="daily-brief-enabled">
-                <span><strong>Daily briefing</strong><small>Generate a daily priority summary.</small></span>
+                <span><strong>Daily route summary</strong><small>Generate a daily waypoint summary.</small></span>
                 <input
                   id="daily-brief-enabled"
                   type="checkbox"
@@ -204,7 +204,7 @@ export default function AutomationSettings() {
                   onChange={(event) => update("daily_brief_enabled", event.target.checked)}
                 />
               </label>
-              <label htmlFor="daily-brief-hour">Daily briefing time</label>
+              <label htmlFor="daily-brief-hour">Daily route summary time</label>
               <select
                 id="daily-brief-hour"
                 value={form.daily_brief_hour}
@@ -215,7 +215,7 @@ export default function AutomationSettings() {
               </select>
 
               <label className="settings-toggle" htmlFor="weekly-report-enabled">
-                <span><strong>Weekly report</strong><small>Summarize pipeline and search progress.</small></span>
+                <span><strong>Weekly route review</strong><small>Summarize application and search progress.</small></span>
                 <input
                   id="weekly-report-enabled"
                   type="checkbox"
