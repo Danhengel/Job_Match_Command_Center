@@ -228,11 +228,12 @@ def collect_saved_search_rows(
                     )
             except Exception as exc:
                 totals[source]["failures"] += 1
-                errors.append(f"{source} {args[0]!r}: {exc}")
+                safe_error = job_sources.source_error_message(exc)
+                errors.append(f"{source} {args[0]!r}: {safe_error}")
                 if watch is not None:
                     watch.last_checked_at = datetime.utcnow()
                     watch.last_job_count = 0
-                    watch.last_error = str(exc)
+                    watch.last_error = safe_error
 
     return {
         "rows": job_sources.dedupe(rows),

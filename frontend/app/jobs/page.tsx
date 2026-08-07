@@ -58,6 +58,14 @@ type BelowThreshold = {
   source: string;
 };
 
+type SourceStatus = {
+  source: string;
+  status: "success" | "partial" | "failed" | "empty";
+  jobs: number;
+  failures: number;
+  requests: number;
+};
+
 type SearchSummary = {
   raw: number;
   unique: number;
@@ -66,9 +74,28 @@ type SearchSummary = {
   searchedSources: string[];
   sourceCounts: Record<string, number>;
   coverageNotes: string[];
+  sourceStatus: SourceStatus[];
 };
 
 type SortMode = "match" | "newest" | "company";
+
+
+function publicNotice(message: string) {
+  const source = message.match(
+    /^(Greenhouse|Lever|Ashby|SmartRecruiters|Recruitee|Workable|Remotive|Remote OK|Jobicy|Himalayas|JSearch|USAJOBS|Adzuna|Jooble|CareerOneStop|Brave)/i,
+  )?.[1];
+  if (
+    /RetryError|<Future|HTTPError|Traceback|0x[\da-f]+/i.test(
+      message,
+    )
+    || /:\s*(?:board is unavailable|source (?:declined|is temporarily|could not|timed out|rejected|request could not))/i.test(
+      message,
+    )
+  ) {
+    return `${source || "A market source"} could not be reached during this review.`;
+  }
+  return message;
+}
 
 
 function uniqueNotices(errors: string[]) {
@@ -77,7 +104,7 @@ function uniqueNotices(errors: string[]) {
     { message: string; count: number }
   >();
 
-  errors.forEach((message) => {
+  errors.map(publicNotice).forEach((message) => {
     const key = message
       .replace(/https?:\/\/\S+/g, "URL")
       .replace(/\d+/g, "#")
@@ -92,6 +119,46 @@ function uniqueNotices(errors: string[]) {
   });
 
   return Array.from(normalized.values());
+}
+
+
+function sourceFamily(source: string) {
+  const normalized = source.toLowerCase();
+  if (
+    normalized.includes("employer career sites")
+    || normalized.includes("employer catalog")
+  ) {
+    return "Direct employer career sites";
+  }
+  if (normalized.startsWith("jsearch")) {
+    return "Broad-market publishers";
+  }
+  return source.replace(/\s+(?:expanded|nationwide) coverage$/i, "");
+}
+
+
+function sourceCoverageIssues(statuses: SourceStatus[]) {
+  const grouped = new Map<
+    string,
+    { source: string; jobs: number; failures: number; requests: number }
+  >();
+
+  statuses
+    .filter((status) => status.failures > 0)
+    .forEach((status) => {
+      const source = sourceFamily(status.source);
+      const existing = grouped.get(source);
+      grouped.set(source, {
+        source,
+        jobs: (existing?.jobs || 0) + status.jobs,
+        failures: (existing?.failures || 0) + status.failures,
+        requests: (existing?.requests || 0) + status.requests,
+      });
+    });
+
+  return Array.from(grouped.values()).sort(
+    (left, right) => right.failures - left.failures,
+  );
 }
 
 
@@ -255,6 +322,19 @@ export default function JobsPage() {
     [errors],
   );
 
+  const coverageIssues = useMemo(
+    () => sourceCoverageIssues(summary?.sourceStatus || []),
+    [summary],
+  );
+
+  const coverageFailureCount = useMemo(
+    () => coverageIssues.reduce(
+      (total, issue) => total + issue.failures,
+      0,
+    ),
+    [coverageIssues],
+  );
+
   const publisherEntries = useMemo(
     () =>
       Object.entries(summary?.sourceCounts || {}).sort(
@@ -359,6 +439,9 @@ export default function JobsPage() {
         searchedSources: data.searched_sources || [],
         sourceCounts: data.source_counts || {},
         coverageNotes: data.coverage_notes || [],
+        sourceStatus: Array.isArray(data.source_status)
+          ? data.source_status
+          : [],
       });
       await loadHistory();
     } catch (error) {
@@ -597,13 +680,37 @@ export default function JobsPage() {
             </section>
           ) : null}
 
-          {groupedNotices.length ? (
+          {coverageIssues.length ? (
             <Notice
-              title={`${errors.length} issue${
-                errors.length === 1 ? "" : "s"
-              } found`}
+              title="Partial source coverage"
               tone="warning"
             >
+              <p>
+                {coverageFailureCount} source request{
+                  coverageFailureCount === 1 ? " was" : "s were"
+                } unavailable. CareerNavIQ kept every successful response
+                and all previously selected opportunities.
+              </p>
+              <div className="provider-health-list" aria-label="Unavailable market sources">
+                {coverageIssues.map((issue) => (
+                  <div className="provider-health-row" key={issue.source}>
+                    <div>
+                      <strong>{issue.source}</strong>
+                      <span>
+                        {issue.jobs
+                          ? `${issue.jobs} signal${issue.jobs === 1 ? "" : "s"} retained from successful responses`
+                          : "No new signals were available from this source"}
+                      </span>
+                    </div>
+                    <span>
+                      {issue.failures} of {issue.requests} unavailable
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </Notice>
+          ) : groupedNotices.length ? (
+            <Notice title="A market source needs attention" tone="warning">
               {groupedNotices.map((notice, index) => (
                 <p key={index}>
                   {notice.message}

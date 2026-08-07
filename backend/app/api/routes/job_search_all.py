@@ -332,7 +332,10 @@ def search_all(
                     )
             except Exception as exc:
                 source_totals[source_name]["failures"] += 1
-                errors.append(f"{source_name} {title}: {exc}")
+                errors.append(
+                    f"{source_name} {title}: "
+                    f"{job_sources.source_error_message(exc)}"
+                )
 
     for source_name, totals in source_totals.items():
         source_status.append(
@@ -428,7 +431,10 @@ def search_everywhere(
                     )
             except Exception as exc:
                 totals[source_name]["failures"] += 1
-                errors.append(f"{source_name} {title} in {location}: {exc}")
+                errors.append(
+                    f"{source_name} {title} in {location}: "
+                    f"{job_sources.source_error_message(exc)}"
+                )
 
     for source_name, source_total in totals.items():
         source_status.append(

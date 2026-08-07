@@ -785,6 +785,58 @@
   border-top: 1px solid var(--editorial-line) !important;
 }
 
+.app-shell .provider-health-list {
+  display: grid;
+  margin-top: 18px;
+  border-top: 1px solid #d8c8a7;
+}
+
+.app-shell .provider-health-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 22px;
+  padding: 14px 0;
+  border-bottom: 1px solid #dfd2b8;
+}
+
+.app-shell .provider-health-row > div {
+  min-width: 0;
+}
+
+.app-shell .provider-health-row strong {
+  margin: 0 0 4px !important;
+  color: #4e3a20 !important;
+  font-size: 13px;
+}
+
+.app-shell .provider-health-row span {
+  display: block;
+  color: #735b39 !important;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.app-shell .provider-health-row > span {
+  flex: 0 0 auto;
+  color: #6c512d !important;
+  font-weight: 700;
+  letter-spacing: .035em;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+@media (max-width: 760px) {
+  .app-shell .provider-health-row {
+    display: grid;
+    gap: 8px;
+  }
+
+  .app-shell .provider-health-row > span {
+    text-align: left;
+  }
+}
+
 .app-shell .results-toolbar {
   margin-top: 18px;
   padding: 34px 0;

@@ -8,7 +8,13 @@ from pathlib import Path
 
 import requests
 from bs4 import BeautifulSoup
-from tenacity import retry, stop_after_attempt, wait_exponential
+from tenacity import (
+    RetryError,
+    retry,
+    retry_if_exception,
+    stop_after_attempt,
+    wait_exponential,
+)
 
 from app.core.config import settings
 from app.services.cache_service import get_json, set_json
@@ -20,6 +26,54 @@ HEADERS = {
     "Accept": "application/json",
 }
 CATALOG_PATH = Path(__file__).resolve().parents[1] / "data" / "employer_catalog.json"
+
+
+def _root_source_error(error: BaseException) -> BaseException:
+    if isinstance(error, RetryError):
+        last_error = error.last_attempt.exception()
+        if isinstance(last_error, BaseException):
+            return last_error
+    return error
+
+
+def _retryable_source_error(error: BaseException) -> bool:
+    root_error = _root_source_error(error)
+    if isinstance(root_error, requests.HTTPError):
+        response = root_error.response
+        status = response.status_code if response is not None else None
+        return status is None or status in {408, 425, 429} or status >= 500
+    return isinstance(root_error, (requests.Timeout, requests.ConnectionError))
+
+
+def source_error_message(error: BaseException) -> str:
+    """Return a stable, user-safe explanation for an external source failure."""
+    root_error = _root_source_error(error)
+
+    if isinstance(root_error, requests.HTTPError):
+        response = root_error.response
+        status = response.status_code if response is not None else None
+        if status == 404:
+            return "board is unavailable or no longer public"
+        if status in {401, 403}:
+            return "source declined access"
+        if status == 429:
+            return "source is temporarily rate limited"
+        if status is not None and status >= 500:
+            return "source is temporarily unavailable"
+        return "source rejected the request"
+
+    if isinstance(root_error, requests.Timeout):
+        return "source timed out"
+    if isinstance(root_error, requests.ConnectionError):
+        return "source could not be reached"
+
+    message = str(root_error).strip()
+    if message and any(
+        marker in message.lower()
+        for marker in ("not configured", "not enabled", "is disabled")
+    ):
+        return message
+    return "source request could not be completed"
 
 
 def clean_html(value):
@@ -76,6 +130,8 @@ def query_matches(row, query):
 @retry(
     stop=stop_after_attempt(3),
     wait=wait_exponential(multiplier=0.5, min=0.5, max=4),
+    retry=retry_if_exception(_retryable_source_error),
+    reraise=True,
 )
 def get_json_url(url, params=None, headers=None):
     merged = dict(HEADERS)
