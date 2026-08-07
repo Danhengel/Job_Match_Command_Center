@@ -969,6 +969,26 @@
   color: #aaa397 !important;
 }
 
+/* Explicit contrast roles prevent global heading/strong rules from leaking
+   dark application ink into the charcoal access-page brand panel. */
+.auth-content .auth-brand-panel .auth-brand-copy strong,
+.auth-content .auth-brand-panel .auth-message h1,
+.auth-content .auth-brand-panel .auth-feature-grid strong {
+  color: #f4f0e7 !important;
+}
+
+.auth-content .auth-brand-panel .auth-brand-copy small,
+.auth-content .auth-brand-panel .auth-message > p:not(.eyebrow),
+.auth-content .auth-brand-panel .auth-feature-grid span,
+.auth-content .auth-brand-panel .auth-brand-footer {
+  color: #c8c0b3 !important;
+}
+
+.auth-content .auth-brand-panel .auth-brand-copy small,
+.auth-content .auth-brand-panel .auth-message .eyebrow {
+  color: #c8a66d !important;
+}
+
 .auth-message .eyebrow,
 .auth-card .eyebrow {
   color: #aa8b5b !important;
@@ -1036,6 +1056,15 @@
   color: #f4f0e7 !important;
   box-shadow: none !important;
   letter-spacing: .055em;
+  text-shadow: none !important;
+}
+
+.auth-form input:-webkit-autofill,
+.auth-form input:-webkit-autofill:hover,
+.auth-form input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #1d1c18 !important;
+  box-shadow: 0 0 0 1000px #faf8f2 inset !important;
+  caret-color: #1d1c18;
 }
 
 .auth-switch a {
