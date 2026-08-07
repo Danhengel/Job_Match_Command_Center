@@ -7,7 +7,6 @@ import "./sprint5.css";
 import "./sprint6.css";
 import "./sprint7.css";
 import "./sprint8.css";
-import "./brand-colors.css";
 import "./landing.css";
 import "./public-pages.css";
 import "./mobile.css";
@@ -23,19 +22,13 @@ import "./auth-modernization.css";
 import "./resume-layout.css";
 import "./company-watch-catalog.css";
 import "./experience-overhaul.css";
-import "./premium-visual-system.css";
-import "./contrast-repair.css";
-import "./premium-platform-v3.css";
-import "./distinctive-editorial-system.css";
-import "./profile-readability-fix.css";
-import "./executive-suite-v5.css";
-import "./jobs-coverage-refinement.css";
+import "./executive-platform-v6.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 
 const SITE_URL = "https://careernaviq.com";
 const SITE_DESCRIPTION =
-  "CareerNavIQ is an intelligent career-navigation system for setting direction, exploring opportunities, tracking progress, and choosing the right next move.";
+  "CareerNavIQ is a private executive career intelligence platform for positioning, market intelligence, opportunity management, relationship strategy, and interview preparation.";
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -53,9 +46,7 @@ const structuredData = {
       url: SITE_URL,
       name: "CareerNavIQ",
       description: SITE_DESCRIPTION,
-      publisher: {
-        "@id": `${SITE_URL}/#organization`,
-      },
+      publisher: { "@id": `${SITE_URL}/#organization` },
       inLanguage: "en-US",
     },
     {
@@ -74,37 +65,35 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   applicationName: "CareerNavIQ",
   title: {
-    default: "CareerNavIQ | Intelligent Career Navigation",
+    default: "CareerNavIQ | Executive Career Intelligence",
     template: "%s | CareerNavIQ",
   },
   description: SITE_DESCRIPTION,
   keywords: [
-    "AI job search",
-    "job application tracker",
+    "executive career management",
+    "executive job search",
+    "career intelligence",
+    "job application management",
     "resume optimization",
     "interview preparation",
-    "career management",
-    "career navigation",
-    "career path planning",
+    "career strategy",
   ],
   authors: [{ name: "CareerNavIQ", url: SITE_URL }],
   creator: "CareerNavIQ",
   publisher: "CareerNavIQ",
   category: "career technology",
-  alternates: {
-    canonical: "/",
-  },
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "/",
     siteName: "CareerNavIQ",
-    title: "CareerNavIQ | Intelligent Career Navigation",
+    title: "CareerNavIQ | Executive Career Intelligence",
     description: SITE_DESCRIPTION,
   },
   twitter: {
     card: "summary",
-    title: "CareerNavIQ | Intelligent Career Navigation",
+    title: "CareerNavIQ | Executive Career Intelligence",
     description: SITE_DESCRIPTION,
   },
   robots: {
@@ -130,7 +119,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="executive-suite-body">
+      <body className="executive-platform-body">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
