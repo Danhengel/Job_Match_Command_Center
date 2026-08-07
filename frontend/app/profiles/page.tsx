@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { EmptyState, Notice, PageHeader } from "@/components/ui";
+import { EmptyState, MetricStrip, Notice, PageHeader } from "@/components/ui";
 import { api } from "@/lib/api";
 
 type Profile = {
@@ -19,11 +19,7 @@ type Profile = {
 };
 
 function workStyle(profile: Profile) {
-  const preferences = [
-    profile.remote_preferred ? "Remote" : "",
-    profile.hybrid_preferred ? "Hybrid" : "",
-  ].filter(Boolean);
-
+  const preferences = [profile.remote_preferred ? "Remote" : "", profile.hybrid_preferred ? "Hybrid" : ""].filter(Boolean);
   return preferences.length ? preferences.join(" + ") : "On-site or flexible";
 }
 
@@ -34,84 +30,48 @@ export default function Profiles() {
 
   useEffect(() => {
     let active = true;
-
     api("/api/profiles")
-      .then((data) => {
-        if (active) setItems(Array.isArray(data) ? data : []);
-      })
-      .catch((err) => {
-        if (active) setError(err instanceof Error ? err.message : "Unable to load career profiles.");
-      })
-      .finally(() => {
-        if (active) setLoading(false);
-      });
-
-    return () => {
-      active = false;
-    };
+      .then((data) => { if (active) setItems(Array.isArray(data) ? data : []); })
+      .catch((err) => { if (active) setError(err instanceof Error ? err.message : "Unable to load executive profiles."); })
+      .finally(() => { if (active) setLoading(false); });
+    return () => { active = false; };
   }, []);
 
   const summary = useMemo(() => {
     const profileCount = items.length;
     const resumeCount = items.reduce((total, profile) => total + profile.resume_count, 0);
-    const averageCompleteness = profileCount
-      ? Math.round(items.reduce((total, profile) => total + profile.completeness, 0) / profileCount)
-      : 0;
+    const averageCompleteness = profileCount ? Math.round(items.reduce((total, profile) => total + profile.completeness, 0) / profileCount) : 0;
     const strongestScore = Math.max(0, ...items.map((profile) => profile.best_resume_score || 0));
-
     return { profileCount, resumeCount, averageCompleteness, strongestScore };
   }, [items]);
 
   return (
     <>
       <PageHeader
-        eyebrow="CAREER STRATEGY"
-        title="Career profiles"
-        description="Create a focused search strategy for every career direction, with its own titles, location preferences, and résumé evidence."
-        actions={<Link className="button" href="/profiles/new">Create profile</Link>}
+        eyebrow="EXECUTIVE POSITIONING"
+        title="Executive profiles"
+        description="Create a disciplined mandate for each serious career direction, including target roles, geography, compensation, and the résumé evidence that supports it."
+        actions={<Link className="button" href="/profiles/new">Create executive profile</Link>}
       />
 
-      {error ? (
-        <Notice title="Career profiles could not be loaded" tone="error">
-          <p>{error}</p>
-        </Notice>
-      ) : null}
+      {error ? <Notice title="Executive profiles could not be loaded" tone="error"><p>{error}</p></Notice> : null}
 
       {!loading && items.length ? (
-        <section className="profile-summary-grid" aria-label="Career profile summary">
-          <article className="profile-summary-card">
-            <span>Career paths</span>
-            <strong>{summary.profileCount}</strong>
-            <small>focused profiles</small>
-          </article>
-          <article className="profile-summary-card">
-            <span>Average readiness</span>
-            <strong>{summary.averageCompleteness}%</strong>
-            <small>profile completeness</small>
-          </article>
-          <article className="profile-summary-card">
-            <span>Résumé versions</span>
-            <strong>{summary.resumeCount}</strong>
-            <small>connected to profiles</small>
-          </article>
-          <article className="profile-summary-card">
-            <span>Strongest résumé</span>
-            <strong>{summary.strongestScore || "—"}</strong>
-            <small>{summary.strongestScore ? "analysis score" : "not analyzed yet"}</small>
-          </article>
-        </section>
+        <MetricStrip
+          ariaLabel="Executive profile summary"
+          items={[
+            { label: "Active profiles", value: summary.profileCount, detail: "distinct mandates" },
+            { label: "Average readiness", value: `${summary.averageCompleteness}%`, detail: "profile completeness" },
+            { label: "Résumé versions", value: summary.resumeCount, detail: "connected evidence" },
+            { label: "Strongest résumé", value: summary.strongestScore || "—", detail: summary.strongestScore ? "analysis score" : "not analyzed yet" },
+          ]}
+        />
       ) : null}
 
-      {loading ? (
-        <section className="card profile-loading-state">
-          <p className="eyebrow">LOADING</p>
-          <h2>Building your career strategy workspace…</h2>
-          <p className="muted">CareerNavIQ is loading your profiles and résumé readiness.</p>
-        </section>
-      ) : null}
+      {loading ? <section className="executive-loading"><p className="eyebrow">EXECUTIVE POSITIONING</p><h2>Preparing your profiles…</h2><p className="muted">Loading mandates and résumé readiness.</p></section> : null}
 
       {!loading && items.length ? (
-        <section className="profile-grid" aria-label="Career profiles">
+        <section className="profile-grid" aria-label="Executive profiles">
           {items.map((profile) => (
             <article className="card profile-card" key={profile.id}>
               <div className="profile-card-head">
@@ -119,12 +79,7 @@ export default function Profiles() {
                   <span className="badge">{profile.completeness}% ready</span>
                   {profile.primary_resume_id ? <span className="score-pill">Primary résumé linked</span> : null}
                 </div>
-                {profile.best_resume_score > 0 ? (
-                  <div className="profile-score-ring" aria-label={`Best résumé score ${profile.best_resume_score}`}>
-                    <strong>{profile.best_resume_score}</strong>
-                    <small>score</small>
-                  </div>
-                ) : null}
+                {profile.best_resume_score > 0 ? <div className="profile-score-ring" aria-label={`Best résumé score ${profile.best_resume_score}`}><strong>{profile.best_resume_score}</strong><small>score</small></div> : null}
               </div>
 
               <h2>{profile.name}</h2>
@@ -134,21 +89,15 @@ export default function Profiles() {
                 <span>{profile.resume_count} résumé version{profile.resume_count === 1 ? "" : "s"}</span>
               </div>
 
-              <div className="progress" aria-label={`${profile.completeness}% complete`}>
-                <span style={{ width: `${Math.min(100, Math.max(0, profile.completeness))}%` }} />
-              </div>
+              <div className="progress" aria-label={`${profile.completeness}% complete`}><span style={{ width: `${Math.min(100, Math.max(0, profile.completeness))}%` }} /></div>
 
               <div className="profile-title-tags">
-                {profile.target_titles.length ? (
-                  profile.target_titles.slice(0, 4).map((title) => <span key={title}>{title}</span>)
-                ) : (
-                  <p className="muted">Add target titles to strengthen opportunity selection.</p>
-                )}
+                {profile.target_titles.length ? profile.target_titles.slice(0, 4).map((title) => <span key={title}>{title}</span>) : <p className="muted">Add target titles to strengthen market selection.</p>}
               </div>
 
               <footer className="profile-card-footer">
-                <span className="muted">Use this profile for searches, résumés, and applications.</span>
-                <Link className="button secondary" href={`/profiles/${profile.id}`}>Open profile</Link>
+                <span className="muted">Use this profile as the mandate for market reviews, positioning, and active pursuits.</span>
+                <Link className="button secondary" href={`/profiles/${profile.id}`}>Open executive profile</Link>
               </footer>
             </article>
           ))}
@@ -157,9 +106,9 @@ export default function Profiles() {
 
       {!loading && !items.length && !error ? (
         <EmptyState
-          title="Create your first career profile"
-          description="Add target titles, location preferences, priority keywords, and your primary résumé to begin receiving stronger-fit recommendations."
-          action={<Link className="button" href="/profiles/new">Create career profile</Link>}
+          title="Create your first executive profile"
+          description="Define target roles, geography, compensation, priority evidence, and your primary résumé before evaluating the market."
+          action={<Link className="button" href="/profiles/new">Create executive profile</Link>}
         />
       ) : null}
     </>
