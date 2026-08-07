@@ -1,30 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import "./globals.css";
-import "./careeros.css";
-import "./auth.css";
-import "./sprint3.css";
-import "./sprint5.css";
-import "./sprint6.css";
-import "./sprint7.css";
-import "./sprint8.css";
-import "./landing.css";
-import "./public-pages.css";
-import "./mobile.css";
-import "./public-readability.css";
-import "./design-system.css";
-import "./page-modernization.css";
-import "./company-modernization.css";
-import "./insight-modernization.css";
-import "./operational-modernization.css";
-import "./settings-modernization.css";
-import "./workspace-modernization.css";
-import "./auth-modernization.css";
-import "./resume-layout.css";
-import "./company-watch-catalog.css";
-import "./experience-overhaul.css";
-import "./executive-platform-v6.css";
-import "./sitewide-consistency-v7.css";
-import "./brand-logo.css";
+import "./visual-system.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 
@@ -126,7 +101,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="executive-platform-body">
+      <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
