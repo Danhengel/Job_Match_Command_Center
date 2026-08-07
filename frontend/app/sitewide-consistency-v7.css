@@ -207,3 +207,186 @@
   .executive-platform :is(.executive-metric-strip, .executive-kpis, .interview-kpis, .coach-kpis, .analytics-kpi-grid, .profile-summary-grid, .company-summary-grid, .company-detail-kpis, .watch-summary-grid, .automation-health-grid) { grid-template-columns: 1fr !important; }
   .executive-platform .page-header-actions > *, .executive-platform .executive-page-header-actions > *, .executive-platform .executive-actions > * { width: 100%; }
 }
+
+/* -------------------------------------------------------------------------- */
+/* v9 corrections: one navy canvas from public hero through authenticated app */
+/* -------------------------------------------------------------------------- */
+
+.executive-platform,
+.executive-platform .app-workspace,
+.executive-platform .app-content {
+  background:
+    radial-gradient(circle at 82% 0%, rgba(46, 109, 117, 0.16), transparent 28%),
+    linear-gradient(180deg, #071b2c 0%, #0b2c45 100%) !important;
+}
+
+.executive-platform .executive-page-frame > :is(.page-header, .executive-page-header, .hero, .executive-hero) {
+  border-bottom-color: rgba(214, 226, 230, 0.24) !important;
+}
+
+.executive-platform .executive-page-frame > :is(.page-header, .executive-page-header, .hero, .executive-hero) h1 {
+  color: #fffdf8 !important;
+}
+
+.executive-platform .executive-page-frame > :is(.page-header, .executive-page-header, .hero, .executive-hero) .eyebrow {
+  color: #d4b274 !important;
+}
+
+.executive-platform .executive-page-frame > :is(.page-header, .executive-page-header, .hero, .executive-hero) p {
+  color: #c8d5da !important;
+}
+
+.executive-platform .executive-page-frame > .executive-section-header :is(h2, h3),
+.executive-platform .executive-page-frame > section:not(.card):not(.executive-panel) > .executive-section-header :is(h2, h3) {
+  color: #fffdf8 !important;
+}
+
+.executive-platform .executive-page-frame > .executive-section-header p,
+.executive-platform .executive-page-frame > section:not(.card):not(.executive-panel) > .executive-section-header p {
+  color: #c8d5da !important;
+}
+
+.executive-platform .executive-page-frame > .executive-section-header .eyebrow,
+.executive-platform .executive-page-frame > section:not(.card):not(.executive-panel) > .executive-section-header .eyebrow {
+  color: #d4b274 !important;
+}
+
+/* Profile entry fields intentionally use the same dark field treatment as the brand canvas. */
+.executive-platform .profile-edit-form :is(input:not([type="checkbox"]):not([type="radio"]), textarea, select) {
+  border-color: #496d80 !important;
+  background: #0b2c45 !important;
+  color: #fffdf8 !important;
+  -webkit-text-fill-color: #fffdf8 !important;
+  caret-color: #fffdf8;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+}
+
+.executive-platform .profile-edit-form :is(input, textarea)::placeholder {
+  color: #afc0c8 !important;
+  -webkit-text-fill-color: #afc0c8 !important;
+  opacity: 1 !important;
+}
+
+.executive-platform .profile-edit-form select option {
+  background: #0b2c45;
+  color: #fffdf8;
+}
+
+.executive-platform .profile-edit-form :is(input, textarea, select):focus {
+  border-color: #d0ad71 !important;
+  box-shadow: 0 0 0 3px rgba(208, 173, 113, 0.17) !important;
+}
+
+.executive-platform .profile-danger-zone {
+  border-color: #c9a8aa !important;
+}
+
+.executive-platform .profile-danger-zone .executive-section-header {
+  margin-bottom: 10px;
+}
+
+/* Public header contrast: every option remains readable against the midnight header. */
+body.executive-platform-body .landing-header .landing-wordmark span {
+  color: #fffdf8 !important;
+}
+
+body.executive-platform-body .landing-header .landing-wordmark span:nth-child(2) {
+  color: #d4b274 !important;
+}
+
+body.executive-platform-body .landing-header .landing-nav > a {
+  color: #edf4f5 !important;
+}
+
+body.executive-platform-body .landing-header .landing-nav > a:hover {
+  color: #d4b274 !important;
+}
+
+body.executive-platform-body .landing-header .landing-nav > .landing-nav-cta {
+  border: 1px solid #d4b274 !important;
+  background: #d4b274 !important;
+  color: #071b2c !important;
+  box-shadow: none !important;
+}
+
+body.executive-platform-body .landing-header .landing-nav > .landing-nav-cta:hover {
+  background: #e0c48f !important;
+  color: #071b2c !important;
+}
+
+/* Homepage hero visual: real branded artwork rather than another simulated product card. */
+body.executive-platform-body .executive-hero-image {
+  width: min(100%, 720px);
+  margin: 0;
+  justify-self: end;
+  overflow: hidden;
+  border: 1px solid rgba(212, 178, 116, 0.42);
+  border-radius: 18px;
+  background: #071b2c;
+  box-shadow: 0 34px 78px rgba(1, 12, 21, 0.38);
+}
+
+body.executive-platform-body .executive-hero-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+body.executive-platform-body .executive-hero-image figcaption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 18px 18px;
+  border-top: 1px solid rgba(212, 178, 116, 0.18);
+  background: #071b2c;
+}
+
+body.executive-platform-body .executive-hero-image figcaption span {
+  flex: 0 0 auto;
+  color: #d4b274;
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: 0.16em;
+}
+
+body.executive-platform-body .executive-hero-image figcaption strong {
+  color: #edf4f5;
+  font-family: var(--x-serif);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: right;
+}
+
+@media (min-width: 641px) and (max-width: 820px) {
+  body.executive-platform-body .landing-header .landing-nav > a {
+    display: inline-flex !important;
+  }
+
+  body.executive-platform-body .landing-header-inner {
+    gap: 16px;
+  }
+
+  body.executive-platform-body .landing-nav {
+    gap: 14px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 1080px) {
+  body.executive-platform-body .executive-hero-image {
+    justify-self: center;
+  }
+}
+
+@media (max-width: 640px) {
+  body.executive-platform-body .executive-hero-image figcaption {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  body.executive-platform-body .executive-hero-image figcaption strong {
+    text-align: left;
+  }
+}
