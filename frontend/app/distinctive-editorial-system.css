@@ -1539,6 +1539,19 @@
   padding: 32px;
 }
 
+.landing-preview-heading small,
+.landing-preview-card small,
+.landing-preview-stats small {
+  color: #765f40 !important;
+}
+
+.landing-preview-heading > span {
+  border: 1px solid #c5b9a5;
+  border-radius: 2px;
+  background: #eee7da;
+  color: #5d4a31;
+}
+
 .landing-preview-stats {
   border-top: 1px solid #cec6b8;
   border-bottom: 1px solid #cec6b8;
@@ -1553,9 +1566,41 @@
   box-shadow: none !important;
 }
 
+.landing-preview-stats strong,
+.landing-card-heading strong,
+.landing-job-row strong {
+  color: var(--luxury-ink) !important;
+}
+
+.landing-preview-stats span,
+.landing-job-row small,
+.landing-preview-priority p {
+  color: #5f5a51 !important;
+}
+
+.landing-preview-priority .landing-card-heading > span {
+  color: #496356 !important;
+}
+
+.landing-progress {
+  background: #d8d0c2;
+}
+
+.landing-progress span {
+  background: linear-gradient(90deg, var(--luxury-brass), #496356);
+}
+
+.landing-job-row > span {
+  border: 1px solid #c8baa1;
+  border-radius: 50%;
+  background: #eee6d7;
+  color: #6a5335;
+}
+
 .landing-preview-card button {
   border-radius: 2px !important;
   background: var(--luxury-ink) !important;
+  color: #f4f0e8 !important;
 }
 
 .landing-value-strip {
