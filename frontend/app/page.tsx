@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -55,36 +56,19 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="landing-product-preview executive-product-preview" aria-label="Illustrative CareerNavIQ executive briefing">
-              <div className="executive-preview-window">
-                <div className="executive-preview-topbar">
-                  <div><CompassMark className="landing-compass-small" /><strong>CareerNavIQ</strong></div>
-                  <span>Executive briefing</span>
-                </div>
-                <div className="executive-preview-body">
-                  <div className="executive-preview-heading">
-                    <div><small>THIS WEEK</small><strong>Career momentum</strong></div>
-                    <b>78</b>
-                  </div>
-                  <div className="executive-preview-metrics">
-                    <div><span>High-alignment roles</span><strong>12</strong><small>4 newly identified</small></div>
-                    <div><span>Active pursuits</span><strong>5</strong><small>2 require action</small></div>
-                    <div><span>Interviews</span><strong>2</strong><small>Preparation ready</small></div>
-                  </div>
-                  <div className="executive-preview-priority">
-                    <small>PRIORITY DECISION</small>
-                    <strong>Compare two director-level opportunities before advancing outreach.</strong>
-                    <p>Role quality, compensation, leadership scope, and evidence alignment are summarized in one view.</p>
-                    <div className="executive-preview-line"><span /><span /><span /></div>
-                  </div>
-                  <div className="executive-preview-market">
-                    <div><span>94</span><p><strong>Director, Commercial Lending Operations</strong><small>Strong leadership and portfolio alignment</small></p></div>
-                    <div><span>91</span><p><strong>VP, Credit Administration</strong><small>High operational and risk alignment</small></p></div>
-                    <div><span>87</span><p><strong>Director, Portfolio Management</strong><small>Relevant leadership and asset experience</small></p></div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <figure className="executive-hero-image" aria-label="CareerNavIQ executive career intelligence visual">
+              <Image
+                src="/premium-career-visual.svg"
+                alt="Executive career intelligence interface with navigation, market signals, and strategic path visualization"
+                width={720}
+                height={420}
+                priority
+              />
+              <figcaption>
+                <span>POSITION · MARKET · DECISION</span>
+                <strong>A private operating view for your next executive move.</strong>
+              </figcaption>
+            </figure>
           </div>
         </section>
 
