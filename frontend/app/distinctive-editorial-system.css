@@ -1913,6 +1913,107 @@
   box-shadow: none !important;
 }
 
+/* High-contrast profile and résumé evidence cards. */
+.app-shell .profile-card {
+  border: 1px solid #b8c8ce !important;
+  background: #fbfaf4 !important;
+}
+
+.app-shell .profile-card h2 {
+  color: #071b2c !important;
+}
+
+.app-shell .profile-card-head .badge,
+.app-shell .profile-card-head .score-pill {
+  border: 1px solid #a9bec7 !important;
+  background: #eef3f3 !important;
+  color: #123e59 !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+}
+
+.app-shell .profile-score-ring {
+  border-color: #7ba2a8 !important;
+  background: #eef4f1 !important;
+  color: #123e59 !important;
+}
+
+.app-shell .profile-score-ring strong,
+.app-shell .profile-score-ring small {
+  color: #123e59 !important;
+}
+
+.app-shell .profile-meta span {
+  border-color: #b5c7cd !important;
+  background: #e9f0f1 !important;
+  color: #294c5d !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+}
+
+.app-shell .profile-card .progress {
+  background: #d6e1e3 !important;
+}
+
+.app-shell .profile-card .progress > span {
+  background: linear-gradient(90deg, #2e7275, #1d607e) !important;
+}
+
+.app-shell .profile-title-tags span {
+  border: 1px solid #9fb7c1 !important;
+  background: #dfe9ed !important;
+  color: #173f54 !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  line-height: 1.35;
+}
+
+.app-shell .profile-card-footer > span {
+  color: #506773 !important;
+  font-size: 12px !important;
+}
+
+.app-shell .analysis-grid {
+  gap: 18px;
+}
+
+.app-shell .analysis-grid > div {
+  padding: 20px !important;
+  border: 1px solid #c6d2d5 !important;
+  border-radius: 10px !important;
+  background: #fbfaf4 !important;
+}
+
+.app-shell .analysis-grid h4 {
+  margin: 0 0 14px;
+  color: #071b2c !important;
+  font-size: 20px;
+}
+
+.app-shell .analysis-item {
+  margin-top: 8px;
+  padding: 12px 14px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.app-shell .analysis-item.good {
+  border-color: #adc9bf !important;
+  border-left: 4px solid #2e7275 !important;
+  background: #e5efeb !important;
+  color: #214f46 !important;
+}
+
+.app-shell .analysis-item.warn {
+  border-color: #d7c39d !important;
+  border-left: 4px solid #b48c4e !important;
+  background: #f4ecdc !important;
+  color: #674b22 !important;
+}
+
 @media (max-width: 1280px) {
   .landing-hero-grid {
     grid-template-columns: minmax(0, 1fr);
