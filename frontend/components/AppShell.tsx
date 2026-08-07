@@ -187,8 +187,10 @@ export function AppShell({ children }: { children: ReactNode }) {
         </header>
 
         <main className="app-content">
-          {children}
-          <GuidedJourneyFooter pathname={pathname} />
+          <div className="executive-page-frame">
+            {children}
+            <GuidedJourneyFooter pathname={pathname} />
+          </div>
         </main>
       </div>
 
