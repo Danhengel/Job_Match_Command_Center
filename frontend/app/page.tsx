@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "CareerNavIQ | Intelligent career navigation",
-  description:
-    "An intelligent career-navigation system that connects your direction, opportunities, applications, and next moves.",
+  title: "CareerNavIQ | Executive career intelligence",
+  description: "A private executive career platform for positioning, market intelligence, opportunity management, and interview preparation.",
 };
 
 function CompassMark({ className = "" }: { className?: string }) {
@@ -14,137 +13,74 @@ function CompassMark({ className = "" }: { className?: string }) {
         <circle cx="32" cy="32" r="27" fill="none" stroke="currentColor" strokeWidth="4" />
         <path d="M40.5 23.5 35 35l-11.5 5.5L29 29l11.5-5.5Z" fill="currentColor" />
         <circle cx="32" cy="32" r="3.5" fill="white" />
-        <path d="M32 2v7M32 55v7M2 32h7M55 32h7" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
       </svg>
     </span>
   );
 }
 
-function CheckIcon() {
-  return <span className="landing-check" aria-hidden="true">✓</span>;
-}
-
 export default function HomePage() {
   return (
-    <div className="landing-page">
+    <div className="landing-page executive-public-site">
       <header className="landing-header">
         <div className="landing-container landing-header-inner">
           <Link href="/" className="landing-brand" aria-label="CareerNavIQ home">
             <CompassMark />
-            <span className="landing-wordmark">
-              <span className="landing-word-career">Career</span>
-              <span className="landing-word-nav">Nav</span>
-              <span className="landing-word-iq">IQ</span>
-            </span>
+            <span className="landing-wordmark"><span>Career</span><span>Nav</span><span>IQ</span></span>
           </Link>
-
           <nav className="landing-nav" aria-label="Public navigation">
-            <a href="#how-it-works">How it works</a>
-            <a href="#features">Navigation tools</a>
+            <a href="#platform">Platform</a>
+            <a href="#approach">Approach</a>
             <Link href="/login">Sign in</Link>
-            <Link href="/register" className="landing-nav-cta">Start navigating</Link>
+            <Link href="/register" className="landing-nav-cta">Create account</Link>
           </nav>
         </div>
       </header>
 
       <main>
-        <section className="landing-hero">
+        <section className="landing-hero executive-landing-hero">
           <div className="landing-container landing-hero-grid">
             <div className="landing-hero-copy">
-              <p className="landing-eyebrow">INTELLIGENT CAREER NAVIGATION</p>
-              <h1>A clearer route to what’s next.</h1>
+              <p className="landing-eyebrow">EXECUTIVE CAREER INTELLIGENCE</p>
+              <h1>Your career deserves more than a job board.</h1>
               <p className="landing-hero-lead">
-                CareerNavIQ connects your goals, experience, opportunities, and progress
-                in one guided system—so you can see where you are and choose the right next move.
+                CareerNavIQ brings executive positioning, live market intelligence, opportunity management,
+                relationship strategy, and interview preparation into one private decision platform.
               </p>
-
               <div className="landing-hero-actions">
-                <Link href="/register" className="landing-button landing-button-primary">
-                  Map my next move
-                  <span aria-hidden="true">→</span>
-                </Link>
-                <a href="#how-it-works" className="landing-button landing-button-secondary">
-                  See how it works
-                </a>
+                <Link href="/register" className="landing-button landing-button-primary">Create my executive profile <span aria-hidden="true">→</span></Link>
+                <a href="#platform" className="landing-button landing-button-secondary">Explore the platform</a>
               </div>
-
-              <div className="landing-proof-row" aria-label="CareerNavIQ benefits">
-                <span><CheckIcon /> Direction built around you</span>
-                <span><CheckIcon /> Every next step connected</span>
-                <span><CheckIcon /> Private by design</span>
+              <div className="executive-proof-line">
+                <span>Private by design</span><span>Built for senior-level searches</span><span>Focused on decisions, not volume</span>
               </div>
             </div>
 
-            <div className="landing-product-preview" aria-label="Illustrative CareerNavIQ product preview">
-              <div className="landing-preview-glow" />
-              <div className="landing-dashboard-window">
-                <div className="landing-dashboard-topbar">
-                  <div className="landing-mini-brand">
-                    <CompassMark className="landing-compass-small" />
-                    <strong>CareerNavIQ</strong>
-                  </div>
-                  <span className="landing-preview-label">Navigation preview</span>
+            <div className="landing-product-preview executive-product-preview" aria-label="Illustrative CareerNavIQ executive briefing">
+              <div className="executive-preview-window">
+                <div className="executive-preview-topbar">
+                  <div><CompassMark className="landing-compass-small" /><strong>CareerNavIQ</strong></div>
+                  <span>Executive briefing</span>
                 </div>
-
-                <div className="landing-dashboard-body">
-                  <aside className="landing-preview-sidebar" aria-hidden="true">
-                    <span className="active" />
-                    <span />
-                    <span />
-                    <span />
-                    <span />
-                  </aside>
-
-                  <div className="landing-preview-content">
-                    <div className="landing-preview-heading">
-                      <div>
-                        <small>TODAY’S ROUTE</small>
-                        <strong>Your next best move</strong>
-                      </div>
-                      <span>3 waypoints ahead</span>
-                    </div>
-
-                    <div className="landing-preview-stats">
-                      <div><small>Strong routes</small><strong>12</strong><span>Matched opportunities</span></div>
-                      <div><small>In progress</small><strong>5</strong><span>1 waypoint due</span></div>
-                      <div><small>Interviews</small><strong>2</strong><span>Preparation ready</span></div>
-                    </div>
-
-                    <div className="landing-route-map" aria-hidden="true">
-                      <svg viewBox="0 0 480 80" preserveAspectRatio="none">
-                        <path className="landing-route-contour contour-one" d="M8 66C72 12 120 20 166 49s102 27 143-7 93-28 163 12" />
-                        <path className="landing-route-contour contour-two" d="M15 76C79 28 125 35 169 60s99 21 144-8 96-20 155 12" />
-                        <path className="landing-route-line" d="M18 57C86 57 91 20 159 27s83 36 146 23 91-39 155-19" />
-                        <circle cx="18" cy="57" r="5" />
-                        <circle cx="159" cy="27" r="5" />
-                        <circle cx="305" cy="50" r="5" />
-                        <circle className="landing-route-destination" cx="460" cy="31" r="7" />
-                      </svg>
-                      <span>Direction set</span>
-                      <strong>Next waypoint: refine target roles</strong>
-                    </div>
-
-                    <div className="landing-preview-grid">
-                      <section className="landing-preview-card landing-preview-priority">
-                        <div className="landing-card-heading">
-                          <div><small>NEXT WAYPOINT</small><strong>Sharpen your target direction</strong></div>
-                          <span>72%</span>
-                        </div>
-                        <p>A clear direction leads to stronger matches and more focused next moves.</p>
-                        <div className="landing-progress"><span /></div>
-                        <button type="button" tabIndex={-1}>Continue route</button>
-                      </section>
-
-                      <section className="landing-preview-card">
-                        <div className="landing-card-heading">
-                          <div><small>ROUTE OPTIONS</small><strong>Best-fit opportunities</strong></div>
-                          <span className="landing-green-pill">Updated</span>
-                        </div>
-                        <div className="landing-job-row"><span>94</span><div><strong>Senior Product Manager</strong><small>Remote · Strong experience match</small></div></div>
-                        <div className="landing-job-row"><span>91</span><div><strong>Operations Director</strong><small>Chicago · Leadership alignment</small></div></div>
-                        <div className="landing-job-row"><span>88</span><div><strong>Customer Success Lead</strong><small>Hybrid · Transferable skills match</small></div></div>
-                      </section>
-                    </div>
+                <div className="executive-preview-body">
+                  <div className="executive-preview-heading">
+                    <div><small>THIS WEEK</small><strong>Career momentum</strong></div>
+                    <b>78</b>
+                  </div>
+                  <div className="executive-preview-metrics">
+                    <div><span>High-alignment roles</span><strong>12</strong><small>4 newly identified</small></div>
+                    <div><span>Active pursuits</span><strong>5</strong><small>2 require action</small></div>
+                    <div><span>Interviews</span><strong>2</strong><small>Preparation ready</small></div>
+                  </div>
+                  <div className="executive-preview-priority">
+                    <small>PRIORITY DECISION</small>
+                    <strong>Compare two director-level opportunities before advancing outreach.</strong>
+                    <p>Role quality, compensation, leadership scope, and evidence alignment are summarized in one view.</p>
+                    <div className="executive-preview-line"><span /><span /><span /></div>
+                  </div>
+                  <div className="executive-preview-market">
+                    <div><span>94</span><p><strong>Director, Commercial Lending Operations</strong><small>Strong leadership and portfolio alignment</small></p></div>
+                    <div><span>91</span><p><strong>VP, Credit Administration</strong><small>High operational and risk alignment</small></p></div>
+                    <div><span>87</span><p><strong>Director, Portfolio Management</strong><small>Relevant leadership and asset experience</small></p></div>
                   </div>
                 </div>
               </div>
@@ -152,73 +88,69 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="landing-value-strip" aria-label="Core CareerNavIQ value">
-          <div className="landing-container landing-value-grid">
-            <article>
-              <span className="landing-value-number">01</span>
-              <div><h2>Set your direction</h2><p>Turn your experience, strengths, and goals into a clear career compass.</p></div>
-            </article>
-            <article>
-              <span className="landing-value-number">02</span>
-              <div><h2>Explore the landscape</h2><p>Compare roles, employers, and possible routes against what matters to you.</p></div>
-            </article>
-            <article>
-              <span className="landing-value-number">03</span>
-              <div><h2>Move waypoint to waypoint</h2><p>Keep applications, relationships, interviews, and next actions moving forward.</p></div>
-            </article>
-          </div>
-        </section>
-
-        <section id="how-it-works" className="landing-section landing-how">
+        <section className="executive-trust-strip">
           <div className="landing-container">
-            <div className="landing-section-heading">
-              <p className="landing-eyebrow">ONE CONNECTED ROUTE FORWARD</p>
-              <h2>From scattered activity to a path you can follow.</h2>
-              <p>CareerNavIQ turns career progress into five connected stages, with clear direction at every point.</p>
-            </div>
+            <span>Positioning</span><span>Market intelligence</span><span>Opportunity portfolio</span><span>Relationship management</span><span>Interview advisory</span>
+          </div>
+        </section>
 
-            <div className="landing-steps">
-              <article><span>1</span><h3>Set your direction</h3><p>Clarify the roles, goals, strengths, and conditions that define your next move.</p></article>
-              <article><span>2</span><h3>Explore possible routes</h3><p>Find opportunities and employers that align with the direction you chose.</p></article>
-              <article><span>3</span><h3>Prepare each move</h3><p>Tailor your résumé, story, and outreach for the route in front of you.</p></article>
-              <article><span>4</span><h3>Track your waypoints</h3><p>Keep every application, contact, deadline, and next action clearly marked.</p></article>
-              <article><span>5</span><h3>Navigate the interview</h3><p>Prepare your evidence, practice the conversation, and move forward with confidence.</p></article>
+        <section id="platform" className="landing-section executive-platform-section">
+          <div className="landing-container">
+            <div className="landing-section-heading executive-section-heading-public">
+              <p className="landing-eyebrow">ONE EXECUTIVE WORKSPACE</p>
+              <h2>Manage the search at the level of the decision.</h2>
+              <p>CareerNavIQ replaces scattered spreadsheets, browser tabs, generic alerts, and disconnected notes with a controlled executive workflow.</p>
+            </div>
+            <div className="executive-value-grid">
+              <article><span>01</span><h3>Executive positioning</h3><p>Define target roles, compensation, geography, strengths, and the evidence behind your next move.</p></article>
+              <article><span>02</span><h3>Market intelligence</h3><p>Evaluate live opportunities against your position while suppressing duplicate and low-value job-board noise.</p></article>
+              <article><span>03</span><h3>Opportunity portfolio</h3><p>Manage serious pursuits, stage movement, relationships, follow-ups, interviews, and decisions in one view.</p></article>
             </div>
           </div>
         </section>
 
-        <section id="features" className="landing-section landing-features-section">
-          <div className="landing-container landing-features-layout">
-            <div className="landing-feature-intro">
-              <p className="landing-eyebrow">YOUR CAREER NAVIGATION SYSTEM</p>
-              <h2>Everything you need to find and follow your route.</h2>
-              <p>
-                Bring your direction, opportunities, materials, relationships, and progress
-                into one clear view, with every next move connected.
-              </p>
-              <Link href="/register" className="landing-text-link">Start your route <span aria-hidden="true">→</span></Link>
+        <section id="approach" className="landing-section executive-approach-section">
+          <div className="landing-container executive-approach-layout">
+            <div className="executive-approach-copy">
+              <p className="landing-eyebrow">A MORE DISCIPLINED SEARCH</p>
+              <h2>Designed to help senior professionals make fewer, better career decisions.</h2>
+              <p>Most career software optimizes for activity. CareerNavIQ is built around selectivity, executive evidence, market context, and follow-through.</p>
+              <Link href="/register" className="landing-text-link">Build your executive workspace <span aria-hidden="true">→</span></Link>
             </div>
-
-            <div className="landing-feature-grid">
-              <article><span aria-hidden="true">⌖</span><h3>Career compass</h3><p>Define the roles, goals, strengths, and preferences guiding your next move.</p></article>
-              <article><span aria-hidden="true">◇</span><h3>Opportunity map</h3><p>Find and compare routes that fit your experience and direction.</p></article>
-              <article><span aria-hidden="true">↗</span><h3>Route builder</h3><p>Shape your résumé, story, and outreach for each opportunity.</p></article>
-              <article><span aria-hidden="true">●</span><h3>Waypoint tracker</h3><p>See every application, deadline, contact, and next action in context.</p></article>
-              <article><span aria-hidden="true">◎</span><h3>Interview navigation</h3><p>Prepare stories, questions, and talking points for the next conversation.</p></article>
-              <article><span aria-hidden="true">△</span><h3>Progress signals</h3><p>Use patterns and outcomes to adjust your direction and keep moving.</p></article>
+            <div className="executive-approach-list">
+              <article><span>01</span><div><h3>Establish the mandate</h3><p>Clarify what the next role must deliver professionally, financially, and personally.</p></div></article>
+              <article><span>02</span><div><h3>Read the market</h3><p>Review opportunities and companies against your actual experience and priorities.</p></div></article>
+              <article><span>03</span><div><h3>Prepare the pursuit</h3><p>Tailor résumé evidence, outreach, and interview strategy to the opportunity in front of you.</p></div></article>
+              <article><span>04</span><div><h3>Manage the portfolio</h3><p>Keep active opportunities, relationships, decisions, and follow-ups under control.</p></div></article>
             </div>
           </div>
         </section>
 
-        <section className="landing-final-cta">
-          <div className="landing-container landing-final-card">
-            <CompassMark className="landing-final-compass" />
+        <section className="landing-section executive-capabilities-section">
+          <div className="landing-container">
+            <div className="landing-section-heading executive-section-heading-public">
+              <p className="landing-eyebrow">CORE CAPABILITIES</p>
+              <h2>Everything important. Nothing that makes the process feel like another job board.</h2>
+            </div>
+            <div className="executive-capability-grid">
+              <article><span>EP</span><h3>Executive profile</h3><p>A single mandate for target roles, compensation, geography, and priorities.</p></article>
+              <article><span>MI</span><h3>Market intelligence</h3><p>Live opportunity evaluation with alignment scoring and cleaner market coverage.</p></article>
+              <article><span>PS</span><h3>Positioning studio</h3><p>Role-specific résumé evidence and executive narrative development.</p></article>
+              <article><span>OP</span><h3>Opportunity portfolio</h3><p>Controlled pursuit management across applications, stages, and decisions.</p></article>
+              <article><span>RN</span><h3>Relationship network</h3><p>Recruiter, hiring-team, and professional relationship follow-through.</p></article>
+              <article><span>IA</span><h3>Interview advisory</h3><p>Preparation, practice, executive stories, questions, and follow-up.</p></article>
+            </div>
+          </div>
+        </section>
+
+        <section className="landing-final-cta executive-final-cta">
+          <div className="landing-container landing-final-card executive-final-card">
             <div>
-              <p className="landing-eyebrow">YOUR NEXT MOVE STARTS WITH DIRECTION</p>
-              <h2>Set the destination. Map the way forward.</h2>
-              <p>Build your CareerNavIQ route and bring every important career move into one clear path.</p>
+              <p className="landing-eyebrow">CAREER DECISIONS, MANAGED WITH INTENTION</p>
+              <h2>Build a more disciplined executive search.</h2>
+              <p>Bring your position, market, opportunities, relationships, and preparation into one private workspace.</p>
             </div>
-            <Link href="/register" className="landing-button landing-button-light">Start navigating <span aria-hidden="true">→</span></Link>
+            <Link href="/register" className="landing-button landing-button-light">Create account <span aria-hidden="true">→</span></Link>
           </div>
         </section>
       </main>
@@ -226,21 +158,10 @@ export default function HomePage() {
       <footer className="landing-footer">
         <div className="landing-container landing-footer-inner">
           <div>
-            <Link href="/" className="landing-brand landing-footer-brand">
-              <CompassMark className="landing-compass-small" />
-              <span className="landing-wordmark">
-                <span className="landing-word-career">Career</span>
-                <span className="landing-word-nav">Nav</span>
-                <span className="landing-word-iq">IQ</span>
-              </span>
-            </Link>
-            <p>Intelligent navigation for every career move.</p>
+            <Link href="/" className="landing-brand landing-footer-brand"><CompassMark className="landing-compass-small" /><span className="landing-wordmark"><span>Career</span><span>Nav</span><span>IQ</span></span></Link>
+            <p>Executive career intelligence and decision support.</p>
           </div>
-          <div className="landing-footer-links">
-            <Link href="/login">Sign in</Link>
-            <Link href="/register">Start navigating</Link>
-            <span>CareerNavIQ.com</span>
-          </div>
+          <div className="landing-footer-links"><Link href="/login">Sign in</Link><Link href="/register">Create account</Link><span>CareerNavIQ.com</span></div>
         </div>
       </footer>
     </div>

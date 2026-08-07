@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
-import { PageHeader } from "@/components/ui";
+import { PageHeader, SectionHeader } from "@/components/ui";
 import { api } from "@/lib/api";
 
 const advisoryPrompts = [
@@ -29,37 +28,27 @@ export default function Coach() {
       api("/api/applications"),
       api("/api/intelligence/coach/history"),
     ]);
-
     setProfiles(profileData);
     setApps(applicationData.applications);
     setHistory(historyData);
   }
 
   useEffect(() => {
-    load().catch((loadError) => setError(loadError.message));
+    load().catch((loadError) => setError(loadError instanceof Error ? loadError.message : "Unable to load advisory history."));
   }, []);
 
   async function ask(event: React.FormEvent) {
     event.preventDefault();
     setBusy(true);
     setError("");
-
     try {
       await api("/api/intelligence/coach", {
         method: "POST",
-        body: JSON.stringify({
-          question,
-          profile_id: profileId ? Number(profileId) : null,
-          application_id: applicationId ? Number(applicationId) : null,
-        }),
+        body: JSON.stringify({ question, profile_id: profileId ? Number(profileId) : null, application_id: applicationId ? Number(applicationId) : null }),
       });
       await load();
     } catch (requestError) {
-      setError(
-        requestError instanceof Error
-          ? requestError.message
-          : "Guidance request failed",
-      );
+      setError(requestError instanceof Error ? requestError.message : "Advisory request failed");
     } finally {
       setBusy(false);
     }
@@ -68,72 +57,42 @@ export default function Coach() {
   return (
     <>
       <PageHeader
-        eyebrow="ROUTE GUIDANCE"
-        title="Choose your next move with a clearer bearing"
-        description="Bring your career direction, active applications, and saved evidence into one focused guidance conversation."
+        eyebrow="APPLICATION STRATEGY"
+        title="Examine the decision before you make the move"
+        description="Bring your executive profile, active opportunities, and saved evidence into one focused strategy conversation."
       />
 
       <div className="coach-brief-grid">
         <form className="card coach-brief-form" onSubmit={ask}>
-          <p className="eyebrow">SET YOUR BEARING</p>
-          <h2>Give the route context</h2>
+          <SectionHeader eyebrow="DECISION CONTEXT" title="Frame the question" description="Select the profile and opportunity that should inform the guidance, then make the decision explicit." />
 
-          <label htmlFor="coach-profile">Career direction</label>
-          <select
-            id="coach-profile"
-            value={profileId}
-            onChange={(event) => setProfileId(event.target.value)}
-          >
-            <option value="">General route guidance</option>
-            {profiles.map((profile) => (
-              <option key={profile.id} value={profile.id}>{profile.name}</option>
-            ))}
+          <label htmlFor="coach-profile">Executive profile</label>
+          <select id="coach-profile" value={profileId} onChange={(event) => setProfileId(event.target.value)}>
+            <option value="">General career strategy</option>
+            {profiles.map((profile) => <option key={profile.id} value={profile.id}>{profile.name}</option>)}
           </select>
 
           <label htmlFor="coach-application">Opportunity context</label>
-          <select
-            id="coach-application"
-            value={applicationId}
-            onChange={(event) => setApplicationId(event.target.value)}
-          >
+          <select id="coach-application" value={applicationId} onChange={(event) => setApplicationId(event.target.value)}>
             <option value="">No opportunity selected</option>
-            {apps.map((application: any) => (
-              <option key={application.id} value={application.id}>
-                {application.job.company} — {application.job.title}
-              </option>
-            ))}
+            {apps.map((application: any) => <option key={application.id} value={application.id}>{application.job.company} — {application.job.title}</option>)}
           </select>
 
           <label htmlFor="coach-question">Decision to examine</label>
-          <textarea
-            id="coach-question"
-            rows={8}
-            value={question}
-            onChange={(event) => setQuestion(event.target.value)}
-          />
+          <textarea id="coach-question" rows={8} value={question} onChange={(event) => setQuestion(event.target.value)} />
 
           {error ? <p className="error" role="alert">{error}</p> : null}
-          <button disabled={busy || !question.trim()}>
-            {busy ? "Mapping guidance…" : "Get navigation guidance"}
-          </button>
+          <button disabled={busy || !question.trim()}>{busy ? "Preparing guidance…" : "Request strategic guidance"}</button>
         </form>
 
         <section className="card coach-prompt-library">
-          <p className="eyebrow">STARTING POINTS</p>
-          <h2>Questions worth asking</h2>
-          <p className="muted">
-            Choose a prompt, then add the nuance that makes the decision yours.
-          </p>
+          <p className="eyebrow">DECISION PROMPTS</p>
+          <h2>Questions worth examining</h2>
+          <p className="muted">Start with a focused prompt, then add the nuance that makes the decision specific to you.</p>
           <div className="coach-prompt-list">
             {advisoryPrompts.map((prompt, index) => (
-              <button
-                className="version-button coach-prompt-button"
-                key={prompt}
-                type="button"
-                onClick={() => setQuestion(prompt)}
-              >
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <strong>{prompt}</strong>
+              <button className="version-button coach-prompt-button" key={prompt} type="button" onClick={() => setQuestion(prompt)}>
+                <span>{String(index + 1).padStart(2, "0")}</span><strong>{prompt}</strong>
               </button>
             ))}
           </div>
@@ -141,24 +100,9 @@ export default function Coach() {
       </div>
 
       <section className="card coach-history-panel">
-        <div className="coach-history-heading">
-          <div>
-            <p className="eyebrow">ROUTE LOG</p>
-            <h2>Prior guidance</h2>
-          </div>
-          <span>{history.length} conversations</span>
-        </div>
-
-        {history.map((item) => (
-          <article className="coach-message" key={item.id}>
-            <strong>{item.question}</strong>
-            <p>{item.answer}</p>
-            <small>{new Date(item.created_at).toLocaleString()}</small>
-          </article>
-        ))}
-        {!history.length ? (
-          <p className="muted">Your guidance history will appear here.</p>
-        ) : null}
+        <div className="coach-history-heading"><div><p className="eyebrow">ADVISORY HISTORY</p><h2>Prior guidance</h2></div><span>{history.length} conversations</span></div>
+        {history.map((item) => <article className="coach-message" key={item.id}><strong>{item.question}</strong><p>{item.answer}</p><small>{new Date(item.created_at).toLocaleString()}</small></article>)}
+        {!history.length ? <p className="muted">Your strategic guidance history will appear here.</p> : null}
       </section>
     </>
   );
