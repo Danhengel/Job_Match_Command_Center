@@ -15,65 +15,65 @@ export type CareerStage = {
 
 export const CAREER_STAGES: CareerStage[] = [
   {
-    id: "foundation",
+    id: "positioning",
     number: 1,
-    label: "Define your mandate",
+    label: "Define your executive position",
     shortLabel: "Positioning",
-    description: "Executive profile, experience, and career mandate",
+    description: "Goals, experience, compensation, and executive narrative",
     href: "/profiles",
     items: [
       { href: "/profiles", label: "Executive profile" },
-      { href: "/resumes", label: "Experience portfolio" },
-      { href: "/resumes/studio", label: "Résumé studio" },
+      { href: "/resumes", label: "Experience library" },
+      { href: "/resumes/studio", label: "Positioning studio" },
     ],
   },
   {
-    id: "discover",
+    id: "market",
     number: 2,
     label: "Read the market",
     shortLabel: "Market",
-    description: "Opportunities, target organizations, and market signals",
+    description: "Opportunities, target companies, and market signals",
     href: "/jobs",
     items: [
-      { href: "/jobs", label: "Opportunity intelligence" },
-      { href: "/companies", label: "Target organizations" },
-      { href: "/company-watches", label: "Market watchlist" },
+      { href: "/jobs", label: "Market intelligence" },
+      { href: "/companies", label: "Target companies" },
+      { href: "/company-watches", label: "Company watchlist" },
     ],
   },
   {
-    id: "prepare",
+    id: "pursuit",
     number: 3,
-    label: "Shape your position",
-    shortLabel: "Strategy",
-    description: "Role positioning, materials, and executive outreach",
+    label: "Prepare the pursuit",
+    shortLabel: "Pursuit",
+    description: "Role strategy, tailored materials, and outreach",
     href: "/coach",
     items: [
       { href: "/coach", label: "Application strategy" },
-      { href: "/outreach", label: "Executive outreach" },
+      { href: "/outreach", label: "Outreach studio" },
     ],
   },
   {
-    id: "track",
+    id: "portfolio",
     number: 4,
-    label: "Manage the pipeline",
-    shortLabel: "Pipeline",
-    description: "Applications, relationships, and decision points",
+    label: "Manage the portfolio",
+    shortLabel: "Portfolio",
+    description: "Opportunities, relationships, follow-ups, and decisions",
     href: "/applications",
     items: [
-      { href: "/applications", label: "Opportunity pipeline" },
-      { href: "/crm", label: "Relationship map" },
+      { href: "/applications", label: "Opportunity portfolio" },
+      { href: "/crm", label: "Relationship network" },
     ],
   },
   {
-    id: "interview",
+    id: "interviews",
     number: 5,
-    label: "Advance the opportunity",
-    shortLabel: "Advance",
-    description: "Interview strategy, schedule, and follow-through",
+    label: "Advance through interviews",
+    shortLabel: "Interviews",
+    description: "Preparation, practice, schedule, and follow-through",
     href: "/interviews",
     items: [
-      { href: "/interviews", label: "Interview center" },
-      { href: "/interview-coach", label: "Executive practice" },
+      { href: "/interviews", label: "Interview advisory" },
+      { href: "/interview-coach", label: "Practice lab" },
       { href: "/calendar", label: "Calendar" },
       { href: "/notifications", label: "Updates" },
     ],
@@ -81,10 +81,10 @@ export const CAREER_STAGES: CareerStage[] = [
 ];
 
 export const UTILITY_LINKS: CareerJourneyItem[] = [
-  { href: "/command-center", label: "Command center" },
+  { href: "/command-center", label: "Executive command center" },
   { href: "/analytics", label: "Performance intelligence" },
-  { href: "/reports/weekly", label: "Weekly executive brief" },
-  { href: "/automation", label: "Automation desk" },
+  { href: "/reports/weekly", label: "Weekly briefing" },
+  { href: "/automation", label: "Automation" },
   { href: "/settings/automation", label: "Preferences" },
 ];
 
@@ -108,10 +108,10 @@ export function getCareerStage(pathname: string) {
 }
 
 export function getCurrentPageLabel(pathname: string) {
-  if (pathname === "/dashboard") return "Executive briefing";
+  if (pathname === "/dashboard") return "Executive command center";
 
   return getActiveJourneyItem(pathname, [
     ...CAREER_STAGES.flatMap((stage) => stage.items),
     ...UTILITY_LINKS,
-  ])?.label ?? "Career intelligence";
+  ])?.label ?? "Executive career workspace";
 }
