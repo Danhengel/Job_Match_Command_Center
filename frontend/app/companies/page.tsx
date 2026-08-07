@@ -134,7 +134,7 @@ export default function Companies() {
         <section className="card">
           <p className="eyebrow">LOADING</p>
           <h2>Building your company intelligence view…</h2>
-          <p className="muted">CareerNavIQ is connecting matched jobs and application activity.</p>
+          <p className="muted">CareerNavIQ is connecting aligned opportunities and portfolio activity.</p>
         </section>
       ) : null}
 
@@ -192,10 +192,10 @@ export default function Companies() {
 
       {!loading && !visibleCompanies.length && !error ? (
         <EmptyState
-          title={query ? "No companies match this filter" : "No company intelligence yet"}
+          title={query ? "No organizations meet this filter" : "No organization intelligence yet"}
           description={query
             ? "Try a broader company name or role title."
-            : "Run job searches or save applications to populate company hiring and opportunity insights."}
+            : "Review the market or save active pursuits to populate organization and opportunity intelligence."}
           action={query
             ? <button type="button" className="secondary" onClick={() => setQuery("")}>Clear filter</button>
             : <Link className="button" href="/jobs">Search current jobs</Link>}

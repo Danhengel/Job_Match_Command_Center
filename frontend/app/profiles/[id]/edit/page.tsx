@@ -95,7 +95,7 @@ export default function EditProfile({ params }: { params: Promise<{ id: string }
       <PageHeader
         eyebrow="PROFILE SETTINGS"
         title="Refine your career profile"
-        description="Keep your target roles, location preferences, and matching priorities aligned with the opportunities you want CareerNavIQ to find."
+        description="Keep your target roles, geographic parameters, and selection criteria aligned with the opportunities you want CareerNavIQ to evaluate."
         actions={<Link className="button secondary" href={`/profiles/${id}`}>Back to profile</Link>}
       />
 
@@ -185,7 +185,7 @@ export default function EditProfile({ params }: { params: Promise<{ id: string }
           <section className="card profile-edit-section">
             <div className="profile-edit-heading">
               <span>03</span>
-              <div><h2>Matching priorities</h2><p>Update the signals CareerNavIQ should emphasize—and the terms it should filter out.</p></div>
+              <div><h2>Selection criteria</h2><p>Update the signals CareerNavIQ should emphasize—and the terms it should set aside.</p></div>
             </div>
 
             <div className="profile-edit-textareas">
@@ -226,7 +226,7 @@ export default function EditProfile({ params }: { params: Promise<{ id: string }
           </section>
 
           <footer className="profile-edit-save-bar">
-            <div><strong>Career profile changes</strong><span>Updates affect future job matching and saved-search results.</span></div>
+            <div><strong>Executive position changes</strong><span>Updates affect future opportunity scoring and standing market briefs.</span></div>
             <div className="row wrap">
               <Link className="button secondary" href={`/profiles/${id}`}>Cancel</Link>
               <button type="submit" disabled={saving}>{saving ? "Saving changes…" : "Save profile changes"}</button>

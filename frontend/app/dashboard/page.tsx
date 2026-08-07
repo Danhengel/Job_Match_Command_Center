@@ -101,7 +101,7 @@ export default function Dashboard() {
     setGoals(next); localStorage.setItem("careeros-command-goals", JSON.stringify(next));
   }
 
-  if (error) return <section className="dashboard-panel"><h2>Dashboard unavailable</h2><p className="error">{error}</p><Link className="button" href="/login">Sign in again</Link></section>;
+  if (error) return <section className="dashboard-panel"><h2>Private office unavailable</h2><p className="error">{error}</p><Link className="button" href="/login">Sign in again</Link></section>;
   if (!data) return <section className="dashboard-panel"><p className="eyebrow">CAREERNAVIQ PRIVATE OFFICE</p><h2>Preparing your executive brief…</h2></section>;
 
   const firstName = data.user_name?.trim().split(/\s+/)[0] || "there";
@@ -111,7 +111,7 @@ export default function Dashboard() {
   const priorities = [
     ...(followups ? [{title:`Complete ${followups} follow-up${followups===1?"":"s"}`, detail:"Keep active applications and recruiter relationships moving.", href:"/crm", action:"Review follow-ups", urgency:"Due now"}] : []),
     ...(computed.nextInterview ? [{title:`Prepare for ${computed.nextInterview.title}`, detail:`${daysUntil(computed.nextInterview.starts_at)} day${daysUntil(computed.nextInterview.starts_at)===1?"":"s"} away. Review stories, questions, and role evidence.`, href:"/interview-coach", action:"Practice now", urgency:"Upcoming"}] : []),
-    ...(highMatches ? [{title:`Review ${highMatches} strong match${highMatches===1?"":"es"}`, detail:"Prioritize newly discovered roles and tailor before applying.", href:"/jobs", action:"Review matches", urgency:"Opportunity"}] : []),
+    ...(highMatches ? [{title:`Review ${highMatches} high-alignment opportunit${highMatches===1?"y":"ies"}`, detail:"Prioritize newly identified roles and shape the evidence before advancing.", href:"/jobs", action:"Review intelligence", urgency:"Opportunity"}] : []),
   ];
   if (!priorities.length) priorities.push({title:"Refresh your market intelligence", detail:"Review the market and identify the opportunities most aligned to your mandate.", href:"/jobs", action:"Open intelligence", urgency:"Advisory"});
 

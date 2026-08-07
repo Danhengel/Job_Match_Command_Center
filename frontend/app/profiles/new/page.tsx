@@ -142,8 +142,8 @@ function InfoIcon() {
 function PlusIcon() {
   return (
     <Icon size={20}>
-      <circle cx="12" cy="12" r="9" fill="currentColor" />
-      <path d="M12 8v8M8 12h8" stroke="#3157dd" strokeLinecap="round" strokeWidth="2" />
+      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.7" />
+      <path d="M12 8v8M8 12h8" stroke="currentColor" strokeLinecap="round" strokeWidth="2" />
     </Icon>
   );
 }
@@ -338,9 +338,9 @@ export default function NewProfile() {
             <BriefcaseIcon />
           </div>
           <div>
-            <p className={styles.eyebrow}>Career profile setup</p>
-            <h1>Create Career Profile</h1>
-            <p>Define what you are looking for so CareerNavIQ can surface stronger-fit opportunities.</p>
+            <p className={styles.eyebrow}>Private career mandate</p>
+            <h1>Establish your career mandate</h1>
+            <p>Define the position, geography, and evidence that should guide your private opportunity office.</p>
           </div>
         </header>
 
@@ -350,8 +350,8 @@ export default function NewProfile() {
           <div className={styles.sectionHeading}>
             <span>01</span>
             <div>
-              <h2 id="profile-basics">Profile basics</h2>
-              <p>Name this search and tell us where you want to work.</p>
+              <h2 id="profile-basics">Mandate foundation</h2>
+              <p>Name this mandate and define the market in which you want to operate.</p>
             </div>
           </div>
 
@@ -359,9 +359,9 @@ export default function NewProfile() {
             <TextField
               icon={<UserIcon />}
               id="profile-name"
-              label="Profile name"
+              label="Mandate name"
               onChange={setName}
-              placeholder="For example: Primary profile"
+              placeholder="For example: Executive operating mandate"
               required
               value={name}
             />
@@ -380,8 +380,8 @@ export default function NewProfile() {
           <div className={styles.sectionHeading}>
             <span>02</span>
             <div>
-              <h2 id="work-preferences">Work preferences</h2>
-              <p>Set the location flexibility and compensation range that matter to you.</p>
+              <h2 id="work-preferences">Operating parameters</h2>
+              <p>Set the geographic flexibility and compensation threshold that matter to you.</p>
             </div>
           </div>
 
@@ -407,7 +407,7 @@ export default function NewProfile() {
               <TextField
                 icon={<TargetIcon />}
                 id="search-radius"
-                label="Search radius in miles"
+                label="Market radius in miles"
                 max="500"
                 min="0"
                 onChange={setRadius}
@@ -435,8 +435,8 @@ export default function NewProfile() {
           <div className={styles.sectionHeading}>
             <span>03</span>
             <div>
-              <h2 id="matching-priorities">Matching priorities</h2>
-              <p>Give CareerNavIQ the signals it should prioritize—and the roles it should avoid.</p>
+              <h2 id="matching-priorities">Selection criteria</h2>
+              <p>Set the signals CareerNavIQ should prioritize—and the opportunities it should set aside.</p>
             </div>
           </div>
 
@@ -474,7 +474,7 @@ export default function NewProfile() {
         <footer className={styles.footer}>
           <button className={styles.submitButton} disabled={saving} type="submit">
             <PlusIcon />
-            <span>{saving ? "Creating profile…" : "Create profile"}</span>
+            <span>{saving ? "Establishing mandate…" : "Establish mandate"}</span>
           </button>
           <p>
             <LockIcon />

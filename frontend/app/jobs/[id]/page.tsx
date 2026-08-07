@@ -54,14 +54,14 @@ export default function JobWorkspace(){
   catch(e){setError(e instanceof Error?e.message:"Application save failed")} finally{setBusy(false)}
  }
  async function copy(text:string){await navigator.clipboard.writeText(text)}
- if(!profileId)return <div className="card"><h2>Profile required</h2><p>Open this job from the Job Matches page.</p></div>;
- if(!data)return <div className="card"><h2>Loading job workspace…</h2>{error&&<p className="error">{error}</p>}</div>;
+ if(!profileId)return <div className="card"><h2>Career mandate required</h2><p>Open this opportunity from Market Intelligence.</p></div>;
+ if(!data)return <div className="card"><h2>Loading opportunity workspace…</h2>{error&&<p className="error">{error}</p>}</div>;
 
  return <><div className="hero"><p className="eyebrow">APPLICATION WORKSPACE</p><h1>{data.job.title}</h1><p className="muted">{data.job.company} · {data.job.location||"Location not listed"} · {data.job.source}</p><div className="row wrap"><a className="button secondary" href={data.job.url} target="_blank">Original posting</a><button onClick={()=>saveApplication("wishlist")} disabled={busy}>Save to pipeline</button><button onClick={()=>saveApplication("applied")} disabled={busy}>Mark applied</button>{applicationId&&<a className="button secondary" href={`/applications/${applicationId}`}>Open application</a>}{data.job.salary&&<span className="badge metric-badge">{data.job.salary}</span>}</div></div>
  {error&&<div className="card"><p className="error">{error}</p></div>}
  <div className="two-col tailor-layout"><div>
-  <div className="card"><div className="row between"><h2>Match analysis</h2>{data.match&&<div className="job-score">{data.match.score}<small>match</small></div>}</div>
-  {data.match?<><p>{data.match.explanation}</p><div className="score-bars"><span>Title <b>{data.match.title_score}</b></span><span>Keywords <b>{data.match.keyword_score}</b></span><span>Location <b>{data.match.location_score}</b></span><span>Résumé <b>{data.match.resume_score}</b></span></div><p><strong>Matched:</strong> {data.match.matched_keywords.join(" · ")||"None"}</p><p className="warn-text"><strong>Review:</strong> {data.match.concerns.join(" · ")||"No flags"}</p></>:<p className="muted">No saved match score is available.</p>}</div>
+  <div className="card"><div className="row between"><h2>Alignment analysis</h2>{data.match&&<div className="job-score">{data.match.score}<small>alignment</small></div>}</div>
+  {data.match?<><p>{data.match.explanation}</p><div className="score-bars"><span>Title <b>{data.match.title_score}</b></span><span>Keywords <b>{data.match.keyword_score}</b></span><span>Location <b>{data.match.location_score}</b></span><span>Résumé <b>{data.match.resume_score}</b></span></div><p><strong>Aligned evidence:</strong> {data.match.matched_keywords.join(" · ")||"None"}</p><p className="warn-text"><strong>Review:</strong> {data.match.concerns.join(" · ")||"No flags"}</p></>:<p className="muted">No saved alignment score is available.</p>}</div>
   <div className="card"><h2>Job description</h2><div className="job-description">{data.job.description||"No description was returned by the provider."}</div></div>
  </div>
  <div>
@@ -75,7 +75,7 @@ export default function JobWorkspace(){
  {active&&<div className="card tailoring-output"><div className="row between"><div><p className="eyebrow">TAILORED VERSION</p><h2>{active.version_name}</h2></div><div className="job-score">{active.ats_score}<small>ATS</small></div></div>
   <h3>Professional summary</h3><p>{active.professional_summary}</p>
   <h3>Selected evidence</h3>{active.selected_evidence.map((x,i)=><p key={i}>• {x}</p>)}
-  <h3>Matched keywords</h3><div className="row wrap">{active.matched_keywords.map(x=><span className="badge" key={x}>{x}</span>)}</div>
+  <h3>Aligned evidence terms</h3><div className="row wrap">{active.matched_keywords.map(x=><span className="badge" key={x}>{x}</span>)}</div>
   <h3>Keywords requiring verification</h3><div className="row wrap">{active.missing_keywords.map(x=><span className="badge warning-badge" key={x}>{x}</span>)}</div>
   <h3>Recommendations</h3>{active.recommendations.map((x,i)=><p key={i}>• {x}</p>)}
   <div className="row wrap"><button onClick={()=>copy(active.tailored_text)}>Copy résumé draft</button><button className="secondary" onClick={cover}>{active.cover_letter?"Regenerate cover letter":"Generate cover letter"}</button><button className="secondary" onClick={()=>downloadApi(`/api/tailoring/${active.id}/download.txt`,`tailored_resume_${active.id}.txt`)}>TXT</button><button className="secondary" onClick={()=>downloadApi(`/api/tailoring/${active.id}/download.docx`,`tailored_resume_${active.id}.docx`)}>DOCX</button><button className="secondary" onClick={()=>downloadApi(`/api/tailoring/${active.id}/download.pdf`,`tailored_resume_${active.id}.pdf`)}>PDF</button></div>

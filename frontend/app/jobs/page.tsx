@@ -174,7 +174,7 @@ export default function JobsPage() {
       setErrors([
         error instanceof Error
           ? error.message
-          : "Could not load saved job matches",
+          : "Could not load saved opportunity intelligence",
       ]);
     } finally {
       setLoadingSaved(false);
@@ -226,7 +226,7 @@ export default function JobsPage() {
               setErrors([
                 error instanceof Error
                   ? error.message
-                  : "Could not load saved job matches",
+                  : "Could not load saved opportunity intelligence",
               ]);
             }
           } finally {

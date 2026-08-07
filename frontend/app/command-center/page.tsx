@@ -143,8 +143,8 @@ export default function CommandCenterPage() {
     <>
       <section className="executive-hero">
         <div>
-          <p className="eyebrow">SPRINT 12 · EXECUTIVE CAREER PLATFORM</p>
-          <h1>Executive Career Command Center</h1>
+          <p className="eyebrow">PRIVATE INTELLIGENCE DESK</p>
+          <h1>Executive portfolio intelligence</h1>
           <p className="muted">
             Monitor opportunities, applications, interviews, recruiter
             relationships, and your highest-priority next actions.
@@ -157,7 +157,7 @@ export default function CommandCenterPage() {
           </button>
 
           <Link className="button secondary" href="/jobs">
-            Search jobs
+            Review the market
           </Link>
         </div>
       </section>
@@ -170,9 +170,9 @@ export default function CommandCenterPage() {
 
       <section className="executive-metrics-grid">
         <article className="executive-metric-card">
-          <span>Total matches</span>
+          <span>Selected opportunities</span>
           <strong>{metrics.total_matches}</strong>
-          <small>{metrics.high_matches} high-priority matches</small>
+          <small>{metrics.high_matches} high-priority signals</small>
         </article>
 
         <article className="executive-metric-card">
@@ -194,7 +194,7 @@ export default function CommandCenterPage() {
         </article>
 
         <article className="executive-metric-card">
-          <span>Average match</span>
+          <span>Average alignment</span>
           <strong>{metrics.average_match}%</strong>
           <small>Across scored opportunities</small>
         </article>
@@ -214,7 +214,7 @@ export default function CommandCenterPage() {
         <article className="executive-metric-card">
           <span>Unread alerts</span>
           <strong>{metrics.unread_notifications}</strong>
-          <small>Matches, searches, and follow-ups</small>
+          <small>Opportunities, briefs, and follow-ups</small>
         </article>
       </section>
 
@@ -254,7 +254,7 @@ export default function CommandCenterPage() {
             <div className="empty-state">
               <h3>No urgent actions</h3>
               <p className="muted">
-                Your interviews, follow-ups, and high matches will appear here.
+                Your interviews, follow-ups, and high-alignment opportunities will appear here.
               </p>
             </div>
           )}
@@ -314,12 +314,12 @@ export default function CommandCenterPage() {
       <section className="card">
         <div className="row between">
           <div>
-            <p className="eyebrow">APPLICATION FUNNEL</p>
-            <h2>Pipeline by stage</h2>
+            <p className="eyebrow">PORTFOLIO MOVEMENT</p>
+            <h2>Pursuits by stage</h2>
           </div>
 
           <Link className="button secondary" href="/applications">
-            Open Kanban board
+            Open portfolio
           </Link>
         </div>
 
@@ -355,11 +355,11 @@ export default function CommandCenterPage() {
           <div className="row between">
             <div>
               <p className="eyebrow">OPPORTUNITY QUEUE</p>
-              <h2>Highest-match jobs</h2>
+              <h2>Highest-alignment opportunities</h2>
             </div>
 
             <Link className="button secondary" href="/jobs">
-              All matches
+              View all
             </Link>
           </div>
 
@@ -372,7 +372,7 @@ export default function CommandCenterPage() {
               >
                 <div className="executive-job-score">
                   {job.score}
-                  <small>match</small>
+                  <small>alignment</small>
                 </div>
 
                 <div>
@@ -387,7 +387,7 @@ export default function CommandCenterPage() {
             ))
           ) : (
             <p className="muted">
-              Run a job search to populate the opportunity queue.
+              Commission a market review to populate the opportunity queue.
             </p>
           )}
         </article>
@@ -449,17 +449,17 @@ export default function CommandCenterPage() {
 
       <section className="card">
         <p className="eyebrow">QUICK ACTIONS</p>
-        <h2>Continue your job search</h2>
+        <h2>Continue your market review</h2>
 
         <div className="executive-action-grid">
           <Link className="executive-action-card" href="/jobs">
-            <strong>Find opportunities</strong>
-            <span>Search and rank current jobs.</span>
+            <strong>Read the current market</strong>
+            <span>Review and rank selected opportunities.</span>
           </Link>
 
           <Link className="executive-action-card" href="/applications">
             <strong>Manage pipeline</strong>
-            <span>Move applications through the Kanban board.</span>
+            <span>Advance pursuits through each decision stage.</span>
           </Link>
 
           <Link className="executive-action-card" href="/resumes">
@@ -473,8 +473,8 @@ export default function CommandCenterPage() {
           </Link>
 
           <Link className="executive-action-card" href="/automation">
-            <strong>Run saved searches</strong>
-            <span>Discover fresh opportunities automatically.</span>
+            <strong>Commission standing briefs</strong>
+            <span>Monitor fresh opportunity signals automatically.</span>
           </Link>
 
           <Link className="executive-action-card" href="/coach">

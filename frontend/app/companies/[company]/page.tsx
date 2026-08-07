@@ -63,7 +63,7 @@ export default function CompanyDetail() {
         eyebrow="COMPANY WORKSPACE"
         title={data?.company || decodedCompany || "Company intelligence"}
         description={data
-          ? `${data.open_job_count} matched job${data.open_job_count === 1 ? "" : "s"}, ${data.application_count} application${data.application_count === 1 ? "" : "s"}, and ${data.remote_job_count} remote opportunit${data.remote_job_count === 1 ? "y" : "ies"} connected to this company.`
+          ? `${data.open_job_count} aligned opportunit${data.open_job_count === 1 ? "y" : "ies"}, ${data.application_count} active pursuit${data.application_count === 1 ? "" : "s"}, and ${data.remote_job_count} remote opportunit${data.remote_job_count === 1 ? "y" : "ies"} connected to this organization.`
           : "Review opportunity and application activity for this employer."}
         actions={
           <div className="row wrap">
@@ -81,14 +81,14 @@ export default function CompanyDetail() {
         <section className="card">
           <p className="eyebrow">LOADING</p>
           <h2>Connecting company opportunities…</h2>
-          <p className="muted">CareerNavIQ is loading matched roles and application activity.</p>
+          <p className="muted">CareerNavIQ is loading aligned opportunities and portfolio activity.</p>
         </section>
       ) : null}
 
       {!loading && data ? (
         <>
           <section className="company-detail-kpis" aria-label={`${data.company} summary`}>
-            <article><span>Matched jobs</span><strong>{data.open_job_count}</strong><small>current opportunities</small></article>
+            <article><span>Aligned opportunities</span><strong>{data.open_job_count}</strong><small>current market signals</small></article>
             <article><span>Applications</span><strong>{data.application_count}</strong><small>tracked in your pipeline</small></article>
             <article><span>Remote roles</span><strong>{data.remote_job_count}</strong><small>location-flexible openings</small></article>
             <article><span>Salary listed</span><strong>{data.salary_listed_count}</strong><small>transparent compensation</small></article>
@@ -133,7 +133,7 @@ export default function CompanyDetail() {
             ) : (
               <EmptyState
                 title="No roles are connected to this company yet"
-                description="Run a new job search or broaden your profile titles to discover additional opportunities."
+                description="Commission a new market review or broaden your target position to discover additional opportunities."
                 action={<Link className="button" href="/jobs">Search current jobs</Link>}
               />
             )}

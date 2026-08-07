@@ -15,7 +15,7 @@ export function BrandCompass({ className }: { className?: string }) {
         strokeLinejoin="round"
         strokeWidth="1.2"
       />
-      <circle cx="16" cy="16" r="1.5" fill="#5eead4" />
+      <circle cx="16" cy="16" r="1.5" fill="var(--editorial-ink, #181713)" />
       <path
         d="M16 2.8v2.4M16 26.8v2.4M2.8 16h2.4M26.8 16h2.4"
         stroke="currentColor"

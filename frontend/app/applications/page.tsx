@@ -149,7 +149,7 @@ export default function Applications() {
             <small>offer or accepted</small>
           </article>
           <article className="pipeline-summary-card">
-            <span>Average match</span>
+            <span>Average alignment</span>
             <strong>{summary.averageMatch ? `${summary.averageMatch}%` : "—"}</strong>
             <small>{summary.averageMatch ? "across scored roles" : "no scores available"}</small>
           </article>
@@ -238,7 +238,7 @@ export default function Applications() {
 
                   {!stageItems.length ? (
                     <div className="kanban-empty-stage">
-                      <span>No matching applications</span>
+                      <span>No applications meet these filters</span>
                     </div>
                   ) : null}
                 </div>

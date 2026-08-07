@@ -166,14 +166,14 @@ export default function InterviewCoach() {
         <div className="coach-guidance"><strong>Strong answer pattern</strong><span>Situation: 15–20 seconds</span><span>Task: 10–15 seconds</span><span>Action: 45–60 seconds</span><span>Result: 15–20 seconds</span></div>
       </aside>
 
-      <main className="studio-panel mock-interview-panel">
+      <section className="studio-panel mock-interview-panel">
         <div className="row between"><div><p className="eyebrow">MOCK INTERVIEW</p><h2>{track}</h2></div><span className="badge">{selectedApp ? selectedApp.job.company : "General"}</span></div>
         <blockquote className="coach-question">{question}</blockquote>
         {suggestedStories.length ? <div className="story-suggestions"><strong>Possible stories</strong>{suggestedStories.map((item) => <button type="button" key={item.id} onClick={() => setAnswer(`Situation: ${item.situation}\n\nTask: ${item.task}\n\nAction: ${item.action}\n\nResult: ${item.result}`)}>{item.title}</button>)}</div> : null}
         <label>Your answer</label><textarea rows={14} value={answer} placeholder="Use a specific example. Focus on what you personally did and quantify the outcome." onChange={(e) => setAnswer(e.target.value)} />
         <div className="row wrap"><button type="button" disabled={!answer.trim()} onClick={submitAnswer}>Score answer</button><button type="button" className="secondary" onClick={nextQuestion}>Next question</button></div>
         {result ? <section className="coach-result"><div className="coach-score"><strong>{result.score}</strong><small>answer score</small></div><div><h3>{result.score >= 80 ? "Interview-ready foundation" : result.score >= 60 ? "Good foundation—tighten it" : "Needs more specific evidence"}</h3>{result.feedback.map((item) => <p key={item}>• {item}</p>)}</div></section> : null}
-      </main>
+      </section>
 
       <aside className="studio-panel star-library-panel">
         <div className="row between"><div><p className="eyebrow">STORY LIBRARY</p><h2>STAR examples</h2></div><button type="button" className="secondary compact" onClick={() => setShowStoryForm(!showStoryForm)}>Add story</button></div>

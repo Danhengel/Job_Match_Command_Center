@@ -8,7 +8,7 @@
   --editorial-paper: #faf8f2;
   --editorial-ink: #1d1c18;
   --editorial-copy: #494740;
-  --editorial-muted: #716e65;
+  --editorial-muted: #6b685f;
   --editorial-line: #d5cfc2;
   --editorial-line-strong: #b5ac9d;
   --editorial-plum: #8a704a;
@@ -27,8 +27,81 @@
   --v3-primary: var(--editorial-plum);
   --v3-primary-hover: var(--editorial-plum-deep);
   --v3-primary-soft: var(--editorial-plum-soft);
+  --v3-faint: #8a867d;
+  --v3-accent: var(--editorial-sage);
+  --v3-accent-soft: var(--editorial-sage-soft);
+  --v3-success: #385247;
+  --v3-warning: #8b6534;
+  --v3-danger: #9b3e45;
+  --premium-canvas: var(--editorial-canvas);
+  --premium-surface: var(--editorial-paper);
+  --premium-surface-soft: #f7f4ee;
+  --premium-ink: var(--editorial-ink);
+  --premium-ink-soft: var(--editorial-copy);
+  --premium-muted: var(--editorial-muted);
+  --premium-faint: #8a867d;
+  --premium-line: var(--editorial-line);
+  --premium-line-strong: var(--editorial-line-strong);
+  --premium-primary: var(--editorial-plum);
+  --premium-primary-hover: var(--editorial-plum-deep);
+  --premium-primary-soft: var(--editorial-plum-soft);
+  --premium-teal: var(--editorial-sage);
+  --premium-teal-soft: var(--editorial-sage-soft);
+  --premium-success: #385247;
+  --premium-warning: #8b6534;
+  --premium-danger: #9b3e45;
+  --shell: var(--editorial-canvas);
+  --panel: var(--editorial-paper);
+  --surface: var(--editorial-paper);
+  --surface-raised: #fffdf8;
+  --surface-soft: #f7f4ee;
+  --soft: #eee9df;
+  --border: var(--editorial-line);
+  --border-strong: var(--editorial-line-strong);
+  --text: var(--editorial-ink);
+  --muted: var(--editorial-muted);
+  --muted-strong: #5d594f;
   --primary: var(--editorial-plum);
+  --primary-strong: var(--editorial-plum-deep);
+  --primary-soft: var(--editorial-plum-soft);
   --accent: var(--editorial-sage);
+  --teal: var(--editorial-sage);
+  --teal-soft: var(--editorial-sage-soft);
+  --success: #385247;
+  --warning: #8b6534;
+  --danger: #9b3e45;
+  --brand-shell: var(--editorial-canvas);
+  --brand-surface: var(--editorial-paper);
+  --brand-soft: #f7f4ee;
+  --brand-border: var(--editorial-line);
+  --brand-control-border: var(--editorial-line-strong);
+  --brand-text: var(--editorial-ink);
+  --brand-muted: var(--editorial-muted);
+  --brand-blue-700: var(--editorial-plum-deep);
+  --brand-blue-600: var(--editorial-plum);
+  --brand-blue-500: #a8895b;
+  --brand-teal-400: #7f9588;
+  --brand-teal-700: var(--editorial-sage);
+  --brand-success: #385247;
+  --brand-danger: #9b3e45;
+  --workspace-bg: var(--editorial-canvas);
+  --workspace-surface: var(--editorial-paper);
+  --workspace-soft: #f7f4ee;
+  --workspace-border: var(--editorial-line);
+  --workspace-text: var(--editorial-ink);
+  --workspace-muted: var(--editorial-muted);
+  --workspace-primary: var(--editorial-plum);
+  --workspace-primary-soft: var(--editorial-plum-soft);
+  --workspace-teal: var(--editorial-sage);
+  --border-subtle: var(--editorial-line);
+  --text-primary: var(--editorial-ink);
+  --text-secondary: var(--editorial-copy);
+  --text-muted: var(--editorial-muted);
+  --surface-deep: var(--editorial-paper);
+  --accent-blue: var(--editorial-plum);
+  --accent-light: var(--editorial-plum-deep);
+  --shadow-sm: 0 8px 24px rgba(57, 50, 39, .055);
+  --shadow-md: 0 18px 46px rgba(57, 50, 39, .08);
   background: var(--editorial-canvas);
   color: var(--editorial-ink);
 }
@@ -141,6 +214,7 @@
 }
 
 .sidebar-stage-copy small {
+  display: block !important;
   overflow: visible;
   text-overflow: clip;
   white-space: normal;
@@ -163,6 +237,26 @@
   background: rgba(251, 250, 246, .9) !important;
   box-shadow: none !important;
   backdrop-filter: blur(14px);
+}
+
+.header-brand,
+.header-brand-copy {
+  min-width: 0;
+}
+
+.header-brand-copy strong,
+.header-brand-copy span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.header-actions,
+.page-header-actions,
+.executive-actions {
+  min-width: 0;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .header-brand-copy strong {
@@ -203,8 +297,63 @@
   letter-spacing: .19em;
 }
 
+/* One material system replaces the accumulated mix of blue, rounded, and
+   shadowed legacy panels. Primary work surfaces feel like folio pages. */
+.app-shell :is(
+  .card,
+  .dashboard-panel,
+  .studio-panel,
+  .analytics-panel,
+  .resume-upload-panel,
+  .resume-library-panel,
+  .resume-analysis-panel,
+  .connector-panel,
+  .settings-card,
+  .outreach-controls,
+  .outreach-editor,
+  .outreach-guidance
+) {
+  border: 1px solid var(--editorial-line) !important;
+  border-radius: 2px !important;
+  background: var(--editorial-paper) !important;
+  box-shadow: none !important;
+}
+
+.app-shell :is(
+  .analytics-panel-heading,
+  .watch-panel-heading,
+  .settings-card-heading,
+  .resume-analysis-heading
+) {
+  margin-bottom: 22px;
+  padding-bottom: 17px;
+  border-bottom: 1px solid var(--editorial-line);
+}
+
+.app-shell .app-content :is(h3, h4, h5, h6, strong, b) {
+  color: var(--editorial-ink) !important;
+}
+
+.app-shell .app-content :is(p, li, dd, dt, label, td, th) {
+  color: var(--editorial-copy);
+}
+
+.app-shell .app-content :is(.muted, [class*="muted"], .helper-text, .supporting-copy, small) {
+  color: var(--editorial-muted) !important;
+}
+
+.app-shell .app-content a:not(.button) {
+  color: var(--editorial-plum-deep);
+  text-decoration-color: rgba(111, 87, 55, .35);
+}
+
+.app-shell .app-content a:not(.button):hover {
+  color: #4f3c25;
+  text-decoration-color: currentColor;
+}
+
 /* Fewer floating objects: useful records become ruled editorial rows. */
-.app-shell :is(.job-card-modern, .crm-contact-card, .company-role-card, .watch-card, .activity-item, .notification-row, .automation-row, .profile-preference-card, .settings-toggle) {
+.app-shell :is(.job-card-modern, .crm-contact-card, .company-role-card, .watch-card, .activity-item, .notification-row, .automation-row, .profile-preference-card, .settings-toggle, .company-card-modern, .resume-library-card, .interview-event-card, .kanban-card, .quick-action, .funnel-stage-card, .executive-action-card, .prep-item, .coach-message, .star-story-list article, .practice-history article, .history-row) {
   border: 0 !important;
   border-top: 1px solid var(--editorial-line) !important;
   border-radius: 0 !important;
@@ -212,14 +361,14 @@
   box-shadow: none !important;
 }
 
-.app-shell :is(.job-card-modern, .crm-contact-card, .company-role-card, .watch-card, .activity-item, .notification-row, .automation-row, .profile-preference-card, .settings-toggle):hover {
+.app-shell :is(.job-card-modern, .crm-contact-card, .company-role-card, .watch-card, .activity-item, .notification-row, .automation-row, .profile-preference-card, .settings-toggle, .company-card-modern, .resume-library-card, .interview-event-card, .kanban-card, .quick-action, .funnel-stage-card, .executive-action-card, .prep-item, .coach-message, .star-story-list article, .practice-history article, .history-row):hover {
   border-color: var(--editorial-line-strong) !important;
   background: rgba(251, 250, 246, .72) !important;
   transform: none;
   box-shadow: inset 4px 0 0 var(--editorial-sage) !important;
 }
 
-.app-shell :is(.metric-card, .executive-kpis article, .analytics-kpi-grid article, .company-detail-kpis article, .company-summary-grid article, .watch-summary-grid article, .automation-health-grid article, .company-metric-row div) {
+.app-shell :is(.metric-card, .executive-kpi, .executive-metric-card, .command-kpis article, .interview-kpis article, .coach-kpis article, .analytics-kpi-grid article, .company-detail-kpis article, .company-summary-grid article, .watch-summary-grid article, .automation-health-grid article, .company-metric-row div, .pipeline-summary-card, .profile-summary-card) {
   border: 0 !important;
   border-left: 1px solid var(--editorial-line) !important;
   border-radius: 0 !important;
@@ -227,8 +376,18 @@
   box-shadow: none !important;
 }
 
-.app-shell :is(.metric-card, .executive-kpis article, .analytics-kpi-grid article):first-child {
+.app-shell :is(.metric-card, .executive-kpi, .executive-metric-card, .command-kpis article, .interview-kpis article, .coach-kpis article, .analytics-kpi-grid article):first-child {
   border-left: 0 !important;
+}
+
+.app-shell :is(.metric-card, .executive-kpi, .executive-metric-card, .command-kpis article, .interview-kpis article, .coach-kpis article, .analytics-kpi-grid article, .company-detail-kpis article, .company-summary-grid article, .watch-summary-grid article, .automation-health-grid article, .company-metric-row div, .pipeline-summary-card, .profile-summary-card) strong {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 500 !important;
+  color: var(--editorial-ink) !important;
+}
+
+.app-shell :is(.metric-card, .executive-kpi, .executive-metric-card, .command-kpis article, .interview-kpis article, .coach-kpis article, .analytics-kpi-grid article, .company-detail-kpis article, .company-summary-grid article, .watch-summary-grid article, .automation-health-grid article, .company-metric-row div, .pipeline-summary-card, .profile-summary-card) :is(span, small) {
+  color: var(--editorial-muted) !important;
 }
 
 /* Compact, confident controls: no Indeed-blue buttons or pill language. */
@@ -238,7 +397,16 @@
   border-color: var(--editorial-plum) !important;
   border-radius: 6px !important;
   background: var(--editorial-plum) !important;
+  color: #fffdf7 !important;
+  line-height: 1.2;
+  text-align: center;
+  white-space: normal;
   box-shadow: none !important;
+}
+
+.app-shell button *,
+.app-shell .button * {
+  color: inherit !important;
 }
 
 .app-shell button:hover:not(:disabled),
@@ -254,6 +422,24 @@
   color: var(--editorial-ink) !important;
 }
 
+.app-shell :is(button.secondary, .button.secondary, .version-button):hover:not(:disabled) {
+  border-color: var(--editorial-plum) !important;
+  background: var(--editorial-plum-soft) !important;
+  color: var(--editorial-ink) !important;
+}
+
+.app-shell :is(button.danger, .button.danger) {
+  border-color: #cda9a6 !important;
+  background: transparent !important;
+  color: #843c42 !important;
+}
+
+.app-shell :is(button.danger, .button.danger):hover:not(:disabled) {
+  border-color: #9b3e45 !important;
+  background: #f5e8e6 !important;
+  color: #713039 !important;
+}
+
 .app-shell input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
 .app-shell select,
 .app-shell textarea,
@@ -264,6 +450,93 @@
   border-radius: 6px !important;
   background: var(--editorial-paper) !important;
   box-shadow: none !important;
+}
+
+.app-shell label {
+  color: var(--editorial-copy) !important;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .025em;
+}
+
+.app-shell input::placeholder,
+.app-shell textarea::placeholder {
+  color: #888379 !important;
+  opacity: 1;
+}
+
+.app-shell input:focus,
+.app-shell select:focus,
+.app-shell textarea:focus {
+  border-color: var(--editorial-plum) !important;
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(138, 112, 74, .13) !important;
+}
+
+.app-shell select option {
+  background: var(--editorial-paper) !important;
+  color: var(--editorial-ink) !important;
+}
+
+.app-shell input[type="file"]::file-selector-button {
+  border: 1px solid var(--editorial-line-strong);
+  border-radius: 4px;
+  background: var(--editorial-plum-soft);
+  color: var(--editorial-ink);
+}
+
+/* Navigation and selection controls are not primary calls to action. */
+.app-shell .sidebar-signout {
+  border-color: #4c483f !important;
+  background: transparent !important;
+  color: #aaa397 !important;
+  box-shadow: none !important;
+}
+
+.app-shell .studio-resume-option {
+  border: 1px solid var(--editorial-line) !important;
+  border-radius: 2px !important;
+  background: transparent !important;
+  color: var(--editorial-ink) !important;
+  text-align: left;
+  box-shadow: none !important;
+}
+
+.app-shell .studio-resume-option:hover:not(:disabled),
+.app-shell .studio-resume-option.selected {
+  border-color: var(--editorial-plum) !important;
+  background: var(--editorial-plum-soft) !important;
+  color: var(--editorial-ink) !important;
+  transform: none;
+}
+
+.app-shell .story-suggestions button {
+  min-height: 34px;
+  border-color: var(--editorial-line-strong) !important;
+  border-radius: 4px !important;
+  background: var(--editorial-paper) !important;
+  color: var(--editorial-copy) !important;
+  box-shadow: none !important;
+}
+
+.app-shell .story-suggestions button:hover:not(:disabled) {
+  border-color: var(--editorial-plum) !important;
+  background: var(--editorial-plum-soft) !important;
+  color: var(--editorial-ink) !important;
+}
+
+.app-shell .studio-step {
+  border-color: var(--editorial-line) !important;
+  border-radius: 2px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.app-shell .studio-step > span {
+  border: 1px solid var(--editorial-line-strong);
+  border-radius: 50%;
+  background: transparent !important;
+  color: var(--editorial-plum-deep) !important;
 }
 
 .app-shell :is(.badge, .status-badge, .pill, [class*="badge"], [class*="pill"]) {
@@ -279,7 +552,8 @@
 .app-shell select:focus-visible,
 .app-shell textarea:focus-visible,
 .app-shell summary:focus-visible {
-  outline-color: rgba(93, 66, 108, .34);
+  outline: 3px solid rgba(138, 112, 74, .34);
+  outline-offset: 2px;
 }
 
 /* The private office is composed as a working brief, not a dashboard grid. */
@@ -418,17 +692,40 @@
 /* Market intelligence is presented as a mandate and a set of dossiers. */
 .app-shell .universal-search-bar {
   margin: -14px 0 48px;
-  padding: 22px 0;
+  padding: 0;
   border: 0 !important;
-  border-top: 1px solid var(--editorial-line) !important;
-  border-bottom: 1px solid var(--editorial-line) !important;
+  border-top: 1px solid #3d3932 !important;
+  border-bottom: 1px solid #3d3932 !important;
   border-radius: 0 !important;
-  background: transparent !important;
+  background: #1b1a17 !important;
   box-shadow: none !important;
 }
 
+.app-shell .universal-search-bar > div {
+  min-width: 0;
+  padding: 21px 18px !important;
+  background: #1b1a17 !important;
+}
+
+.app-shell .universal-search-bar span {
+  color: #c2a575 !important;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: .14em;
+}
+
+.app-shell .universal-search-bar strong {
+  margin-top: 6px;
+  overflow-wrap: anywhere;
+  color: #f4efe5 !important;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(20px, 2vw, 27px);
+  font-weight: 500 !important;
+  line-height: 1.15;
+}
+
 .app-shell .universal-search-bar > div + div {
-  border-left: 1px solid var(--editorial-line);
+  border-left: 1px solid #4a453d;
 }
 
 .app-shell .jobs-shell-grid {
@@ -558,6 +855,421 @@
 
 .app-shell :is(.empty-state, .empty, .no-results, .loading-state):not(:empty)::after {
   display: none !important;
+}
+
+/* Refined emphasis, feedback, and navigation across the private office. */
+.app-shell .coach-brief-grid {
+  display: grid;
+  grid-template-columns: minmax(340px, .78fr) minmax(0, 1.22fr);
+  gap: 52px;
+  align-items: start;
+  margin-bottom: 48px;
+}
+
+.app-shell .coach-brief-form {
+  padding: 34px !important;
+  border-color: #2f2d27 !important;
+  background: #1d1c18 !important;
+  color: #eee8dc !important;
+}
+
+.app-shell .coach-brief-form :is(h2, label) {
+  color: #eee8dc !important;
+}
+
+.app-shell .coach-brief-form .eyebrow {
+  color: #c2a575 !important;
+}
+
+.app-shell .coach-brief-form :is(input, select, textarea) {
+  border-color: #5a554b !important;
+  background: #27251f !important;
+  color: #f4efe5 !important;
+}
+
+.app-shell .coach-brief-form button {
+  width: 100%;
+  margin-top: 18px;
+  border-color: #c2a575 !important;
+  background: #c2a575 !important;
+  color: #1b1a17 !important;
+}
+
+.app-shell .coach-prompt-list {
+  display: grid;
+  margin-top: 24px;
+  border-bottom: 1px solid var(--editorial-line);
+}
+
+.app-shell .coach-prompt-library {
+  min-width: 0;
+  padding: 34px !important;
+}
+
+.app-shell .coach-prompt-button {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  width: 100%;
+  min-height: 62px;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
+  border: 0 !important;
+  border-top: 1px solid var(--editorial-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  text-align: left;
+}
+
+.app-shell .coach-prompt-button > span {
+  color: var(--editorial-plum) !important;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.app-shell .coach-prompt-button > strong {
+  color: var(--editorial-ink) !important;
+  font-weight: 650 !important;
+}
+
+.app-shell .coach-prompt-button:hover:not(:disabled) {
+  padding-inline: 12px;
+  background: var(--editorial-plum-soft) !important;
+}
+
+.app-shell .coach-history-panel {
+  margin-top: 0;
+  padding: 34px !important;
+}
+
+.app-shell .coach-history-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--editorial-line);
+}
+
+.app-shell .coach-history-heading > span {
+  color: var(--editorial-muted) !important;
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.app-shell .priority-card {
+  border: 1px solid #2f2d27 !important;
+  border-radius: 0 !important;
+  background:
+    linear-gradient(118deg, rgba(255, 255, 255, .045), transparent 46%),
+    #1b1a17 !important;
+  color: #f4efe5 !important;
+  box-shadow: none !important;
+}
+
+.app-shell .priority-card :is(h2, h3, strong) {
+  color: #f4efe5 !important;
+}
+
+.app-shell .priority-card :is(p, span, small, .muted) {
+  color: #c8c0b3 !important;
+}
+
+.app-shell .priority-card .eyebrow {
+  color: #c2a575 !important;
+}
+
+.app-shell .priority-card .button {
+  border-color: #c2a575 !important;
+  background: #c2a575 !important;
+  color: #1b1a17 !important;
+}
+
+.app-shell .guided-journey {
+  margin-top: 64px;
+  padding: 30px 32px;
+  border: 1px solid #34312b !important;
+  border-radius: 0 !important;
+  background:
+    linear-gradient(112deg, rgba(255, 255, 255, .04), transparent 54%),
+    #1b1a17 !important;
+  box-shadow: none !important;
+}
+
+.app-shell .guided-journey-progress-row,
+.app-shell .guided-journey-kicker {
+  color: #c2a575 !important;
+}
+
+.app-shell .guided-journey-progress {
+  border-radius: 0;
+  background: #3b3933 !important;
+}
+
+.app-shell .guided-journey-progress span {
+  border-radius: 0;
+  background: #a98c60 !important;
+}
+
+.app-shell .guided-journey h2 {
+  color: #f4efe5 !important;
+}
+
+.app-shell .guided-journey-content p:not(.guided-journey-kicker) {
+  color: #c8c0b3 !important;
+}
+
+.app-shell .guided-journey-back {
+  border-color: #5a554b !important;
+  border-radius: 4px !important;
+  background: transparent !important;
+  color: #eee8dc !important;
+}
+
+.app-shell .guided-journey-next {
+  border-color: #c2a575 !important;
+  border-radius: 4px !important;
+  background: #c2a575 !important;
+  color: #1b1a17 !important;
+  box-shadow: none !important;
+}
+
+.app-shell :is(.company-avatar, .watch-company-mark) {
+  border: 1px solid #514b41 !important;
+  border-radius: 4px !important;
+  background: #24221e !important;
+  color: #c2a575 !important;
+  box-shadow: none !important;
+}
+
+.app-shell :is(.outreach-score, .coach-score) {
+  border: 1px solid #514b41 !important;
+  border-radius: 50% !important;
+  background: #1b1a17 !important;
+  color: #f4efe5 !important;
+  box-shadow: none !important;
+}
+
+.app-shell :is(.outreach-score, .coach-score) :is(strong, span, small) {
+  color: #f4efe5 !important;
+}
+
+.app-shell :is(.studio-score, .crm-score, .history-score, .job-score-modern, .resume-analysis-score, .profile-score-ring) {
+  border: 1px solid var(--editorial-line-strong) !important;
+  background: var(--editorial-sage-soft) !important;
+  color: #385247 !important;
+  box-shadow: none !important;
+}
+
+.app-shell :is(.studio-score, .crm-score, .history-score, .job-score-modern, .resume-analysis-score, .profile-score-ring) :is(strong, span, small) {
+  color: #385247 !important;
+}
+
+.app-shell :is(.profile-edit-heading > span, .settings-card-heading > span, .analytics-rank, .command-count, .priority-number) {
+  border: 1px solid var(--editorial-line-strong) !important;
+  border-radius: 4px !important;
+  background: var(--editorial-plum-soft) !important;
+  color: var(--editorial-plum-deep) !important;
+  box-shadow: none !important;
+}
+
+.app-shell .interview-date {
+  border: 1px solid var(--editorial-line) !important;
+  border-radius: 2px !important;
+  background: var(--editorial-sage-soft) !important;
+}
+
+.app-shell .interview-date :is(strong, span) {
+  color: #385247 !important;
+}
+
+.app-shell .coach-question {
+  border-left-color: var(--editorial-plum) !important;
+  border-radius: 0 !important;
+  background: var(--editorial-plum-soft) !important;
+  color: var(--editorial-ink) !important;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 500 !important;
+}
+
+.app-shell .insight-list > div {
+  border-left: 3px solid var(--editorial-plum) !important;
+}
+
+.app-shell :is(.analytics-ranking-list > div, .connector-list > div, .analysis-grid > div, .score-bars span, .profile-edit-textareas > div) {
+  border: 0 !important;
+  border-bottom: 1px solid var(--editorial-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--editorial-ink) !important;
+  box-shadow: none !important;
+}
+
+.app-shell .recommended-employer-summary article {
+  border: 0 !important;
+  border-left: 1px solid var(--editorial-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.app-shell .recommended-employer-summary article:first-child {
+  border-left: 0 !important;
+}
+
+.app-shell .recommended-employer-card {
+  border: 0 !important;
+  border-top: 1px solid var(--editorial-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transition: background 150ms ease, border-color 150ms ease;
+}
+
+.app-shell .recommended-employer-card:hover {
+  border-color: var(--editorial-line-strong) !important;
+  background: rgba(251, 250, 246, .72) !important;
+  transform: none;
+  box-shadow: inset 4px 0 0 var(--editorial-sage) !important;
+}
+
+.app-shell .recommended-employer-card.recommended-employer-saved {
+  border-color: var(--editorial-sage) !important;
+  box-shadow: inset 3px 0 0 var(--editorial-sage) !important;
+}
+
+.app-shell .recommended-employer-card :is(h3, strong) {
+  color: var(--editorial-ink) !important;
+}
+
+.app-shell .recommended-employer-card :is(p, small) {
+  color: var(--editorial-copy) !important;
+}
+
+.app-shell .recommended-employer-card > a {
+  color: var(--editorial-plum-deep) !important;
+}
+
+.app-shell .recommended-employer-mark {
+  border: 1px solid #514b41 !important;
+  border-radius: 4px !important;
+  background: #24221e !important;
+  color: #c2a575 !important;
+  box-shadow: none !important;
+}
+
+.app-shell :is(.profile-edit-save-bar, .settings-save-bar) {
+  border: 1px solid var(--editorial-line-strong) !important;
+  border-radius: 2px !important;
+  background: rgba(250, 248, 242, .97) !important;
+  color: var(--editorial-ink) !important;
+  box-shadow: 0 14px 34px rgba(57, 50, 39, .1) !important;
+}
+
+.app-shell :is(.profile-edit-save-bar, .settings-save-bar) :is(strong, span) {
+  color: inherit !important;
+}
+
+.app-shell :is(.notice, .resume-alert, .outreach-notice, .connector-note, .studio-trust-note) {
+  border: 1px solid var(--editorial-line) !important;
+  border-left: 3px solid var(--editorial-plum) !important;
+  border-radius: 0 !important;
+  background: #f7f4ee !important;
+  color: var(--editorial-copy) !important;
+  box-shadow: none !important;
+}
+
+.app-shell :is(.notice, .resume-alert, .outreach-notice, .connector-note, .studio-trust-note) :is(strong, p, span) {
+  color: inherit !important;
+}
+
+.app-shell :is(.notice-success, .resume-alert-success) {
+  border-left-color: var(--editorial-sage) !important;
+  background: #edf2ed !important;
+  color: #385247 !important;
+}
+
+.app-shell :is(.notice-error, .resume-alert-error) {
+  border-left-color: #9b3e45 !important;
+  background: #f7ecea !important;
+  color: #713039 !important;
+}
+
+.app-shell :is(.notice-warning, .warning-badge, .warn-text) {
+  border-color: #d2bd95 !important;
+  background: #f7f0df !important;
+  color: #6c512d !important;
+}
+
+.app-shell :is(.analytics-track, .analytics-mini-track, .pipeline-track, .progress-track, .coach-progress > div) {
+  border-radius: 0 !important;
+  background: #ddd7cb !important;
+  box-shadow: none !important;
+}
+
+.app-shell :is(.analytics-track, .analytics-mini-track, .pipeline-track, .progress-track, .coach-progress > div) > :is(span, div, i),
+.app-shell .pipeline-fill,
+.app-shell .progress-value {
+  border-radius: 0 !important;
+  background: var(--editorial-sage) !important;
+}
+
+.app-shell .analytics-track-teal {
+  background: var(--editorial-plum) !important;
+}
+
+.app-shell .kanban-column {
+  border: 0 !important;
+  border-top: 2px solid var(--editorial-line-strong) !important;
+  border-radius: 0 !important;
+  background: rgba(250, 248, 242, .55) !important;
+  box-shadow: none !important;
+}
+
+.app-shell .kanban-column-head {
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--editorial-line);
+}
+
+.app-shell :is(.coach-message, .practice-history article, .history-row) {
+  padding: 18px 0 !important;
+}
+
+.app-shell .coach-message p {
+  margin: 8px 0;
+  line-height: 1.7;
+}
+
+.app-shell :is(.command-priorities, .mock-interview-panel, .practice-history-panel, .interview-form, .studio-intelligence-panel) {
+  min-width: 0;
+}
+
+.app-shell .practice-history-panel {
+  margin-top: 28px;
+}
+
+.app-shell .interview-form > label,
+.app-shell .coach-settings > label,
+.app-shell .star-form > label {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 6px;
+}
+
+.app-shell .row,
+.app-shell .row > *,
+.app-shell :is(.jobs-shell-grid, .command-grid, .command-layout, .coach-layout, .interview-layout, .crm-layout, .outreach-layout, .watch-layout, .settings-grid, .resume-studio-workspace) > * {
+  min-width: 0;
+}
+
+.app-shell .row.between {
+  flex-wrap: wrap;
+}
+
+.app-shell img,
+.app-shell svg {
+  max-width: 100%;
 }
 
 /* Public experience: an editorial private-members' office rather than SaaS/job-board marketing. */
@@ -1144,6 +1856,48 @@
     background: #1b1a17 !important;
   }
 
+  .app-shell .mobile-nav-overlay {
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: rgba(18, 17, 15, .62) !important;
+    box-shadow: none !important;
+  }
+
+  .app-shell .sidebar-close {
+    border-color: #4c483f !important;
+    border-radius: 6px !important;
+    background: transparent !important;
+    color: #f4efe5 !important;
+    box-shadow: none !important;
+  }
+
+  .app-shell .mobile-menu-button {
+    border-color: var(--editorial-line-strong) !important;
+    border-radius: 6px !important;
+    background: var(--editorial-paper) !important;
+    color: var(--editorial-ink) !important;
+    box-shadow: none !important;
+  }
+
+  .app-shell .mobile-bottom-nav {
+    border-top-color: var(--editorial-line) !important;
+    background: rgba(250, 248, 242, .97) !important;
+    box-shadow: 0 -8px 26px rgba(57, 50, 39, .1) !important;
+  }
+
+  .app-shell .mobile-bottom-nav :is(a, button) {
+    border: 0 !important;
+    border-radius: 4px !important;
+    background: transparent !important;
+    color: var(--editorial-muted) !important;
+    box-shadow: none !important;
+  }
+
+  .app-shell .mobile-bottom-nav :is(a.active, button.active) {
+    background: var(--editorial-plum-soft) !important;
+    color: var(--editorial-plum-deep) !important;
+  }
+
   .app-header {
     padding-inline: 16px;
   }
@@ -1162,13 +1916,38 @@
     gap: 34px;
   }
 
+  .app-shell .coach-brief-grid {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+
   .app-shell .jobs-filter-card {
     position: static;
   }
 
   .app-shell .universal-search-bar > div + div {
     border-left: 0;
-    border-top: 1px solid var(--editorial-line);
+    border-top: 1px solid #4a453d;
+  }
+
+  .app-shell .guided-journey-content {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .app-shell .guided-journey-actions {
+    justify-content: flex-start;
+    white-space: normal;
+  }
+
+  .app-shell :is(.metric-card, .executive-kpi, .executive-metric-card, .command-kpis article, .interview-kpis article, .coach-kpis article, .analytics-kpi-grid article, .company-detail-kpis article, .company-summary-grid article, .watch-summary-grid article, .automation-health-grid article, .company-metric-row div, .pipeline-summary-card, .profile-summary-card) {
+    border-left: 0 !important;
+    border-top: 1px solid var(--editorial-line) !important;
+  }
+
+  .app-shell .recommended-employer-summary article {
+    border-left: 0 !important;
+    border-top: 1px solid var(--editorial-line) !important;
   }
 
   .landing-container,
@@ -1192,6 +1971,33 @@
 }
 
 @media (max-width: 640px) {
+  .app-content {
+    width: min(100% - 22px, 1420px);
+  }
+
+  .app-shell :is(.card, .dashboard-panel, .studio-panel, .analytics-panel, .resume-upload-panel, .resume-library-panel, .resume-analysis-panel, .connector-panel, .settings-card, .outreach-controls, .outreach-editor, .outreach-guidance) {
+    padding: 20px !important;
+  }
+
+  .app-shell .guided-journey {
+    padding: 24px 20px;
+  }
+
+  .app-shell .guided-journey-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .app-shell .guided-journey-back,
+  .app-shell .guided-journey-next {
+    width: 100%;
+  }
+
+  .app-shell .universal-search-bar strong {
+    font-size: 22px;
+  }
+
   .landing-hero-actions .landing-button {
     width: 100%;
     min-width: 0;

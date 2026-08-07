@@ -140,7 +140,7 @@ export default function AutomationSettings() {
         description="Control when CareerNavIQ searches, reminds, and prepares reports. Every setting is stored securely with your account."
         actions={
           <div className="row wrap">
-            <Link className="button secondary" href="/automation">Saved searches</Link>
+            <Link className="button secondary" href="/automation">Standing briefs</Link>
             <button type="button" disabled={running || loading} onClick={() => void runNow()}>
               {running ? "Running automation…" : "Run automation now"}
             </button>
@@ -180,7 +180,7 @@ export default function AutomationSettings() {
             <article>
               <span>Last cycle</span>
               <strong>{status?.last_result?.searches_run || 0}</strong>
-              <small>saved searches executed</small>
+              <small>standing briefs completed</small>
             </article>
           </section>
 

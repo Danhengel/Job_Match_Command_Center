@@ -103,8 +103,8 @@ export default function ResumeStudioPage() {
           <Link className="button secondary" href="/resumes">Upload or analyze a résumé</Link>
         </aside>
 
-        <main className="studio-panel studio-intelligence-panel">
-          {loading ? <EmptyState title="Loading résumé intelligence" description="CareerOS is retrieving your résumé evidence and analysis." /> : !selected ? (
+        <section className="studio-panel studio-intelligence-panel">
+          {loading ? <EmptyState title="Loading résumé intelligence" description="CareerNavIQ is retrieving your résumé evidence and analysis." /> : !selected ? (
             <EmptyState title="No résumé is ready" description="Upload a master résumé before starting job-specific tailoring." action={<Link className="button" href="/resumes">Open résumé library</Link>} />
           ) : (
             <>
@@ -114,7 +114,7 @@ export default function ResumeStudioPage() {
               </div>
 
               <Notice title={status.label} tone={status.tone}>
-                <p>{selected.analysis_score === null ? "Analyze this résumé before tailoring so CareerOS can identify strengths, gaps, and measurable evidence." : "Use this score as a preparation guide, not as a hiring prediction. Verify every generated statement before submitting it."}</p>
+                <p>{selected.analysis_score === null ? "Analyze this résumé before tailoring so CareerNavIQ can identify strengths, gaps, and measurable evidence." : "Use this score as a preparation guide, not as a hiring prediction. Verify every generated statement before submitting it."}</p>
               </Notice>
 
               <div className="studio-evidence-grid">
@@ -125,12 +125,12 @@ export default function ResumeStudioPage() {
               <section className="studio-metrics"><h3>Quantified evidence detected</h3><div className="row wrap">{selected.metrics_found.length ? selected.metrics_found.map((item) => <span className="badge metric-badge" key={item}>{item}</span>) : <span className="muted">No metrics detected yet.</span>}</div></section>
             </>
           )}
-        </main>
+        </section>
 
         <aside className="studio-panel studio-action-panel">
           <p className="eyebrow">NEXT ACTION</p>
           <h2>Tailor for a real opportunity</h2>
-          <p className="muted">CareerOS tailoring starts from a saved job and only selects or reorganizes evidence found in the chosen résumé.</p>
+          <p className="muted">CareerNavIQ tailoring starts from a saved job and only selects or reorganizes evidence found in the chosen résumé.</p>
           <div className="studio-target-summary">
             <span>Current profile</span><strong>{selectedProfile?.name || "Select a profile"}</strong>
             <span>Target titles</span><strong>{selectedProfile?.target_titles?.slice(0, 3).join(" • ") || "Add target titles in your profile"}</strong>

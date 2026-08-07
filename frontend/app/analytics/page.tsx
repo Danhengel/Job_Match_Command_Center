@@ -77,7 +77,7 @@ export default function Analytics() {
       <PageHeader
         eyebrow="SEARCH PERFORMANCE"
         title="See what is moving your career search forward"
-        description="Measure opportunity quality, application activity, and conversion using the job, résumé, and pipeline data already saved in CareerNavIQ."
+        description="Read opportunity quality, portfolio movement, and conversion using the market, résumé, and pursuit evidence already held in CareerNavIQ."
         actions={
           <div className="row wrap">
             <button type="button" className="secondary" disabled={loading} onClick={() => void load()}>
@@ -97,16 +97,16 @@ export default function Analytics() {
       {loading ? (
         <section className="card analytics-loading-state">
           <p className="eyebrow">LOADING</p>
-          <h2>Calculating search performance…</h2>
-          <p className="muted">CareerNavIQ is connecting job matches, applications, and interview progress.</p>
+          <h2>Calculating portfolio performance…</h2>
+          <p className="muted">CareerNavIQ is connecting opportunity alignment, active pursuits, and interview progress.</p>
         </section>
       ) : null}
 
       {!loading && data ? (
         <>
-          <section className="analytics-kpi-grid" aria-label="Career search performance summary">
-            <article><span>Total matches</span><strong>{data.total_matches}</strong><small>opportunities scored</small></article>
-            <article><span>Average match</span><strong>{Math.round(data.average_match_score)}%</strong><small>across analyzed roles</small></article>
+          <section className="analytics-kpi-grid" aria-label="Career portfolio performance summary">
+            <article><span>Opportunities reviewed</span><strong>{data.total_matches}</strong><small>selection records scored</small></article>
+            <article><span>Average alignment</span><strong>{Math.round(data.average_match_score)}%</strong><small>across analyzed opportunities</small></article>
             <article><span>Applications</span><strong>{data.total_applications}</strong><small>tracked in your pipeline</small></article>
             <article><span>Interview conversion</span><strong>{Math.round(data.interview_conversion)}%</strong><small>applications reaching interviews</small></article>
           </section>
@@ -135,9 +135,9 @@ export default function Analytics() {
               <div className="analytics-panel-heading">
                 <div>
                   <p className="eyebrow">OPPORTUNITY QUALITY</p>
-                  <h2>Match-score distribution</h2>
+                  <h2>Alignment distribution</h2>
                 </div>
-                <Link href="/jobs">Review jobs →</Link>
+                <Link href="/jobs">Review intelligence →</Link>
               </div>
               <div className="analytics-bar-list">
                 {Object.entries(data.score_bands).map(([band, count]) => (
@@ -146,7 +146,7 @@ export default function Analytics() {
                     <div className="analytics-track analytics-track-teal"><span style={{ width: `${Math.max(count ? 8 : 0, (count / maxBand) * 100)}%` }} /></div>
                   </div>
                 ))}
-                {!Object.keys(data.score_bands).length ? <p className="muted">No match-score distribution is available yet.</p> : null}
+                {!Object.keys(data.score_bands).length ? <p className="muted">No alignment distribution is available yet.</p> : null}
               </div>
             </article>
           </section>
@@ -156,7 +156,7 @@ export default function Analytics() {
               <div className="analytics-panel-heading">
                 <div>
                   <p className="eyebrow">COMPANY FOCUS</p>
-                  <h2>Most-applied companies</h2>
+                  <h2>Most-pursued organizations</h2>
                 </div>
                 <Link href="/companies">Company intelligence →</Link>
               </div>
@@ -198,7 +198,7 @@ export default function Analytics() {
       {!loading && !data && !error ? (
         <EmptyState
           title="Analytics will appear as your search grows"
-          description="Run job searches, score opportunities, and track applications to begin measuring career-search performance."
+          description="Commission market reviews, evaluate opportunities, and track active pursuits to begin measuring portfolio performance."
           action={<Link className="button" href="/jobs">Search opportunities</Link>}
         />
       ) : null}

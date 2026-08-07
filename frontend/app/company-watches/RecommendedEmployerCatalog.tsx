@@ -55,6 +55,10 @@ const catalogEmployers = [...recommendedEmployers, ...additionalEmployers];
 const categoryOptions = Object.keys(employerCategoryDetails) as EmployerCategory[];
 const priorityRank = { "Top match": 0, "Strong match": 1 } as const;
 
+function priorityLabel(priority: RecommendedEmployer["priority"]) {
+  return priority === "Top match" ? "Top alignment" : "Strong alignment";
+}
+
 function normalize(value: string) {
   return value.trim().toLowerCase().replace(/\/+$/, "");
 }
@@ -108,10 +112,10 @@ export function RecommendedEmployerCatalog({ items, onSelect }: RecommendedEmplo
     <section className="card recommended-employer-catalog">
       <div className="recommended-employer-heading">
         <div>
-          <p className="eyebrow">YOUR RÉSUMÉ-MATCHED EMPLOYERS</p>
-          <h2>Private priority company watch list</h2>
+          <p className="eyebrow">YOUR RÉSUMÉ-ALIGNED EMPLOYERS</p>
+          <h2>Private organization watchlist</h2>
           <p className="muted">
-            Your private employer catalog matched to construction lending, CRE servicing, credit administration,
+            Your private employer catalog aligned to construction lending, CRE servicing, credit administration,
             affordable housing, capital-program delivery, portfolio governance, and operations transformation.
             Career pages can change, so confirm the employer page before applying.
           </p>
@@ -119,8 +123,8 @@ export function RecommendedEmployerCatalog({ items, onSelect }: RecommendedEmplo
       </div>
 
       <div className="recommended-employer-summary" aria-label="Recommended employer summary">
-        <article><span>Matched employers</span><strong>{summary.total}</strong><small>across seven target sectors</small></article>
-        <article><span>Top matches</span><strong>{summary.topMatches}</strong><small>closest résumé alignment</small></article>
+        <article><span>Aligned employers</span><strong>{summary.total}</strong><small>across seven target sectors</small></article>
+        <article><span>Priority alignment</span><strong>{summary.topMatches}</strong><small>closest résumé evidence</small></article>
         <article><span>Currently shown</span><strong>{summary.visible}</strong><small>after search and filters</small></article>
         <article><span>Already watched</span><strong>{summary.saved}</strong><small>saved in your library</small></article>
       </div>
@@ -150,14 +154,14 @@ export function RecommendedEmployerCatalog({ items, onSelect }: RecommendedEmplo
         </label>
 
         <label>
-          <span>Match priority</span>
+          <span>Alignment priority</span>
           <select
             value={priority}
             onChange={(event) => setPriority(event.target.value as "all" | RecommendedEmployer["priority"])}
           >
             <option value="all">All priorities</option>
-            <option value="Top match">Top matches</option>
-            <option value="Strong match">Strong matches</option>
+            <option value="Top match">Top alignment</option>
+            <option value="Strong match">Strong alignment</option>
           </select>
         </label>
       </div>
@@ -176,7 +180,7 @@ export function RecommendedEmployerCatalog({ items, onSelect }: RecommendedEmplo
                   </div>
                   <div>
                     <div className="row wrap">
-                      <span className={employer.priority === "Top match" ? "badge" : "score-pill"}>{employer.priority}</span>
+                      <span className={employer.priority === "Top match" ? "badge" : "score-pill"}>{priorityLabel(employer.priority)}</span>
                       {watched ? <span className="badge">Watched</span> : null}
                     </div>
                     <h3>{employer.company}</h3>

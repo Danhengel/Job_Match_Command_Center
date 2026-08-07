@@ -92,7 +92,7 @@ export default function CalendarPage() {
 
   return <>
     <section className="executive-hero">
-      <div><p className="eyebrow">UNIFIED CALENDAR & TIMELINE</p><h1>Your career agenda</h1><p className="muted">Interviews, application actions, and recruiter follow-ups organized from your CareerOS records.</p></div>
+      <div><p className="eyebrow">UNIFIED CALENDAR & TIMELINE</p><h1>Your career agenda</h1><p className="muted">Interviews, application actions, and recruiter follow-ups organized from your CareerNavIQ records.</p></div>
       <div className="executive-actions"><button onClick={load}>Refresh calendar</button><Link className="button secondary" href="/interviews">Schedule interview</Link></div>
     </section>
 

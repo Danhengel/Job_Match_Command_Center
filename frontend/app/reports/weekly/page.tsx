@@ -26,7 +26,7 @@ export default function WeeklyReportPage() {
 
   function summary() {
     if (!report) return "";
-    return `CareerOS Weekly Executive Report\n${new Date(report.period_start).toLocaleDateString()}–${new Date(report.period_end).toLocaleDateString()}\n\nApplications submitted: ${report.applications_submitted}\nJobs discovered: ${report.jobs_discovered}\nHigh matches: ${report.high_matches}\nRecruiter contacts updated: ${report.recruiter_contacts_updated}\nInterviews completed: ${report.interviews_completed}\nUpcoming interviews: ${report.interviews_upcoming}\nResponse rate: ${report.response_rate}%\nInterview rate: ${report.interview_rate}%\nOverdue follow-ups: ${report.follow_ups_overdue}\n\nNext priorities:\n${report.recommendations.map((item, i) => `${i + 1}. ${item}`).join("\n")}`;
+    return `CareerNavIQ Weekly Executive Report\n${new Date(report.period_start).toLocaleDateString()}–${new Date(report.period_end).toLocaleDateString()}\n\nApplications submitted: ${report.applications_submitted}\nOpportunities discovered: ${report.jobs_discovered}\nHigh-alignment opportunities: ${report.high_matches}\nRecruiter contacts updated: ${report.recruiter_contacts_updated}\nInterviews completed: ${report.interviews_completed}\nUpcoming interviews: ${report.interviews_upcoming}\nResponse rate: ${report.response_rate}%\nInterview rate: ${report.interview_rate}%\nOverdue follow-ups: ${report.follow_ups_overdue}\n\nNext priorities:\n${report.recommendations.map((item, i) => `${i + 1}. ${item}`).join("\n")}`;
   }
 
   async function copyReport() {
@@ -41,14 +41,14 @@ export default function WeeklyReportPage() {
 
   return <>
     <section className="executive-hero">
-      <div><p className="eyebrow">WEEKLY EXECUTIVE REPORT</p><h1>Your job-search week, in one view.</h1><p className="muted">{new Date(report.period_start).toLocaleDateString()} through {new Date(report.period_end).toLocaleDateString()} · based only on recorded CareerOS activity.</p></div>
+      <div><p className="eyebrow">WEEKLY EXECUTIVE REPORT</p><h1>Your career portfolio, week by week.</h1><p className="muted">{new Date(report.period_start).toLocaleDateString()} through {new Date(report.period_end).toLocaleDateString()} · based only on recorded CareerNavIQ activity.</p></div>
       <div className="executive-actions"><button onClick={copyReport}>{copied ? "Copied" : "Copy report"}</button><button className="secondary" onClick={load}>Refresh</button></div>
     </section>
 
     <section className="executive-kpis">
       <article className="executive-kpi"><span>Applications</span><strong>{report.applications_submitted}</strong><small>submitted this week</small></article>
-      <article className="executive-kpi"><span>Jobs discovered</span><strong>{report.jobs_discovered}</strong><small>across manual and saved searches</small></article>
-      <article className="executive-kpi"><span>High matches</span><strong>{report.high_matches}</strong><small>70% or stronger</small></article>
+      <article className="executive-kpi"><span>Opportunities discovered</span><strong>{report.jobs_discovered}</strong><small>across direct and standing reviews</small></article>
+      <article className="executive-kpi"><span>High alignment</span><strong>{report.high_matches}</strong><small>70% or stronger</small></article>
       <article className="executive-kpi"><span>Recruiter activity</span><strong>{report.recruiter_contacts_updated}</strong><small>contacts updated</small></article>
       <article className="executive-kpi"><span>Interviews</span><strong>{report.interviews_completed}</strong><small>completed this week</small></article>
       <article className="executive-kpi"><span>Offers</span><strong>{report.offers_active}</strong><small>active or accepted</small></article>
@@ -61,6 +61,6 @@ export default function WeeklyReportPage() {
 
     <section className="dashboard-panel"><div className="row between"><div><p className="eyebrow">PIPELINE SNAPSHOT</p><h2>Current applications by stage</h2></div><Link href="/applications">Manage pipeline →</Link></div><div className="pipeline-list">{stages.map((stage) => { const count = report.stage_counts[stage] || 0; return <div className="pipeline-row" key={stage}><span>{stage[0].toUpperCase() + stage.slice(1)}</span><div className="pipeline-track"><div className="pipeline-fill" style={{ width: `${Math.max(count ? 8 : 0, count / maxStage * 100)}%` }} /></div><strong>{count}</strong></div>; })}</div></section>
 
-    <section className="dashboard-panel"><p className="eyebrow">ACTIVITY CHECK</p><h2>Work still requiring attention</h2><div className="quick-actions-grid"><Link className="quick-action" href="/notifications"><strong>{report.unread_notifications} unread alerts</strong><span>Review reminders and search updates</span></Link><Link className="quick-action" href="/applications"><strong>{report.follow_ups_overdue} overdue follow-ups</strong><span>Move active opportunities forward</span></Link><Link className="quick-action" href="/interviews"><strong>{report.interviews_upcoming} upcoming interviews</strong><span>Confirm preparation and logistics</span></Link><Link className="quick-action" href="/automation"><strong>{report.matches_created} matches added</strong><span>Run and manage saved searches</span></Link></div></section>
+    <section className="dashboard-panel"><p className="eyebrow">ACTIVITY CHECK</p><h2>Work still requiring attention</h2><div className="quick-actions-grid"><Link className="quick-action" href="/notifications"><strong>{report.unread_notifications} unread alerts</strong><span>Review reminders and briefing updates</span></Link><Link className="quick-action" href="/applications"><strong>{report.follow_ups_overdue} overdue follow-ups</strong><span>Move active opportunities forward</span></Link><Link className="quick-action" href="/interviews"><strong>{report.interviews_upcoming} upcoming interviews</strong><span>Confirm preparation and logistics</span></Link><Link className="quick-action" href="/automation"><strong>{report.matches_created} signals added</strong><span>Review and manage standing briefs</span></Link></div></section>
   </>;
 }

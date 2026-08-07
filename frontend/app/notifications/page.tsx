@@ -26,15 +26,15 @@ type Notification = {
 const filters = [
   ["all", "All"],
   ["unread", "Unread"],
-  ["high_match", "Job matches"],
-  ["saved_search", "Search updates"],
+  ["high_match", "Opportunity signals"],
+  ["saved_search", "Market briefs"],
   ["follow_up", "Follow-ups"],
   ["interview_reminder", "Interviews"],
 ] as const;
 
 const kindLabels: Record<string, string> = {
-  high_match: "High match",
-  saved_search: "Saved search",
+  high_match: "High alignment",
+  saved_search: "Market brief",
   follow_up: "Follow-up",
   interview_reminder: "Interview",
 };
@@ -142,7 +142,7 @@ export default function Notifications() {
   if (!digest && !error) {
     return (
       <section className="dashboard-panel">
-        <p className="eyebrow">SMART NOTIFICATIONS</p>
+        <p className="eyebrow">PRIVATE BRIEFING ROOM</p>
         <h2>Loading your priority inbox…</h2>
       </section>
     );
@@ -152,10 +152,10 @@ export default function Notifications() {
     <>
       <section className="executive-hero">
         <div>
-          <p className="eyebrow">SMART NOTIFICATION CENTER</p>
-          <h1>Know what needs attention next.</h1>
+          <p className="eyebrow">PRIVATE BRIEFING ROOM</p>
+          <h1>Attention, without the noise.</h1>
           <p className="muted">
-            CareerOS combines high-match jobs, saved-search results, overdue
+            CareerNavIQ combines high-alignment opportunities, standing-brief results, overdue
             follow-ups, and upcoming interviews in one actionable inbox.
           </p>
         </div>
@@ -198,14 +198,14 @@ export default function Notifications() {
           <small>follow-ups and interviews</small>
         </article>
         <article className="executive-kpi">
-          <span>High matches</span>
+          <span>High alignment</span>
           <strong>{digest?.high_matches || 0}</strong>
           <small>strong-fit opportunities</small>
         </article>
         <article className="executive-kpi">
-          <span>Search updates</span>
+          <span>Brief updates</span>
           <strong>{digest?.saved_search_updates || 0}</strong>
-          <small>saved-search results</small>
+          <small>standing-brief results</small>
         </article>
         <article className="executive-kpi">
           <span>Interview reminders</span>
@@ -279,12 +279,12 @@ export default function Notifications() {
             <div>
               <h3>No notifications in this view</h3>
               <p className="muted">
-                Run a saved search, add an interview, or schedule an application
-                follow-up. CareerOS will surface the next action here.
+                Commission a standing brief, add an interview, or schedule an application
+                follow-up. CareerNavIQ will surface the next action here.
               </p>
               <div className="row wrap">
                 <Link className="button" href="/automation">
-                  Manage saved searches
+                  Manage standing briefs
                 </Link>
                 <Link className="button secondary" href="/interviews">
                   Open Interview Center

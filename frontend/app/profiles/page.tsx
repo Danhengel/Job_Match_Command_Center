@@ -142,7 +142,7 @@ export default function Profiles() {
                 {profile.target_titles.length ? (
                   profile.target_titles.slice(0, 4).map((title) => <span key={title}>{title}</span>)
                 ) : (
-                  <p className="muted">Add target titles to improve job matching.</p>
+                  <p className="muted">Add target titles to strengthen opportunity selection.</p>
                 )}
               </div>
 
