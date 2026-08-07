@@ -23,6 +23,7 @@ import "./resume-layout.css";
 import "./company-watch-catalog.css";
 import "./experience-overhaul.css";
 import "./executive-platform-v6.css";
+import "./sitewide-consistency-v7.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 
