@@ -62,7 +62,10 @@ def _source_status(source: str, jobs: int, failures: int, requests: int) -> dict
 
 
 def _matches_titles(row: dict, titles: list[str]) -> bool:
-    return not titles or any(job_sources.query_matches(row, title) for title in titles)
+    title_row = {"title": row.get("title", "")}
+    return not titles or any(
+        job_sources.query_matches(title_row, title) for title in titles
+    )
 
 
 def _catalog_tasks() -> list[tuple[str, Callable, tuple, bool, CareerPageWatch | None]]:
