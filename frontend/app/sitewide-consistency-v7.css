@@ -1,0 +1,209 @@
+/* CareerNavIQ Sitewide Visual Consistency v7
+   One visual contract for every authenticated screen. */
+
+.executive-platform {
+  --v7-page-max: 1400px;
+  --v7-page-gap: 24px;
+  --v7-panel-pad: 24px;
+  --v7-panel-radius: 10px;
+  --v7-control-radius: 7px;
+  --v7-control-height: 44px;
+}
+
+.executive-platform .app-content {
+  padding: 30px clamp(22px, 3vw, 46px) 54px !important;
+}
+
+.executive-platform .executive-page-frame {
+  width: min(100%, var(--v7-page-max));
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--v7-page-gap);
+}
+
+.executive-platform .executive-page-frame > * {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.executive-platform :is(.page-header, .executive-page-header, .executive-page-frame > .hero, .executive-page-frame > .executive-hero) {
+  min-height: 132px;
+  width: 100%;
+  margin: 0 !important;
+  padding: 16px 0 26px 24px !important;
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: space-between !important;
+  gap: 28px !important;
+  border: 0 !important;
+  border-left: 3px solid var(--x-brass) !important;
+  border-bottom: 1px solid var(--x-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.executive-platform :is(.page-header, .executive-page-header, .executive-page-frame > .hero, .executive-page-frame > .executive-hero) > :first-child {
+  min-width: 0;
+  max-width: 900px;
+}
+
+.executive-platform :is(.page-header, .executive-page-header, .executive-page-frame > .hero, .executive-page-frame > .executive-hero) h1 {
+  margin: 4px 0 10px !important;
+  max-width: 920px;
+  font-size: clamp(36px, 4.25vw, 56px) !important;
+  line-height: 1.02 !important;
+  letter-spacing: -0.035em !important;
+}
+
+.executive-platform :is(.page-header-actions, .executive-page-header-actions, .executive-actions) {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+  flex: 0 0 auto;
+}
+
+.executive-platform .executive-page-frame :is(.card, .executive-panel, .dashboard-panel, .studio-panel, .analytics-panel, .resume-upload-panel, .resume-library-panel, .resume-analysis-panel, .connector-panel, .settings-card, .outreach-controls, .outreach-editor, .outreach-guidance, .priority-card) {
+  padding: var(--v7-panel-pad) !important;
+  border: 1px solid var(--x-line) !important;
+  border-radius: var(--v7-panel-radius) !important;
+  background: var(--x-paper) !important;
+  box-shadow: 0 10px 28px rgba(7, 27, 44, 0.045) !important;
+}
+
+.executive-platform :is(.executive-metric-strip, .executive-kpis, .interview-kpis, .coach-kpis, .analytics-kpi-grid, .profile-summary-grid, .company-summary-grid, .company-detail-kpis, .watch-summary-grid, .automation-health-grid) {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
+  gap: 0 !important;
+  overflow: hidden;
+  border: 1px solid var(--x-line) !important;
+  border-radius: var(--v7-panel-radius) !important;
+  background: var(--x-paper) !important;
+  box-shadow: 0 8px 24px rgba(7, 27, 44, 0.035) !important;
+}
+
+.executive-platform :is(.executive-metric-strip, .executive-kpis, .interview-kpis, .coach-kpis, .analytics-kpi-grid, .profile-summary-grid, .company-summary-grid, .company-detail-kpis, .watch-summary-grid, .automation-health-grid) > article {
+  min-height: 116px;
+  padding: 20px 22px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  gap: 3px !important;
+  border: 0 !important;
+  border-left: 1px solid var(--x-line-soft) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.executive-platform :is(.executive-metric-strip, .executive-kpis, .interview-kpis, .coach-kpis, .analytics-kpi-grid, .profile-summary-grid, .company-summary-grid, .company-detail-kpis, .watch-summary-grid, .automation-health-grid) > article:first-child {
+  border-left: 0 !important;
+}
+
+.executive-platform :is(.executive-metric-strip, .executive-kpis, .interview-kpis, .coach-kpis, .analytics-kpi-grid, .profile-summary-grid, .company-summary-grid, .company-detail-kpis, .watch-summary-grid, .automation-health-grid) > article > span {
+  color: var(--x-muted) !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+}
+
+.executive-platform :is(.executive-metric-strip, .executive-kpis, .interview-kpis, .coach-kpis, .analytics-kpi-grid, .profile-summary-grid, .company-summary-grid, .company-detail-kpis, .watch-summary-grid, .automation-health-grid) > article > strong {
+  margin: 2px 0 !important;
+  color: var(--x-ink) !important;
+  font-family: var(--x-serif) !important;
+  font-size: clamp(28px, 3vw, 38px) !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  letter-spacing: -0.035em !important;
+}
+
+.executive-platform .executive-page-frame label:not(.profile-preference-card):not(.settings-toggle):not(.resume-checkbox-row) {
+  display: block;
+  margin: 14px 0 6px !important;
+  color: var(--x-ink) !important;
+  font-size: 12px !important;
+  font-weight: 780 !important;
+}
+
+.executive-platform .executive-page-frame :is(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]), select) {
+  width: 100%;
+  min-height: var(--v7-control-height) !important;
+  padding: 9px 12px !important;
+  font-size: 14px !important;
+}
+
+.executive-platform .executive-page-frame textarea {
+  width: 100%;
+  min-height: 108px;
+  padding: 11px 12px !important;
+  font-size: 14px !important;
+  line-height: 1.55 !important;
+  resize: vertical;
+}
+
+.executive-platform .executive-page-frame :is(button:not(.mobile-nav-overlay):not(.mobile-menu-button):not(.sidebar-close), .button) {
+  min-height: 42px !important;
+  padding: 0 15px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 7px !important;
+  border-radius: var(--v7-control-radius) !important;
+  font-size: 13px !important;
+  line-height: 1.15 !important;
+  text-align: center;
+}
+
+.executive-platform .executive-page-frame :is(.job-card-modern, .crm-contact-card, .company-role-card, .watch-card, .activity-item, .notification-row, .automation-row, .company-card-modern, .resume-library-card, .interview-event-card, .quick-action, .funnel-stage-card, .executive-action-card, .prep-item, .coach-message, .history-row) {
+  padding: 18px !important;
+  border: 1px solid var(--x-line-soft) !important;
+  border-radius: 8px !important;
+  background: #fffefb !important;
+  box-shadow: none !important;
+}
+
+.executive-platform .executive-page-frame :is(.job-card-modern, .crm-contact-card, .company-role-card, .watch-card, .activity-item, .notification-row, .automation-row, .company-card-modern, .resume-library-card, .interview-event-card, .quick-action, .funnel-stage-card, .executive-action-card, .prep-item, .coach-message, .history-row):hover {
+  border-color: var(--x-line-strong) !important;
+  background: var(--x-sail) !important;
+  box-shadow: inset 3px 0 0 var(--x-teal) !important;
+}
+
+.executive-platform .executive-page-frame > :is(.grid, .two-col, .executive-grid, .analytics-grid, .profile-grid, .company-grid, .company-role-grid, .resume-card-grid, .resume-studio-grid, .resume-studio-workspace, .interview-layout, .crm-layout, .coach-layout, .outreach-layout, .watch-layout, .settings-grid) {
+  gap: 20px !important;
+}
+
+.executive-platform :is(.profile-edit-save-bar, .application-toolbar, .portfolio-toolbar, .company-toolbar, .crm-toolbar) {
+  border: 1px solid var(--x-line) !important;
+  border-radius: var(--v7-panel-radius) !important;
+  background: rgba(255, 253, 248, 0.97) !important;
+  box-shadow: 0 8px 24px rgba(7, 27, 44, 0.05) !important;
+}
+
+@media (max-width: 1100px) {
+  .executive-platform .app-content { padding: 26px 24px 48px !important; }
+  .executive-platform :is(.two-col, .executive-grid, .watch-layout, .interview-layout, .crm-layout, .coach-layout, .outreach-layout, .resume-studio-grid, .resume-studio-workspace) { grid-template-columns: 1fr !important; }
+}
+
+@media (max-width: 760px) {
+  .executive-platform { --v7-page-gap: 18px; --v7-panel-pad: 18px; }
+  .executive-platform .app-content { padding: 18px 14px 96px !important; }
+  .executive-platform :is(.page-header, .executive-page-header, .executive-page-frame > .hero, .executive-page-frame > .executive-hero) {
+    min-height: 0;
+    padding: 8px 0 20px 16px !important;
+    align-items: flex-start !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+  .executive-platform :is(.page-header, .executive-page-header, .executive-page-frame > .hero, .executive-page-frame > .executive-hero) h1 { font-size: clamp(31px, 10vw, 42px) !important; }
+  .executive-platform :is(.page-header-actions, .executive-page-header-actions, .executive-actions) { width: 100%; justify-content: flex-start !important; }
+  .executive-platform :is(.executive-metric-strip, .executive-kpis, .interview-kpis, .coach-kpis, .analytics-kpi-grid, .profile-summary-grid, .company-summary-grid, .company-detail-kpis, .watch-summary-grid, .automation-health-grid) { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+}
+
+@media (max-width: 520px) {
+  .executive-platform :is(.executive-metric-strip, .executive-kpis, .interview-kpis, .coach-kpis, .analytics-kpi-grid, .profile-summary-grid, .company-summary-grid, .company-detail-kpis, .watch-summary-grid, .automation-health-grid) { grid-template-columns: 1fr !important; }
+  .executive-platform .page-header-actions > *, .executive-platform .executive-page-header-actions > *, .executive-platform .executive-actions > * { width: 100%; }
+}
