@@ -205,7 +205,10 @@ def search(
                     )
             except Exception as exc:
                 failures += 1
-                errors.append(f"{source_name} {title}: {exc}")
+                errors.append(
+                    f"{source_name} {title}: "
+                    f"{job_sources.source_error_message(exc)}"
+                )
         source_status.append(
             source_status_item(
                 source_name,
@@ -346,7 +349,10 @@ def search(
                     )
             except Exception as exc:
                 employer_failures += 1
-                errors.append(f"{source_name} {value}: {exc}")
+                errors.append(
+                    f"{source_name} {value}: "
+                    f"{job_sources.source_error_message(exc)}"
+                )
 
     if employer_requests:
         if "Saved career pages" not in searched_sources and not body.use_catalog:
@@ -376,7 +382,10 @@ def search(
                     )
             except Exception as exc:
                 jsearch_failures += 1
-                errors.append(f"JSearch {title}: {exc}")
+                errors.append(
+                    f"JSearch {title}: "
+                    f"{job_sources.source_error_message(exc)}"
+                )
         source_status.append(
             source_status_item(
                 "JSearch / Google Jobs publishers",

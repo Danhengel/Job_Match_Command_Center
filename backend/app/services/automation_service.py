@@ -89,7 +89,10 @@ def run_saved_search(
                         f"Remotive returned no jobs for '{title}'."
                     )
             except Exception as exc:
-                errors.append(f"Remotive {title}: {exc}")
+                errors.append(
+                    f"Remotive {title}: "
+                    f"{job_sources.source_error_message(exc)}"
+                )
 
     if saved_search.use_catalog:
         catalog = job_sources.employer_catalog()
@@ -123,7 +126,10 @@ def run_saved_search(
                             f"{label} board '{board}' returned no open jobs."
                         )
                 except Exception as exc:
-                    errors.append(f"{label} {board}: {exc}")
+                    errors.append(
+                        f"{label} {board}: "
+                        f"{job_sources.source_error_message(exc)}"
+                    )
 
     if saved_search.use_jsearch:
         for title in saved_search.titles or []:
@@ -136,7 +142,10 @@ def run_saved_search(
                         f"JSearch returned no jobs for '{query}'."
                     )
             except Exception as exc:
-                errors.append(f"JSearch {title}: {exc}")
+                errors.append(
+                    f"JSearch {title}: "
+                    f"{job_sources.source_error_message(exc)}"
+                )
 
     unique_rows = job_sources.dedupe(rows)
     source_counts = dict(
