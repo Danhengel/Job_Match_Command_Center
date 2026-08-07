@@ -226,11 +226,11 @@ export default function ProfileDetail({ params }: { params: Promise<{ id: string
       ]}
     />
 
-    <ExecutivePanel className="profile-optimizer-panel">
+    <ExecutivePanel>
       <SectionHeader
         eyebrow="RÉSUMÉ INTELLIGENCE"
         title="Optimize this profile from the primary résumé"
-        description="CareerNavIQ can identify the strongest career direction in the résumé, recommend adjacent titles and grounded keywords, remove irrelevant search paths, and reanalyze the résumé after you approve the changes."
+        description="CareerNavIQ identifies the strongest career direction in the résumé, recommends adjacent titles and grounded keywords, removes irrelevant search paths, and reanalyzes the résumé after you approve the changes."
         actions={
           <button type="button" onClick={() => void previewOptimization()} disabled={optimizing || !primaryResume}>
             {optimizing ? "Reading résumé…" : optimization ? "Refresh recommendations" : "Review recommendations"}
@@ -243,62 +243,74 @@ export default function ProfileDetail({ params }: { params: Promise<{ id: string
           <p>Upload a résumé below or mark an existing résumé as primary before running profile optimization.</p>
         </Notice>
       ) : !optimization ? (
-        <div className="profile-optimizer-intro">
-          <div><span>PRIMARY RÉSUMÉ</span><strong>{primaryResume.name}</strong><small>{primaryResume.original_filename}</small></div>
-          <div><span>CURRENT MANDATE</span><strong>{p.target_titles.length || 0} target roles</strong><small>{p.priority_keywords.length || 0} priority evidence terms</small></div>
-          <div><span>WORK MODE</span><strong>{workMode(p.remote_preferred, p.hybrid_preferred)}</strong><small>Location and compensation will be preserved</small></div>
+        <div className="profile-grid">
+          <article className="card">
+            <p className="eyebrow">PRIMARY RÉSUMÉ</p>
+            <h3>{primaryResume.name}</h3>
+            <p className="muted">{primaryResume.original_filename}</p>
+          </article>
+          <article className="card">
+            <p className="eyebrow">CURRENT MANDATE</p>
+            <h3>{p.target_titles.length || 0} target roles</h3>
+            <p className="muted">{p.priority_keywords.length || 0} priority evidence terms</p>
+          </article>
+          <article className="card">
+            <p className="eyebrow">WORK MODE</p>
+            <h3>{workMode(p.remote_preferred, p.hybrid_preferred)}</h3>
+            <p className="muted">Location and compensation remain under your control.</p>
+          </article>
         </div>
       ) : (
-        <div className="profile-optimizer-review">
-          <div className="profile-optimizer-summary">
-            <div>
-              <span className={`profile-optimizer-confidence ${optimization.optimization.confidence}`}>{optimization.optimization.confidence} confidence</span>
-              <h3>{optimization.optimization.role_family}</h3>
-              <p>{optimization.optimization.reasoning}</p>
+        <div className="grid">
+          <article className="card">
+            <div className="row between wrap">
+              <div>
+                <p className="eyebrow">RECOMMENDED DIRECTION</p>
+                <h2>{optimization.optimization.role_family}</h2>
+              </div>
+              <span className="score-pill">{optimization.optimization.confidence} confidence</span>
             </div>
-            <div className="profile-optimizer-source">
-              <span>Source résumé</span>
-              <strong>{optimization.source_resume.name}</strong>
-              <small>{optimization.source_resume.original_filename}</small>
-            </div>
-          </div>
+            <p>{optimization.optimization.reasoning}</p>
+            <p className="muted">Source: {optimization.source_resume.name} · {optimization.source_resume.original_filename}</p>
+          </article>
 
-          <div className="profile-optimizer-grid">
-            <div>
+          <div className="profile-grid">
+            <article className="card">
               <p className="eyebrow">TARGET POSITIONS</p>
-              <h4>{optimization.optimization.recommended_target_titles.length} recommended roles</h4>
-              <div className="profile-optimizer-tags">
-                {optimization.optimization.recommended_target_titles.map((title) => <span key={title}>{title}</span>)}
+              <h3>{optimization.optimization.recommended_target_titles.length} recommended roles</h3>
+              <div className="row wrap">
+                {optimization.optimization.recommended_target_titles.map((title) => <span className="badge" key={title}>{title}</span>)}
               </div>
-            </div>
-            <div>
+            </article>
+            <article className="card">
               <p className="eyebrow">RÉSUMÉ-GROUNDED EVIDENCE</p>
-              <h4>{optimization.optimization.recommended_priority_keywords.length} priority terms</h4>
-              <div className="profile-optimizer-tags evidence">
-                {optimization.optimization.recommended_priority_keywords.map((keyword) => <span key={keyword}>{keyword}</span>)}
+              <h3>{optimization.optimization.recommended_priority_keywords.length} priority terms</h3>
+              <div className="row wrap">
+                {optimization.optimization.recommended_priority_keywords.map((keyword) => <span className="badge" key={keyword}>{keyword}</span>)}
               </div>
-            </div>
-            <div>
+            </article>
+            <article className="card">
               <p className="eyebrow">SEARCH EXCLUSIONS</p>
-              <h4>{optimization.optimization.recommended_exclusion_keywords.length} noise filters</h4>
-              <div className="profile-optimizer-tags exclusions">
-                {optimization.optimization.recommended_exclusion_keywords.map((keyword) => <span key={keyword}>{keyword}</span>)}
+              <h3>{optimization.optimization.recommended_exclusion_keywords.length} noise filters</h3>
+              <div className="row wrap">
+                {optimization.optimization.recommended_exclusion_keywords.map((keyword) => <span className="badge" key={keyword}>{keyword}</span>)}
               </div>
-            </div>
+            </article>
           </div>
 
           {optimization.optimization.resume_evidence.length ? (
-            <div className="profile-optimizer-evidence-line">
-              <strong>Why CareerNavIQ chose this direction</strong>
-              <span>{optimization.optimization.resume_evidence.join(" · ")}</span>
-            </div>
+            <article className="card">
+              <p className="eyebrow">WHY THIS DIRECTION</p>
+              <h3>Résumé evidence CareerNavIQ recognized</h3>
+              <p>{optimization.optimization.resume_evidence.join(" · ")}</p>
+            </article>
           ) : null}
 
-          <div className="profile-optimizer-preserved">
-            <div><span>Location preserved</span><strong>{optimization.preserved_preferences.home_location || "Not set"}</strong></div>
-            <div><span>Radius preserved</span><strong>{optimization.preserved_preferences.radius_miles || 0} miles</strong></div>
-            <div><span>Compensation preserved</span><strong>{optimization.preserved_preferences.salary_target ? `$${optimization.preserved_preferences.salary_target.toLocaleString()}` : "Not set"}</strong></div>
-            <div><span>Recommended work mode</span><strong>{workMode(optimization.optimization.recommended_remote_preferred, optimization.optimization.recommended_hybrid_preferred)}</strong></div>
+          <div className="profile-grid">
+            <article className="card"><p className="eyebrow">LOCATION PRESERVED</p><h3>{optimization.preserved_preferences.home_location || "Not set"}</h3></article>
+            <article className="card"><p className="eyebrow">RADIUS PRESERVED</p><h3>{optimization.preserved_preferences.radius_miles || 0} miles</h3></article>
+            <article className="card"><p className="eyebrow">COMPENSATION PRESERVED</p><h3>{optimization.preserved_preferences.salary_target ? `$${optimization.preserved_preferences.salary_target.toLocaleString()}` : "Not set"}</h3></article>
+            <article className="card"><p className="eyebrow">RECOMMENDED WORK MODE</p><h3>{workMode(optimization.optimization.recommended_remote_preferred, optimization.optimization.recommended_hybrid_preferred)}</h3></article>
           </div>
 
           {optimization.optimization.confidence === "low" ? (
@@ -306,7 +318,7 @@ export default function ProfileDetail({ params }: { params: Promise<{ id: string
               <p>The résumé does not show one dominant career direction strongly enough for CareerNavIQ to apply recommendations automatically.</p>
             </Notice>
           ) : (
-            <div className="profile-optimizer-actions">
+            <div className="row wrap">
               <button className="secondary" type="button" onClick={() => setOptimization(null)} disabled={applyingOptimization}>Cancel</button>
               <button type="button" onClick={() => void applyOptimization()} disabled={applyingOptimization}>
                 {applyingOptimization ? "Applying recommendations…" : "Apply recommendations and reanalyze"}
