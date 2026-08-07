@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import { MetricStrip, Notice, PageHeader, SectionHeader } from "@/components/ui";
 import { api } from "@/lib/api";
 
 type Digest = {
@@ -50,20 +51,15 @@ export default function Notifications() {
   async function load() {
     setError("");
     try {
-      const [d, n] = await Promise.all([
-        api("/api/automation/digest"),
-        api("/api/automation/notifications"),
-      ]);
+      const [d, n] = await Promise.all([api("/api/automation/digest"), api("/api/automation/notifications")]);
       setDigest(d);
       setItems(n);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Unable to load notifications.");
+      setError(e instanceof Error ? e.message : "Unable to load updates.");
     }
   }
 
-  useEffect(() => {
-    load();
-  }, []);
+  useEffect(() => { void load(); }, []);
 
   const visible = useMemo(() => {
     if (filter === "all") return items;
@@ -71,35 +67,19 @@ export default function Notifications() {
     return items.filter((item) => item.kind === filter);
   }, [items, filter]);
 
-  const urgentCount = useMemo(
-    () =>
-      items.filter(
-        (item) =>
-          !item.read &&
-          (item.kind === "follow_up" || item.kind === "interview_reminder"),
-      ).length,
-    [items],
-  );
+  const urgentCount = useMemo(() => items.filter((item) => !item.read && (item.kind === "follow_up" || item.kind === "interview_reminder")).length, [items]);
 
   async function refreshRules() {
     setBusy("refresh");
     setNotice("");
     setError("");
     try {
-      const result = await api("/api/automation/notifications/refresh", {
-        method: "POST",
-      });
-      const created =
-        Number(result.follow_ups_created || 0) +
-        Number(result.interview_reminders_created || 0);
-      setNotice(
-        created
-          ? `${created} new time-sensitive notification${created === 1 ? "" : "s"} created.`
-          : "You are up to date. No new time-sensitive items were found.",
-      );
+      const result = await api("/api/automation/notifications/refresh", { method: "POST" });
+      const created = Number(result.follow_ups_created || 0) + Number(result.interview_reminders_created || 0);
+      setNotice(created ? `${created} new time-sensitive update${created === 1 ? "" : "s"} created.` : "You are up to date. No new time-sensitive items were found.");
       await load();
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Unable to refresh notifications.");
+      setError(e instanceof Error ? e.message : "Unable to refresh updates.");
     } finally {
       setBusy(null);
     }
@@ -108,9 +88,7 @@ export default function Notifications() {
   async function read(item: Notification) {
     setBusy(`read-${item.id}`);
     try {
-      await api(`/api/automation/notifications/${item.id}/read`, {
-        method: "POST",
-      });
+      await api(`/api/automation/notifications/${item.id}/read`, { method: "POST" });
       await load();
     } finally {
       setBusy(null);
@@ -120,9 +98,7 @@ export default function Notifications() {
   async function dismiss(item: Notification) {
     setBusy(`dismiss-${item.id}`);
     try {
-      await api(`/api/automation/notifications/${item.id}`, {
-        method: "DELETE",
-      });
+      await api(`/api/automation/notifications/${item.id}`, { method: "DELETE" });
       await load();
     } finally {
       setBusy(null);
@@ -139,157 +115,58 @@ export default function Notifications() {
     }
   }
 
-  if (!digest && !error) {
-    return (
-      <section className="dashboard-panel">
-        <p className="eyebrow">ROUTE UPDATES</p>
-        <h2>Loading the waypoints that need attention…</h2>
-      </section>
-    );
-  }
+  if (!digest && !error) return <section className="executive-loading"><p className="eyebrow">UPDATES</p><h2>Preparing your actionable inbox…</h2></section>;
 
   return (
     <>
-      <section className="executive-hero">
-        <div>
-          <p className="eyebrow">ROUTE UPDATES</p>
-          <h1>Keep the next waypoint in sight.</h1>
-          <p className="muted">
-            CareerNavIQ combines high-alignment opportunities, scheduled-search results, overdue
-            follow-ups, and upcoming interviews in one actionable inbox.
-          </p>
-        </div>
-        <div className="executive-actions">
-          <button onClick={refreshRules} disabled={busy === "refresh"}>
-            {busy === "refresh" ? "Checking…" : "Check for updates"}
-          </button>
-          <button
-            className="secondary"
-            onClick={readAll}
-            disabled={busy === "read-all" || !digest?.unread_count}
-          >
-            {busy === "read-all" ? "Updating…" : "Mark all read"}
-          </button>
-        </div>
-      </section>
+      <PageHeader
+        eyebrow="UPDATES"
+        title="Keep time-sensitive decisions and follow-ups in one place"
+        description="CareerNavIQ combines high-alignment opportunities, scheduled market reviews, overdue follow-ups, and upcoming interviews into one actionable inbox."
+        actions={<div className="row wrap"><button onClick={refreshRules} disabled={busy === "refresh"}>{busy === "refresh" ? "Checking…" : "Check for updates"}</button><button className="secondary" onClick={readAll} disabled={busy === "read-all" || !digest?.unread_count}>{busy === "read-all" ? "Updating…" : "Mark all read"}</button></div>}
+      />
 
-      {error ? (
-        <section className="resume-alert resume-alert-error">
-          <strong>Unable to update notifications</strong>
-          <span>{error}</span>
-        </section>
-      ) : null}
-      {notice ? (
-        <section className="resume-alert">
-          <strong>Notification check complete</strong>
-          <span>{notice}</span>
-        </section>
-      ) : null}
+      {error ? <Notice title="Updates could not be refreshed" tone="error"><p>{error}</p></Notice> : null}
+      {notice ? <Notice title="Update check complete" tone="success"><p>{notice}</p></Notice> : null}
 
-      <section className="executive-kpis" aria-label="Notification summary">
-        <article className="executive-kpi">
-          <span>Unread</span>
-          <strong>{digest?.unread_count || 0}</strong>
-          <small>items awaiting review</small>
-        </article>
-        <article className="executive-kpi">
-          <span>Time-sensitive</span>
-          <strong>{urgentCount}</strong>
-          <small>follow-ups and interviews</small>
-        </article>
-        <article className="executive-kpi">
-          <span>High alignment</span>
-          <strong>{digest?.high_matches || 0}</strong>
-          <small>strong-fit opportunities</small>
-        </article>
-        <article className="executive-kpi">
-          <span>Route updates</span>
-          <strong>{digest?.saved_search_updates || 0}</strong>
-          <small>scheduled-search results</small>
-        </article>
-        <article className="executive-kpi">
-          <span>Interview reminders</span>
-          <strong>{digest?.interview_reminders || 0}</strong>
-          <small>within the next 48 hours</small>
-        </article>
-      </section>
+      <MetricStrip
+        ariaLabel="Updates summary"
+        items={[
+          { label: "Unread", value: digest?.unread_count || 0, detail: "items awaiting review" },
+          { label: "Time-sensitive", value: urgentCount, detail: "follow-ups and interviews" },
+          { label: "High alignment", value: digest?.high_matches || 0, detail: "strong opportunities" },
+          { label: "Market updates", value: digest?.saved_search_updates || 0, detail: "scheduled review results" },
+          { label: "Interview reminders", value: digest?.interview_reminders || 0, detail: "within the next 48 hours" },
+        ]}
+      />
 
       <section className="dashboard-panel">
-        <div className="row between wrap">
-          <div>
-            <p className="eyebrow">NEXT WAYPOINTS</p>
-            <h2>{visible.length} notification{visible.length === 1 ? "" : "s"}</h2>
-          </div>
-          <div className="row wrap">
-            {filters.map(([value, label]) => (
-              <button
-                key={value}
-                className={filter === value ? "" : "secondary"}
-                onClick={() => setFilter(value)}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-        </div>
+        <SectionHeader
+          eyebrow="ACTIONABLE INBOX"
+          title={`${visible.length} update${visible.length === 1 ? "" : "s"} in view`}
+          description="Filter the inbox without losing the distinction between market signals and commitments that require action."
+          actions={<div className="row wrap">{filters.map(([value, label]) => <button key={value} className={filter === value ? "" : "secondary"} onClick={() => setFilter(value)}>{label}</button>)}</div>}
+        />
 
         <div className="activity-list">
           {visible.map((item) => (
-            <article
-              className={`notification-row ${item.read ? "read" : ""}`}
-              key={item.id}
-            >
+            <article className={`notification-row ${item.read ? "read" : ""}`} key={item.id}>
               <div>
-                <div className="row wrap">
-                  <span className="badge">
-                    {kindLabels[item.kind] || item.kind.replaceAll("_", " ")}
-                  </span>
-                  {!item.read ? <span className="badge">Unread</span> : null}
-                </div>
-                <h3>{item.title}</h3>
-                <p>{item.message}</p>
-                <small>{new Date(item.created_at).toLocaleString()}</small>
+                <div className="row wrap"><span className="badge">{kindLabels[item.kind] || item.kind.replaceAll("_", " ")}</span>{!item.read ? <span className="badge">Unread</span> : null}</div>
+                <h3>{item.title}</h3><p>{item.message}</p><small>{new Date(item.created_at).toLocaleString()}</small>
               </div>
               <div className="row wrap">
-                {item.link ? (
-                  <Link className="button" href={item.link}>
-                    Open action
-                  </Link>
-                ) : null}
-                {!item.read ? (
-                  <button
-                    className="secondary"
-                    onClick={() => read(item)}
-                    disabled={busy === `read-${item.id}`}
-                  >
-                    Mark read
-                  </button>
-                ) : null}
-                <button
-                  className="danger"
-                  onClick={() => dismiss(item)}
-                  disabled={busy === `dismiss-${item.id}`}
-                >
-                  Dismiss
-                </button>
+                {item.link ? <Link className="button" href={item.link}>Open action</Link> : null}
+                {!item.read ? <button className="secondary" onClick={() => read(item)} disabled={busy === `read-${item.id}`}>Mark read</button> : null}
+                <button className="danger" onClick={() => dismiss(item)} disabled={busy === `dismiss-${item.id}`}>Dismiss</button>
               </div>
             </article>
           ))}
           {!visible.length ? (
             <div>
-              <h3>No notifications in this view</h3>
-              <p className="muted">
-                Commission a standing brief, add an interview, or schedule an application
-                follow-up. CareerNavIQ will surface the next action here.
-              </p>
-              <div className="row wrap">
-                <Link className="button" href="/automation">
-                  Manage standing briefs
-                </Link>
-                <Link className="button secondary" href="/interviews">
-                  Open Interview Center
-                </Link>
-              </div>
+              <h3>No updates in this view</h3>
+              <p className="muted">Schedule a market review, add an interview, or set a follow-up date. CareerNavIQ will surface the next action here.</p>
+              <div className="row wrap"><Link className="button" href="/automation">Manage automation</Link><Link className="button secondary" href="/interviews">Interview advisory</Link></div>
             </div>
           ) : null}
         </div>
