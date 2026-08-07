@@ -2,14 +2,10 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { EmptyState, Notice, PageHeader } from "@/components/ui";
+import { EmptyState, MetricStrip, Notice, PageHeader, SectionHeader } from "@/components/ui";
 import { api } from "@/lib/api";
 
-type CompanyTitle = {
-  title: string;
-  count?: number;
-};
-
+type CompanyTitle = { title: string; count?: number };
 type Company = {
   company: string;
   open_job_count: number;
@@ -34,36 +30,24 @@ export default function Companies() {
 
   useEffect(() => {
     let active = true;
-
     load()
-      .catch((err) => {
-        if (active) setError(err instanceof Error ? err.message : "Unable to load the employer landscape.");
-      })
-      .finally(() => {
-        if (active) setLoading(false);
-      });
-
-    return () => {
-      active = false;
-    };
+      .catch((err) => { if (active) setError(err instanceof Error ? err.message : "Unable to load target companies."); })
+      .finally(() => { if (active) setLoading(false); });
+    return () => { active = false; };
   }, []);
 
   async function watch(company: string, watched: boolean) {
     setBusyCompany(company);
     setError("");
-
     try {
       if (watched) {
         await api(`/api/intelligence/companies/watch/${encodeURIComponent(company)}`, { method: "DELETE" });
       } else {
-        await api("/api/intelligence/companies/watch", {
-          method: "POST",
-          body: JSON.stringify({ company, notes: "" }),
-        });
+        await api("/api/intelligence/companies/watch", { method: "POST", body: JSON.stringify({ company, notes: "" }) });
       }
       await load();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Unable to update company watch.");
+      setError(err instanceof Error ? err.message : "Unable to update company watchlist.");
     } finally {
       setBusyCompany("");
     }
@@ -72,13 +56,7 @@ export default function Companies() {
   const visibleCompanies = useMemo(() => {
     const normalized = query.trim().toLowerCase();
     if (!normalized) return items;
-
-    return items.filter((company) =>
-      [company.company, ...company.top_titles.map((item) => item.title)]
-        .join(" ")
-        .toLowerCase()
-        .includes(normalized),
-    );
+    return items.filter((company) => [company.company, ...company.top_titles.map((item) => item.title)].join(" ").toLowerCase().includes(normalized));
   }, [items, query]);
 
   const summary = useMemo(() => ({
@@ -91,116 +69,70 @@ export default function Companies() {
   return (
     <>
       <PageHeader
-        eyebrow="EMPLOYER LANDSCAPE"
-        title="Map the employers behind your opportunities"
-        description="Compare hiring activity, remote availability, salary transparency, and your existing application history before deciding where to focus."
-        actions={<Link className="button secondary" href="/company-watches">Manage route watches</Link>}
+        eyebrow="TARGET COMPANIES"
+        title="Evaluate the organizations behind your strongest opportunities"
+        description="Compare hiring activity, remote availability, salary transparency, and your existing pursuit history before deciding where to invest attention."
+        actions={<Link className="button secondary" href="/company-watches">Company watchlist</Link>}
       />
 
-      {error ? (
-        <Notice title="Employer landscape needs attention" tone="error">
-          <p>{error}</p>
-        </Notice>
-      ) : null}
+      {error ? <Notice title="Target company intelligence needs attention" tone="error"><p>{error}</p></Notice> : null}
 
       {!loading && items.length ? (
-        <section className="company-summary-grid" aria-label="Employer landscape summary">
-          <article><span>Companies</span><strong>{summary.companies}</strong><small>in your opportunity data</small></article>
-          <article><span>Open jobs</span><strong>{summary.openJobs}</strong><small>across tracked companies</small></article>
-          <article><span>Route watches</span><strong>{summary.watched}</strong><small>employers monitored</small></article>
-          <article><span>Applications</span><strong>{summary.applications}</strong><small>connected to companies</small></article>
-        </section>
-      ) : null}
-
-      <section className="company-toolbar">
-        <div>
-          <p className="eyebrow">EMPLOYER MAP</p>
-          <h2>{visibleCompanies.length} compan{visibleCompanies.length === 1 ? "y" : "ies"}</h2>
-          <p className="muted">Open an employer to review its jobs, titles, and application activity.</p>
-        </div>
-        <label htmlFor="company-search">
-          <span>Filter companies</span>
-          <input
-            id="company-search"
-            type="search"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search company or title"
-          />
-        </label>
-      </section>
-
-      {loading ? (
-        <section className="card">
-          <p className="eyebrow">LOADING</p>
-          <h2>Mapping your employer landscape…</h2>
-          <p className="muted">CareerNavIQ is connecting aligned opportunities and application activity.</p>
-        </section>
-      ) : null}
-
-      {!loading && visibleCompanies.length ? (
-        <section className="company-grid" aria-label="Companies">
-          {visibleCompanies.map((company) => (
-            <article className="card company-card-modern" key={company.company}>
-              <header className="company-card-head">
-                <div className="company-avatar" aria-hidden="true">
-                  {company.company.trim().slice(0, 1).toUpperCase() || "C"}
-                </div>
-                <div>
-                  <div className="row wrap">
-                    <span className="badge">{company.open_job_count} open job{company.open_job_count === 1 ? "" : "s"}</span>
-                    {company.watched ? <span className="score-pill">Watching</span> : null}
-                  </div>
-                  <h2>{company.company}</h2>
-                </div>
-              </header>
-
-              <div className="company-metric-row">
-                <div><strong>{company.remote_job_count}</strong><span>Remote</span></div>
-                <div><strong>{company.salary_listed_count}</strong><span>Salary listed</span></div>
-                <div><strong>{company.application_count}</strong><span>Applications</span></div>
-              </div>
-
-              <div className="company-title-list">
-                <span>Frequent titles</span>
-                <div>
-                  {company.top_titles.length
-                    ? company.top_titles.slice(0, 4).map((item) => <span key={item.title}>{item.title}</span>)
-                    : <p className="muted">No titles saved yet.</p>}
-                </div>
-              </div>
-
-              <footer className="company-card-actions">
-                <button
-                  type="button"
-                  className={company.watched ? "secondary" : ""}
-                  disabled={busyCompany === company.company}
-                  onClick={() => void watch(company.company, company.watched)}
-                >
-                  {busyCompany === company.company
-                    ? "Updating…"
-                    : company.watched ? "Stop watching" : "Watch company"}
-                </button>
-                <Link className="button secondary" href={`/companies/${encodeURIComponent(company.company)}`}>
-                  Open company
-                </Link>
-              </footer>
-            </article>
-          ))}
-        </section>
-      ) : null}
-
-      {!loading && !visibleCompanies.length && !error ? (
-        <EmptyState
-          title={query ? "No employers meet this filter" : "No employer routes yet"}
-          description={query
-            ? "Try a broader company name or role title."
-            : "Explore the opportunity map or save active applications to populate your employer landscape."}
-          action={query
-            ? <button type="button" className="secondary" onClick={() => setQuery("")}>Clear filter</button>
-            : <Link className="button" href="/jobs">Search current jobs</Link>}
+        <MetricStrip
+          ariaLabel="Target company summary"
+          items={[
+            { label: "Companies", value: summary.companies, detail: "in current opportunity data" },
+            { label: "Open roles", value: summary.openJobs, detail: "across evaluated companies" },
+            { label: "Watchlist", value: summary.watched, detail: "companies monitored" },
+            { label: "Active pursuits", value: summary.applications, detail: "connected opportunities" },
+          ]}
         />
       ) : null}
+
+      <section className="executive-panel company-intelligence-panel">
+        <SectionHeader
+          eyebrow="COMPANY INTELLIGENCE"
+          title={`${visibleCompanies.length} compan${visibleCompanies.length === 1 ? "y" : "ies"} in view`}
+          description="Open a company to review current roles, recurring titles, and your existing activity."
+          actions={<label htmlFor="company-search"><span className="sr-only">Filter companies</span><input id="company-search" type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search company or title" /></label>}
+        />
+
+        {loading ? <div className="executive-loading-inline"><strong>Preparing company intelligence…</strong><span>Connecting evaluated roles and active pursuits.</span></div> : null}
+
+        {!loading && visibleCompanies.length ? (
+          <section className="company-grid" aria-label="Target companies">
+            {visibleCompanies.map((company) => (
+              <article className="card company-card-modern" key={company.company}>
+                <header className="company-card-head">
+                  <div className="company-avatar" aria-hidden="true">{company.company.trim().slice(0, 1).toUpperCase() || "C"}</div>
+                  <div><div className="row wrap"><span className="badge">{company.open_job_count} open role{company.open_job_count === 1 ? "" : "s"}</span>{company.watched ? <span className="score-pill">Watchlist</span> : null}</div><h2>{company.company}</h2></div>
+                </header>
+                <div className="company-metric-row">
+                  <div><strong>{company.remote_job_count}</strong><span>Remote</span></div>
+                  <div><strong>{company.salary_listed_count}</strong><span>Salary listed</span></div>
+                  <div><strong>{company.application_count}</strong><span>Pursuits</span></div>
+                </div>
+                <div className="company-title-list">
+                  <span>Frequent titles</span>
+                  <div>{company.top_titles.length ? company.top_titles.slice(0, 4).map((item) => <span key={item.title}>{item.title}</span>) : <p className="muted">No titles saved yet.</p>}</div>
+                </div>
+                <footer className="company-card-actions">
+                  <button type="button" className={company.watched ? "secondary" : ""} disabled={busyCompany === company.company} onClick={() => void watch(company.company, company.watched)}>{busyCompany === company.company ? "Updating…" : company.watched ? "Remove from watchlist" : "Add to watchlist"}</button>
+                  <Link className="button secondary" href={`/companies/${encodeURIComponent(company.company)}`}>Open company</Link>
+                </footer>
+              </article>
+            ))}
+          </section>
+        ) : null}
+
+        {!loading && !visibleCompanies.length && !error ? (
+          <EmptyState
+            title={query ? "No companies match this filter" : "No target companies yet"}
+            description={query ? "Try a broader company name or role title." : "Run market intelligence or save active opportunities to populate company intelligence."}
+            action={query ? <button type="button" className="secondary" onClick={() => setQuery("")}>Clear filter</button> : <Link className="button" href="/jobs">Open market intelligence</Link>}
+          />
+        ) : null}
+      </section>
     </>
   );
 }
