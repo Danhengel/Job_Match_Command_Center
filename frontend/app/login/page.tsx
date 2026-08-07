@@ -7,6 +7,13 @@ import { BrandCompass } from "@/components/BrandCompass";
 import { api } from "@/lib/api";
 import { startAuthenticatedSession } from "@/lib/sessionStorage";
 
+const capabilities = [
+  ["01", "Positioning", "Keep your executive profile, evidence, and résumé strategy aligned."],
+  ["02", "Market intelligence", "Evaluate opportunities against the mandate for your next move."],
+  ["03", "Opportunity management", "Manage active pursuits, decisions, contacts, and follow-up in one place."],
+  ["04", "Interview advisory", "Prepare stronger executive narratives for the conversations that matter."],
+] as const;
+
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -33,43 +40,50 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="auth-page">
+    <div className="auth-page executive-auth-page">
       <section className="auth-brand-panel">
         <Link href="/" className="auth-brand" aria-label="CareerNavIQ home">
           <span className="auth-brand-mark"><BrandCompass /></span>
           <span className="auth-brand-copy">
             <strong>CareerNavIQ</strong>
-            <small>Intelligent career navigation.</small>
+            <small>Executive career intelligence</small>
           </span>
         </Link>
 
         <div className="auth-message">
-          <p className="eyebrow">YOUR CAREER NAVIGATION SYSTEM</p>
-          <h1>Know where you’re going—and what comes next.</h1>
-          <p>
-            CareerNavIQ connects your direction, experience, opportunities, relationships,
-            and interviews in one route you can follow.
+          <p className="eyebrow">PRIVATE EXECUTIVE CAREER OFFICE</p>
+          <h1>Your next move. Managed with intelligence.</h1>
+          <p className="auth-lead">
+            CareerNavIQ brings positioning, market intelligence, opportunity management,
+            relationships, and interview preparation into one disciplined executive workspace.
           </p>
-          <div className="auth-feature-grid">
-            <div><strong>Set your direction</strong><span>Define the destination that fits you.</span></div>
-            <div><strong>Explore possible routes</strong><span>Compare opportunities against your goals.</span></div>
-            <div><strong>Track every waypoint</strong><span>Keep applications and next moves in view.</span></div>
-            <div><strong>Navigate interviews</strong><span>Prepare for every important conversation.</span></div>
+
+          <div className="auth-capability-list" aria-label="CareerNavIQ capabilities">
+            {capabilities.map(([number, title, description]) => (
+              <article key={number}>
+                <span>{number}</span>
+                <div><strong>{title}</strong><p>{description}</p></div>
+              </article>
+            ))}
           </div>
         </div>
 
-        <p className="auth-brand-footer">CareerNavIQ · Intelligent navigation for every career move</p>
+        <div className="auth-brand-footer">
+          <span>Private by design.</span>
+          <span>Built for consequential career decisions.</span>
+        </div>
       </section>
 
       <section className="auth-form-panel">
         <div className="auth-card">
           <div className="auth-mobile-brand">
             <span className="auth-brand-mark"><BrandCompass /></span>
-            <strong>CareerNavIQ</strong>
+            <span><strong>CareerNavIQ</strong><small>Executive career intelligence</small></span>
           </div>
-          <p className="eyebrow">WELCOME BACK</p>
-          <h1>Open your navigation hub</h1>
-          <p className="auth-card-intro">Continue from your last waypoint.</p>
+
+          <p className="eyebrow">SECURE ACCESS</p>
+          <h1>Welcome back</h1>
+          <p className="auth-card-intro">Access your private executive career workspace.</p>
 
           <form onSubmit={submit} className="auth-form">
             <label htmlFor="email">Email address</label>
@@ -82,6 +96,7 @@ export default function LoginPage() {
               placeholder="you@example.com"
               required
             />
+
             <label htmlFor="password">Password</label>
             <input
               id="password"
@@ -91,14 +106,17 @@ export default function LoginPage() {
               onChange={(event) => setPassword(event.target.value)}
               required
             />
+
             {error ? <p className="auth-error" role="alert">{error}</p> : null}
+
             <button className="auth-submit" type="submit" disabled={busy}>
-              {busy ? "Opening your route…" : "Open CareerNavIQ"}
+              {busy ? "Opening workspace…" : "Enter CareerNavIQ"}
             </button>
           </form>
 
-          <p className="auth-switch">New to CareerNavIQ? <Link href="/register">Start navigating</Link></p>
-          <p className="auth-security-note"><span className="auth-security-dot" />Your career route is private to your account.</p>
+          <div className="auth-divider" />
+          <p className="auth-switch">New to CareerNavIQ? <Link href="/register">Create your account</Link></p>
+          <p className="auth-security-note"><span className="auth-security-dot" />Your saved career information remains private to your account.</p>
         </div>
       </section>
     </div>
