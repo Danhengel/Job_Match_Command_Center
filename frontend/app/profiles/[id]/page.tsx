@@ -2,6 +2,7 @@
 
 import { use, useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { EmptyState, ExecutivePanel, MetricStrip, Notice, PageHeader, SectionHeader } from "@/components/ui";
 import { api, uploadApi } from "@/lib/api";
 
@@ -10,6 +11,7 @@ type R = { id:number; name:string; original_filename:string; file_size:number; i
 
 export default function ProfileDetail({ params }: { params: Promise<{ id:string }> }) {
   const { id } = use(params);
+  const router = useRouter();
   const [p, setP] = useState<P | null>(null);
   const [resumes, setResumes] = useState<R[]>([]);
   const [file, setFile] = useState<File | null>(null);
@@ -17,6 +19,7 @@ export default function ProfileDetail({ params }: { params: Promise<{ id:string 
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   const [analyzing, setAnalyzing] = useState<number | null>(null);
+  const [deletingProfile, setDeletingProfile] = useState(false);
 
   const load = async () => {
     const [profile, rs] = await Promise.all([api(`/api/profiles/${id}`), api(`/api/resumes/profile/${id}`)]);
@@ -56,6 +59,25 @@ export default function ProfileDetail({ params }: { params: Promise<{ id:string 
 
   async function primary(rid: number) { await api(`/api/resumes/${rid}/primary`, { method: "POST" }); await load(); }
   async function remove(rid: number) { if (!confirm("Delete this résumé version?")) return; await api(`/api/resumes/${rid}`, { method: "DELETE" }); await load(); }
+
+  async function deleteProfile() {
+    if (!p) return;
+    const confirmed = window.confirm(
+      `Delete “${p.name}”?\n\nThis permanently removes this executive profile and its connected résumé versions, saved matches, search history, and applications. This action cannot be undone.`
+    );
+    if (!confirmed) return;
+
+    setDeletingProfile(true);
+    setError("");
+    try {
+      await api(`/api/profiles/${id}`, { method: "DELETE" });
+      router.push("/profiles");
+      router.refresh();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not delete this executive profile.");
+      setDeletingProfile(false);
+    }
+  }
 
   if (!p) return <ExecutivePanel><p className="eyebrow">EXECUTIVE PROFILE</p><h2>Loading profile…</h2></ExecutivePanel>;
 
@@ -132,5 +154,19 @@ export default function ProfileDetail({ params }: { params: Promise<{ id:string 
       </div>
       {!resumes.length ? <EmptyState title="No résumé versions yet" description="Upload your first résumé above to establish the evidence base for this executive profile." /> : null}
     </section>
+
+    <ExecutivePanel className="profile-danger-zone">
+      <SectionHeader
+        eyebrow="PROFILE MANAGEMENT"
+        title="Delete this executive profile"
+        description="Use this only when the career direction is no longer needed. Deleting the profile also removes its connected résumé versions, market matches, search history, and applications."
+      />
+      <div className="row between wrap">
+        <p className="muted">This action is permanent and cannot be undone.</p>
+        <button className="danger" type="button" onClick={() => void deleteProfile()} disabled={deletingProfile}>
+          {deletingProfile ? "Deleting profile…" : "Delete profile"}
+        </button>
+      </div>
+    </ExecutivePanel>
   </>;
 }
