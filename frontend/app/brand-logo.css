@@ -1,9 +1,9 @@
 /* CareerNavIQ sitewide logo system
-   Uses the exact approved wordmark artwork and keeps the full logo visible
-   on public, authentication, desktop app, and mobile app surfaces. */
+   Uses the full vector wordmark and explicit mobile dimensions so iOS/Safari
+   cannot collapse or crop the logo inside flex headers. */
 
 :root {
-  --careernaviq-logo: url("/careernaviq-logo.png");
+  --careernaviq-logo: url("/careernaviq-logo.svg");
   --careernaviq-mark: url("/careernaviq-mark.svg");
 }
 
@@ -15,9 +15,9 @@ body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand),
   overflow: visible !important;
   background-color: rgba(255, 253, 248, 0.98) !important;
   background-image: var(--careernaviq-logo) !important;
-  background-position: center !important;
+  background-position: left center !important;
   background-repeat: no-repeat !important;
-  background-size: contain !important;
+  background-size: 100% auto !important;
 }
 
 body.executive-platform-body :is(.landing-brand, .public-brand) > :is(.landing-compass, .landing-wordmark, .public-compass, .public-wordmark),
@@ -31,9 +31,9 @@ body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) > 
 body.executive-platform-body :is(.landing-brand, .public-brand) {
   display: block !important;
   width: 218px !important;
-  aspect-ratio: 320 / 86 !important;
-  height: auto !important;
-  min-height: 0 !important;
+  height: 59px !important;
+  min-width: 218px !important;
+  min-height: 59px !important;
   flex: 0 0 218px !important;
   border: 1px solid rgba(212, 178, 116, 0.35) !important;
   border-radius: 9px !important;
@@ -43,15 +43,15 @@ body.executive-platform-body :is(.landing-brand, .public-brand) {
 body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) {
   display: block !important;
   width: 194px !important;
-  aspect-ratio: 320 / 86 !important;
-  height: auto !important;
-  min-height: 0 !important;
+  height: 52px !important;
+  min-width: 194px !important;
+  min-height: 52px !important;
 }
 
 .executive-platform .sidebar-brand {
   display: block !important;
   width: min(204px, 100%) !important;
-  aspect-ratio: 320 / 86 !important;
+  aspect-ratio: 1040 / 280 !important;
   height: auto !important;
   min-height: 0 !important;
   border: 1px solid rgba(212, 178, 116, 0.38) !important;
@@ -82,9 +82,9 @@ body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) {
 .auth-mobile-brand {
   display: block !important;
   width: 252px !important;
-  aspect-ratio: 320 / 86 !important;
-  height: auto !important;
-  min-height: 0 !important;
+  height: 68px !important;
+  min-width: 252px !important;
+  min-height: 68px !important;
   flex: 0 0 252px !important;
 }
 
@@ -96,15 +96,19 @@ body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) {
 
 .auth-mobile-brand {
   width: 226px !important;
+  height: 61px !important;
+  min-width: 226px !important;
+  min-height: 61px !important;
   flex-basis: 226px !important;
 }
 
 @media (max-width: 900px) {
   body.executive-platform-body :is(.landing-brand, .public-brand) {
-    width: clamp(156px, 24vw, 190px) !important;
-    height: auto !important;
-    min-height: 0 !important;
-    flex: 0 1 auto !important;
+    width: 184px !important;
+    height: 50px !important;
+    min-width: 184px !important;
+    min-height: 50px !important;
+    flex: 0 0 184px !important;
     align-self: center !important;
   }
 
@@ -128,32 +132,38 @@ body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) {
     display: block !important;
     width: min(226px, 72vw) !important;
     height: auto !important;
+    min-width: 0 !important;
     min-height: 0 !important;
+    aspect-ratio: 1040 / 280 !important;
     flex: 0 0 auto !important;
     margin-inline: auto !important;
   }
 }
 
 @media (max-width: 640px) {
+  body.executive-platform-body :is(.landing-header-inner, .public-header-inner) {
+    min-height: 68px !important;
+    gap: 8px !important;
+  }
+
   body.executive-platform-body :is(.landing-brand, .public-brand) {
-    width: clamp(136px, 39vw, 168px) !important;
-    height: auto !important;
-    min-height: 0 !important;
-    flex: 0 1 auto !important;
+    width: 154px !important;
+    height: 42px !important;
+    min-width: 154px !important;
+    min-height: 42px !important;
+    flex: 0 0 154px !important;
     border: 0 !important;
     border-radius: 0 !important;
     background-color: transparent !important;
+    background-size: 154px 42px !important;
     box-shadow: none !important;
-  }
-
-  body.executive-platform-body :is(.landing-header-inner, .public-header-inner) {
-    gap: 8px !important;
   }
 
   body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) {
     width: 176px !important;
-    height: auto !important;
-    min-height: 0 !important;
+    height: 47px !important;
+    min-width: 176px !important;
+    min-height: 47px !important;
   }
 
   .executive-platform .header-brand-mark {
@@ -166,7 +176,9 @@ body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) {
   .auth-mobile-brand {
     width: min(204px, 68vw) !important;
     height: auto !important;
+    min-width: 0 !important;
     min-height: 0 !important;
+    aspect-ratio: 1040 / 280 !important;
     flex: 0 0 auto !important;
     margin: 0 auto 24px !important;
     border: 0 !important;
@@ -176,19 +188,37 @@ body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) {
 }
 
 @media (max-width: 430px) {
-  body.executive-platform-body :is(.landing-brand, .public-brand) {
-    width: clamp(124px, 37vw, 154px) !important;
-    height: auto !important;
-    min-height: 0 !important;
-  }
-
   body.executive-platform-body :is(.landing-header-inner, .public-header-inner) {
     gap: 6px !important;
+  }
+
+  body.executive-platform-body :is(.landing-brand, .public-brand) {
+    width: 142px !important;
+    height: 38px !important;
+    min-width: 142px !important;
+    min-height: 38px !important;
+    flex: 0 0 142px !important;
+    background-size: 142px 38px !important;
   }
 
   .executive-platform .header-brand-mark {
     width: 31px !important;
     min-width: 31px !important;
     height: 31px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  body.executive-platform-body :is(.landing-brand, .public-brand) {
+    width: 128px !important;
+    height: 35px !important;
+    min-width: 128px !important;
+    min-height: 35px !important;
+    flex: 0 0 128px !important;
+    background-size: 128px 35px !important;
+  }
+
+  body.executive-platform-body :is(.landing-nav, .public-nav) {
+    gap: 5px !important;
   }
 }
