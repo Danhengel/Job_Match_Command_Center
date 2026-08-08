@@ -1,28 +1,31 @@
-/* CareerNavIQ sitewide logo system
-   Uses the full vector wordmark and explicit mobile dimensions so iOS/Safari
-   cannot collapse or crop the logo inside flex headers. */
+/* CareerNavIQ approved sitewide logo system.
+   All visible brand surfaces use the approved PNG artwork directly. */
 
 :root {
-  --careernaviq-logo: url("/careernaviq-logo.svg");
-  --careernaviq-mark: url("/careernaviq-mark.svg");
+  --careernaviq-logo: url("/careernaviq-logo.png");
 }
 
 body.executive-platform-body :is(.landing-brand, .public-brand),
 body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand),
 .executive-platform .sidebar-brand,
+.executive-platform .header-brand-mark,
 .auth-brand,
 .auth-mobile-brand {
   overflow: visible !important;
-  background-color: rgba(255, 253, 248, 0.98) !important;
+  background-color: transparent !important;
   background-image: var(--careernaviq-logo) !important;
-  background-position: left center !important;
+  background-position: center !important;
   background-repeat: no-repeat !important;
-  background-size: 100% auto !important;
+  background-size: contain !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
 
-body.executive-platform-body :is(.landing-brand, .public-brand) > :is(.landing-compass, .landing-wordmark, .public-compass, .public-wordmark),
+body.executive-platform-body :is(.landing-brand, .public-brand) > *,
 body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) > *,
 .executive-platform .sidebar-brand > *,
+.executive-platform .header-brand-mark > *,
 .auth-brand > *,
 .auth-mobile-brand > * {
   display: none !important;
@@ -35,9 +38,6 @@ body.executive-platform-body :is(.landing-brand, .public-brand) {
   min-width: 218px !important;
   min-height: 59px !important;
   flex: 0 0 218px !important;
-  border: 1px solid rgba(212, 178, 116, 0.35) !important;
-  border-radius: 9px !important;
-  box-shadow: 0 6px 18px rgba(2, 14, 24, 0.12) !important;
 }
 
 body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) {
@@ -51,31 +51,17 @@ body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) {
 .executive-platform .sidebar-brand {
   display: block !important;
   width: min(204px, 100%) !important;
-  aspect-ratio: 1040 / 280 !important;
+  aspect-ratio: 1019 / 275 !important;
   height: auto !important;
   min-height: 0 !important;
-  border: 1px solid rgba(212, 178, 116, 0.38) !important;
-  border-radius: 9px !important;
-  box-shadow: 0 8px 20px rgba(1, 12, 21, 0.18) !important;
 }
 
 .executive-platform .header-brand-mark {
   display: block !important;
-  width: 42px !important;
-  min-width: 42px !important;
+  width: 154px !important;
+  min-width: 154px !important;
   height: 42px !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-  background-color: transparent !important;
-  background-image: var(--careernaviq-mark) !important;
-  background-position: center !important;
-  background-repeat: no-repeat !important;
-  background-size: contain !important;
-  box-shadow: none !important;
-}
-
-.executive-platform .header-brand-mark > * {
-  display: none !important;
+  flex: 0 0 154px !important;
 }
 
 .auth-brand,
@@ -86,12 +72,6 @@ body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) {
   min-width: 252px !important;
   min-height: 68px !important;
   flex: 0 0 252px !important;
-}
-
-.auth-brand {
-  border: 1px solid rgba(212, 178, 116, 0.38) !important;
-  border-radius: 9px !important;
-  box-shadow: 0 9px 24px rgba(1, 12, 21, 0.2) !important;
 }
 
 .auth-mobile-brand {
@@ -109,54 +89,37 @@ body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) {
     min-width: 184px !important;
     min-height: 50px !important;
     flex: 0 0 184px !important;
-    align-self: center !important;
-  }
-
-  body.executive-platform-body :is(.landing-header-inner, .public-header-inner) {
-    gap: 12px !important;
   }
 
   .executive-platform .sidebar-brand {
     width: min(196px, 100%) !important;
-    height: auto !important;
-    min-height: 0 !important;
   }
 
   .executive-platform .header-brand-mark {
-    width: 38px !important;
-    min-width: 38px !important;
+    width: 138px !important;
+    min-width: 138px !important;
     height: 38px !important;
+    flex-basis: 138px !important;
   }
 
   .auth-mobile-brand {
-    display: block !important;
     width: min(226px, 72vw) !important;
     height: auto !important;
     min-width: 0 !important;
     min-height: 0 !important;
-    aspect-ratio: 1040 / 280 !important;
+    aspect-ratio: 1019 / 275 !important;
     flex: 0 0 auto !important;
     margin-inline: auto !important;
   }
 }
 
 @media (max-width: 640px) {
-  body.executive-platform-body :is(.landing-header-inner, .public-header-inner) {
-    min-height: 68px !important;
-    gap: 8px !important;
-  }
-
   body.executive-platform-body :is(.landing-brand, .public-brand) {
     width: 154px !important;
     height: 42px !important;
     min-width: 154px !important;
     min-height: 42px !important;
     flex: 0 0 154px !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    background-color: transparent !important;
-    background-size: 154px 42px !important;
-    box-shadow: none !important;
   }
 
   body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) {
@@ -167,10 +130,10 @@ body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) {
   }
 
   .executive-platform .header-brand-mark {
-    display: block !important;
-    width: 34px !important;
-    min-width: 34px !important;
+    width: 124px !important;
+    min-width: 124px !important;
     height: 34px !important;
+    flex-basis: 124px !important;
   }
 
   .auth-mobile-brand {
@@ -178,33 +141,26 @@ body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) {
     height: auto !important;
     min-width: 0 !important;
     min-height: 0 !important;
-    aspect-ratio: 1040 / 280 !important;
+    aspect-ratio: 1019 / 275 !important;
     flex: 0 0 auto !important;
     margin: 0 auto 24px !important;
-    border: 0 !important;
-    background-color: transparent !important;
-    box-shadow: none !important;
   }
 }
 
 @media (max-width: 430px) {
-  body.executive-platform-body :is(.landing-header-inner, .public-header-inner) {
-    gap: 6px !important;
-  }
-
   body.executive-platform-body :is(.landing-brand, .public-brand) {
     width: 142px !important;
     height: 38px !important;
     min-width: 142px !important;
     min-height: 38px !important;
     flex: 0 0 142px !important;
-    background-size: 142px 38px !important;
   }
 
   .executive-platform .header-brand-mark {
-    width: 31px !important;
-    min-width: 31px !important;
+    width: 113px !important;
+    min-width: 113px !important;
     height: 31px !important;
+    flex-basis: 113px !important;
   }
 }
 
@@ -215,10 +171,5 @@ body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) {
     min-width: 128px !important;
     min-height: 35px !important;
     flex: 0 0 128px !important;
-    background-size: 128px 35px !important;
-  }
-
-  body.executive-platform-body :is(.landing-nav, .public-nav) {
-    gap: 5px !important;
   }
 }
