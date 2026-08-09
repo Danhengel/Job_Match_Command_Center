@@ -1,6 +1,6 @@
 /* CareerNavIQ sitewide logo system.
-   Use the vector wordmark for full brand surfaces and the compact compass mark
-   where the authenticated header has limited horizontal space. */
+   Full wordmarks use the vector artwork. The authenticated sidebar places the
+   dark wordmark on a light brand tile so it remains readable on the navy rail. */
 
 :root {
   --careernaviq-logo: url("/careernaviq-logo.svg");
@@ -9,7 +9,6 @@
 
 body.executive-platform-body :is(.landing-brand, .public-brand),
 body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand),
-.executive-platform .sidebar-brand,
 .auth-brand,
 .auth-mobile-brand {
   overflow: visible !important;
@@ -54,13 +53,21 @@ body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) {
 
 .executive-platform .sidebar-brand {
   display: block !important;
-  width: min(204px, 100%) !important;
-  max-width: 100% !important;
-  aspect-ratio: 1040 / 280 !important;
-  height: auto !important;
+  width: 228px !important;
+  max-width: calc(100% - 40px) !important;
+  height: 64px !important;
   min-width: 0 !important;
-  min-height: 0 !important;
-  flex: 0 1 auto !important;
+  min-height: 64px !important;
+  flex: 0 1 228px !important;
+  overflow: hidden !important;
+  background-color: #fbfaf6 !important;
+  background-image: var(--careernaviq-logo) !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: calc(100% - 22px) auto !important;
+  border: 1px solid rgba(255, 255, 255, .18) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, .18) !important;
 }
 
 .executive-platform .header-brand-mark {
@@ -115,7 +122,10 @@ body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) {
   }
 
   .executive-platform .sidebar-brand {
-    width: min(196px, 100%) !important;
+    width: min(218px, calc(100% - 40px)) !important;
+    height: 60px !important;
+    min-height: 60px !important;
+    flex-basis: 218px !important;
   }
 
   .executive-platform .header-brand-mark {

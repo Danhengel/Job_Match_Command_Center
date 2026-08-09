@@ -17,10 +17,10 @@ import {
 import { endAuthenticatedSession } from "@/lib/sessionStorage";
 
 const mobileNavigation = [
-  ["/dashboard", "HQ", "Command"],
-  ["/jobs", "MI", "Market"],
-  ["/applications", "OP", "Portfolio"],
-  ["/interviews", "IA", "Interviews"],
+  ["/dashboard", "DB", "Dashboard"],
+  ["/jobs", "JB", "Jobs"],
+  ["/applications", "AP", "Applications"],
+  ["/interviews", "IN", "Interviews"],
 ] as const;
 
 const publicPaths = new Set([
@@ -90,7 +90,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         onClick={closeMenuFromLink}
       >
         <div className="sidebar-brand-row">
-          <Link href="/dashboard" className="sidebar-brand" aria-label="CareerNavIQ command center">
+          <Link href="/dashboard" className="sidebar-brand" aria-label="CareerNavIQ dashboard">
             <span className="brand-mark"><BrandCompass /></span>
             <span>
               <strong>CareerNavIQ</strong>
@@ -100,22 +100,22 @@ export function AppShell({ children }: { children: ReactNode }) {
           <button type="button" className="sidebar-close" aria-label="Close navigation" onClick={() => setMenuOpen(false)}>×</button>
         </div>
 
-        <nav className="sidebar-nav" aria-label="Executive career workspace">
+        <nav className="sidebar-nav" aria-label="CareerNavIQ navigation">
           <Link
             href="/dashboard"
             className={`sidebar-dashboard ${isActivePath(pathname, "/dashboard") ? "active" : ""}`}
             aria-current={isActivePath(pathname, "/dashboard") ? "page" : undefined}
           >
-            <span className="sidebar-dashboard-icon" aria-hidden="true">HQ</span>
+            <span className="sidebar-dashboard-icon" aria-hidden="true">DB</span>
             <span>
-              <strong>Command center</strong>
-              <small>Priorities, momentum, and decisions</small>
+              <strong>Dashboard</strong>
+              <small>Your priorities, activity, and next steps</small>
             </span>
           </Link>
 
           <div className="sidebar-section-heading">
-            <span>Executive workflow</span>
-            <small>5 stages</small>
+            <span>Career Search</span>
+            <small>5 steps</small>
           </div>
 
           <div className="sidebar-stage-list">
@@ -146,7 +146,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             })}
           </div>
 
-          <div className="sidebar-section-heading sidebar-tools-heading"><span>Intelligence & controls</span></div>
+          <div className="sidebar-section-heading sidebar-tools-heading"><span>Tools & Reports</span></div>
           <div className="sidebar-utility-links">
             {UTILITY_LINKS.map((item) => {
               const itemActive = activeUtilityItem?.href === item.href;
@@ -171,17 +171,17 @@ export function AppShell({ children }: { children: ReactNode }) {
             <span aria-hidden="true">☰</span>
           </button>
 
-          <Link href="/dashboard" className="header-brand" aria-label="CareerNavIQ command center">
+          <Link href="/dashboard" className="header-brand" aria-label="CareerNavIQ dashboard">
             <span className="header-brand-mark"><BrandCompass /></span>
             <span className="header-brand-copy">
               <strong>{currentPageLabel}</strong>
-              <span>{currentStage?.description ?? "Priorities, market intelligence, and career decisions"}</span>
+              <span>{currentStage?.description ?? "Your career search, activity, and next steps"}</span>
             </span>
           </Link>
 
           <div className="header-actions">
-            <Link href="/jobs" className="button compact">Market intelligence</Link>
-            <Link href="/notifications" className="header-link">Updates</Link>
+            <Link href="/jobs" className="button compact">Find Jobs</Link>
+            <Link href="/notifications" className="header-link">Notifications</Link>
             <button type="button" className="button secondary compact header-signout" onClick={signOut}>Sign out</button>
           </div>
         </header>
