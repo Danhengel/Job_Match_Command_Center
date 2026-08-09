@@ -26,7 +26,7 @@ class Job(Base):
     )
     title: Mapped[str] = mapped_column(String(500), index=True)
     company: Mapped[str] = mapped_column(String(500), index=True)
-    location: Mapped[str] = mapped_column(String(500), default="")
+    location: Mapped[str] = mapped_column(Text, default="")
     description: Mapped[str] = mapped_column(Text, default="")
     url: Mapped[str] = mapped_column(Text, default="")
     source: Mapped[str] = mapped_column(String(100))
