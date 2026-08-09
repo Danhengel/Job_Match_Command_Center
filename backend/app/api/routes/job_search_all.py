@@ -11,6 +11,7 @@ from sqlalchemy.orm import Session
 from app.api.routes import jobs as base_jobs
 from app.core.security import get_current_user
 from app.db.session import get_db
+from app.models.intelligence import CompanyWatch
 from app.models.job import Job, JobMatch, SearchRun
 from app.models.profile import CareerProfile
 from app.models.resume import Resume
@@ -28,6 +29,7 @@ from app.services.job_matcher import match_job
 router = APIRouter(prefix="/api/jobs", tags=["Jobs"])
 MAX_EXTERNAL_TITLES = 6
 MAX_EXTERNAL_WORKERS = 8
+MAX_TARGET_COMPANIES = 15
 
 
 def normalized_job_key(company: str, title: str, location: str) -> str:
@@ -99,6 +101,68 @@ def query_titles(body: JobSearchRequest, base: dict) -> list[str]:
             ]
         )
     )[:MAX_EXTERNAL_TITLES]
+
+
+def normalized_company_name(value: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "", (value or "").lower())
+
+
+def active_target_companies(user: User, db: Session) -> list[str]:
+    watches = (
+        db.query(CompanyWatch)
+        .filter(
+            CompanyWatch.user_id == user.id,
+            CompanyWatch.active.is_(True),
+        )
+        .order_by(CompanyWatch.created_at.desc())
+        .limit(MAX_TARGET_COMPANIES)
+        .all()
+    )
+    return list(
+        dict.fromkeys(
+            watch.company.strip()
+            for watch in watches
+            if watch.company and watch.company.strip()
+        )
+    )
+
+
+def target_company_queries(
+    companies: list[str],
+    titles: list[str],
+    location: str,
+) -> list[tuple[str, str]]:
+    if not titles:
+        return []
+    primary_title = titles[0]
+    return [
+        (company, f"{primary_title} at {company} in {location}")
+        for company in companies[:MAX_TARGET_COMPANIES]
+    ]
+
+
+def prioritize_target_company_results(
+    base: dict,
+    companies: list[str],
+) -> None:
+    target_names = {
+        normalized_company_name(company)
+        for company in companies
+        if normalized_company_name(company)
+    }
+    for item in base.get("results") or []:
+        company = item.get("job", {}).get("company", "")
+        item["target_company"] = (
+            normalized_company_name(company) in target_names
+        )
+    base["results"] = sorted(
+        base.get("results") or [],
+        key=lambda item: (
+            item.get("target_company", False),
+            item.get("match", {}).get("score", 0),
+        ),
+        reverse=True,
+    )
 
 
 def configured_external_sources():
@@ -294,6 +358,7 @@ def search_all(
     profile, resume_text = profile_context(body, user, db)
     capabilities, source_specs = configured_external_sources()
     titles = query_titles(body, base)
+    target_companies = active_target_companies(user, db)
 
     rows: list[dict] = []
     searched_sources = list(base.get("searched_sources") or [])
@@ -347,7 +412,49 @@ def search_all(
             )
         )
 
+    target_queries = target_company_queries(
+        target_companies,
+        titles,
+        body.jsearch_location,
+    )
+    if body.use_jsearch and target_queries:
+        source_name = "JSearch target companies"
+        searched_sources.append(source_name)
+        target_jobs = 0
+        target_failures = 0
+        with ThreadPoolExecutor(max_workers=MAX_EXTERNAL_WORKERS) as executor:
+            target_futures = {
+                executor.submit(job_sources.jsearch, query): (company, query)
+                for company, query in target_queries
+            }
+            for future in as_completed(target_futures):
+                company, query = target_futures[future]
+                try:
+                    batch = future.result()
+                    rows.extend(batch)
+                    target_jobs += len(batch)
+                    if not batch:
+                        coverage_notes.append(
+                            f"No current JSearch results for target company "
+                            f"'{company}'."
+                        )
+                except Exception as exc:
+                    target_failures += 1
+                    errors.append(
+                        f"JSearch target company {company}: "
+                        f"{job_sources.source_error_message(exc)}"
+                    )
+        source_status.append(
+            base_jobs.source_status_item(
+                source_name,
+                target_jobs,
+                target_failures,
+                len(target_queries),
+            )
+        )
+
     merge_rows(base, rows, body, profile, resume_text, db)
+    prioritize_target_company_results(base, target_companies)
     base.update(
         {
             "errors": errors,
@@ -356,6 +463,7 @@ def search_all(
             "source_status": source_status,
             "connector_setup": capabilities,
             "external_titles_searched": titles,
+            "target_companies_searched": target_companies,
         }
     )
 
@@ -456,6 +564,10 @@ def search_everywhere(
     )
 
     merge_rows(base, rows, body, profile, resume_text, db)
+    prioritize_target_company_results(
+        base,
+        base.get("target_companies_searched") or [],
+    )
     base.update(
         {
             "errors": errors,
