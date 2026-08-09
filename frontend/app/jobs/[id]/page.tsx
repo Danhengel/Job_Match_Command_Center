@@ -59,6 +59,8 @@ export default function JobWorkspace() {
   useEffect(() => { if (profileId) load().catch((e) => setError(e.message)); }, [jobId, profileId]);
 
   async function generate() {
+    if (!data) return;
+    const job = data.job;
     setBusy(true); setError("");
     try {
       const item = await api("/api/tailoring/generate", { method:"POST", body:JSON.stringify({ profile_id:Number(profileId), job_id:Number(jobId), resume_id:Number(resumeId), version_name:versionName || undefined }) });
@@ -67,7 +69,7 @@ export default function JobWorkspace() {
       try {
         await downloadApi(
           `/api/tailoring/${item.id}/download.docx`,
-          tailoredResumeFilename(data.job.company, data.job.title, "docx"),
+          tailoredResumeFilename(job.company, job.title, "docx"),
         );
       } catch {
         setError(
