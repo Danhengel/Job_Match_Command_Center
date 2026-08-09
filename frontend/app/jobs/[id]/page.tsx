@@ -16,6 +16,26 @@ type Workspace = {
   versions:Version[];
 };
 
+function safeFilenamePart(value: string) {
+  return value
+    .normalize("NFKD")
+    .replace(/[^a-zA-Z0-9.-]+/g, "_")
+    .replace(/^_+|_+$/g, "")
+    .slice(0, 80) || "Resume";
+}
+
+function tailoredResumeFilename(
+  company: string,
+  title: string,
+  extension: "txt" | "docx" | "pdf",
+) {
+  return [
+    safeFilenamePart(company),
+    safeFilenamePart(title),
+    "Tailored_Resume",
+  ].join("_") + `.${extension}`;
+}
+
 export default function JobWorkspace() {
   const params = useParams<{id:string}>();
   const search = useSearchParams();
@@ -39,10 +59,23 @@ export default function JobWorkspace() {
   useEffect(() => { if (profileId) load().catch((e) => setError(e.message)); }, [jobId, profileId]);
 
   async function generate() {
+    if (!data) return;
+    const job = data.job;
     setBusy(true); setError("");
     try {
       const item = await api("/api/tailoring/generate", { method:"POST", body:JSON.stringify({ profile_id:Number(profileId), job_id:Number(jobId), resume_id:Number(resumeId), version_name:versionName || undefined }) });
-      setActive(item); await load();
+      setActive(item);
+      await load();
+      try {
+        await downloadApi(
+          `/api/tailoring/${item.id}/download.docx`,
+          tailoredResumeFilename(job.company, job.title, "docx"),
+        );
+      } catch {
+        setError(
+          "The tailored résumé was saved, but the automatic Word download was blocked. Use the DOCX button below to download it.",
+        );
+      }
     } catch (e) { setError(e instanceof Error ? e.message : "Tailoring failed"); }
     finally { setBusy(false); }
   }
@@ -144,9 +177,9 @@ export default function JobWorkspace() {
       <div className="row wrap">
         <button onClick={() => copy(active.tailored_text)}>Copy résumé draft</button>
         <button className="secondary" onClick={cover}>{active.cover_letter ? "Regenerate cover letter" : "Generate cover letter"}</button>
-        <button className="secondary" onClick={() => downloadApi(`/api/tailoring/${active.id}/download.txt`, `tailored_resume_${active.id}.txt`)}>TXT</button>
-        <button className="secondary" onClick={() => downloadApi(`/api/tailoring/${active.id}/download.docx`, `tailored_resume_${active.id}.docx`)}>DOCX</button>
-        <button className="secondary" onClick={() => downloadApi(`/api/tailoring/${active.id}/download.pdf`, `tailored_resume_${active.id}.pdf`)}>PDF</button>
+        <button className="secondary" onClick={() => downloadApi(`/api/tailoring/${active.id}/download.txt`, tailoredResumeFilename(data.job.company, data.job.title, "txt"))}>TXT</button>
+        <button className="secondary" onClick={() => downloadApi(`/api/tailoring/${active.id}/download.docx`, tailoredResumeFilename(data.job.company, data.job.title, "docx"))}>DOCX</button>
+        <button className="secondary" onClick={() => downloadApi(`/api/tailoring/${active.id}/download.pdf`, tailoredResumeFilename(data.job.company, data.job.title, "pdf"))}>PDF</button>
       </div>
       {active.cover_letter ? <><h3>Cover letter</h3><div className="letter-preview">{active.cover_letter}</div><button onClick={() => copy(active.cover_letter)}>Copy cover letter</button></> : null}
     </ExecutivePanel> : null}
