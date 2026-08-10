@@ -1,9 +1,9 @@
 /* CareerNavIQ approved sitewide logo system.
-   Use the approved SVG wordmark exactly as supplied. Layout rules only control
+   Use the approved wordmark asset exactly as supplied. Layout rules only control
    contrast, spacing, and responsive sizing; they do not redraw the logo. */
 
 :root {
-  --careernaviq-logo: url("/careernaviq-logo.svg");
+  --careernaviq-logo: url("/careernaviq-logo.webp");
   --careernaviq-mark: url("/careernaviq-mark.svg");
 }
 
@@ -31,7 +31,7 @@ body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) > 
 body.executive-platform-body :is(.landing-brand, .public-brand) {
   width: 218px !important;
   max-width: min(218px, 42vw) !important;
-  aspect-ratio: 4 / 1 !important;
+  aspect-ratio: 4.59 / 1 !important;
   height: auto !important;
   min-width: 0 !important;
   min-height: 0 !important;
@@ -45,7 +45,7 @@ body.executive-platform-body :is(.landing-brand, .public-brand) {
 body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) {
   width: 194px !important;
   max-width: min(194px, 58vw) !important;
-  aspect-ratio: 4 / 1 !important;
+  aspect-ratio: 4.59 / 1 !important;
   height: auto !important;
   min-width: 0 !important;
   min-height: 0 !important;
@@ -69,15 +69,16 @@ body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) {
   box-shadow: 0 5px 18px rgba(0, 0, 0, .18) !important;
 }
 
+/* Authenticated page header: show the full approved wordmark on every page. */
 .executive-platform .header-brand-mark {
   display: block !important;
-  width: 42px !important;
-  height: 42px !important;
-  min-width: 42px !important;
-  min-height: 42px !important;
-  flex: 0 0 42px !important;
-  overflow: visible !important;
-  background: transparent var(--careernaviq-mark) center/contain no-repeat !important;
+  width: 154px !important;
+  height: 34px !important;
+  min-width: 154px !important;
+  min-height: 34px !important;
+  flex: 0 0 154px !important;
+  overflow: hidden !important;
+  background: transparent var(--careernaviq-logo) center/contain no-repeat !important;
   border: 0 !important;
   border-radius: 0 !important;
   box-shadow: none !important;
@@ -91,7 +92,7 @@ body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) {
 .auth-mobile-brand {
   width: 252px !important;
   max-width: min(252px, 78vw) !important;
-  aspect-ratio: 4 / 1 !important;
+  aspect-ratio: 4.59 / 1 !important;
   height: auto !important;
   min-width: 0 !important;
   min-height: 0 !important;
@@ -127,11 +128,11 @@ body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) {
   }
 
   .executive-platform .header-brand-mark {
-    width: 38px !important;
-    height: 38px !important;
-    min-width: 38px !important;
-    min-height: 38px !important;
-    flex-basis: 38px !important;
+    width: 138px !important;
+    height: 31px !important;
+    min-width: 138px !important;
+    min-height: 31px !important;
+    flex-basis: 138px !important;
   }
 }
 
@@ -151,11 +152,11 @@ body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) {
   }
 
   .executive-platform .header-brand-mark {
-    width: 34px !important;
-    height: 34px !important;
-    min-width: 34px !important;
-    min-height: 34px !important;
-    flex-basis: 34px !important;
+    width: 124px !important;
+    height: 28px !important;
+    min-width: 124px !important;
+    min-height: 28px !important;
+    flex-basis: 124px !important;
   }
 
   .auth-mobile-brand {
@@ -175,10 +176,10 @@ body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) {
   }
 
   .executive-platform .header-brand-mark {
-    width: 31px !important;
-    height: 31px !important;
-    min-width: 31px !important;
-    min-height: 31px !important;
-    flex-basis: 31px !important;
+    width: 108px !important;
+    height: 24px !important;
+    min-width: 108px !important;
+    min-height: 24px !important;
+    flex-basis: 108px !important;
   }
 }
