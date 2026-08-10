@@ -40,7 +40,7 @@ export default function HomePage() {
       <header className="premium-header">
         <div className="premium-shell premium-header-inner">
           <Link href="/" className="premium-brand" aria-label="CareerNavIQ home">
-            <Image src="/careernaviq-logo.svg" width={360} height={90} priority alt="CareerNavIQ — Clarity for What's Next" />
+            <Image src="/careernaviq-logo.webp" width={716} height={156} priority alt="CareerNavIQ" />
           </Link>
           <nav className="premium-nav" aria-label="Main navigation">
             <Link href="/" className="is-active">Home</Link>
