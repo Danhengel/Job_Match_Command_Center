@@ -1,0 +1,27 @@
+name: IndexNow
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "frontend/app/**"
+      - "frontend/lib/publicPages.ts"
+      - "frontend/public/**"
+      - "frontend/scripts/submit-indexnow.mjs"
+      - ".github/workflows/indexnow.yml"
+  workflow_dispatch:
+
+jobs:
+  notify-search-engines:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Allow production deployment time
+        run: sleep 180
+
+      - name: Submit live sitemap URLs to IndexNow
+        run: node frontend/scripts/submit-indexnow.mjs
