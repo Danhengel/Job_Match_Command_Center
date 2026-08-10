@@ -120,9 +120,9 @@ export default function HomePage() {
               <article><span>EP</span><h3>Executive profile</h3><p>A single mandate for target roles, compensation, geography, and priorities.</p></article>
               <article><span>MI</span><h3>Market intelligence</h3><p>Live opportunity evaluation with alignment scoring and cleaner market coverage.</p></article>
               <article><span>PS</span><h3>Positioning studio</h3><p>Role-specific résumé evidence and executive narrative development.</p></article>
-              <article><span>OP</span><h3>Opportunity portfolio</h3><p>Controlled pursuit management across applications, stages, and decisions.</p></article>
-              <article><span>RN</span><h3>Relationship network</h3><p>Recruiter, hiring-team, and professional relationship follow-through.</p></article>
-              <article><span>IA</span><h3>Interview advisory</h3><p>Preparation, practice, executive stories, questions, and follow-up.</p></article>
+              <article><h3>Opportunity portfolio</h3><p>Controlled pursuit management across applications, stages, and decisions.</p></article>
+              <article><h3>Relationship network</h3><p>Recruiter, hiring-team, and professional relationship follow-through.</p></article>
+              <article><h3>Interview advisory</h3><p>Preparation, practice, executive stories, questions, and follow-up.</p></article>
             </div>
           </div>
         </section>
