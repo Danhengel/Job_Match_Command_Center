@@ -147,7 +147,7 @@
     background-image:
       linear-gradient(180deg, rgba(2,9,18,.94) 0%, rgba(2,9,18,.78) 38%, rgba(2,9,18,.58) 62%, rgba(2,9,18,.86) 100%),
       url('/careernaviq-compass-architecture.webp?v=20260810office');
-    background-position: 66% center;
+    background-position: 74% center;
   }
   .premium-home .premium-hero-grid { grid-template-columns: 1fr; min-height: 690px; }
   .premium-home .premium-hero-copy { padding: 44px 0 30px; }
@@ -160,7 +160,7 @@
     background-image:
       linear-gradient(180deg,rgba(2,9,18,.94) 0%,rgba(2,9,18,.78) 42%,rgba(2,9,18,.88) 100%),
       url('/careernaviq-compass-architecture.webp?v=20260810office');
-    background-position: 68% center;
+    background-position: 82% center;
   }
   .premium-home .premium-hero-grid { min-height: 650px; }
   .premium-home .premium-hero h1 { font-size: clamp(43px,12.5vw,58px); }
