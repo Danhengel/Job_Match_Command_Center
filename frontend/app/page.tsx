@@ -7,10 +7,17 @@ export const metadata: Metadata = {
 };
 
 const outcomes = [
-  { icon: "✦", title: "Clarity", copy: "Gain clear insight into your strengths, goals, and opportunities." },
-  { icon: "⌖", title: "Direction", copy: "Build a strategic roadmap aligned with your ambitions." },
-  { icon: "↗", title: "Confidence", copy: "Make empowered decisions and move forward with confidence." },
-  { icon: "◎", title: "Results", copy: "Achieve meaningful outcomes and elevate your career." },
+  { icon: "⌖", title: "Discover", copy: "Uncover your strengths, priorities, and the opportunities worth pursuing." },
+  { icon: "◇", title: "Evaluate", copy: "Compare roles and employers with evidence, context, and sharper judgment." },
+  { icon: "↗", title: "Position", copy: "Tell a focused story with tailored materials that show the value you bring." },
+  { icon: "◎", title: "Advance", copy: "Manage every next step and keep building momentum toward meaningful work." },
+];
+
+const credibility = [
+  { value: "One clear view", label: "Goals, roles, and applications connected" },
+  { value: "Evidence-led", label: "Career decisions grounded in your experience" },
+  { value: "Built for momentum", label: "Practical guidance for every next move" },
+  { value: "Private by design", label: "Your career workspace stays yours" },
 ];
 
 export default function HomePage() {
@@ -58,6 +65,18 @@ export default function HomePage() {
                 </article>
               ))}
             </div>
+          </div>
+        </section>
+
+        <section className="premium-trust" aria-label="Why CareerNavIQ">
+          <div className="premium-shell premium-trust-grid">
+            {credibility.map((item, index) => (
+              <article key={item.value}>
+                <span>0{index + 1}</span>
+                <strong>{item.value}</strong>
+                <p>{item.label}</p>
+              </article>
+            ))}
           </div>
         </section>
       </main>
