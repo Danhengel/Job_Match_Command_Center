@@ -1,17 +1,56 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 280" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" role="img" aria-labelledby="title desc">
   <title id="title">CareerNavIQ</title>
-  <desc id="desc">CareerNavIQ wordmark with a navy and gold compass integrated into the IQ monogram.</desc>
-  <g fill="#07376f">
-    <text x="8" y="190" font-family="Georgia, 'Times New Roman', serif" font-size="178" font-weight="600" letter-spacing="-7">CareerNavI</text>
+  <desc id="desc">CareerNavIQ wordmark with Career in silver, Nav in teal, IQ in gold, and a compass integrated into the Q. Tagline: Clarity for What's Next.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#03111f"/>
+      <stop offset="0.52" stop-color="#071b2c"/>
+      <stop offset="1" stop-color="#020914"/>
+    </linearGradient>
+    <linearGradient id="silver" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.34" stop-color="#dfe4e8"/>
+      <stop offset="0.66" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#9aa4ad"/>
+    </linearGradient>
+    <linearGradient id="teal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#28d4df"/>
+      <stop offset="0.46" stop-color="#0b9caf"/>
+      <stop offset="1" stop-color="#05677e"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffe58a"/>
+      <stop offset="0.34" stop-color="#d8aa35"/>
+      <stop offset="0.68" stop-color="#f2c85d"/>
+      <stop offset="1" stop-color="#9c6917"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#000000" flood-opacity="0.55"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="300" rx="12" fill="url(#bg)"/>
+
+  <g filter="url(#shadow)">
+    <text x="38" y="172" font-family="Georgia, 'Times New Roman', serif" font-size="150" font-weight="500" letter-spacing="-5" fill="url(#silver)">Career</text>
+    <text x="500" y="172" font-family="Georgia, 'Times New Roman', serif" font-size="150" font-weight="500" letter-spacing="-5" fill="url(#teal)">Nav</text>
+    <text x="777" y="172" font-family="Georgia, 'Times New Roman', serif" font-size="150" font-weight="500" fill="url(#gold)">I</text>
+
+    <g transform="translate(890 28)">
+      <circle cx="110" cy="110" r="88" fill="none" stroke="url(#gold)" stroke-width="15"/>
+      <circle cx="110" cy="110" r="72" fill="#061625" stroke="#8b651d" stroke-width="2"/>
+      <g fill="none" stroke="#d6a93b" stroke-width="2" opacity="0.72">
+        <path d="M110 34v13M110 173v13M34 110h13M173 110h13"/>
+        <path d="M56 56l9 9M155 155l9 9M164 56l-9 9M65 155l-9 9"/>
+      </g>
+      <path d="M110 43 123 96 177 110 123 124 110 177 97 124 43 110 97 96Z" fill="url(#silver)"/>
+      <path d="M110 56 118 101 164 110 118 119 110 164 102 119 56 110 102 101Z" fill="url(#teal)" opacity="0.94"/>
+      <circle cx="110" cy="110" r="18" fill="url(#gold)"/>
+      <circle cx="110" cy="110" r="10" fill="#0aa7ba"/>
+      <path d="M165 170c18 8 33 15 52 31-12-4-26-8-40-10-11-2-20-7-28-13Z" fill="url(#gold)"/>
+    </g>
   </g>
-  <g transform="translate(786 8)">
-    <path d="M107 25c61 0 110 49 110 110s-49 110-110 110S-3 196-3 135 46 25 107 25Zm0 19c-50 0-91 41-91 91s41 91 91 91 91-41 91-91-41-91-91-91Z" fill="#07376f"/>
-    <path d="M178 35c18 25 29 56 29 89 0 76-56 139-129 150 89 5 160-60 160-148 0-37-13-71-35-98-7-9-17-11-25 7Z" fill="#d7a72d"/>
-    <path d="M173 42c11 18 19 39 22 62 5 43-9 83-36 112 36-29 57-74 51-122-3-23-11-44-24-62-4-6-9-5-13 10Z" fill="#f6ce55" opacity=".9"/>
-    <path d="M121 15 92 141 57 245l56-67 24-68 41-85-57 78-28 68 28-156Z" fill="#07376f"/>
-    <path d="m121 55 10 73 69 19-69 14-19 71-13-70-70-16 67-19 25-72Z" fill="#e2ae2f"/>
-    <path d="m120 90 7 40 39 11-39 8-11 40-7-40-40-9 39-10 12-40Z" fill="#ffdf72"/>
-    <path d="M211 9l7 15 15 7-15 7-7 15-7-15-15-7 15-7 7-15Z" fill="#f7d358"/>
-    <path d="M94 224c18 11 40 17 64 17 35 0 68-14 92-39-19 34-56 58-99 58-24 0-46-7-65-19l8-17Z" fill="#07376f"/>
-  </g>
+
+  <line x1="240" y1="214" x2="960" y2="214" stroke="#c99a2d" stroke-width="2" opacity="0.9"/>
+  <text x="600" y="262" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="28" letter-spacing="11" fill="#f2f4f6">CLARITY FOR WHAT’S NEXT</text>
 </svg>
