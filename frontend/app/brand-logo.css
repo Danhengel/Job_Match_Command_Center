@@ -3,7 +3,7 @@
    contrast, spacing, and responsive sizing; they do not redraw the logo. */
 
 :root {
-  --careernaviq-logo: url("/careernaviq-logo.png?v=20260810r");
+  --careernaviq-logo: url("/careernaviq-logo-light.png?v=20260810u");
   --careernaviq-mark: url("/careernaviq-mark.svg");
 }
 
