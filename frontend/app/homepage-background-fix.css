@@ -2,51 +2,96 @@
   --careernaviq-logo: url("/careernaviq-logo.svg");
 }
 
+.premium-home {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: clip;
+  background: #020912;
+}
+
+.premium-home .premium-shell {
+  width: min(1440px, calc(100% - 96px));
+  margin-inline: auto;
+}
+
 .premium-home .premium-header {
-  background: linear-gradient(180deg, rgba(2,9,18,.96), rgba(2,9,18,.56) 72%, transparent);
+  background: linear-gradient(180deg, rgba(2,9,18,.96), rgba(2,9,18,.60) 70%, transparent);
+}
+
+.premium-home .premium-header-inner {
+  min-height: 112px;
 }
 
 .premium-home .premium-brand {
-  width: 340px;
-  max-width: 30vw;
+  width: 335px;
+  max-width: 29vw;
 }
 
 .premium-home .premium-brand img {
+  display: block;
   width: 100%;
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 8px 20px rgba(0,0,0,.45));
+  filter: drop-shadow(0 8px 22px rgba(0,0,0,.48));
 }
 
 .premium-home .premium-hero {
-  min-height: 100vh;
-  padding-top: 124px;
+  position: relative;
+  min-height: 100svh;
+  padding-top: 112px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-image: url('/careernaviq-home-background.svg');
-  background-size: cover;
-  background-position: center center;
+  background-image:
+    linear-gradient(90deg,
+      rgba(2,9,18,1) 0%,
+      rgba(2,9,18,.98) 25%,
+      rgba(2,9,18,.92) 38%,
+      rgba(2,9,18,.62) 51%,
+      rgba(2,9,18,.20) 68%,
+      rgba(2,9,18,.10) 100%),
+    url('/careernaviq-compass-bg.jpg');
+  background-size: 100% 100%, 68vw auto;
+  background-position: center, right 46%;
   background-repeat: no-repeat;
+  background-color: #020912;
 }
 
-.premium-home .premium-hero::before { opacity: 0; }
+.premium-home .premium-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 1;
+  background:
+    linear-gradient(180deg, rgba(2,9,18,.05) 0%, rgba(2,9,18,0) 60%, rgba(2,9,18,.68) 100%),
+    radial-gradient(circle at 76% 42%, rgba(0,190,206,.07), transparent 30%);
+}
 
 .premium-home .premium-hero-grid {
-  min-height: 530px;
-  grid-template-columns: .82fr 1.18fr;
+  position: relative;
+  z-index: 2;
+  width: min(1440px, calc(100% - 96px));
+  min-height: 520px;
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 47% 53%;
   align-items: center;
 }
 
-.premium-home .premium-hero-copy { padding: 76px 36px 56px 22px; }
+.premium-home .premium-hero-copy {
+  width: 100%;
+  max-width: 650px;
+  padding: 52px 24px 44px 0;
+}
 
 .premium-home .premium-hero h1 {
-  max-width: 700px;
-  margin-bottom: 22px;
-  font-size: clamp(54px, 4.5vw, 76px);
-  line-height: 1.03;
+  max-width: 650px;
+  margin-bottom: 20px;
+  font-size: clamp(52px, 4.35vw, 72px);
+  line-height: 1.035;
   letter-spacing: -.035em;
-  text-shadow: 0 5px 24px rgba(0,0,0,.5);
+  text-shadow: 0 5px 26px rgba(0,0,0,.62);
 }
 
 .premium-home .premium-rule {
@@ -62,84 +107,127 @@
 }
 
 .premium-home .premium-lead {
-  max-width: 540px;
+  max-width: 520px;
   margin-bottom: 30px;
   color: #edf0ef;
   font-size: 17px;
-  line-height: 1.95;
-  text-shadow: 0 3px 15px rgba(0,0,0,.5);
+  line-height: 1.9;
+  text-shadow: 0 3px 16px rgba(0,0,0,.62);
 }
 
-.premium-home .premium-actions { gap: 20px; }
+.premium-home .premium-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
 
 .premium-home .premium-button {
-  min-height: 61px;
-  padding: 0 36px;
+  min-height: 58px;
+  padding: 0 34px;
   border-radius: 7px;
-  font-size: 14px;
+  font-size: 13px;
   letter-spacing: .055em;
 }
 
-.premium-home .premium-button-primary { min-width: 246px; }
-.premium-home .premium-button-secondary { min-width: 198px; }
-.premium-home .premium-hero-visual { min-height: 530px; margin: 0; }
-.premium-home .premium-outcome-wrap { width: 100%; margin-top: 0; }
+.premium-home .premium-button-primary { min-width: 228px; }
+.premium-home .premium-button-secondary { min-width: 190px; }
+.premium-home .premium-hero-visual { min-height: 520px; margin: 0; }
+
+.premium-home .premium-outcome-wrap {
+  position: relative;
+  z-index: 3;
+  width: min(1440px, calc(100% - 96px));
+  margin: 0 auto;
+}
 
 .premium-home .premium-outcome-grid {
-  border: 0;
-  border-top: 1px solid rgba(255,255,255,.08);
-  border-radius: 0;
-  background: linear-gradient(180deg,rgba(2,9,18,.62),rgba(2,9,18,.94));
-  box-shadow: none;
+  border: 1px solid rgba(226,165,43,.32);
+  border-bottom: 0;
+  border-radius: 8px 8px 0 0;
+  overflow: hidden;
+  background: linear-gradient(180deg,rgba(3,16,27,.72),rgba(2,9,18,.95));
+  box-shadow: 0 18px 54px rgba(0,0,0,.24);
   backdrop-filter: blur(12px);
 }
 
 .premium-home .premium-outcome-grid article {
-  min-height: 205px;
-  padding: 26px 32px 24px;
-  border-left: 1px solid rgba(255,255,255,.09);
+  min-height: 188px;
+  padding: 22px 28px 20px;
+  border-left: 1px solid rgba(255,255,255,.10);
 }
 
 .premium-home .premium-outcome-icon {
-  width: 72px;
-  height: 72px;
-  margin-bottom: 15px;
+  width: 66px;
+  height: 66px;
+  margin-bottom: 13px;
   border-color: rgba(232,174,56,.95);
   background: radial-gradient(circle,rgba(13,177,190,.16),transparent 68%);
 }
 
-.premium-home .premium-outcome-icon span { font-size: 30px; }
-.premium-home .premium-outcome-grid h2 { margin-bottom: 9px; font-size: 17px; }
-
+.premium-home .premium-outcome-icon span { font-size: 28px; }
+.premium-home .premium-outcome-grid h2 { margin-bottom: 8px; font-size: 16px; }
 .premium-home .premium-outcome-grid p {
-  max-width: 250px;
-  color: #e0e4e3;
+  max-width: 245px;
+  color: #dfe5e4;
   font-size: 13px;
-  line-height: 1.7;
+  line-height: 1.65;
 }
 
 @media (max-width: 1120px) {
-  .premium-home .premium-brand { width: 270px; }
-  .premium-home .premium-hero { background-position: 58% center; }
-  .premium-home .premium-hero-grid { grid-template-columns: 1fr .9fr; }
+  .premium-home .premium-shell,
+  .premium-home .premium-hero-grid,
+  .premium-home .premium-outcome-wrap {
+    width: min(100% - 56px, 1440px);
+  }
+  .premium-home .premium-brand { width: 260px; max-width: 25vw; }
+  .premium-home .premium-hero {
+    background-size: 100% 100%, 78vw auto;
+    background-position: center, right 48%;
+  }
+  .premium-home .premium-hero-grid { grid-template-columns: 50% 50%; }
+  .premium-home .premium-hero h1 { font-size: clamp(48px, 5.2vw, 64px); }
 }
 
 @media (max-width: 900px) {
-  .premium-home .premium-header { background: #020912; }
-  .premium-home .premium-brand { width: 235px; max-width: 52vw; }
-  .premium-home .premium-hero { min-height: auto; padding-top: 20px; background-position: 64% center; }
-  .premium-home .premium-hero-grid { grid-template-columns: 1fr; min-height: 690px; }
-  .premium-home .premium-hero-copy { padding: 44px 0 30px; }
-  .premium-home .premium-hero-visual { min-height: 260px; }
+  .premium-home .premium-shell,
+  .premium-home .premium-hero-grid,
+  .premium-home .premium-outcome-wrap {
+    width: min(100% - 36px, 1440px);
+  }
+  .premium-home .premium-header { position: relative; background: #020912; }
+  .premium-home .premium-brand { width: 230px; max-width: 52vw; }
+  .premium-home .premium-hero {
+    min-height: auto;
+    padding-top: 18px;
+    background-image:
+      linear-gradient(180deg,rgba(2,9,18,.94) 0%,rgba(2,9,18,.68) 42%,rgba(2,9,18,.88) 100%),
+      url('/careernaviq-compass-bg.jpg');
+    background-size: 100% 100%, auto 68%;
+    background-position: center, center 78%;
+  }
+  .premium-home .premium-hero-grid {
+    grid-template-columns: 1fr;
+    min-height: 670px;
+    align-items: start;
+  }
+  .premium-home .premium-hero-copy { max-width: 610px; padding: 44px 0 28px; }
+  .premium-home .premium-hero-visual { min-height: 255px; }
 }
 
 @media (max-width: 620px) {
-  .premium-home .premium-brand { width: 185px; max-width: 50vw; }
-  .premium-home .premium-hero {
-    background-image: linear-gradient(180deg,rgba(2,9,18,.92) 0%,rgba(2,9,18,.70) 42%,rgba(2,9,18,.84) 100%), url('/careernaviq-home-background.svg');
-    background-position: 67% center;
+  .premium-home .premium-shell,
+  .premium-home .premium-hero-grid,
+  .premium-home .premium-outcome-wrap {
+    width: min(100% - 28px, 1440px);
   }
-  .premium-home .premium-hero-grid { min-height: 650px; }
-  .premium-home .premium-hero h1 { font-size: clamp(43px,12.5vw,58px); }
-  .premium-home .premium-lead { font-size: 15px; line-height: 1.75; }
+  .premium-home .premium-brand { width: 180px; max-width: 50vw; }
+  .premium-home .premium-hero {
+    background-size: 100% 100%, auto 56%;
+    background-position: center, center 75%;
+  }
+  .premium-home .premium-hero-grid { min-height: 640px; }
+  .premium-home .premium-hero h1 { font-size: clamp(42px,12vw,56px); }
+  .premium-home .premium-lead { font-size: 15px; line-height: 1.72; }
+  .premium-home .premium-actions { flex-direction: column; }
+  .premium-home .premium-button { width: 100%; }
 }
