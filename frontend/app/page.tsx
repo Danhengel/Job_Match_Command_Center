@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -40,7 +39,7 @@ export default function HomePage() {
       <header className="premium-header">
         <div className="premium-shell premium-header-inner">
           <Link href="/" className="premium-brand" aria-label="CareerNavIQ home">
-            <Image src="/careernaviq-logo.webp" width={716} height={156} priority alt="CareerNavIQ" />
+            <img src="/careernaviq-logo.webp" width="716" height="156" alt="CareerNavIQ" />
           </Link>
           <nav className="premium-nav" aria-label="Main navigation">
             <Link href="/" className="is-active">Home</Link>
