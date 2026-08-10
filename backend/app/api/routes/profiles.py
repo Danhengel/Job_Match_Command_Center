@@ -1,4 +1,5 @@
 from datetime import datetime
+from pathlib import Path
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
@@ -13,6 +14,7 @@ from app.services.profile_optimizer import optimize_profile_from_resume
 from app.services.resume_analyzer import analyze_resume
 
 router = APIRouter(prefix="/api/profiles", tags=["Career Profiles"])
+STORAGE_ROOT = Path("/data/resumes")
 
 
 def serialize(profile: CareerProfile, db: Session):
@@ -222,5 +224,23 @@ def delete_profile(
     db: Session = Depends(get_db),
 ):
     profile = owned_profile(profile_id, user, db)
+    resume_files = [
+        STORAGE_ROOT / stored_filename
+        for (stored_filename,) in (
+            db.query(Resume.stored_filename)
+            .filter(Resume.profile_id == profile.id)
+            .all()
+        )
+        if stored_filename
+    ]
+
     db.delete(profile)
     db.commit()
+
+    for path in resume_files:
+        try:
+            path.unlink(missing_ok=True)
+        except OSError:
+            # Database deletion has already succeeded. A storage cleanup failure
+            # should not resurrect the profile or leave the user stuck.
+            pass
