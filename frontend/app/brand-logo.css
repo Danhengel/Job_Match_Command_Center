@@ -1,9 +1,9 @@
 /* CareerNavIQ approved sitewide logo system.
-   Use the approved PNG wordmark exactly as supplied. Layout rules only control
+   Use the approved SVG wordmark exactly as supplied. Layout rules only control
    contrast, spacing, and responsive sizing; they do not redraw the logo. */
 
 :root {
-  --careernaviq-logo: url("/careernaviq-logo.png");
+  --careernaviq-logo: url("/careernaviq-logo.svg");
   --careernaviq-mark: url("/careernaviq-mark.svg");
 }
 
@@ -31,7 +31,7 @@ body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) > 
 body.executive-platform-body :is(.landing-brand, .public-brand) {
   width: 218px !important;
   max-width: min(218px, 42vw) !important;
-  aspect-ratio: 320 / 86 !important;
+  aspect-ratio: 4 / 1 !important;
   height: auto !important;
   min-width: 0 !important;
   min-height: 0 !important;
@@ -45,7 +45,7 @@ body.executive-platform-body :is(.landing-brand, .public-brand) {
 body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) {
   width: 194px !important;
   max-width: min(194px, 58vw) !important;
-  aspect-ratio: 320 / 86 !important;
+  aspect-ratio: 4 / 1 !important;
   height: auto !important;
   min-width: 0 !important;
   min-height: 0 !important;
@@ -62,9 +62,9 @@ body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) {
   min-width: 0 !important;
   min-height: 70px !important;
   flex: 0 1 232px !important;
-  background-color: #fbfaf6 !important;
-  background-size: calc(100% - 20px) auto !important;
-  border: 1px solid rgba(255, 255, 255, .24) !important;
+  background-color: #071b2c !important;
+  background-size: calc(100% - 12px) auto !important;
+  border: 1px solid rgba(212, 175, 55, .28) !important;
   border-radius: 10px !important;
   box-shadow: 0 5px 18px rgba(0, 0, 0, .18) !important;
 }
@@ -91,7 +91,7 @@ body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) {
 .auth-mobile-brand {
   width: 252px !important;
   max-width: min(252px, 78vw) !important;
-  aspect-ratio: 320 / 86 !important;
+  aspect-ratio: 4 / 1 !important;
   height: auto !important;
   min-width: 0 !important;
   min-height: 0 !important;
