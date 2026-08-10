@@ -3,150 +3,108 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "CareerNavIQ | Executive career intelligence",
-  description: "A private executive career platform for positioning, market intelligence, opportunity management, and interview preparation.",
+  title: "CareerNavIQ | Navigate Your Career",
+  description:
+    "CareerNavIQ brings clarity, direction, confidence, and momentum to every step of your career journey.",
 };
 
-function CompassMark({ className = "" }: { className?: string }) {
+const outcomes = [
+  { number: "01", title: "Clarity", copy: "See your strengths, priorities, and possibilities with a sharper point of view." },
+  { number: "02", title: "Direction", copy: "Turn insight into a focused career strategy and a practical path forward." },
+  { number: "03", title: "Confidence", copy: "Show up prepared with a stronger story, tailored materials, and clear next steps." },
+  { number: "04", title: "Results", copy: "Build momentum, manage opportunities, and keep moving toward the work you want." },
+];
+
+function HeroCompass() {
   return (
-    <span className={`landing-compass ${className}`.trim()} aria-hidden="true">
-      <svg viewBox="0 0 64 64" role="img">
-        <circle cx="32" cy="32" r="27" fill="none" stroke="currentColor" strokeWidth="4" />
-        <path d="M40.5 23.5 35 35l-11.5 5.5L29 29l11.5-5.5Z" fill="currentColor" />
-        <circle cx="32" cy="32" r="3.5" fill="white" />
-      </svg>
-    </span>
+    <div className="premium-compass" aria-hidden="true">
+      <div className="premium-compass-orbit premium-compass-orbit-outer" />
+      <div className="premium-compass-orbit premium-compass-orbit-inner" />
+      <span className="premium-compass-point premium-compass-n">N</span>
+      <span className="premium-compass-point premium-compass-e">E</span>
+      <span className="premium-compass-point premium-compass-s">S</span>
+      <span className="premium-compass-point premium-compass-w">W</span>
+      <div className="premium-compass-needle"><span /></div>
+      <div className="premium-compass-core" />
+      <div className="premium-compass-route"><i /><i /><i /></div>
+    </div>
   );
 }
 
 export default function HomePage() {
   return (
-    <div className="landing-page executive-public-site">
-      <header className="landing-header">
-        <div className="landing-container landing-header-inner">
-          <Link href="/" className="landing-brand" aria-label="CareerNavIQ home">
-            <CompassMark />
-            <span className="landing-wordmark"><span>Career</span><span>Nav</span><span>IQ</span></span>
+    <div className="premium-home">
+      <header className="premium-header">
+        <div className="premium-shell premium-header-inner">
+          <Link href="/" className="premium-brand" aria-label="CareerNavIQ home">
+            <Image src="/careernaviq-logo.svg" width={260} height={70} priority alt="CareerNavIQ" />
+            <span>Clarity for What&apos;s Next</span>
           </Link>
-          <nav className="landing-nav" aria-label="Public navigation">
-            <a href="#platform">Platform</a>
-            <a href="#approach">Approach</a>
+          <nav className="premium-nav" aria-label="Main navigation">
+            <a href="#how-it-helps">How it helps</a>
             <Link href="/login">Sign in</Link>
-            <Link href="/register" className="landing-nav-cta">Create account</Link>
+            <Link href="/register" className="premium-nav-cta">Get started</Link>
           </nav>
         </div>
       </header>
 
       <main>
-        <section className="landing-hero executive-landing-hero">
-          <div className="landing-container landing-hero-grid">
-            <div className="landing-hero-copy">
-              <p className="landing-eyebrow">EXECUTIVE CAREER INTELLIGENCE</p>
-              <h1>Your career deserves more than a job board.</h1>
-              <p className="landing-hero-lead">
-                CareerNavIQ brings executive positioning, live market intelligence, opportunity management,
-                relationship strategy, and interview preparation into one private decision platform.
+        <section className="premium-hero">
+          <div className="premium-grid-lines" aria-hidden="true" />
+          <div className="premium-shell premium-hero-grid">
+            <div className="premium-hero-copy">
+              <p className="premium-kicker"><span /> Career intelligence, centered on you</p>
+              <h1>Navigate Your Career.<br /><em>Achieve What&apos;s Next.</em></h1>
+              <p className="premium-lead">
+                CareerNavIQ brings your goals, opportunities, applications, and preparation into one clear path—so every move is more intentional.
               </p>
-              <div className="landing-hero-actions">
-                <Link href="/register" className="landing-button landing-button-primary">Create my executive profile <span aria-hidden="true">→</span></Link>
-                <a href="#platform" className="landing-button landing-button-secondary">Explore the platform</a>
+              <div className="premium-actions">
+                <Link href="/register" className="premium-button premium-button-primary">Start your journey <span aria-hidden="true">→</span></Link>
+                <Link href="/login" className="premium-button premium-button-secondary">Sign in</Link>
               </div>
-              <div className="executive-proof-line">
-                <span>Private by design</span><span>Built for senior-level searches</span><span>Focused on decisions, not volume</span>
+              <div className="premium-hero-note">
+                <span className="premium-note-line" />
+                <p><strong>One private workspace.</strong><br />Built to help you make better career decisions.</p>
               </div>
             </div>
-
-            <figure className="executive-hero-image" aria-label="CareerNavIQ executive career intelligence visual">
-              <Image
-                src="/premium-career-visual.svg"
-                alt="Executive career intelligence interface with navigation, market signals, and strategic path visualization"
-                width={720}
-                height={420}
-                priority
-              />
-              <figcaption>
-                <span>POSITION · MARKET · DECISION</span>
-                <strong>A private operating view for your next executive move.</strong>
-              </figcaption>
-            </figure>
-          </div>
-        </section>
-
-        <section className="executive-trust-strip">
-          <div className="landing-container">
-            <span>Positioning</span><span>Market intelligence</span><span>Opportunity portfolio</span><span>Relationship management</span><span>Interview advisory</span>
-          </div>
-        </section>
-
-        <section id="platform" className="landing-section executive-platform-section">
-          <div className="landing-container">
-            <div className="landing-section-heading executive-section-heading-public">
-              <p className="landing-eyebrow">ONE EXECUTIVE WORKSPACE</p>
-              <h2>Manage the search at the level of the decision.</h2>
-              <p>CareerNavIQ replaces scattered spreadsheets, browser tabs, generic alerts, and disconnected notes with a controlled executive workflow.</p>
-            </div>
-            <div className="executive-value-grid">
-              <article><span>01</span><h3>Executive positioning</h3><p>Define target roles, compensation, geography, strengths, and the evidence behind your next move.</p></article>
-              <article><span>02</span><h3>Market intelligence</h3><p>Evaluate live opportunities against your position while suppressing duplicate and low-value job-board noise.</p></article>
-              <article><span>03</span><h3>Opportunity portfolio</h3><p>Manage serious pursuits, stage movement, relationships, follow-ups, interviews, and decisions in one view.</p></article>
+            <div className="premium-hero-visual">
+              <HeroCompass />
+              <div className="premium-coordinate premium-coordinate-top">42° CAREER NORTH</div>
+              <div className="premium-coordinate premium-coordinate-bottom">NEXT MOVE / IN SIGHT</div>
             </div>
           </div>
         </section>
 
-        <section id="approach" className="landing-section executive-approach-section">
-          <div className="landing-container executive-approach-layout">
-            <div className="executive-approach-copy">
-              <p className="landing-eyebrow">A MORE DISCIPLINED SEARCH</p>
-              <h2>Designed to help senior professionals make fewer, better career decisions.</h2>
-              <p>Most career software optimizes for activity. CareerNavIQ is built around selectivity, executive evidence, market context, and follow-through.</p>
-              <Link href="/register" className="landing-text-link">Build your executive workspace <span aria-hidden="true">→</span></Link>
+        <section id="how-it-helps" className="premium-outcomes">
+          <div className="premium-shell">
+            <div className="premium-section-intro">
+              <p className="premium-kicker"><span /> Your path forward</p>
+              <h2>From uncertainty to momentum.</h2>
+              <p>A calmer, more connected way to navigate the decisions that shape your career.</p>
             </div>
-            <div className="executive-approach-list">
-              <article><span>01</span><div><h3>Establish the mandate</h3><p>Clarify what the next role must deliver professionally, financially, and personally.</p></div></article>
-              <article><span>02</span><div><h3>Read the market</h3><p>Review opportunities and companies against your actual experience and priorities.</p></div></article>
-              <article><span>03</span><div><h3>Prepare the pursuit</h3><p>Tailor résumé evidence, outreach, and interview strategy to the opportunity in front of you.</p></div></article>
-              <article><span>04</span><div><h3>Manage the portfolio</h3><p>Keep active opportunities, relationships, decisions, and follow-ups under control.</p></div></article>
-            </div>
-          </div>
-        </section>
-
-        <section className="landing-section executive-capabilities-section">
-          <div className="landing-container">
-            <div className="landing-section-heading executive-section-heading-public">
-              <p className="landing-eyebrow">CORE CAPABILITIES</p>
-              <h2>Everything important. Nothing that makes the process feel like another job board.</h2>
-            </div>
-            <div className="executive-capability-grid">
-              <article><span>EP</span><h3>Executive profile</h3><p>A single mandate for target roles, compensation, geography, and priorities.</p></article>
-              <article><span>MI</span><h3>Market intelligence</h3><p>Live opportunity evaluation with alignment scoring and cleaner market coverage.</p></article>
-              <article><span>PS</span><h3>Positioning studio</h3><p>Role-specific résumé evidence and executive narrative development.</p></article>
-              <article><h3>Opportunity portfolio</h3><p>Controlled pursuit management across applications, stages, and decisions.</p></article>
-              <article><h3>Relationship network</h3><p>Recruiter, hiring-team, and professional relationship follow-through.</p></article>
-              <article><h3>Interview advisory</h3><p>Preparation, practice, executive stories, questions, and follow-up.</p></article>
+            <div className="premium-outcome-grid">
+              {outcomes.map((outcome) => (
+                <article key={outcome.title}>
+                  <span className="premium-outcome-number">{outcome.number}</span>
+                  <div className="premium-outcome-icon" aria-hidden="true"><i /></div>
+                  <h3>{outcome.title}</h3>
+                  <p>{outcome.copy}</p>
+                </article>
+              ))}
             </div>
           </div>
         </section>
 
-        <section className="landing-final-cta executive-final-cta">
-          <div className="landing-container landing-final-card executive-final-card">
-            <div>
-              <p className="landing-eyebrow">CAREER DECISIONS, MANAGED WITH INTENTION</p>
-              <h2>Build a more disciplined executive search.</h2>
-              <p>Bring your position, market, opportunities, relationships, and preparation into one private workspace.</p>
-            </div>
-            <Link href="/register" className="landing-button landing-button-light">Create account <span aria-hidden="true">→</span></Link>
+        <section className="premium-final">
+          <div className="premium-shell premium-final-inner">
+            <div><p className="premium-kicker"><span /> Your next move</p><h2>Ready for greater clarity?</h2></div>
+            <Link href="/register" className="premium-button premium-button-primary">Create your account <span aria-hidden="true">→</span></Link>
           </div>
         </section>
       </main>
 
-      <footer className="landing-footer">
-        <div className="landing-container landing-footer-inner">
-          <div>
-            <Link href="/" className="landing-brand landing-footer-brand"><CompassMark className="landing-compass-small" /><span className="landing-wordmark"><span>Career</span><span>Nav</span><span>IQ</span></span></Link>
-            <p>Executive career intelligence and decision support.</p>
-          </div>
-          <div className="landing-footer-links"><Link href="/login">Sign in</Link><Link href="/register">Create account</Link><span>CareerNavIQ.com</span></div>
-        </div>
+      <footer className="premium-footer">
+        <div className="premium-shell"><span>CareerNavIQ</span><p>Clarity for What&apos;s Next</p><div><Link href="/login">Sign in</Link><Link href="/register">Create account</Link></div></div>
       </footer>
     </div>
   );
