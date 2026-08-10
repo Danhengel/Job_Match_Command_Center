@@ -1,0 +1,71 @@
+.premium-home .premium-header {
+  background: linear-gradient(180deg, rgba(2,9,18,.92), rgba(2,9,18,.48) 72%, transparent);
+}
+
+.premium-home .premium-brand {
+  width: 350px;
+  max-width: 31vw;
+}
+
+.premium-home .premium-brand img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 20px rgba(0,0,0,.42));
+}
+
+.premium-home .premium-hero {
+  background-image:
+    linear-gradient(90deg, rgba(2,9,18,.97) 0%, rgba(2,9,18,.90) 32%, rgba(2,9,18,.58) 55%, rgba(2,9,18,.20) 78%, rgba(2,9,18,.34) 100%),
+    linear-gradient(180deg, rgba(2,9,18,.08), rgba(2,9,18,.60)),
+    url('/careernaviq-home-background.svg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.premium-home .premium-hero::before {
+  opacity: .12;
+}
+
+.premium-home .premium-hero-visual {
+  min-height: 515px;
+}
+
+.premium-home .hero-art {
+  background: transparent;
+}
+
+.premium-home .hero-art::before,
+.premium-home .hero-architecture,
+.premium-home .hero-route {
+  opacity: .28;
+}
+
+.premium-home .hero-compass {
+  opacity: .82;
+  transform: rotate(-7deg) scale(.92);
+}
+
+@media (max-width: 900px) {
+  .premium-home .premium-brand {
+    width: 235px;
+    max-width: 52vw;
+  }
+  .premium-home .premium-hero {
+    background-position: 63% center;
+  }
+}
+
+@media (max-width: 620px) {
+  .premium-home .premium-brand {
+    width: 185px;
+    max-width: 50vw;
+  }
+  .premium-home .premium-hero {
+    background-image:
+      linear-gradient(180deg, rgba(2,9,18,.94) 0%, rgba(2,9,18,.80) 45%, rgba(2,9,18,.54) 100%),
+      url('/careernaviq-home-background.svg');
+    background-position: 66% center;
+  }
+}
