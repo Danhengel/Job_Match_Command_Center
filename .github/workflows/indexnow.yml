@@ -5,10 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "frontend/app/**"
-      - "frontend/lib/publicPages.ts"
-      - "frontend/public/**"
-      - "frontend/scripts/submit-indexnow.mjs"
+      - "frontend/**"
       - ".github/workflows/indexnow.yml"
   workflow_dispatch:
 
