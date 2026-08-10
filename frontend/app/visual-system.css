@@ -565,7 +565,7 @@ summary {
   max-width: calc(100% - 40px);
   height: 58px;
   border-radius: 7px;
-  background: #fff url("/careernaviq-logo.png?v=20260810") center/194px auto no-repeat;
+  background: #fff url("/careernaviq-logo.png?v=20260810r") center/194px auto no-repeat;
   box-shadow: 0 4px 16px rgba(0,0,0,.16);
 }
 
@@ -1113,7 +1113,7 @@ summary {
   width: 206px;
   height: 54px;
   flex: 0 0 206px;
-  background: url("/careernaviq-logo.png?v=20260810") left center/190px auto no-repeat;
+  background: url("/careernaviq-logo.png?v=20260810r") left center/190px auto no-repeat;
 }
 
 .landing-brand > *,
@@ -1501,7 +1501,7 @@ summary {
   display: block;
   width: 230px;
   height: 62px;
-  background: #fff url("/careernaviq-logo.png?v=20260810") center/210px auto no-repeat;
+  background: #fff url("/careernaviq-logo.png?v=20260810r") center/210px auto no-repeat;
   border-radius: 7px;
 }
 
@@ -1726,7 +1726,7 @@ summary {
     width: 210px;
     height: 56px;
     margin-bottom: 28px;
-    background: url("/careernaviq-logo.png?v=20260810") left center/198px auto no-repeat;
+    background: url("/careernaviq-logo.png?v=20260810r") left center/198px auto no-repeat;
   }
   .auth-mobile-brand > * { display: none; }
 }
