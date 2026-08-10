@@ -4,29 +4,32 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "CareerNavIQ | Navigate Your Career",
-  description:
-    "CareerNavIQ brings clarity, direction, confidence, and momentum to every step of your career journey.",
+  description: "CareerNavIQ turns your experience, ambitions, and the live employment market into a clear path forward.",
 };
 
 const outcomes = [
-  { number: "01", title: "Clarity", copy: "See your strengths, priorities, and possibilities with a sharper point of view." },
-  { number: "02", title: "Direction", copy: "Turn insight into a focused career strategy and a practical path forward." },
-  { number: "03", title: "Confidence", copy: "Show up prepared with a stronger story, tailored materials, and clear next steps." },
-  { number: "04", title: "Results", copy: "Build momentum, manage opportunities, and keep moving toward the work you want." },
+  { icon: "✦", title: "Discover", copy: "See opportunities you may not have considered." },
+  { icon: "⌕", title: "Evaluate", copy: "Understand where you actually compete." },
+  { icon: "↗", title: "Position", copy: "Build your strongest professional narrative." },
+  { icon: "◎", title: "Advance", copy: "Move toward the opportunities that matter." },
 ];
 
-function HeroCompass() {
+function CompassVisual() {
   return (
-    <div className="premium-compass" aria-hidden="true">
-      <div className="premium-compass-orbit premium-compass-orbit-outer" />
-      <div className="premium-compass-orbit premium-compass-orbit-inner" />
-      <span className="premium-compass-point premium-compass-n">N</span>
-      <span className="premium-compass-point premium-compass-e">E</span>
-      <span className="premium-compass-point premium-compass-s">S</span>
-      <span className="premium-compass-point premium-compass-w">W</span>
-      <div className="premium-compass-needle"><span /></div>
-      <div className="premium-compass-core" />
-      <div className="premium-compass-route"><i /><i /><i /></div>
+    <div className="hero-art" aria-hidden="true">
+      <div className="hero-architecture"><i/><i/><i/><i/><i/></div>
+      <div className="hero-route"><span/><span/><span/></div>
+      <div className="hero-compass">
+        <div className="hero-ring hero-ring-one" />
+        <div className="hero-ring hero-ring-two" />
+        <div className="hero-ring hero-ring-three" />
+        <b className="hero-n">N</b><b className="hero-e">E</b><b className="hero-s">S</b><b className="hero-w">W</b>
+        <div className="hero-needle"><i/><i/></div>
+        <div className="hero-core" />
+      </div>
+      <span className="hero-coordinate hero-coordinate-one">39.7392° N<br/>104.9903° W</span>
+      <span className="hero-coordinate hero-coordinate-two">OPPORTUNITY<br/>AHEAD</span>
+      <span className="hero-coordinate hero-coordinate-three">34.0522° N<br/>118.2437° W</span>
     </div>
   );
 }
@@ -37,57 +40,43 @@ export default function HomePage() {
       <header className="premium-header">
         <div className="premium-shell premium-header-inner">
           <Link href="/" className="premium-brand" aria-label="CareerNavIQ home">
-            <Image src="/careernaviq-logo.svg" width={260} height={70} priority alt="CareerNavIQ" />
-            <span>Clarity for What&apos;s Next</span>
+            <Image src="/careernaviq-logo.svg" width={360} height={90} priority alt="CareerNavIQ — Clarity for What's Next" />
           </Link>
           <nav className="premium-nav" aria-label="Main navigation">
-            <a href="#how-it-helps">How it helps</a>
-            <Link href="/login">Sign in</Link>
-            <Link href="/register" className="premium-nav-cta">Get started</Link>
+            <Link href="/" className="is-active">Home</Link>
+            <Link href="/about">About</Link>
+            <Link href="/features">Services</Link>
+            <Link href="/ai-job-search">Resources</Link>
+            <Link href="/pricing">Pricing</Link>
+            <Link href="/contact">Contact</Link>
           </nav>
+          <Link href="/login" className="premium-signin"><span aria-hidden="true">♙</span> Sign in</Link>
         </div>
       </header>
 
       <main>
         <section className="premium-hero">
-          <div className="premium-grid-lines" aria-hidden="true" />
           <div className="premium-shell premium-hero-grid">
             <div className="premium-hero-copy">
-              <p className="premium-kicker"><span /> Career intelligence, centered on you</p>
-              <h1>Navigate Your Career.<br /><em>Achieve What&apos;s Next.</em></h1>
-              <p className="premium-lead">
-                CareerNavIQ brings your goals, opportunities, applications, and preparation into one clear path—so every move is more intentional.
-              </p>
+              <p className="premium-eyebrow">Strategic insight. Targeted opportunities. Meaningful results.</p>
+              <h1>Navigate Your Career.<br/><em>Achieve What&apos;s Next.</em></h1>
+              <div className="premium-rule" aria-hidden="true"><span/><i>✦</i><span/></div>
+              <p className="premium-lead">CareerNavIQ turns your experience, ambitions, and the live employment market into a clear path forward.</p>
               <div className="premium-actions">
-                <Link href="/register" className="premium-button premium-button-primary">Start your journey <span aria-hidden="true">→</span></Link>
-                <Link href="/login" className="premium-button premium-button-secondary">Sign in</Link>
-              </div>
-              <div className="premium-hero-note">
-                <span className="premium-note-line" />
-                <p><strong>One private workspace.</strong><br />Built to help you make better career decisions.</p>
+                <Link href="/register" className="premium-button premium-button-primary">Explore my path <span aria-hidden="true">→</span></Link>
+                <Link href="/features" className="premium-button premium-button-secondary">See how it works</Link>
               </div>
             </div>
-            <div className="premium-hero-visual">
-              <HeroCompass />
-              <div className="premium-coordinate premium-coordinate-top">42° CAREER NORTH</div>
-              <div className="premium-coordinate premium-coordinate-bottom">NEXT MOVE / IN SIGHT</div>
-            </div>
+            <div className="premium-hero-visual"><CompassVisual /></div>
           </div>
-        </section>
 
-        <section id="how-it-helps" className="premium-outcomes">
-          <div className="premium-shell">
-            <div className="premium-section-intro">
-              <p className="premium-kicker"><span /> Your path forward</p>
-              <h2>From uncertainty to momentum.</h2>
-              <p>A calmer, more connected way to navigate the decisions that shape your career.</p>
-            </div>
+          <div className="premium-shell premium-outcome-wrap">
             <div className="premium-outcome-grid">
               {outcomes.map((outcome) => (
                 <article key={outcome.title}>
-                  <span className="premium-outcome-number">{outcome.number}</span>
-                  <div className="premium-outcome-icon" aria-hidden="true"><i /></div>
-                  <h3>{outcome.title}</h3>
+                  <div className="premium-outcome-icon" aria-hidden="true"><span>{outcome.icon}</span></div>
+                  <h2>{outcome.title}</h2>
+                  <i className="premium-teal-rule" aria-hidden="true" />
                   <p>{outcome.copy}</p>
                 </article>
               ))}
@@ -95,16 +84,25 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="premium-final">
-          <div className="premium-shell premium-final-inner">
-            <div><p className="premium-kicker"><span /> Your next move</p><h2>Ready for greater clarity?</h2></div>
+        <section className="premium-trust">
+          <div className="premium-shell premium-trust-grid">
+            <article><span>PRIVATE BY DESIGN</span><strong>One career workspace</strong><p>Your search, materials, and next moves stay organized in one place.</p></article>
+            <article><span>MARKET INTELLIGENCE</span><strong>See the signal</strong><p>Focus on opportunities aligned with your experience and direction.</p></article>
+            <article><span>POSITIONING</span><strong>Tell the right story</strong><p>Shape your resume and narrative around the role in front of you.</p></article>
+            <article><span>PREPARATION</span><strong>Move prepared</strong><p>Turn every interview and follow-up into a more intentional next step.</p></article>
+          </div>
+        </section>
+
+        <section className="premium-next">
+          <div className="premium-shell premium-next-inner">
+            <div><p className="premium-eyebrow">One navigation system for what comes next.</p><h2>Make your next career move with greater clarity.</h2></div>
             <Link href="/register" className="premium-button premium-button-primary">Create your account <span aria-hidden="true">→</span></Link>
           </div>
         </section>
       </main>
 
       <footer className="premium-footer">
-        <div className="premium-shell"><span>CareerNavIQ</span><p>Clarity for What&apos;s Next</p><div><Link href="/login">Sign in</Link><Link href="/register">Create account</Link></div></div>
+        <div className="premium-shell"><span>CareerNavIQ</span><p>Clarity for What&apos;s Next</p><div><Link href="/about">About</Link><Link href="/privacy">Privacy</Link><Link href="/contact">Contact</Link></div></div>
       </footer>
     </div>
   );
