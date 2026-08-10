@@ -101,7 +101,7 @@ export default function HomePage() {
       </main>
 
       <footer className="premium-footer">
-        <div className="premium-shell"><span>CareerNavIQ</span><p>Clarity for What&apos;s Next</p><div><Link href="/about">About</Link><Link href="/privacy">Privacy</Link><Link href="/contact">Contact</Link></div></div>
+        <div className="premium-shell"><span>CareerNavIQ</span><p>Strategic insight. Targeted opportunities. Meaningful results.</p><div><Link href="/about">About</Link><Link href="/privacy">Privacy</Link><Link href="/contact">Contact</Link></div></div>
       </footer>
     </div>
   );
