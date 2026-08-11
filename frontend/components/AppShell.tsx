@@ -7,9 +7,8 @@ import { useEffect, useState, type MouseEvent, type ReactNode } from "react";
 import { BrandCompass } from "@/components/BrandCompass";
 import { GuidedJourneyFooter } from "@/components/GuidedJourneyFooter";
 import {
-  CAREER_STAGES,
-  UTILITY_LINKS,
-  getActiveJourneyItem,
+  PRIMARY_NAV,
+  SECONDARY_NAV,
   getCareerStage,
   getCurrentPageLabel,
   isActivePath,
@@ -17,11 +16,27 @@ import {
 import { endAuthenticatedSession } from "@/lib/sessionStorage";
 
 const mobileNavigation = [
-  ["/dashboard", "DB", "Dashboard"],
-  ["/jobs", "JB", "Jobs"],
-  ["/applications", "AP", "Applications"],
-  ["/interviews", "IN", "Interviews"],
+  ["/dashboard", "⌂", "Home"],
+  ["/jobs", "⌕", "Jobs"],
+  ["/applications", "✓", "Applications"],
+  ["/resumes", "▤", "Resume"],
 ] as const;
+
+const primaryDescriptions: Record<string, string> = {
+  "/dashboard": "What needs your attention now",
+  "/jobs": "Find and compare matching roles",
+  "/applications": "Track progress and next actions",
+  "/resumes": "Manage and tailor your resume",
+  "/profiles": "Goals, preferences, and experience",
+};
+
+const primaryIcons: Record<string, string> = {
+  "/dashboard": "HM",
+  "/jobs": "JB",
+  "/applications": "AP",
+  "/resumes": "CV",
+  "/profiles": "ME",
+};
 
 const publicPaths = new Set([
   "/features",
@@ -41,7 +56,6 @@ export function AppShell({ children }: { children: ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const currentStage = getCareerStage(pathname);
   const currentPageLabel = getCurrentPageLabel(pathname);
-  const activeUtilityItem = getActiveJourneyItem(pathname, UTILITY_LINKS);
 
   useEffect(() => {
     setMenuOpen(false);
@@ -90,68 +104,60 @@ export function AppShell({ children }: { children: ReactNode }) {
         onClick={closeMenuFromLink}
       >
         <div className="sidebar-brand-row">
-          <Link href="/dashboard" className="sidebar-brand" aria-label="CareerNavIQ dashboard">
+          <Link href="/dashboard" className="sidebar-brand" aria-label="CareerNavIQ home">
             <span className="brand-mark"><BrandCompass /></span>
             <span>
               <strong>CareerNavIQ</strong>
-              <small>Executive career intelligence</small>
+              <small>Career intelligence</small>
             </span>
           </Link>
           <button type="button" className="sidebar-close" aria-label="Close navigation" onClick={() => setMenuOpen(false)}>×</button>
         </div>
 
         <nav className="sidebar-nav" aria-label="CareerNavIQ navigation">
-          <Link
-            href="/dashboard"
-            className={`sidebar-dashboard ${isActivePath(pathname, "/dashboard") ? "active" : ""}`}
-            aria-current={isActivePath(pathname, "/dashboard") ? "page" : undefined}
-          >
-            <span className="sidebar-dashboard-icon" aria-hidden="true">DB</span>
-            <span>
-              <strong>Dashboard</strong>
-              <small>Your priorities, activity, and next steps</small>
-            </span>
-          </Link>
-
           <div className="sidebar-section-heading">
-            <span>Career Search</span>
-            <small>5 steps</small>
+            <span>Main</span>
           </div>
 
           <div className="sidebar-stage-list">
-            {CAREER_STAGES.map((stage) => {
-              const stageActive = currentStage?.id === stage.id;
-              const activeStageItem = getActiveJourneyItem(pathname, stage.items);
+            {PRIMARY_NAV.map((item) => {
+              const itemActive = isActivePath(pathname, item.href);
               return (
-                <section className={`sidebar-stage ${stageActive ? "active" : ""}`} key={stage.id}>
-                  <Link href={stage.href} className="sidebar-stage-summary" aria-current={stageActive ? "step" : undefined}>
-                    <span className="sidebar-stage-number">{String(stage.number).padStart(2, "0")}</span>
-                    <span className="sidebar-stage-copy">
-                      <strong>{stage.shortLabel}</strong>
-                      <small>{stage.description}</small>
-                    </span>
-                  </Link>
-                  <div className="sidebar-stage-links">
-                    {stage.items.map((item) => {
-                      const itemActive = activeStageItem?.href === item.href;
-                      return (
-                        <Link key={item.href} href={item.href} className={itemActive ? "active" : ""} aria-current={itemActive ? "page" : undefined}>
-                          {item.label}
-                        </Link>
-                      );
-                    })}
-                  </div>
-                </section>
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`sidebar-dashboard ${itemActive ? "active" : ""}`}
+                  aria-current={itemActive ? "page" : undefined}
+                >
+                  <span className="sidebar-dashboard-icon" aria-hidden="true">{primaryIcons[item.href]}</span>
+                  <span>
+                    <strong>{item.label}</strong>
+                    <small>{primaryDescriptions[item.href]}</small>
+                  </span>
+                </Link>
               );
             })}
           </div>
 
-          <div className="sidebar-section-heading sidebar-tools-heading"><span>Tools & Reports</span></div>
+          <div className="sidebar-section-heading sidebar-tools-heading">
+            <span>More</span>
+            <small>Tools & planning</small>
+          </div>
           <div className="sidebar-utility-links">
-            {UTILITY_LINKS.map((item) => {
-              const itemActive = activeUtilityItem?.href === item.href;
-              return <Link key={item.href} href={item.href} className={itemActive ? "active" : ""} aria-current={itemActive ? "page" : undefined}>{item.label}</Link>;
+            {SECONDARY_NAV.map((item) => {
+              const itemActive = isActivePath(pathname, item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={itemActive ? "active" : ""}
+                  aria-current={itemActive ? "page" : undefined}
+                >
+                  {item.label}
+                </Link>
+              );
             })}
+            <Link href="/notifications" className={isActivePath(pathname, "/notifications") ? "active" : ""}>Notifications</Link>
           </div>
 
           <button type="button" className="sidebar-signout" onClick={signOut}>Sign out</button>
@@ -171,11 +177,11 @@ export function AppShell({ children }: { children: ReactNode }) {
             <span aria-hidden="true">☰</span>
           </button>
 
-          <Link href="/dashboard" className="header-brand" aria-label="CareerNavIQ dashboard">
+          <Link href="/dashboard" className="header-brand" aria-label="CareerNavIQ home">
             <span className="header-brand-mark"><BrandCompass /></span>
             <span className="header-brand-copy">
               <strong>{currentPageLabel}</strong>
-              <span>{currentStage?.description ?? "Your career search, activity, and next steps"}</span>
+              <span>{currentStage?.description ?? "Your career search, progress, and next steps"}</span>
             </span>
           </Link>
 
