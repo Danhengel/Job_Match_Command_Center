@@ -21,25 +21,51 @@ export default function HomePage() {
           <Link href="/" className="premium-brand" aria-label="CareerNavIQ home">
             <img src="/careernaviq-logo-light.png?v=20260810u" width="1227" height="223" alt="CareerNavIQ" />
           </Link>
+
           <nav className="premium-nav" aria-label="Main navigation">
             <Link href="/features">Services</Link>
             <Link href="/pricing">Pricing</Link>
             <Link href="/login">Sign in</Link>
           </nav>
+
           <Link href="/register" className="premium-signin">Get started <span aria-hidden="true">→</span></Link>
+
+          <details className="premium-mobile-menu">
+            <summary aria-label="Open navigation menu">
+              <span />
+              <span />
+              <span />
+            </summary>
+            <nav aria-label="Mobile navigation">
+              <Link href="/features">Services</Link>
+              <Link href="/pricing">Pricing</Link>
+              <Link href="/about">About</Link>
+              <Link href="/ai-job-search">Resources</Link>
+              <Link href="/contact">Contact</Link>
+              <Link href="/login">Sign in</Link>
+              <Link href="/register" className="mobile-menu-cta">Get started →</Link>
+            </nav>
+          </details>
         </div>
       </header>
 
       <main>
         <section className="premium-hero">
+          <div className="premium-hero-brandmark" aria-hidden="true">
+            <img src="/careernaviq-mark.svg" width="280" height="280" alt="" />
+          </div>
+
           <div className="premium-shell premium-hero-grid">
             <div className="premium-hero-copy">
-              <h1>Navigate Your Career.<br/><em>Achieve What&apos;s Next.</em></h1>
-              <div className="premium-rule" aria-hidden="true"><span/></div>
-              <p className="premium-lead">Strategic guidance. Smarter decisions. Powerful results.<br/>We help you navigate your career with clarity, confidence, and direction.</p>
-              <div className="premium-actions">
-                <Link href="/register" className="premium-button premium-button-primary">Get started <span aria-hidden="true">→</span></Link>
-                <Link href="/features" className="premium-button premium-button-secondary">Learn more</Link>
+              <h1>
+                <span>Know where you&apos;re going.</span>
+                <em>Move with confidence.</em>
+              </h1>
+              <div className="premium-rule" aria-hidden="true"><span /></div>
+              <p className="premium-lead">CareerNavIQ brings your experience, goals, opportunities, and next steps into one intelligent career workspace.</p>
+              <div className="premium-actions premium-actions-refined">
+                <Link href="/register" className="premium-button premium-button-primary">Explore opportunities <span aria-hidden="true">→</span></Link>
+                <Link href="/login" className="premium-hero-signin">Sign in <span aria-hidden="true">›</span></Link>
               </div>
             </div>
             <div className="premium-hero-visual" aria-hidden="true" />
