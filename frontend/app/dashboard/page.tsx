@@ -30,7 +30,7 @@ type Goals = { applications: number; recruiterFollowups: number; mockInterviews:
 const defaultGoals: Goals = { applications: 12, recruiterFollowups: 5, mockInterviews: 2 };
 const stageOrder = ["wishlist", "applied", "recruiter", "interview", "final", "offer", "accepted"];
 const stageLabels: Record<string, string> = {
-  wishlist: "Selected",
+  wishlist: "Saved",
   applied: "Applied",
   recruiter: "Recruiter",
   interview: "Interview",
@@ -106,7 +106,7 @@ export default function Dashboard() {
           setDigest(null);
         }
       } catch (err) {
-        if (active) setError(err instanceof Error ? err.message : "Unable to load the command center.");
+        if (active) setError(err instanceof Error ? err.message : "Unable to load your home page.");
       }
     })();
 
@@ -128,11 +128,6 @@ export default function Dashboard() {
     const stages = data?.status_counts || {};
     const applicationsCount = data?.application_count || applications.length;
     const interviewCount = data?.interview_count || 0;
-    const offers = data?.offer_count || 0;
-    const responseRate = applicationsCount
-      ? Math.round((((stages.recruiter || 0) + (stages.interview || 0) + (stages.final || 0) + (stages.offer || 0) + (stages.accepted || 0)) / applicationsCount) * 100)
-      : 0;
-    const interviewRate = applicationsCount ? Math.round((interviewCount / applicationsCount) * 100) : 0;
     const readinessParts = [
       Math.min(100, data?.average_completeness || 0),
       Math.min(100, (applicationsThisWeek / Math.max(1, goals.applications)) * 100),
@@ -152,9 +147,6 @@ export default function Dashboard() {
       stages,
       applicationsCount,
       interviewCount,
-      offers,
-      responseRate,
-      interviewRate,
       momentum,
     };
   }, [data, interviews, recruiters, searches, applications, goals, practiceCount]);
@@ -166,11 +158,11 @@ export default function Dashboard() {
   }
 
   if (error) {
-    return <Notice title="Command center unavailable" tone="error"><p>{error}</p></Notice>;
+    return <Notice title="Home page unavailable" tone="error"><p>{error}</p></Notice>;
   }
 
   if (!data) {
-    return <section className="executive-loading"><p className="eyebrow">EXECUTIVE COMMAND CENTER</p><h2>Preparing your briefing…</h2></section>;
+    return <section className="executive-loading"><p className="eyebrow">HOME</p><h2>Loading your next steps…</h2></section>;
   }
 
   const firstName = data.user_name?.trim().split(/\s+/)[0] || "there";
@@ -178,48 +170,76 @@ export default function Dashboard() {
   const followups = (data.followups_due || 0) + computed.dueRecruiters.length;
   const maxStage = Math.max(1, ...Object.values(computed.stages));
   const priorities = [
-    ...(followups ? [{ title: `${followups} follow-up${followups === 1 ? "" : "s"} require attention`, detail: "Keep active opportunities and recruiter relationships moving.", href: "/crm", action: "Review relationships", urgency: "Due" }] : []),
-    ...(computed.nextInterview ? [{ title: `Prepare for ${computed.nextInterview.title}`, detail: `${Math.max(0, daysUntil(computed.nextInterview.starts_at))} day${daysUntil(computed.nextInterview.starts_at) === 1 ? "" : "s"} until the conversation.`, href: "/interview-coach", action: "Open interview prep", urgency: "Upcoming" }] : []),
-    ...(highMatches ? [{ title: `Review ${highMatches} high-alignment opportunit${highMatches === 1 ? "y" : "ies"}`, detail: "Compare the strongest current options against your executive mandate.", href: "/jobs", action: "Review market", urgency: "Market" }] : []),
+    ...(followups ? [{ title: `${followups} follow-up${followups === 1 ? "" : "s"} need attention`, detail: "Review contacts and active applications that are waiting on a next step.", href: "/crm", action: "Review follow-ups", urgency: "Due" }] : []),
+    ...(computed.nextInterview ? [{ title: `Prepare for ${computed.nextInterview.title}`, detail: `${Math.max(0, daysUntil(computed.nextInterview.starts_at))} day${daysUntil(computed.nextInterview.starts_at) === 1 ? "" : "s"} until the interview.`, href: "/interview-coach", action: "Prepare now", urgency: "Upcoming" }] : []),
+    ...(highMatches ? [{ title: `Review ${highMatches} strong job match${highMatches === 1 ? "" : "es"}`, detail: "Open the best current roles and decide which are worth pursuing.", href: "/jobs", action: "Review jobs", urgency: "Jobs" }] : []),
   ];
   if (!priorities.length) {
-    priorities.push({ title: "Refresh your market view", detail: "Scan for roles aligned with your current executive position.", href: "/jobs", action: "Open market intelligence", urgency: "Recommended" });
+    priorities.push({ title: "Find your next matching role", detail: "Search current jobs using the target and preferences in your profile.", href: "/jobs", action: "Find Jobs", urgency: "Recommended" });
   }
+
+  const nextMoves = [
+    {
+      title: highMatches ? `${highMatches} job match${highMatches === 1 ? "" : "es"} to review` : "Find matching jobs",
+      detail: highMatches ? "Start with the roles that best fit your profile." : "Search for roles that fit your target and preferences.",
+      href: "/jobs",
+    },
+    {
+      title: followups ? `${followups} application follow-up${followups === 1 ? "" : "s"}` : "Review your applications",
+      detail: followups ? "Keep active opportunities moving before they go quiet." : "Check statuses, decisions, and next actions in one place.",
+      href: followups ? "/crm" : "/applications",
+    },
+    {
+      title: computed.nextInterview ? `Prepare for ${computed.nextInterview.title}` : "Get ready for interviews",
+      detail: computed.nextInterview ? `${Math.max(0, daysUntil(computed.nextInterview.starts_at))} day${daysUntil(computed.nextInterview.starts_at) === 1 ? "" : "s"} remaining to prepare.` : "Build stronger stories and practice before an interview is scheduled.",
+      href: computed.nextInterview ? "/interview-coach" : "/interviews",
+    },
+  ];
 
   return (
     <>
       <section className="executive-command-hero">
         <div>
-          <p className="eyebrow">EXECUTIVE COMMAND CENTER</p>
+          <p className="eyebrow">HOME</p>
           <h1>Good {new Date().getHours() < 12 ? "morning" : new Date().getHours() < 18 ? "afternoon" : "evening"}, {firstName}.</h1>
-          <p>Your current career momentum is <strong>{computed.momentum}%</strong>. The briefing below concentrates the decisions and actions that matter most today.</p>
+          <p>Here are the actions most likely to move your search forward today.</p>
           <div className="row wrap">
             <Link className="button" href={priorities[0].href}>{priorities[0].action}</Link>
-            <Link className="button secondary" href="/jobs">Open market intelligence</Link>
+            <Link className="button secondary" href="/jobs">Find Jobs</Link>
           </div>
         </div>
-        <div className="executive-momentum-score" aria-label={`Career momentum ${computed.momentum} percent`}>
-          <span>Career momentum</span>
+        <div className="executive-momentum-score" aria-label={`Search momentum ${computed.momentum} percent`}>
+          <span>Search momentum</span>
           <strong>{computed.momentum}</strong>
           <small>out of 100</small>
         </div>
       </section>
 
+      <section className="executive-panel executive-action-panel">
+        <SectionHeader eyebrow="START HERE" title="Your next three moves" description="The most useful actions based on your current jobs, applications, and interviews." />
+        <div className="executive-action-grid-v6">
+          {nextMoves.map((item) => (
+            <Link key={item.title} href={item.href}>
+              <strong>{item.title}</strong>
+              <span>{item.detail}</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
       <MetricStrip
-        ariaLabel="Executive career metrics"
+        ariaLabel="Career search summary"
         items={[
-          { label: "Active opportunities", value: computed.applicationsCount, detail: `${computed.applicationsThisWeek} added this week` },
-          { label: "Response rate", value: `${computed.responseRate}%`, detail: "Recruiter response or later" },
-          { label: "Interview rate", value: `${computed.interviewRate}%`, detail: `${computed.interviewCount} active interviews` },
-          { label: "High-alignment roles", value: highMatches, detail: `${computed.latestSearch?.matched_count || 0} in latest review` },
-          { label: "Offers", value: computed.offers, detail: "Offer and accepted stages" },
-          { label: "Positioning readiness", value: `${data.average_completeness || 0}%`, detail: `${data.analyzed_resumes || 0} résumés reviewed` },
+          { label: "Applications", value: computed.applicationsCount, detail: `${computed.applicationsThisWeek} added this week` },
+          { label: "Strong job matches", value: highMatches, detail: `${computed.latestSearch?.matched_count || 0} in the latest search` },
+          { label: "Interviews", value: computed.interviewCount, detail: computed.nextInterview ? "Next interview is scheduled" : "No interview currently scheduled" },
+          { label: "Profile progress", value: `${data.average_completeness || 0}%`, detail: `${data.analyzed_resumes || 0} resume${data.analyzed_resumes === 1 ? "" : "s"} reviewed` },
         ]}
       />
 
       <section className="executive-command-grid executive-command-grid-primary">
         <article className="executive-panel">
-          <SectionHeader eyebrow="PRIORITY DECISIONS" title="What deserves your attention now" description="A concise view of the actions most likely to move your search forward." />
+          <SectionHeader eyebrow="NEEDS ATTENTION" title="What to handle next" description="A short list of open actions so nothing important gets lost." />
           <div className="executive-priority-list">
             {priorities.slice(0, 4).map((item, index) => (
               <div className="executive-priority-item" key={item.title}>
@@ -235,41 +255,8 @@ export default function Dashboard() {
           </div>
         </article>
 
-        <article className="executive-panel executive-interview-brief">
-          <SectionHeader eyebrow="NEXT INTERVIEW" title={computed.nextInterview ? computed.nextInterview.title : "No interview scheduled"} />
-          {computed.nextInterview ? (
-            <>
-              <p className="executive-date">{new Date(computed.nextInterview.starts_at).toLocaleString()}</p>
-              <div className="executive-countdown"><strong>{Math.max(0, daysUntil(computed.nextInterview.starts_at))}</strong><span>days to prepare</span></div>
-              <div className="row wrap"><Link className="button" href="/interview-coach">Interview prep</Link><Link className="button secondary" href="/interviews">Interview advisory</Link></div>
-            </>
-          ) : (
-            <><p className="muted">Interview preparation will appear here as opportunities advance.</p><Link className="button secondary" href="/interviews">Open interview advisory</Link></>
-          )}
-        </article>
-      </section>
-
-      <section className="executive-command-grid">
         <article className="executive-panel">
-          <SectionHeader eyebrow="OPPORTUNITY PORTFOLIO" title="Movement by stage" description="A portfolio view of how selected opportunities are progressing." actions={<Link href="/applications">Open portfolio →</Link>} />
-          <div className="executive-funnel">
-            {stageOrder.map((stage, index) => {
-              const count = computed.stages[stage] || 0;
-              const previous = index ? computed.stages[stageOrder[index - 1]] || 0 : computed.applicationsCount;
-              const conversion = previous ? Math.round((count / previous) * 100) : 0;
-              return (
-                <div className="executive-funnel-row" key={stage}>
-                  <div><span>{stageLabels[stage]}</span><small>{index ? `${conversion}% from prior stage` : "Total tracked"}</small></div>
-                  <div className="executive-progress-track"><div style={{ width: `${Math.max(count ? 8 : 0, (count / maxStage) * 100)}%` }} /></div>
-                  <strong>{count}</strong>
-                </div>
-              );
-            })}
-          </div>
-        </article>
-
-        <article className="executive-panel">
-          <SectionHeader eyebrow="WEEKLY DISCIPLINE" title="Activity targets" description="A small set of controllable actions; stored only on this device." />
+          <SectionHeader eyebrow="WEEKLY GOALS" title="Keep your search moving" description="Simple activity targets stored only on this device." />
           {([
             ["applications", "Quality applications", computed.applicationsThisWeek],
             ["recruiterFollowups", "Relationship follow-ups", computed.recruiterTouches],
@@ -283,15 +270,33 @@ export default function Dashboard() {
         </article>
       </section>
 
+      <section className="executive-panel">
+        <SectionHeader eyebrow="APPLICATION PROGRESS" title="Where your opportunities stand" description="See how saved roles are moving from interest to offer." actions={<Link href="/applications">Open Applications →</Link>} />
+        <div className="executive-funnel">
+          {stageOrder.map((stage, index) => {
+            const count = computed.stages[stage] || 0;
+            const previous = index ? computed.stages[stageOrder[index - 1]] || 0 : computed.applicationsCount;
+            const conversion = previous ? Math.round((count / previous) * 100) : 0;
+            return (
+              <div className="executive-funnel-row" key={stage}>
+                <div><span>{stageLabels[stage]}</span><small>{index ? `${conversion}% from prior stage` : "Total tracked"}</small></div>
+                <div className="executive-progress-track"><div style={{ width: `${Math.max(count ? 8 : 0, (count / maxStage) * 100)}%` }} /></div>
+                <strong>{count}</strong>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
       <section className="executive-panel executive-action-panel">
-        <SectionHeader eyebrow="EXECUTIVE WORKSPACE" title="Move directly to the work that matters" />
+        <SectionHeader eyebrow="TOOLS" title="Go directly to what you need" />
         <div className="executive-action-grid-v6">
-          <Link href="/jobs"><strong>Market intelligence</strong><span>Evaluate current opportunities and market fit.</span></Link>
-          <Link href="/applications"><strong>Opportunity portfolio</strong><span>Manage active pursuits, stages, and decisions.</span></Link>
-          <Link href="/resumes/studio"><strong>Positioning studio</strong><span>Sharpen executive evidence for a specific role.</span></Link>
-          <Link href="/crm"><strong>Relationship network</strong><span>Keep recruiter and hiring relationships moving.</span></Link>
-          <Link href="/interview-coach"><strong>Interview preparation</strong><span>Strengthen stories, questions, and executive presence.</span></Link>
-          <Link href="/analytics"><strong>Performance intelligence</strong><span>Read response patterns and adjust strategy.</span></Link>
+          <Link href="/jobs"><strong>Find Jobs</strong><span>Search and compare current opportunities.</span></Link>
+          <Link href="/applications"><strong>Applications</strong><span>Track statuses, follow-ups, and decisions.</span></Link>
+          <Link href="/resumes/studio"><strong>Tailor Resume</strong><span>Prepare a resume for a specific job.</span></Link>
+          <Link href="/crm"><strong>Contacts</strong><span>Manage recruiter and hiring relationships.</span></Link>
+          <Link href="/interview-coach"><strong>Interview Prep</strong><span>Practice answers, stories, and questions.</span></Link>
+          <Link href="/analytics"><strong>Analytics</strong><span>See what is working and where to adjust.</span></Link>
         </div>
       </section>
     </>

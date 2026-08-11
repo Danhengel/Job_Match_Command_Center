@@ -13,29 +13,49 @@ export type CareerStage = {
   items: CareerJourneyItem[];
 };
 
+export const PRIMARY_NAV: CareerJourneyItem[] = [
+  { href: "/dashboard", label: "Home" },
+  { href: "/jobs", label: "Jobs" },
+  { href: "/applications", label: "Applications" },
+  { href: "/resumes", label: "Resume" },
+  { href: "/profiles", label: "Profile" },
+];
+
+export const SECONDARY_NAV: CareerJourneyItem[] = [
+  { href: "/interviews", label: "Interview Prep" },
+  { href: "/interview-coach", label: "Practice Interviews" },
+  { href: "/companies", label: "Companies" },
+  { href: "/crm", label: "Contacts" },
+  { href: "/calendar", label: "Calendar" },
+  { href: "/analytics", label: "Analytics" },
+  { href: "/reports/weekly", label: "Weekly Report" },
+  { href: "/automation", label: "Automation" },
+  { href: "/settings/automation", label: "Settings" },
+];
+
 export const CAREER_STAGES: CareerStage[] = [
   {
     id: "positioning",
     number: 1,
     label: "Build your profile and resume",
     shortLabel: "Profile & Resume",
-    description: "Career goals, target roles, work preferences, and resumes",
+    description: "Set your target, preferences, and experience",
     href: "/profiles",
     items: [
-      { href: "/profiles", label: "Career Profile" },
-      { href: "/resumes", label: "Resumes" },
-      { href: "/resumes/studio", label: "Resume Tailoring" },
+      { href: "/profiles", label: "Profile" },
+      { href: "/resumes", label: "Resume" },
+      { href: "/resumes/studio", label: "Tailor Resume" },
     ],
   },
   {
     id: "market",
     number: 2,
     label: "Find matching jobs",
-    shortLabel: "Find Jobs",
-    description: "Job matches, companies, and saved employers",
+    shortLabel: "Jobs",
+    description: "Find roles and companies that fit your goals",
     href: "/jobs",
     items: [
-      { href: "/jobs", label: "Job Search" },
+      { href: "/jobs", label: "Jobs" },
       { href: "/companies", label: "Companies" },
       { href: "/company-watches", label: "Saved Companies" },
     ],
@@ -45,7 +65,7 @@ export const CAREER_STAGES: CareerStage[] = [
     number: 3,
     label: "Prepare and apply",
     shortLabel: "Apply",
-    description: "Application strategy, tailored materials, and outreach",
+    description: "Tailor your materials and outreach",
     href: "/coach",
     items: [
       { href: "/coach", label: "Application Prep" },
@@ -57,10 +77,10 @@ export const CAREER_STAGES: CareerStage[] = [
     number: 4,
     label: "Track applications and contacts",
     shortLabel: "Applications",
-    description: "Applications, contacts, follow-ups, and decisions",
+    description: "Track progress, follow-ups, and decisions",
     href: "/applications",
     items: [
-      { href: "/applications", label: "Application Tracker" },
+      { href: "/applications", label: "Applications" },
       { href: "/crm", label: "Contacts" },
     ],
   },
@@ -69,7 +89,7 @@ export const CAREER_STAGES: CareerStage[] = [
     number: 5,
     label: "Prepare for interviews",
     shortLabel: "Interviews",
-    description: "Interview prep, practice, schedule, and follow-up",
+    description: "Prepare, practice, schedule, and follow up",
     href: "/interviews",
     items: [
       { href: "/interviews", label: "Interview Prep" },
@@ -84,7 +104,7 @@ export const UTILITY_LINKS: CareerJourneyItem[] = [
   { href: "/analytics", label: "Analytics" },
   { href: "/reports/weekly", label: "Weekly Report" },
   { href: "/automation", label: "Automation" },
-  { href: "/settings/automation", label: "Automation Settings" },
+  { href: "/settings/automation", label: "Settings" },
 ];
 
 export function isActivePath(pathname: string, href: string) {
@@ -107,10 +127,11 @@ export function getCareerStage(pathname: string) {
 }
 
 export function getCurrentPageLabel(pathname: string) {
-  if (pathname === "/dashboard" || pathname === "/command-center") return "Dashboard";
+  if (pathname === "/dashboard" || pathname === "/command-center") return "Home";
 
   return getActiveJourneyItem(pathname, [
     ...CAREER_STAGES.flatMap((stage) => stage.items),
+    ...SECONDARY_NAV,
     ...UTILITY_LINKS,
   ])?.label ?? "Career Workspace";
 }
