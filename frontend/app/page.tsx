@@ -13,13 +13,6 @@ const outcomes = [
   { icon: "◎", title: "Advance", copy: "Manage every next step and keep building momentum toward meaningful work." },
 ];
 
-const credibility = [
-  { value: "One clear view", label: "Goals, roles, and applications connected" },
-  { value: "Evidence-led", label: "Career decisions grounded in your experience" },
-  { value: "Built for momentum", label: "Practical guidance for every next move" },
-  { value: "Private by design", label: "Your career workspace stays yours" },
-];
-
 export default function HomePage() {
   return (
     <div className="premium-home">
@@ -65,18 +58,6 @@ export default function HomePage() {
                 </article>
               ))}
             </div>
-          </div>
-        </section>
-
-        <section className="premium-trust" aria-label="Why CareerNavIQ">
-          <div className="premium-shell premium-trust-grid">
-            {credibility.map((item, index) => (
-              <article key={item.value}>
-                <span>0{index + 1}</span>
-                <strong>{item.value}</strong>
-                <p>{item.label}</p>
-              </article>
-            ))}
           </div>
         </section>
       </main>
