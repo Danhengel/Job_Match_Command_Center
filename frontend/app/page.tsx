@@ -22,14 +22,11 @@ export default function HomePage() {
             <img src="/careernaviq-logo-light.png?v=20260810u" width="1227" height="223" alt="CareerNavIQ" />
           </Link>
           <nav className="premium-nav" aria-label="Main navigation">
-            <Link href="/" className="is-active">Home</Link>
-            <Link href="/about">About</Link>
             <Link href="/features">Services</Link>
-            <Link href="/ai-job-search">Resources</Link>
             <Link href="/pricing">Pricing</Link>
-            <Link href="/contact">Contact</Link>
+            <Link href="/login">Sign in</Link>
           </nav>
-          <Link href="/login" className="premium-signin"><span aria-hidden="true">♙</span> Sign in</Link>
+          <Link href="/register" className="premium-signin">Get started <span aria-hidden="true">→</span></Link>
         </div>
       </header>
 
@@ -61,6 +58,20 @@ export default function HomePage() {
           </div>
         </section>
       </main>
+
+      <footer className="premium-footer">
+        <div className="premium-shell">
+          <span>CareerNavIQ</span>
+          <p>Navigate your career with clarity, confidence, and direction.</p>
+          <div>
+            <Link href="/about">About</Link>
+            <Link href="/ai-job-search">Resources</Link>
+            <Link href="/contact">Contact</Link>
+            <Link href="/privacy">Privacy</Link>
+            <Link href="/terms">Terms</Link>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
