@@ -51,10 +51,6 @@ export default function HomePage() {
 
       <main>
         <section className="premium-hero">
-          <div className="premium-hero-brandmark" aria-hidden="true">
-            <img src="/careernaviq-mark.svg" width="280" height="280" alt="" />
-          </div>
-
           <div className="premium-shell premium-hero-grid">
             <div className="premium-hero-copy">
               <h1>
