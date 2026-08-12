@@ -4,6 +4,13 @@ export function getToken(): string | null {
   return typeof window === "undefined" ? null : localStorage.getItem("token");
 }
 
+const PUBLIC_AUTH_PATHS = new Set([
+  "/api/auth/login",
+  "/api/auth/register",
+  "/api/auth/recovery/start",
+  "/api/auth/reset-password",
+]);
+
 export async function api(path: string, options: RequestInit = {}) {
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
@@ -20,10 +27,10 @@ export async function api(path: string, options: RequestInit = {}) {
   try {
     response = await fetch(`${API_URL}${requestPath}`, { ...options, headers });
   } catch {
-    throw new Error("Unable to reach the server. Confirm Docker is running and try again.");
+    throw new Error("Unable to reach the server. Please try again.");
   }
   const data = await response.json().catch(() => ({}));
-  if (response.status === 401 && typeof window !== "undefined") {
+  if (response.status === 401 && typeof window !== "undefined" && !PUBLIC_AUTH_PATHS.has(requestPath)) {
     localStorage.removeItem("token");
     if (!window.location.pathname.startsWith("/login")) {
       window.location.href = "/login";
@@ -44,7 +51,6 @@ export async function api(path: string, options: RequestInit = {}) {
   }
   return data;
 }
-
 
 export async function uploadApi(path: string, body: FormData) {
   const token = getToken();
@@ -75,4 +81,3 @@ export async function downloadApi(path: string, filename: string) {
   anchor.remove();
   URL.revokeObjectURL(url);
 }
-

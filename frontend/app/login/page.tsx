@@ -114,6 +114,7 @@ export default function LoginPage() {
             </button>
           </form>
 
+          <p className="auth-switch"><Link href="/forgot-password">Forgot your password?</Link></p>
           <div className="auth-divider" />
           <p className="auth-switch">New to CareerNavIQ? <Link href="/register">Create your account</Link></p>
           <p className="auth-security-note"><span className="auth-security-dot" />Your saved career information remains private to your account.</p>

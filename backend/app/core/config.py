@@ -18,6 +18,9 @@ class Settings(BaseSettings):
     adzuna_app_id: str = ""
     adzuna_app_key: str = ""
     jooble_api_key: str = ""
+    password_reset_recovery_key: str = ""
+    password_reset_recovery_email: str = ""
+    password_reset_recovery_expires_at: str = ""
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
