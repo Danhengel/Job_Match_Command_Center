@@ -50,11 +50,11 @@ export default function HomePage() {
           <div className="premium-shell premium-hero-grid">
             <div className="premium-hero-copy">
               <h1>
-                <span>Know where you&apos;re going.</span>
-                <em>Move with confidence.</em>
+                <span>CareerNavIQ helps you navigate your career.</span>
+                <em>So you can move forward with confidence.</em>
               </h1>
               <div className="premium-rule" aria-hidden="true"><span /></div>
-              <p className="premium-lead">CareerNavIQ brings your experience, goals, opportunities, and next steps into one intelligent career workspace.</p>
+              <p className="premium-lead">We bring your experience, goals, opportunities, and next steps into one intelligent career workspace.</p>
               <div className="premium-actions premium-actions-refined">
                 <Link href="/register" className="premium-button premium-button-primary">Explore opportunities <span aria-hidden="true">→</span></Link>
                 <Link href="/login" className="premium-hero-signin">Sign in <span aria-hidden="true">›</span></Link>
