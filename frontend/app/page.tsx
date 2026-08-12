@@ -49,9 +49,16 @@ export default function HomePage() {
         <section className="premium-hero">
           <div className="premium-shell premium-hero-grid">
             <div className="premium-hero-copy">
-              <h1>
-                <span>CareerNavIQ helps you navigate your career.</span>
-                <em>So you can move forward with confidence.</em>
+              <img
+                className="premium-hero-logo"
+                src="/careernaviq-logo-light.png?v=20260810u"
+                width="1227"
+                height="223"
+                alt="CareerNavIQ"
+              />
+              <h1 className="premium-hero-message">
+                <span>Navigate your career.</span>
+                <em>Move forward with confidence.</em>
               </h1>
               <div className="premium-rule" aria-hidden="true"><span /></div>
               <p className="premium-lead">We bring your experience, goals, opportunities, and next steps into one intelligent career workspace.</p>
