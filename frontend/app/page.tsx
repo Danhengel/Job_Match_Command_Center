@@ -57,11 +57,11 @@ export default function HomePage() {
                 alt="CareerNavIQ"
               />
               <h1 className="premium-hero-message">
-                <span>Navigate your career.</span>
-                <em>Move forward with confidence.</em>
+                <span>Know your value. See your path.</span>
+                <em>Make your move.</em>
               </h1>
               <div className="premium-rule" aria-hidden="true"><span /></div>
-              <p className="premium-lead">We bring your experience, goals, opportunities, and next steps into one intelligent career workspace.</p>
+              <p className="premium-lead">Turn your experience, ambitions, and opportunities into a clearer strategy for what comes next.</p>
               <div className="premium-actions premium-actions-refined">
                 <Link href="/register" className="premium-button premium-button-primary">Explore opportunities <span aria-hidden="true">→</span></Link>
                 <Link href="/login" className="premium-hero-signin">Sign in <span aria-hidden="true">›</span></Link>
