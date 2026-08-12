@@ -70,7 +70,7 @@
   position: relative;
   z-index: 4;
   min-height: 630px;
-  grid-template-columns: 1.05fr .95fr;
+  grid-template-columns: 1.08fr .92fr;
   align-items: center;
 }
 
@@ -82,18 +82,18 @@
 
 .premium-home .premium-hero-logo {
   display: block;
-  width: min(690px, 48vw);
+  width: min(790px, 54vw);
   height: auto;
-  margin: 0 0 34px;
+  margin: 0 0 36px;
   object-fit: contain;
   filter: drop-shadow(0 10px 28px rgba(0,0,0,.52));
 }
 
 .premium-home .premium-hero h1.premium-hero-message {
-  max-width: 720px;
+  max-width: 790px;
   margin: 0 0 24px;
   color: #f7f3eb;
-  font-size: clamp(40px,3.7vw,62px);
+  font-size: clamp(44px,4vw,68px);
   line-height: 1.02;
   letter-spacing: -.038em;
   text-shadow: 0 6px 28px rgba(0,0,0,.56);
@@ -113,16 +113,16 @@
 .premium-home .premium-rule span { width: 178px !important; height: 1px; background: linear-gradient(90deg,#e2a52b,rgba(226,165,43,.05)); }
 
 .premium-home .premium-lead {
-  max-width: 570px;
+  max-width: 610px;
   margin-bottom: 31px;
   color: #e7ebe9;
-  font-size: 17px;
-  line-height: 1.8;
+  font-size: 19px;
+  line-height: 1.75;
   text-shadow: 0 3px 15px rgba(0,0,0,.5);
 }
 
 .premium-home .premium-actions-refined { align-items: center; gap: 25px; }
-.premium-home .premium-button { min-height: 61px; padding: 0 34px; border-radius: 7px; font-size: 13px; letter-spacing: .06em; }
+.premium-home .premium-button { min-height: 61px; padding: 0 34px; border-radius: 7px; font-size: 14px; letter-spacing: .06em; }
 .premium-home .premium-button-primary { min-width: 302px; justify-content: space-between; }
 
 .premium-home .premium-hero-signin {
@@ -132,7 +132,7 @@
   padding: 12px 2px 9px;
   border-bottom: 1px solid rgba(226,165,43,.8);
   color: #f2eee4;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: .04em;
 }
@@ -154,14 +154,14 @@
 .premium-home .premium-outcome-grid article { min-height: 198px; padding: 25px 32px 23px; border-left: 1px solid rgba(255,255,255,.09); }
 .premium-home .premium-outcome-icon { width: 68px; height: 68px; margin-bottom: 14px; border-color: rgba(232,174,56,.92); background: radial-gradient(circle,rgba(13,177,190,.15),transparent 68%); }
 .premium-home .premium-outcome-icon span { font-size: 29px; }
-.premium-home .premium-outcome-grid h2 { margin-bottom: 8px; font-size: 16px; }
-.premium-home .premium-outcome-grid p { max-width: 250px; color: #dce2e0; font-size: 13px; line-height: 1.68; }
+.premium-home .premium-outcome-grid h2 { margin-bottom: 8px; font-size: 17px; }
+.premium-home .premium-outcome-grid p { max-width: 250px; color: #dce2e0; font-size: 14px; line-height: 1.68; }
 
 @media (max-width: 1120px) {
   .premium-home .premium-header-inner { gap: 28px; }
   .premium-home .premium-hero { background-position: 62% center; }
   .premium-home .premium-hero-grid { grid-template-columns: 1fr .82fr; }
-  .premium-home .premium-hero-logo { width: min(610px,54vw); }
+  .premium-home .premium-hero-logo { width: min(690px,60vw); }
 }
 
 @media (max-width: 900px) {
@@ -190,23 +190,24 @@
       url('/careernaviq-compass-architecture.webp?v=20260810office');
     background-position: 72% center;
   }
-  .premium-home .premium-hero-grid { grid-template-columns: 1fr; min-height: 760px; }
-  .premium-home .premium-hero-copy { width: min(680px,88%); padding: 70px 0 45px; }
-  .premium-home .premium-hero-logo { width: min(590px,82vw); margin-bottom: 30px; }
-  .premium-home .premium-hero h1.premium-hero-message { max-width: 650px; font-size: clamp(42px,7vw,58px); }
+  .premium-home .premium-hero-grid { grid-template-columns: 1fr; min-height: 780px; }
+  .premium-home .premium-hero-copy { width: min(700px,90%); padding: 70px 0 45px; }
+  .premium-home .premium-hero-logo { width: min(650px,88vw); margin-bottom: 32px; }
+  .premium-home .premium-hero h1.premium-hero-message { max-width: 680px; font-size: clamp(44px,7.4vw,62px); }
+  .premium-home .premium-lead { font-size: 18px; }
   .premium-home .premium-hero-visual { min-height: 160px; }
 }
 
 @media (max-width: 620px) {
   .premium-home .premium-header-inner { min-height: 76px; }
   .premium-home .premium-hero { padding-top: 76px; background-position: 79% center; }
-  .premium-home .premium-hero-grid { min-height: 720px; }
+  .premium-home .premium-hero-grid { min-height: 740px; }
   .premium-home .premium-hero-copy { width: 94%; padding: 58px 0 38px; }
-  .premium-home .premium-hero-logo { width: min(100%,430px); margin-bottom: 28px; }
-  .premium-home .premium-hero h1.premium-hero-message { max-width: 410px; margin-bottom: 22px; font-size: clamp(36px,10vw,48px); line-height: 1.04; letter-spacing: -.034em; }
+  .premium-home .premium-hero-logo { width: min(100%,470px); margin-bottom: 30px; }
+  .premium-home .premium-hero h1.premium-hero-message { max-width: 440px; margin-bottom: 22px; font-size: clamp(38px,10.5vw,51px); line-height: 1.04; letter-spacing: -.034em; }
   .premium-home .premium-hero h1 em { margin-top: 9px; }
   .premium-home .premium-rule { margin-bottom: 19px; }
-  .premium-home .premium-lead { max-width: 390px; margin-bottom: 28px; font-size: 15px; line-height: 1.72; }
+  .premium-home .premium-lead { max-width: 410px; margin-bottom: 28px; font-size: 16px; line-height: 1.72; }
   .premium-home .premium-actions-refined { flex-direction: column; align-items: flex-start; gap: 17px; }
   .premium-home .premium-button-primary { width: min(100%,330px) !important; min-width: 0; min-height: 58px; padding: 0 23px; }
   .premium-home .premium-hero-signin { font-size: 15px; }
