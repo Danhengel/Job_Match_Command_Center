@@ -57,7 +57,8 @@ export default function HomePage() {
                 alt="CareerNavIQ"
               />
               <h1 className="premium-hero-message">
-                <span>Know your value. See your path.</span>
+                <span>Know your value.</span>
+                <span>See your path.</span>
                 <em>Make your move.</em>
               </h1>
               <div className="premium-rule" aria-hidden="true"><span /></div>
