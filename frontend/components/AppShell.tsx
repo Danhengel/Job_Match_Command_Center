@@ -23,12 +23,9 @@ const mobileNavigation = [
 ] as const;
 
 const toolLinks = [
-  { href: "/crm", label: "Contacts" },
-  { href: "/calendar", label: "Calendar" },
   { href: "/analytics", label: "Analytics" },
   { href: "/reports/weekly", label: "Weekly Report" },
   { href: "/automation", label: "Automation" },
-  { href: "/notifications", label: "Notifications" },
 ];
 
 const headerActions: Array<{ match: string; href: string; label: string }> = [
@@ -61,13 +58,12 @@ export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [toolsOpen, setToolsOpen] = useState(false);
-  const [accountOpen, setAccountOpen] = useState(false);
   const [headerAccountOpen, setHeaderAccountOpen] = useState(false);
   const [commandOpen, setCommandOpen] = useState(false);
   const [commandQuery, setCommandQuery] = useState("");
   const currentStage = getCareerStage(pathname);
   const currentPageLabel = getCurrentPageLabel(pathname);
-  const headerAction = headerActions.find((action) => isActivePath(pathname, action.match)) ?? { href: "/dashboard", label: "Career overview" };
+  const headerAction = headerActions.find((action) => isActivePath(pathname, action.match)) ?? { href: "/dashboard", label: "Home" };
   const commandLinks = useMemo(() => {
     const all = [
       { href: "/dashboard", label: "Home" },
@@ -83,7 +79,6 @@ export function AppShell({ children }: { children: ReactNode }) {
   useEffect(() => {
     setMenuOpen(false);
     setToolsOpen(false);
-    setAccountOpen(false);
     setHeaderAccountOpen(false);
     setCommandOpen(false);
     setCommandQuery("");
@@ -94,7 +89,6 @@ export function AppShell({ children }: { children: ReactNode }) {
       if (event.key === "Escape") {
         setMenuOpen(false);
         setToolsOpen(false);
-        setAccountOpen(false);
         setHeaderAccountOpen(false);
         setCommandOpen(false);
       }
@@ -153,8 +147,6 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
 
         <nav className="sidebar-nav" aria-label="CareerNavIQ navigation">
-          <Link href="/dashboard" className={`sidebar-home-link ${isActivePath(pathname, "/dashboard") ? "active" : ""}`}>Career overview</Link>
-
           <div className="sidebar-stage-list">
             {CAREER_STAGES.map((stage) => {
               const stageActive = stage.items.some((item) => isActivePath(pathname, item.href));
@@ -178,9 +170,6 @@ export function AppShell({ children }: { children: ReactNode }) {
             <button type="button" className="sidebar-tools-trigger" onClick={() => setToolsOpen((value) => !value)} aria-expanded={toolsOpen}>
               <span>Tools</span><small>{toolsOpen ? "Close" : "Open"}</small>
             </button>
-            <button type="button" className="sidebar-command-trigger" onClick={() => setCommandOpen(true)}>
-              <span>Search & commands</span><kbd>⌘K</kbd>
-            </button>
           </div>
 
           <div className={`sidebar-tools-drawer ${toolsOpen ? "open" : ""}`} aria-hidden={!toolsOpen}>
@@ -191,11 +180,6 @@ export function AppShell({ children }: { children: ReactNode }) {
               return <Link key={item.href} href={item.href} className={itemActive ? "active" : ""} aria-current={itemActive ? "page" : undefined}>{item.label}</Link>;
             })}
             </div>
-          </div>
-
-          <div className="sidebar-account">
-            <button type="button" className="sidebar-account-trigger" onClick={() => setAccountOpen((value) => !value)} aria-expanded={accountOpen}>Account <span>•••</span></button>
-            {accountOpen ? <div className="sidebar-account-menu"><Link href="/settings/automation">Settings</Link><button type="button" onClick={signOut}>Sign out</button></div> : null}
           </div>
         </nav>
       </aside>
@@ -215,7 +199,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
           <Link href="/dashboard" className="header-brand" aria-label="CareerNavIQ home">
             <span className="header-brand-copy">
-              <span>{currentStage?.shortLabel ?? "Career overview"}</span>
+              <span>{currentStage?.shortLabel ?? "Workspace"}</span>
               <strong>{currentPageLabel}</strong>
             </span>
           </Link>
