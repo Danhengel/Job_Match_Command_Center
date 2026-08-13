@@ -1208,6 +1208,73 @@ body.executive-platform-body .executive-platform :is(.profile-card, .resume-libr
   }
 }
 
+/* Final contrast contract: open tan surfaces use ink, dark chrome stays light. */
+body.executive-platform-body .executive-platform .app-content {
+  color: var(--lux-ink) !important;
+}
+
+body.executive-platform-body .executive-platform .executive-page-frame :is(
+  .executive-metric-strip,
+  .executive-kpis,
+  .interview-kpis,
+  .coach-kpis,
+  .analytics-kpi-grid,
+  .profile-summary-grid,
+  .company-summary-grid,
+  .company-detail-kpis,
+  .watch-summary-grid,
+  .automation-health-grid,
+  .executive-panel,
+  .dashboard-panel,
+  .analytics-panel,
+  .opportunity-portfolio-panel,
+  .market-results-panel,
+  .executive-interview-timeline-panel,
+  .practice-history-panel,
+  .market-result-row,
+  .opportunity-portfolio-row,
+  .interview-event-card,
+  .activity-item,
+  .notification-row,
+  .automation-row,
+  .history-row,
+  .executive-priority-item,
+  .executive-action-card,
+  .prep-item,
+  .profile-card,
+  .resume-library-card,
+  .watch-card,
+  .recommended-employer-card
+) :is(h1, h2, h3, h4, strong, b) {
+  color: var(--lux-ink) !important;
+}
+
+body.executive-platform-body .executive-platform .executive-page-frame :is(
+  .executive-panel,
+  .dashboard-panel,
+  .analytics-panel,
+  .opportunity-portfolio-panel,
+  .market-results-panel,
+  .executive-interview-timeline-panel,
+  .practice-history-panel,
+  .market-result-row,
+  .opportunity-portfolio-row,
+  .interview-event-card,
+  .activity-item,
+  .notification-row,
+  .automation-row,
+  .history-row,
+  .executive-priority-item,
+  .executive-action-card,
+  .prep-item
+) :is(p, li, small, .muted) {
+  color: var(--lux-muted) !important;
+}
+
+body.executive-platform-body .executive-platform .app-content :is(a:not(.button), summary) {
+  color: var(--lux-brass-deep);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }
