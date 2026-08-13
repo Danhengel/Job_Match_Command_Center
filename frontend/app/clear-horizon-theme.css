@@ -92,6 +92,15 @@ body.executive-platform-body .executive-platform .header-command:hover,body.exec
 body.executive-platform-body .executive-platform :is(.sidebar-home-link,.sidebar-stage-summary,.sidebar-stage-links a,.sidebar-utility-links a):is(:hover,.active),body.executive-platform-body .executive-platform .sidebar-stage.active>.sidebar-stage-summary{border-color:rgba(37,99,235,.4);background:linear-gradient(90deg,#2563eb,rgba(37,99,235,.68));color:#fff;box-shadow:inset 3px 0 #6e9aff}
 body.executive-platform-body .executive-platform .sidebar-section-heading>span{color:#d8b66e!important}
 body.executive-platform-body .executive-platform .eyebrow{color:var(--ch-blue)!important}
+.sidebar-nav{display:flex;min-height:calc(100vh - 96px);flex-direction:column;padding:18px 14px 20px}
+.sidebar-primary-navigation{display:grid;gap:22px}
+.sidebar-nav-section h2{margin:0 10px 7px;color:#8799a5!important;font-family:var(--cn-sans);font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sidebar-nav-section>div{display:grid;gap:3px}
+.sidebar-nav-section a,.sidebar-settings-link{display:flex;min-height:42px;align-items:center;gap:12px;padding:9px 12px;border:1px solid transparent;border-radius:8px;color:#c8d3d9!important;font-size:14px;font-weight:650}
+.sidebar-nav-section a:hover,.sidebar-settings-link:hover{background:rgba(255,255,255,.07);color:#fff!important}
+.sidebar-nav-section a.active,.sidebar-settings-link.active{border-color:rgba(37,99,235,.48);background:linear-gradient(90deg,#2563eb,rgba(37,99,235,.7));color:#fff!important;box-shadow:inset 3px 0 #86a9ff}
+.sidebar-nav-icon{display:grid;width:20px;height:20px;flex:0 0 20px;place-items:center;color:inherit!important;font-size:16px;line-height:1}
+.sidebar-settings-link{margin-top:auto;border-top:1px solid rgba(255,255,255,.12);border-radius:0;padding-top:17px}
 body.executive-platform-body .executive-platform .executive-page-frame :is(h1,h2,h3,h4,h5,h6,strong,b,label){color:var(--ch-ink)!important}
 body.executive-platform-body .executive-platform .executive-page-frame :is(p,li,small,.muted){color:var(--ch-copy)!important}
 body.executive-platform-body .executive-platform :is(.executive-metric-strip,.executive-kpis,.interview-kpis,.coach-kpis,.analytics-kpi-grid,.profile-summary-grid,.company-summary-grid,.company-detail-kpis,.watch-summary-grid,.automation-health-grid){border-color:var(--ch-line)!important}
