@@ -1,27 +1,30 @@
-/* CareerNavIQ Midnight Editorial palette
+/* CareerNavIQ Executive Teal palette
    A reversible, color-only layer loaded after the established visual system. */
 
 :root {
-  --me-porcelain: #f4f5f3;
-  --me-stone: #e6e9e8;
+  --me-porcelain: #f5f7f6;
+  --me-stone: #e7ecea;
   --me-white: #ffffff;
-  --me-midnight: #081827;
-  --me-midnight-soft: #102536;
-  --me-ink: #17202a;
-  --me-slate: #59656e;
+  --me-midnight: #123733;
+  --me-midnight-soft: #1b4742;
+  --me-ink: #182321;
+  --me-slate: #596864;
+  --me-action: #27756d;
+  --me-action-deep: #1e5d57;
+  --me-action-pale: #e2efec;
   --me-brass: #b08a4b;
   --me-brass-deep: #7b5d2e;
   --me-brass-pale: #f2eadb;
-  --me-line: #d2d8d7;
-  --me-line-strong: #bfc8c8;
-  --me-shadow: 0 16px 40px rgba(8, 24, 39, .08);
+  --me-line: #d3dcda;
+  --me-line-strong: #bcc9c6;
+  --me-shadow: 0 16px 40px rgba(18, 55, 51, .08);
 
   /* Re-map the original system so unlisted components inherit the palette. */
   --cn-navy-950: var(--me-midnight);
   --cn-navy-900: var(--me-midnight-soft);
-  --cn-navy-800: #29465b;
-  --cn-teal-700: #466c70;
-  --cn-teal-100: #e7efee;
+  --cn-navy-800: #285d58;
+  --cn-teal-700: var(--me-action);
+  --cn-teal-100: var(--me-action-pale);
   --cn-brass-600: var(--me-brass);
   --cn-brass-100: var(--me-brass-pale);
   --cn-paper: var(--me-porcelain);
@@ -41,14 +44,14 @@
   --lux-charcoal: var(--me-midnight);
   --lux-charcoal-soft: var(--me-midnight-soft);
   --lux-brass: var(--me-brass);
-  --lux-brass-deep: var(--me-brass-deep);
+  --lux-brass-deep: var(--me-action-deep);
   --lux-taupe: var(--me-line-strong);
   --lux-muted: var(--me-slate);
   --lux-line: rgba(23, 32, 42, .15);
 
   --cn-night: var(--me-midnight);
   --cn-night-raised: var(--me-midnight-soft);
-  --cn-night-soft: #183146;
+  --cn-night-soft: #25534e;
   --cn-graphite: var(--me-white);
   --cn-graphite-deep: #f8f9f8;
   --cn-graphite-lift: var(--me-stone);
@@ -78,15 +81,15 @@ body.executive-platform-body {
 
 /* Brass is an accent, never a large background field. */
 body.executive-platform-body :is(.button, button):not(.mobile-nav-overlay):not(.mobile-menu-button):not(.sidebar-close):not(.header-command):not(.header-account-trigger):not(.sidebar-tools-trigger):not(.sidebar-command-trigger):not(.sidebar-account-trigger) {
-  border-color: var(--me-brass);
-  background: var(--me-brass);
-  color: var(--me-midnight);
+  border-color: var(--me-action);
+  background: var(--me-action);
+  color: var(--me-white);
   box-shadow: none;
 }
 
 body.executive-platform-body :is(.button, button):not(.mobile-nav-overlay):not(.mobile-menu-button):not(.sidebar-close):not(.header-command):not(.header-account-trigger):not(.sidebar-tools-trigger):not(.sidebar-command-trigger):not(.sidebar-account-trigger):hover {
-  border-color: var(--me-brass-deep);
-  background: var(--me-brass-deep);
+  border-color: var(--me-action-deep);
+  background: var(--me-action-deep);
   color: var(--me-white);
 }
 
@@ -97,14 +100,14 @@ body.executive-platform-body :is(.button.secondary, button.secondary) {
 }
 
 body.executive-platform-body :is(.public-button-primary, .landing-button-primary, .auth-submit, .premium-button-primary) {
-  border-color: var(--me-brass) !important;
-  background: var(--me-brass) !important;
-  color: var(--me-midnight) !important;
+  border-color: var(--me-action) !important;
+  background: var(--me-action) !important;
+  color: var(--me-white) !important;
 }
 
 body.executive-platform-body :is(.public-button-primary, .landing-button-primary, .auth-submit, .premium-button-primary):hover {
-  border-color: var(--me-brass-deep) !important;
-  background: var(--me-brass-deep) !important;
+  border-color: var(--me-action-deep) !important;
+  background: var(--me-action-deep) !important;
   color: var(--me-white) !important;
 }
 
@@ -192,8 +195,8 @@ body.executive-platform-body :is(.public-page, .landing-page) {
 }
 
 body.executive-platform-body :is(.public-header, .landing-header) {
-  border-bottom-color: rgba(176, 138, 75, .24);
-  background: rgba(8, 24, 39, .98);
+  border-bottom-color: rgba(39, 117, 109, .32);
+  background: rgba(18, 55, 51, .98);
 }
 
 body.executive-platform-body :is(.public-header, .landing-header) :is(a, button) {
@@ -205,8 +208,8 @@ body.executive-platform-body :is(.public-header, .landing-header) nav a:hover {
 }
 
 body.executive-platform-body :is(.public-header, .landing-header) :is(.public-nav-cta, .landing-nav-cta) {
-  background: var(--me-brass);
-  color: var(--me-midnight) !important;
+  background: var(--me-action);
+  color: var(--me-white) !important;
 }
 
 body.executive-platform-body :is(.public-hero, .landing-hero) {
@@ -343,9 +346,9 @@ body.executive-platform-body .executive-platform {
   --premium-muted: var(--me-slate);
   --premium-line: var(--me-line);
   --premium-line-strong: var(--me-line-strong);
-  --premium-primary: var(--me-brass-deep);
-  --premium-primary-hover: #65491f;
-  --premium-primary-soft: var(--me-brass-pale);
+  --premium-primary: var(--me-action);
+  --premium-primary-hover: var(--me-action-deep);
+  --premium-primary-soft: var(--me-action-pale);
   --premium-sidebar: var(--me-midnight);
   --premium-sidebar-soft: var(--me-midnight-soft);
 }
@@ -359,7 +362,7 @@ body.executive-platform-body .executive-platform :is(.app-workspace, .app-conten
 }
 
 body.executive-platform-body .executive-platform :is(.app-sidebar, .app-header) {
-  border-color: rgba(176, 138, 75, .22);
+  border-color: rgba(39, 117, 109, .32);
   background: var(--me-midnight) !important;
 }
 
@@ -373,22 +376,22 @@ body.executive-platform-body .executive-platform :is(.app-sidebar, .app-header) 
 
 body.executive-platform-body .executive-platform .header-command,
 body.executive-platform-body .executive-platform :is(.sidebar-tools-trigger, .sidebar-command-trigger, .sidebar-account-trigger) {
-  border-color: rgba(176, 138, 75, .28);
+  border-color: rgba(117, 177, 168, .3);
   background: rgba(255, 255, 255, .045);
   color: #dce2e3;
 }
 
 body.executive-platform-body .executive-platform .header-command:hover,
 body.executive-platform-body .executive-platform :is(.sidebar-tools-trigger, .sidebar-command-trigger, .sidebar-account-trigger):hover {
-  border-color: rgba(176, 138, 75, .58);
-  background: rgba(176, 138, 75, .11);
+  border-color: rgba(117, 177, 168, .62);
+  background: rgba(39, 117, 109, .2);
   color: var(--me-white);
 }
 
 body.executive-platform-body .executive-platform :is(.sidebar-home-link, .sidebar-stage-summary, .sidebar-stage-links a, .sidebar-utility-links a):is(:hover, .active),
 body.executive-platform-body .executive-platform .sidebar-stage.active > .sidebar-stage-summary {
-  border-color: rgba(176, 138, 75, .3);
-  background: linear-gradient(90deg, rgba(176, 138, 75, .18), rgba(176, 138, 75, .025));
+  border-color: rgba(117, 177, 168, .34);
+  background: linear-gradient(90deg, rgba(39, 117, 109, .3), rgba(39, 117, 109, .035));
   color: var(--me-white);
 }
 
@@ -561,12 +564,12 @@ body.executive-platform-body .executive-platform .executive-page-frame :is(input
 }
 
 body.executive-platform-body .executive-platform :is(.badge, .status-badge) {
-  background: var(--me-brass-pale);
-  color: var(--me-brass-deep) !important;
+  background: var(--me-action-pale);
+  color: var(--me-action-deep) !important;
 }
 
 body.executive-platform-body .executive-platform :is(.sidebar-tools-drawer, .sidebar-account-menu) {
-  border-color: rgba(176, 138, 75, .34);
+  border-color: rgba(117, 177, 168, .36);
   background: var(--me-midnight-soft);
 }
 
@@ -608,7 +611,7 @@ body.executive-platform-body .executive-platform :is(.sidebar-account-menu, .sid
   }
 
   body.executive-platform-body .executive-platform .mobile-bottom-nav {
-    border-top-color: rgba(176, 138, 75, .24);
-    background: rgba(8, 24, 39, .98);
+    border-top-color: rgba(39, 117, 109, .32);
+    background: rgba(18, 55, 51, .98);
   }
 }
