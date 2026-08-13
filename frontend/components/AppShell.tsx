@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState, type MouseEvent, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type MouseEvent, type ReactNode } from "react";
 
 import { BrandCompass } from "@/components/BrandCompass";
 import { GuidedJourneyFooter } from "@/components/GuidedJourneyFooter";
 import {
-  PRIMARY_NAV,
-  SECONDARY_NAV,
+  CAREER_STAGES,
+  UTILITY_LINKS,
   getCareerStage,
   getCurrentPageLabel,
   isActivePath,
@@ -22,21 +22,14 @@ const mobileNavigation = [
   ["/resumes", "▤", "Resume"],
 ] as const;
 
-const primaryDescriptions: Record<string, string> = {
-  "/dashboard": "What needs your attention now",
-  "/jobs": "Find and compare matching roles",
-  "/applications": "Track progress and next actions",
-  "/resumes": "Manage and tailor your resume",
-  "/profiles": "Goals, preferences, and experience",
-};
-
-const primaryIcons: Record<string, string> = {
-  "/dashboard": "HM",
-  "/jobs": "JB",
-  "/applications": "AP",
-  "/resumes": "CV",
-  "/profiles": "ME",
-};
+const toolLinks = [
+  { href: "/crm", label: "Contacts" },
+  { href: "/calendar", label: "Calendar" },
+  { href: "/analytics", label: "Analytics" },
+  { href: "/reports/weekly", label: "Weekly Report" },
+  { href: "/automation", label: "Automation" },
+  { href: "/notifications", label: "Notifications" },
+];
 
 const publicPaths = new Set([
   "/features",
@@ -54,16 +47,44 @@ const publicPaths = new Set([
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [toolsOpen, setToolsOpen] = useState(false);
+  const [accountOpen, setAccountOpen] = useState(false);
+  const [commandOpen, setCommandOpen] = useState(false);
+  const [commandQuery, setCommandQuery] = useState("");
   const currentStage = getCareerStage(pathname);
   const currentPageLabel = getCurrentPageLabel(pathname);
+  const commandLinks = useMemo(() => {
+    const all = [
+      { href: "/dashboard", label: "Home" },
+      ...CAREER_STAGES.flatMap((stage) => stage.items),
+      ...toolLinks,
+      ...UTILITY_LINKS,
+    ];
+    return [...new Map(all.map((item) => [item.href, item])).values()].filter((item) =>
+      item.label.toLowerCase().includes(commandQuery.trim().toLowerCase()),
+    );
+  }, [commandQuery]);
 
   useEffect(() => {
     setMenuOpen(false);
+    setToolsOpen(false);
+    setAccountOpen(false);
+    setCommandOpen(false);
+    setCommandQuery("");
   }, [pathname]);
 
   useEffect(() => {
     function closeOnEscape(event: KeyboardEvent) {
-      if (event.key === "Escape") setMenuOpen(false);
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        setToolsOpen(false);
+        setAccountOpen(false);
+        setCommandOpen(false);
+      }
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        setCommandOpen(true);
+      }
     }
 
     document.body.classList.toggle("mobile-menu-open", menuOpen);
@@ -115,52 +136,51 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
 
         <nav className="sidebar-nav" aria-label="CareerNavIQ navigation">
-          <div className="sidebar-section-heading">
-            <span>Main</span>
-          </div>
+          <Link href="/dashboard" className={`sidebar-home-link ${isActivePath(pathname, "/dashboard") ? "active" : ""}`}>Career overview</Link>
 
           <div className="sidebar-stage-list">
-            {PRIMARY_NAV.map((item) => {
-              const itemActive = isActivePath(pathname, item.href);
+            {CAREER_STAGES.map((stage) => {
+              const stageActive = stage.items.some((item) => isActivePath(pathname, item.href));
               return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`sidebar-dashboard ${itemActive ? "active" : ""}`}
-                  aria-current={itemActive ? "page" : undefined}
-                >
-                  <span className="sidebar-dashboard-icon" aria-hidden="true">{primaryIcons[item.href]}</span>
-                  <span>
-                    <strong>{item.label}</strong>
-                    <small>{primaryDescriptions[item.href]}</small>
-                  </span>
-                </Link>
+                <details className={`sidebar-stage ${stageActive ? "active" : ""}`} key={`${stage.id}-${pathname}`} open={stageActive || undefined}>
+                  <summary className="sidebar-stage-summary">
+                    <span className="sidebar-stage-number" aria-hidden="true">{String(stage.number).padStart(2, "0")}</span>
+                    <span><strong>{stage.shortLabel}</strong><small>{stage.description}</small></span>
+                  </summary>
+                  <div className="sidebar-stage-links">
+                    {stage.items.map((item) => {
+                      const itemActive = isActivePath(pathname, item.href);
+                      return <Link key={item.href} href={item.href} className={itemActive ? "active" : ""} aria-current={itemActive ? "page" : undefined}>{item.label}</Link>;
+                    })}
+                  </div>
+                </details>
               );
             })}
           </div>
 
-          <div className="sidebar-section-heading sidebar-tools-heading">
-            <span>More</span>
-            <small>Tools & planning</small>
-          </div>
-          <div className="sidebar-utility-links">
-            {SECONDARY_NAV.map((item) => {
-              const itemActive = isActivePath(pathname, item.href);
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={itemActive ? "active" : ""}
-                  aria-current={itemActive ? "page" : undefined}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
-            <Link href="/notifications" className={isActivePath(pathname, "/notifications") ? "active" : ""}>Notifications</Link>
+          <div className="sidebar-utility-actions">
+            <button type="button" className="sidebar-tools-trigger" onClick={() => setToolsOpen((value) => !value)} aria-expanded={toolsOpen}>
+              <span>Tools</span><small>{toolsOpen ? "Close" : "Open"}</small>
+            </button>
+            <button type="button" className="sidebar-command-trigger" onClick={() => setCommandOpen(true)}>
+              <span>Search & commands</span><kbd>⌘K</kbd>
+            </button>
           </div>
 
-          <button type="button" className="sidebar-signout" onClick={signOut}>Sign out</button>
+          <div className={`sidebar-tools-drawer ${toolsOpen ? "open" : ""}`} aria-hidden={!toolsOpen}>
+            <div className="sidebar-tools-drawer-head"><strong>Tools</strong><button type="button" onClick={() => setToolsOpen(false)} aria-label="Close tools">×</button></div>
+            <div className="sidebar-utility-links">
+            {toolLinks.map((item) => {
+              const itemActive = isActivePath(pathname, item.href);
+              return <Link key={item.href} href={item.href} className={itemActive ? "active" : ""} aria-current={itemActive ? "page" : undefined}>{item.label}</Link>;
+            })}
+            </div>
+          </div>
+
+          <div className="sidebar-account">
+            <button type="button" className="sidebar-account-trigger" onClick={() => setAccountOpen((value) => !value)} aria-expanded={accountOpen}>Account <span>•••</span></button>
+            {accountOpen ? <div className="sidebar-account-menu"><Link href="/settings/automation">Settings</Link><button type="button" onClick={signOut}>Sign out</button></div> : null}
+          </div>
         </nav>
       </aside>
 
@@ -215,6 +235,21 @@ export function AppShell({ children }: { children: ReactNode }) {
           <small>More</small>
         </button>
       </nav>
+
+      {commandOpen ? (
+        <div className="command-palette-backdrop" role="presentation" onMouseDown={() => setCommandOpen(false)}>
+          <section className="command-palette" role="dialog" aria-modal="true" aria-label="Search CareerNavIQ" onMouseDown={(event) => event.stopPropagation()}>
+            <div className="command-palette-input-row">
+              <span aria-hidden="true">⌕</span>
+              <input autoFocus value={commandQuery} onChange={(event) => setCommandQuery(event.target.value)} placeholder="Search pages and tools" aria-label="Search pages and tools" />
+              <button type="button" onClick={() => setCommandOpen(false)} aria-label="Close command palette">×</button>
+            </div>
+            <div className="command-palette-results">
+              {commandLinks.length ? commandLinks.map((item) => <Link key={item.href} href={item.href}><span>{item.label}</span><small>{item.href}</small></Link>) : <p>No matching destination</p>}
+            </div>
+          </section>
+        </div>
+      ) : null}
     </div>
   );
 }
