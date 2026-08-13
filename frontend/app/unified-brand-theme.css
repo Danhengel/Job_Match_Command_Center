@@ -270,6 +270,413 @@ body.executive-platform-body .executive-platform :is(.progress-value, .pipeline-
   }
 }
 
+/* -------------------------------------------------------------------------- */
+/* Warm editorial luxury palette trial                                        */
+/* -------------------------------------------------------------------------- */
+
+:root {
+  --lux-ivory: #f4f0e7;
+  --lux-parchment: #e9e2d5;
+  --lux-paper: #fbf8f1;
+  --lux-ink: #171816;
+  --lux-charcoal: #181a1b;
+  --lux-charcoal-soft: #242627;
+  --lux-brass: #a9854d;
+  --lux-brass-deep: #806338;
+  --lux-taupe: #c8bdaa;
+  --lux-muted: #69655d;
+  --lux-line: rgba(74, 66, 54, .22);
+}
+
+body.executive-platform-body {
+  background: var(--lux-ivory);
+  color: var(--lux-ink);
+}
+
+body.executive-platform-body :is(.button, button):not(.mobile-nav-overlay):not(.mobile-menu-button):not(.sidebar-close) {
+  border-color: var(--lux-brass);
+  background: var(--lux-brass);
+  color: var(--lux-ink);
+  box-shadow: none;
+}
+
+body.executive-platform-body :is(.button, button):not(.mobile-nav-overlay):not(.mobile-menu-button):not(.sidebar-close):hover {
+  border-color: var(--lux-brass-deep);
+  background: var(--lux-brass-deep);
+  color: #fffdf8;
+}
+
+body.executive-platform-body :is(.button.secondary, button.secondary) {
+  border-color: var(--lux-taupe);
+  background: transparent;
+  color: var(--lux-ink);
+}
+
+/* Public editorial pages */
+body.executive-platform-body :is(.public-page, .landing-page) {
+  background: var(--lux-ivory);
+  color: var(--lux-ink);
+}
+
+body.executive-platform-body :is(.public-page, .landing-page) :is(h1, h2, h3, h4, strong) {
+  color: var(--lux-ink);
+}
+
+body.executive-platform-body :is(.public-page, .landing-page) :is(p, li, small) {
+  color: var(--lux-muted);
+}
+
+body.executive-platform-body :is(.public-header, .landing-header) {
+  border-bottom-color: rgba(169, 133, 77, .25);
+  background: rgba(24, 26, 27, .97);
+}
+
+body.executive-platform-body :is(.public-hero, .landing-hero) {
+  border-bottom-color: var(--lux-taupe);
+  background:
+    radial-gradient(circle at 80% 18%, rgba(169, 133, 77, .13), transparent 31%),
+    linear-gradient(132deg, var(--lux-paper), var(--lux-ivory) 58%, var(--lux-parchment));
+  color: var(--lux-ink);
+}
+
+body.executive-platform-body :is(.public-hero, .landing-hero)::after {
+  opacity: .18;
+  background-image:
+    linear-gradient(rgba(128, 99, 56, .12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(128, 99, 56, .12) 1px, transparent 1px);
+}
+
+body.executive-platform-body :is(.public-hero, .landing-hero) :is(h1, h2, h3) {
+  color: var(--lux-ink);
+}
+
+body.executive-platform-body :is(.public-hero, .landing-hero) p {
+  color: var(--lux-muted);
+}
+
+body.executive-platform-body :is(.public-card-grid, .public-related-grid),
+body.executive-platform-body .public-content-block {
+  border-color: var(--lux-line);
+}
+
+body.executive-platform-body :is(.public-card, .public-related-card) {
+  border-left-color: var(--lux-line);
+  color: var(--lux-ink);
+}
+
+body.executive-platform-body :is(.public-footer, .landing-footer) {
+  border-top-color: rgba(169, 133, 77, .3);
+  background: var(--lux-charcoal);
+  color: #c9c4ba;
+}
+
+/* Authentication */
+body.executive-platform-body .auth-content {
+  background: var(--lux-ivory);
+}
+
+body.executive-platform-body .auth-page {
+  background:
+    radial-gradient(circle at 15% 16%, rgba(169, 133, 77, .12), transparent 30%),
+    linear-gradient(135deg, var(--lux-parchment), var(--lux-ivory));
+}
+
+body.executive-platform-body .auth-brand-panel {
+  border-right-color: rgba(169, 133, 77, .28);
+  background:
+    radial-gradient(circle at 28% 18%, rgba(169, 133, 77, .15), transparent 32%),
+    var(--lux-charcoal);
+}
+
+body.executive-platform-body .auth-card {
+  border-color: var(--lux-taupe);
+  background: var(--lux-paper);
+  color: var(--lux-ink);
+  box-shadow: 0 26px 64px rgba(44, 39, 31, .14);
+}
+
+body.executive-platform-body .auth-card :is(h1, h2, h3, label) { color: var(--lux-ink); }
+body.executive-platform-body .auth-card :is(p, small, .auth-card-intro, .auth-switch, .auth-security-note) { color: var(--lux-muted); }
+
+body.executive-platform-body .auth-card :is(input, select, textarea) {
+  border-color: var(--lux-taupe) !important;
+  background-color: #fffdf8 !important;
+  background-image: none !important;
+  color: var(--lux-ink) !important;
+  -webkit-text-fill-color: var(--lux-ink) !important;
+}
+
+body.executive-platform-body .auth-card input:-webkit-autofill,
+body.executive-platform-body .auth-card input:-webkit-autofill:hover,
+body.executive-platform-body .auth-card input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px #fffdf8 inset !important;
+  box-shadow: 0 0 0 1000px #fffdf8 inset !important;
+  -webkit-text-fill-color: var(--lux-ink) !important;
+  caret-color: var(--lux-ink);
+}
+
+/* Signed-in workspace: light editorial canvas with charcoal navigation. */
+body.executive-platform-body .executive-platform,
+body.executive-platform-body .executive-platform .app-workspace,
+body.executive-platform-body .executive-platform .app-content {
+  background:
+    radial-gradient(circle at 86% 0%, rgba(169, 133, 77, .08), transparent 27%),
+    var(--lux-ivory) !important;
+  color: var(--lux-ink);
+}
+
+body.executive-platform-body .executive-platform .app-sidebar,
+body.executive-platform-body .executive-platform .app-header {
+  border-color: rgba(169, 133, 77, .22);
+  background: var(--lux-charcoal) !important;
+}
+
+body.executive-platform-body .executive-platform :is(.sidebar-dashboard, .sidebar-utility-links a):is(:hover, .active) {
+  border-color: rgba(169, 133, 77, .24);
+  background: linear-gradient(90deg, rgba(169, 133, 77, .18), rgba(169, 133, 77, .03));
+  color: #fffdf8;
+  box-shadow: inset 2px 0 var(--lux-brass);
+}
+
+body.executive-platform-body .executive-platform .executive-page-frame > :is(.page-header, .executive-page-header, .hero, .executive-hero) {
+  border-left-color: var(--lux-brass) !important;
+  border-bottom-color: var(--lux-line) !important;
+}
+
+body.executive-platform-body .executive-platform .executive-page-frame > :is(.page-header, .executive-page-header, .hero, .executive-hero) h1,
+body.executive-platform-body .executive-platform .executive-page-frame > .executive-section-header :is(h2, h3),
+body.executive-platform-body .executive-platform .executive-page-frame > section:not(.card):not(.executive-panel) > .executive-section-header :is(h2, h3) {
+  color: var(--lux-ink) !important;
+}
+
+body.executive-platform-body .executive-platform .executive-page-frame > :is(.page-header, .executive-page-header, .hero, .executive-hero) :is(p, .muted),
+body.executive-platform-body .executive-platform .executive-page-frame > .executive-section-header p {
+  color: var(--lux-muted) !important;
+}
+
+body.executive-platform-body .executive-platform .eyebrow,
+body.executive-platform-body .executive-platform .sidebar-section-heading > span {
+  color: var(--lux-brass-deep) !important;
+}
+
+body.executive-platform-body .executive-platform :is(
+  .executive-metric-strip,
+  .executive-kpis,
+  .interview-kpis,
+  .coach-kpis,
+  .analytics-kpi-grid,
+  .profile-summary-grid,
+  .company-summary-grid,
+  .company-detail-kpis,
+  .watch-summary-grid,
+  .automation-health-grid
+) {
+  border-color: var(--lux-line) !important;
+}
+
+body.executive-platform-body .executive-platform :is(
+  .executive-metric-strip,
+  .executive-kpis,
+  .interview-kpis,
+  .coach-kpis,
+  .analytics-kpi-grid,
+  .profile-summary-grid,
+  .company-summary-grid,
+  .company-detail-kpis,
+  .watch-summary-grid,
+  .automation-health-grid
+) > article {
+  border-left-color: var(--lux-line) !important;
+}
+
+body.executive-platform-body .executive-platform :is(
+  .executive-metric-strip,
+  .executive-kpis,
+  .interview-kpis,
+  .coach-kpis,
+  .analytics-kpi-grid,
+  .profile-summary-grid,
+  .company-summary-grid,
+  .company-detail-kpis,
+  .watch-summary-grid,
+  .automation-health-grid
+) > article :is(strong, h2, h3) {
+  color: var(--lux-ink) !important;
+}
+
+body.executive-platform-body .executive-platform .executive-page-frame :is(
+  .executive-panel,
+  .dashboard-panel,
+  .analytics-panel,
+  .opportunity-portfolio-panel,
+  .market-results-panel,
+  .executive-interview-timeline-panel,
+  .practice-history-panel
+) {
+  border-top-color: var(--lux-line) !important;
+}
+
+body.executive-platform-body .executive-platform .executive-page-frame :is(
+  .executive-panel,
+  .dashboard-panel,
+  .analytics-panel,
+  .opportunity-portfolio-panel,
+  .market-results-panel,
+  .executive-interview-timeline-panel,
+  .practice-history-panel
+) :is(h2, h3) { color: var(--lux-ink); }
+
+body.executive-platform-body .executive-platform .executive-page-frame :is(
+  .executive-panel,
+  .dashboard-panel,
+  .analytics-panel,
+  .opportunity-portfolio-panel,
+  .market-results-panel,
+  .executive-interview-timeline-panel,
+  .practice-history-panel
+) :is(p, small, .muted) { color: var(--lux-muted) !important; }
+
+body.executive-platform-body .executive-platform .executive-page-frame :is(
+  .market-result-row,
+  .opportunity-portfolio-row,
+  .interview-event-card,
+  .activity-item,
+  .notification-row,
+  .automation-row,
+  .history-row,
+  .executive-priority-item,
+  .executive-action-card,
+  .prep-item
+) {
+  border-bottom-color: var(--lux-line) !important;
+}
+
+body.executive-platform-body .executive-platform .executive-page-frame :is(
+  .market-result-row,
+  .opportunity-portfolio-row,
+  .interview-event-card,
+  .activity-item,
+  .notification-row,
+  .automation-row,
+  .history-row,
+  .executive-priority-item,
+  .executive-action-card,
+  .prep-item
+):hover {
+  border-bottom-color: rgba(169, 133, 77, .5) !important;
+  background: linear-gradient(90deg, rgba(169, 133, 77, .12), transparent 62%) !important;
+  box-shadow: inset 2px 0 var(--lux-brass) !important;
+}
+
+body.executive-platform-body .executive-platform .executive-page-frame :is(
+  .market-result-row,
+  .opportunity-portfolio-row,
+  .interview-event-card,
+  .activity-item,
+  .notification-row,
+  .automation-row,
+  .history-row,
+  .executive-priority-item,
+  .executive-action-card,
+  .prep-item
+) :is(h3, h4, strong, b) { color: var(--lux-ink); }
+
+body.executive-platform-body .executive-platform .executive-page-frame :is(
+  .market-result-row,
+  .opportunity-portfolio-row,
+  .interview-event-card,
+  .activity-item,
+  .notification-row,
+  .automation-row,
+  .history-row,
+  .executive-priority-item,
+  .executive-action-card,
+  .prep-item
+) :is(p, small, .muted) { color: var(--lux-muted) !important; }
+
+/* Contained work surfaces are parchment; document previews stay white. */
+body.executive-platform-body .executive-platform .executive-page-frame :is(
+  .card,
+  form.card,
+  .market-criteria-panel,
+  .studio-panel,
+  .resume-upload-panel,
+  .resume-library-panel,
+  .resume-analysis-panel,
+  .settings-card,
+  .profile-edit-section,
+  .outreach-controls,
+  .outreach-editor,
+  .outreach-guidance
+) {
+  border-color: var(--lux-taupe) !important;
+  background: var(--lux-parchment) !important;
+  color: var(--lux-ink) !important;
+  box-shadow: none !important;
+}
+
+body.executive-platform-body .executive-platform .executive-page-frame :is(
+  .card,
+  form.card,
+  .market-criteria-panel,
+  .studio-panel,
+  .resume-upload-panel,
+  .resume-library-panel,
+  .resume-analysis-panel,
+  .settings-card,
+  .profile-edit-section,
+  .outreach-controls,
+  .outreach-editor,
+  .outreach-guidance
+) :is(h1, h2, h3, h4, label, strong) { color: var(--lux-ink) !important; }
+
+body.executive-platform-body .executive-platform .executive-page-frame :is(
+  .card,
+  form.card,
+  .market-criteria-panel,
+  .studio-panel,
+  .resume-upload-panel,
+  .resume-library-panel,
+  .resume-analysis-panel,
+  .settings-card,
+  .profile-edit-section,
+  .outreach-controls,
+  .outreach-editor,
+  .outreach-guidance
+) :is(p, small, .muted) { color: var(--lux-muted) !important; }
+
+body.executive-platform-body .executive-platform .executive-page-frame :is(input:not([type="checkbox"]):not([type="radio"]), select, textarea) {
+  border-color: var(--lux-taupe) !important;
+  background-color: var(--lux-paper) !important;
+  background-image: none !important;
+  color: var(--lux-ink) !important;
+  -webkit-text-fill-color: var(--lux-ink) !important;
+}
+
+body.executive-platform-body .executive-platform .executive-page-frame :is(input, textarea)::placeholder {
+  color: #928a7d !important;
+  -webkit-text-fill-color: #928a7d !important;
+}
+
+body.executive-platform-body .executive-platform :is(.profile-grid, .resume-card-grid, .watch-card-grid, .recommended-employer-grid) {
+  border-color: var(--lux-line);
+}
+
+body.executive-platform-body .executive-platform :is(.profile-card, .resume-library-card, .watch-card, .recommended-employer-card) {
+  border-left-color: var(--lux-line) !important;
+}
+
+body.executive-platform-body .executive-platform :is(.profile-card, .resume-library-card, .watch-card, .recommended-employer-card) :is(h2, h3, h4, strong) {
+  color: var(--lux-ink) !important;
+}
+
+@media (max-width: 900px) {
+  body.executive-platform-body .executive-platform .mobile-bottom-nav {
+    border-top-color: rgba(169, 133, 77, .25);
+    background: rgba(24, 26, 27, .98);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }
