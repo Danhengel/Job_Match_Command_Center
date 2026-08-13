@@ -49,6 +49,13 @@ export default function HomePage() {
         <section className="premium-hero">
           <div className="premium-shell premium-hero-grid">
             <div className="premium-hero-copy">
+              <img
+                className="premium-hero-logo premium-hero-logo-unframed"
+                src="/careernaviq-logo-official.jpg?v=20260812a"
+                width="1227"
+                height="223"
+                alt="CareerNavIQ"
+              />
               <h1 className="premium-hero-message">
                 <span>Know your value.</span>
                 <span>See your path.</span>
