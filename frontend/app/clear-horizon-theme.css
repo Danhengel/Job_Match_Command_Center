@@ -108,4 +108,24 @@ body.executive-platform-body .executive-platform :is(.badge,.status-badge){backg
 body.executive-platform-body .executive-platform :is(.sidebar-tools-drawer,.sidebar-account-menu,.header-account-menu),.command-palette{border-color:var(--ch-line-strong);background:#fff;color:var(--ch-ink);box-shadow:var(--ch-shadow)}
 body.executive-platform-body .executive-platform :is(.sidebar-tools-drawer,.sidebar-account-menu,.header-account-menu) :is(a,button,strong,span),.command-palette :is(a,button,strong,span){color:var(--ch-ink)!important}
 .command-palette-results a:hover,body.executive-platform-body .executive-platform :is(.sidebar-account-menu,.header-account-menu) :is(a,button):hover{background:var(--ch-blue-soft)}
+.premium-home .premium-header-inner{grid-template-columns:minmax(210px,300px) 1fr auto}
+.premium-home .premium-brand img{display:block;width:100%;height:auto}
+.premium-home .premium-footer{padding:48px 0 22px}
+.premium-home .premium-footer-main{display:grid;grid-template-columns:minmax(240px,1.2fr) minmax(420px,1fr);align-items:start;gap:64px}
+.premium-home .premium-footer-brand-block .premium-brand{width:220px;margin-bottom:14px}
+.premium-home .premium-footer-brand-block p{max-width:390px}
+.premium-home .premium-footer-main>nav{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.premium-home .premium-footer-main>nav>div{display:flex;flex-direction:column;align-items:flex-start;gap:9px}
+.premium-home .premium-footer-main strong{color:var(--ch-ink);font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+.premium-home .premium-footer-main a{font-size:13px}
+.premium-home .premium-footer-bottom{display:flex;justify-content:space-between;gap:24px;margin-top:38px;padding-top:18px;border-top:1px solid var(--ch-line);font-size:11px}
+.public-footer-bottom nav{display:flex;align-items:center;gap:18px}
+.public-footer-bottom nav a{color:var(--ch-copy);font-size:12px}
+.public-footer-bottom nav a:hover{color:var(--ch-blue)}
+.app-footer{display:flex;align-items:center;justify-content:space-between;gap:24px;width:min(100% - 48px,var(--cn-max));margin:8px auto 0;padding:22px 0 28px;border-top:1px solid var(--ch-line);color:var(--ch-copy);font-size:12px}
+.app-footer nav{display:flex;align-items:center;gap:20px}
+.app-footer a{color:var(--ch-copy)}
+.app-footer a:hover{color:var(--ch-blue)}
+@media(max-width:900px){.premium-home .premium-header-inner{grid-template-columns:minmax(180px,1fr) auto auto}.premium-home .premium-footer-main{grid-template-columns:1fr;gap:32px}.premium-home .premium-footer-main>nav{grid-template-columns:repeat(3,1fr)}.app-footer{width:min(100% - 32px,var(--cn-max));margin-bottom:72px}}
+@media(max-width:620px){.premium-home .premium-footer-main>nav{grid-template-columns:1fr 1fr}.premium-home .premium-footer-bottom,.public-footer-bottom,.app-footer{align-items:flex-start;flex-direction:column}.public-footer-bottom nav,.app-footer nav{flex-wrap:wrap}}
 @media(max-width:900px){.premium-home .premium-hero{background-image:linear-gradient(180deg,rgba(19,42,56,.84),rgba(30,71,88,.55) 58%,rgba(19,42,56,.78)),url('/careernaviq-compass-architecture.webp?v=20260810office')}body.executive-platform-body .executive-platform .mobile-bottom-nav{border-top-color:var(--ch-line);background:rgba(255,255,255,.98)}body.executive-platform-body .executive-platform .mobile-bottom-nav :is(a,button){color:var(--ch-copy)}body.executive-platform-body .executive-platform .mobile-bottom-nav :is(a,button).active{background:var(--ch-blue-soft);color:var(--ch-blue)}}
