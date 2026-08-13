@@ -270,6 +270,124 @@ body.executive-platform-body .executive-platform :is(.progress-value, .pipeline-
   }
 }
 
+/* Condensed desktop navigation: all tools remain visible without sidebar scroll. */
+@media (min-width: 981px) {
+  body.executive-platform-body .executive-platform .app-sidebar {
+    overflow: hidden;
+    padding: 12px 13px 14px;
+  }
+
+  body.executive-platform-body .executive-platform .sidebar-brand-row {
+    padding-bottom: 10px;
+  }
+
+  body.executive-platform-body .executive-platform .sidebar-brand {
+    width: 190px !important;
+    height: 48px !important;
+    min-height: 48px !important;
+    background-size: 178px auto !important;
+  }
+
+  body.executive-platform-body .executive-platform .sidebar-nav {
+    height: calc(100vh - 71px);
+    padding-top: 8px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  body.executive-platform-body .executive-platform .sidebar-stage-list {
+    display: grid;
+    gap: 2px;
+  }
+
+  body.executive-platform-body .executive-platform .sidebar-dashboard {
+    min-height: 43px;
+    padding: 6px 8px;
+    gap: 8px;
+    align-items: center;
+  }
+
+  body.executive-platform-body .executive-platform .sidebar-dashboard-icon {
+    flex-basis: 28px;
+    min-height: 24px;
+    font-size: 9px;
+  }
+
+  body.executive-platform-body .executive-platform .sidebar-dashboard strong {
+    font-size: 12px;
+    line-height: 1.15;
+  }
+
+  body.executive-platform-body .executive-platform .sidebar-dashboard small {
+    margin-top: 1px;
+    overflow: hidden;
+    font-size: 9px;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  body.executive-platform-body .executive-platform .sidebar-section-heading {
+    margin: 10px 6px 5px;
+    font-size: 8px;
+  }
+
+  body.executive-platform-body .executive-platform .sidebar-section-heading small {
+    display: none;
+  }
+
+  body.executive-platform-body .executive-platform .sidebar-utility-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 3px 5px;
+  }
+
+  body.executive-platform-body .executive-platform .sidebar-utility-links a {
+    min-width: 0;
+    padding: 6px 7px;
+    overflow: hidden;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    font-size: 10px;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  body.executive-platform-body .executive-platform .sidebar-signout {
+    min-height: 36px;
+    margin-top: auto;
+    padding: 7px 10px;
+    font-size: 11px;
+  }
+}
+
+@media (min-width: 981px) and (max-height: 720px) {
+  body.executive-platform-body .executive-platform .sidebar-dashboard small {
+    display: none;
+  }
+
+  body.executive-platform-body .executive-platform .sidebar-dashboard {
+    min-height: 34px;
+    padding-block: 4px;
+  }
+
+  body.executive-platform-body .executive-platform .sidebar-brand {
+    height: 40px !important;
+    min-height: 40px !important;
+  }
+
+  body.executive-platform-body .executive-platform .sidebar-nav {
+    height: calc(100vh - 63px);
+  }
+}
+
+@media (max-width: 980px) {
+  body.executive-platform-body .executive-platform .app-sidebar {
+    overflow-y: auto;
+  }
+}
+
 /* -------------------------------------------------------------------------- */
 /* Warm editorial luxury palette trial                                        */
 /* -------------------------------------------------------------------------- */
