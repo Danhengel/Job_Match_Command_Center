@@ -414,7 +414,7 @@ body.executive-platform-body .executive-platform .sidebar-stage {
 
 body.executive-platform-body .executive-platform .sidebar-stage-summary {
   min-height: 42px;
-  padding: 6px 8px;
+  padding: 7px 10px;
   align-items: center;
   cursor: pointer;
   list-style: none;
@@ -444,8 +444,8 @@ body.executive-platform-body .executive-platform .sidebar-stage-summary small {
 }
 
 body.executive-platform-body .executive-platform .sidebar-stage-links {
-  margin: 1px 0 4px 37px;
-  padding-left: 8px;
+  margin: 1px 0 4px 10px;
+  padding-left: 10px;
   border-left: 1px solid rgba(169, 133, 77, .25);
 }
 

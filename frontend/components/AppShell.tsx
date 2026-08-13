@@ -144,7 +144,6 @@ export function AppShell({ children }: { children: ReactNode }) {
               return (
                 <details className={`sidebar-stage ${stageActive ? "active" : ""}`} key={`${stage.id}-${pathname}`} open={stageActive || undefined}>
                   <summary className="sidebar-stage-summary">
-                    <span className="sidebar-stage-number" aria-hidden="true">{String(stage.number).padStart(2, "0")}</span>
                     <span><strong>{stage.shortLabel}</strong><small>{stage.description}</small></span>
                   </summary>
                   <div className="sidebar-stage-links">
