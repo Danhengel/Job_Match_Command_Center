@@ -178,24 +178,6 @@ export default function Dashboard() {
     priorities.push({ title: "Find your next matching role", detail: "Search current jobs using the target and preferences in your profile.", href: "/jobs", action: "Find Jobs", urgency: "Recommended" });
   }
 
-  const nextMoves = [
-    {
-      title: highMatches ? `${highMatches} job match${highMatches === 1 ? "" : "es"} to review` : "Find matching jobs",
-      detail: highMatches ? "Start with the roles that best fit your profile." : "Search for roles that fit your target and preferences.",
-      href: "/jobs",
-    },
-    {
-      title: followups ? `${followups} application follow-up${followups === 1 ? "" : "s"}` : "Review your applications",
-      detail: followups ? "Keep active opportunities moving before they go quiet." : "Check statuses, decisions, and next actions in one place.",
-      href: followups ? "/crm" : "/applications",
-    },
-    {
-      title: computed.nextInterview ? `Prepare for ${computed.nextInterview.title}` : "Get ready for interviews",
-      detail: computed.nextInterview ? `${Math.max(0, daysUntil(computed.nextInterview.starts_at))} day${daysUntil(computed.nextInterview.starts_at) === 1 ? "" : "s"} remaining to prepare.` : "Build stronger stories and practice before an interview is scheduled.",
-      href: computed.nextInterview ? "/interview-coach" : "/interviews",
-    },
-  ];
-
   return (
     <>
       <section className="executive-command-hero">
@@ -205,25 +187,13 @@ export default function Dashboard() {
           <p>Here are the actions most likely to move your search forward today.</p>
           <div className="row wrap">
             <Link className="button" href={priorities[0].href}>{priorities[0].action}</Link>
-            <Link className="button secondary" href="/jobs">Find Jobs</Link>
+            {priorities[0].href !== "/jobs" && <Link className="button secondary" href="/jobs">Find Jobs</Link>}
           </div>
         </div>
         <div className="executive-momentum-score" aria-label={`Search momentum ${computed.momentum} percent`}>
           <span>Search momentum</span>
           <strong>{computed.momentum}</strong>
           <small>out of 100</small>
-        </div>
-      </section>
-
-      <section className="executive-panel executive-action-panel">
-        <SectionHeader eyebrow="START HERE" title="Your next three moves" description="The most useful actions based on your current jobs, applications, and interviews." />
-        <div className="executive-action-grid-v6">
-          {nextMoves.map((item) => (
-            <Link key={item.title} href={item.href}>
-              <strong>{item.title}</strong>
-              <span>{item.detail}</span>
-            </Link>
-          ))}
         </div>
       </section>
 
@@ -285,18 +255,6 @@ export default function Dashboard() {
               </div>
             );
           })}
-        </div>
-      </section>
-
-      <section className="executive-panel executive-action-panel">
-        <SectionHeader eyebrow="TOOLS" title="Go directly to what you need" />
-        <div className="executive-action-grid-v6">
-          <Link href="/jobs"><strong>Find Jobs</strong><span>Search and compare current opportunities.</span></Link>
-          <Link href="/applications"><strong>Applications</strong><span>Track statuses, follow-ups, and decisions.</span></Link>
-          <Link href="/resumes/studio"><strong>Tailor Resume</strong><span>Prepare a resume for a specific job.</span></Link>
-          <Link href="/crm"><strong>Contacts</strong><span>Manage recruiter and hiring relationships.</span></Link>
-          <Link href="/interview-coach"><strong>Interview Prep</strong><span>Practice answers, stories, and questions.</span></Link>
-          <Link href="/analytics"><strong>Analytics</strong><span>See what is working and where to adjust.</span></Link>
         </div>
       </section>
     </>
