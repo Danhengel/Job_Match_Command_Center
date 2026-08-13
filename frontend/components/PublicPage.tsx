@@ -93,7 +93,8 @@ function PublicFooter() {
         </div>
       </div>
       <div className="public-container public-footer-bottom">
-        <span>© {new Date().getFullYear()} CareerNavIQ</span>
+        <span>© {new Date().getFullYear()} CareerNavIQ. All rights reserved.</span>
+        <nav aria-label="Legal navigation"><Link href="/privacy">Privacy</Link><Link href="/terms">Terms</Link><Link href="/contact">Contact</Link></nav>
         <span>Career-management tools do not guarantee employment outcomes.</span>
       </div>
     </footer>
