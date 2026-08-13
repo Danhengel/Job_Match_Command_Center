@@ -4,6 +4,7 @@ import "./brand-logo.css";
 import "./premium-home.css";
 import "./homepage-background-fix.css";
 import "./unified-brand-theme.css";
+import "./midnight-editorial-theme.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 
@@ -101,7 +102,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#071b2c",
+  themeColor: "#081827",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
