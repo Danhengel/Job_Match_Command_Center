@@ -18,14 +18,9 @@ export default function HomePage() {
     <div className="premium-home">
       <header className="premium-header">
         <div className="premium-shell premium-header-inner">
-          <Link href="/" className="premium-brand" aria-label="CareerNavIQ home">
-            <img src="/careernaviq-logo-light.png" width="330" height="76" alt="CareerNavIQ" />
-          </Link>
           <nav className="premium-nav" aria-label="Main navigation">
-            <Link href="/features">Features</Link>
-            <Link href="/ai-job-search">Resources</Link>
+            <Link href="/features">Services</Link>
             <Link href="/pricing">Pricing</Link>
-            <Link href="/about">About</Link>
             <Link href="/login">Sign in</Link>
           </nav>
 
@@ -54,13 +49,6 @@ export default function HomePage() {
         <section className="premium-hero">
           <div className="premium-shell premium-hero-grid">
             <div className="premium-hero-copy">
-              <img
-                className="premium-hero-logo"
-                src="/careernaviq-logo-home.png?v=20260812c"
-                width="981"
-                height="168"
-                alt="CareerNavIQ"
-              />
               <h1 className="premium-hero-message">
                 <span>Know your value.</span>
                 <span>See your path.</span>
@@ -91,22 +79,16 @@ export default function HomePage() {
       </main>
 
       <footer className="premium-footer">
-        <div className="premium-shell premium-footer-main">
-          <div className="premium-footer-brand-block">
-            <Link href="/" className="premium-brand" aria-label="CareerNavIQ home">
-              <img src="/careernaviq-logo.png" width="330" height="76" alt="CareerNavIQ" />
-            </Link>
-            <p>Navigate your career with clarity, confidence, and direction.</p>
+        <div className="premium-shell">
+          <span>CareerNavIQ</span>
+          <p>Navigate your career with clarity, confidence, and direction.</p>
+          <div>
+            <Link href="/about">About</Link>
+            <Link href="/ai-job-search">Resources</Link>
+            <Link href="/contact">Contact</Link>
+            <Link href="/privacy">Privacy</Link>
+            <Link href="/terms">Terms</Link>
           </div>
-          <nav aria-label="Footer navigation">
-            <div><strong>Platform</strong><Link href="/features">Features</Link><Link href="/pricing">Pricing</Link><Link href="/ai-job-search">Resources</Link></div>
-            <div><strong>Company</strong><Link href="/about">About</Link><Link href="/contact">Contact</Link></div>
-            <div><strong>Legal</strong><Link href="/privacy">Privacy</Link><Link href="/terms">Terms</Link></div>
-          </nav>
-        </div>
-        <div className="premium-shell premium-footer-bottom">
-          <span>© {new Date().getFullYear()} CareerNavIQ. All rights reserved.</span>
-          <span>Career tools do not guarantee employment outcomes.</span>
         </div>
       </footer>
     </div>
