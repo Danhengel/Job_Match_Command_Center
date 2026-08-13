@@ -31,6 +31,19 @@ const toolLinks = [
   { href: "/notifications", label: "Notifications" },
 ];
 
+const headerActions: Array<{ match: string; href: string; label: string }> = [
+  { match: "/jobs", href: "/jobs", label: "Run job search" },
+  { match: "/applications", href: "/applications", label: "Review pipeline" },
+  { match: "/resumes", href: "/resumes/studio", label: "Tailor résumé" },
+  { match: "/profiles", href: "/profiles/new", label: "Create profile" },
+  { match: "/interviews", href: "/interviews", label: "Plan interview" },
+  { match: "/interview-coach", href: "/interview-coach", label: "Start practice" },
+  { match: "/companies", href: "/companies", label: "Review companies" },
+  { match: "/crm", href: "/crm", label: "Manage contacts" },
+  { match: "/calendar", href: "/calendar", label: "Open calendar" },
+  { match: "/dashboard", href: "/jobs", label: "Explore opportunities" },
+];
+
 const publicPaths = new Set([
   "/features",
   "/about",
@@ -49,10 +62,12 @@ export function AppShell({ children }: { children: ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [toolsOpen, setToolsOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
+  const [headerAccountOpen, setHeaderAccountOpen] = useState(false);
   const [commandOpen, setCommandOpen] = useState(false);
   const [commandQuery, setCommandQuery] = useState("");
   const currentStage = getCareerStage(pathname);
   const currentPageLabel = getCurrentPageLabel(pathname);
+  const headerAction = headerActions.find((action) => isActivePath(pathname, action.match)) ?? { href: "/dashboard", label: "Career overview" };
   const commandLinks = useMemo(() => {
     const all = [
       { href: "/dashboard", label: "Home" },
@@ -69,6 +84,7 @@ export function AppShell({ children }: { children: ReactNode }) {
     setMenuOpen(false);
     setToolsOpen(false);
     setAccountOpen(false);
+    setHeaderAccountOpen(false);
     setCommandOpen(false);
     setCommandQuery("");
   }, [pathname]);
@@ -79,6 +95,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         setMenuOpen(false);
         setToolsOpen(false);
         setAccountOpen(false);
+        setHeaderAccountOpen(false);
         setCommandOpen(false);
       }
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
@@ -197,17 +214,25 @@ export function AppShell({ children }: { children: ReactNode }) {
           </button>
 
           <Link href="/dashboard" className="header-brand" aria-label="CareerNavIQ home">
-            <span className="header-brand-mark"><BrandCompass /></span>
             <span className="header-brand-copy">
+              <span>{currentStage?.shortLabel ?? "Career overview"}</span>
               <strong>{currentPageLabel}</strong>
-              <span>{currentStage?.description ?? "Your career search, progress, and next steps"}</span>
             </span>
           </Link>
 
+          <button type="button" className="header-command" onClick={() => setCommandOpen(true)}>
+            <span aria-hidden="true">⌕</span>
+            <span>Search or ask CareerNavIQ</span>
+            <kbd>⌘K</kbd>
+          </button>
+
           <div className="header-actions">
-            <Link href="/jobs" className="button compact">Find Jobs</Link>
-            <Link href="/notifications" className="header-link">Notifications</Link>
-            <button type="button" className="button secondary compact header-signout" onClick={signOut}>Sign out</button>
+            <Link href={headerAction.href} className="button compact header-primary-action">{headerAction.label}</Link>
+            <Link href="/notifications" className="header-attention"><span aria-hidden="true">◆</span><span>Attention</span></Link>
+            <div className="header-account">
+              <button type="button" className="header-account-trigger" onClick={() => setHeaderAccountOpen((value) => !value)} aria-expanded={headerAccountOpen} aria-label="Open account menu">DH</button>
+              {headerAccountOpen ? <div className="header-account-menu"><Link href="/profiles">Profile</Link><Link href="/settings/automation">Settings</Link><Link href="/automation">Automation</Link><button type="button" onClick={signOut}>Sign out</button></div> : null}
+            </div>
           </div>
         </header>
 
