@@ -1,24 +1,25 @@
 /* CareerNavIQ Clear Horizon — single active color authority. */
 :root {
-  --ch-canvas:#f8fafc; --ch-surface:#fff; --ch-section:#eef5f7;
-  --ch-blue:#256f8f; --ch-blue-hover:#195a76; --ch-blue-soft:#e7f1f5;
-  --ch-green:#4f8b7d; --ch-green-soft:#e8f2ef;
-  --ch-ink:#1b2a34; --ch-copy:#5c6c76; --ch-faint:#7a8991;
-  --ch-line:#dce5e8; --ch-line-strong:#c7d5d9;
-  --ch-shadow:0 12px 34px rgba(27,42,52,.065);
+  --ch-canvas:#f7f8f5; --ch-surface:#fff; --ch-section:#f1f4f2;
+  --ch-blue:#2563eb; --ch-blue-hover:#1d4ed8; --ch-blue-soft:#e8efff;
+  --ch-green:#0f766e; --ch-green-soft:#e5f3f0;
+  --ch-gold:#b6924d; --ch-gold-soft:#f5efe3;
+  --ch-ink:#142c3c; --ch-copy:#526270; --ch-faint:#75838d;
+  --ch-line:#dce2e5; --ch-line-strong:#c3cdd2;
+  --ch-shadow:0 12px 34px rgba(7,21,33,.07);
   --cn-paper:var(--ch-canvas); --cn-surface:var(--ch-surface); --cn-surface-soft:var(--ch-section);
   --cn-ink:var(--ch-ink); --cn-muted:var(--ch-copy); --cn-muted-light:var(--ch-faint);
   --cn-line:var(--ch-line); --cn-line-strong:var(--ch-line-strong);
   --cn-navy-950:var(--ch-ink); --cn-navy-900:var(--ch-blue-hover); --cn-navy-800:var(--ch-blue);
   --cn-teal-700:var(--ch-green); --cn-teal-100:var(--ch-green-soft);
-  --cn-brass-600:#b08a4b; --cn-brass-100:#f6f0e5; --cn-shadow:var(--ch-shadow);
+  --cn-brass-600:var(--ch-gold); --cn-brass-100:var(--ch-gold-soft); --cn-shadow:var(--ch-shadow);
   --lux-ivory:var(--ch-canvas); --lux-parchment:var(--ch-section); --lux-paper:var(--ch-surface);
   --lux-ink:var(--ch-ink); --lux-charcoal:var(--ch-surface); --lux-charcoal-soft:var(--ch-section);
   --lux-brass:var(--ch-blue); --lux-brass-deep:var(--ch-blue-hover);
   --lux-taupe:var(--ch-line-strong); --lux-muted:var(--ch-copy); --lux-line:rgba(27,42,52,.12);
-  --cn-night:var(--ch-ink); --cn-night-raised:#29404e; --cn-night-soft:#355260;
+  --cn-night:#071521; --cn-night-raised:#0d2433; --cn-night-soft:#142c3c;
   --cn-graphite:var(--ch-surface); --cn-graphite-deep:var(--ch-canvas); --cn-graphite-lift:var(--ch-section);
-  --cn-gold:var(--ch-blue); --cn-gold-bright:#3f86a3; --cn-gold-wash:var(--ch-blue-soft);
+  --cn-gold:var(--ch-blue); --cn-gold-bright:var(--ch-blue-hover); --cn-gold-wash:var(--ch-blue-soft);
   --cn-cream:var(--ch-surface); --cn-cream-soft:var(--ch-canvas);
   --cn-night-line:rgba(27,42,52,.12); --cn-night-copy:var(--ch-copy);
 }
@@ -80,13 +81,17 @@ body.executive-platform-body .auth-card :is(p,small,.auth-card-intro,.auth-switc
 /* Signed-in workspace: white chrome, airy canvas, blue active line. */
 body.executive-platform-body .executive-platform{--premium-canvas:var(--ch-canvas);--premium-surface:#fff;--premium-surface-soft:var(--ch-section);--premium-ink:var(--ch-ink);--premium-ink-soft:#40515b;--premium-muted:var(--ch-copy);--premium-line:var(--ch-line);--premium-line-strong:var(--ch-line-strong);--premium-primary:var(--ch-blue);--premium-primary-hover:var(--ch-blue-hover);--premium-primary-soft:var(--ch-blue-soft);--premium-sidebar:#fff;--premium-sidebar-soft:var(--ch-section);--premium-sidebar-text:var(--ch-ink);--premium-sidebar-muted:var(--ch-copy)}
 body.executive-platform-body .executive-platform,body.executive-platform-body .executive-platform :is(.app-workspace,.app-content){background:var(--ch-canvas)!important;color:var(--ch-ink)!important}
-body.executive-platform-body .executive-platform :is(.app-sidebar,.app-header){border-color:var(--ch-line);background:rgba(255,255,255,.98)!important;box-shadow:0 5px 22px rgba(27,42,52,.04)}
-body.executive-platform-body .executive-platform :is(.app-sidebar,.app-header) :is(h1,h2,h3,h4,strong,a,button){color:var(--ch-ink)}
-body.executive-platform-body .executive-platform :is(.app-sidebar,.app-header) :is(p,small,span){color:var(--ch-copy)}
+body.executive-platform-body .executive-platform .app-header{border-color:var(--ch-line);background:rgba(255,255,255,.98)!important;box-shadow:0 5px 22px rgba(7,21,33,.04)}
+body.executive-platform-body .executive-platform .app-header :is(h1,h2,h3,h4,strong,a,button){color:var(--ch-ink)}
+body.executive-platform-body .executive-platform .app-header :is(p,small,span){color:var(--ch-copy)}
+body.executive-platform-body .executive-platform .app-sidebar{border-color:rgba(255,255,255,.12);background:radial-gradient(circle at 20% 3%,rgba(37,99,235,.2),transparent 26%),#071521!important;box-shadow:8px 0 28px rgba(7,21,33,.1)}
+body.executive-platform-body .executive-platform .app-sidebar :is(h1,h2,h3,h4,strong,a,button){color:#f7f8f5}
+body.executive-platform-body .executive-platform .app-sidebar :is(p,small,span){color:#b9c5cc}
 body.executive-platform-body .executive-platform .header-command,body.executive-platform-body .executive-platform :is(.sidebar-tools-trigger,.sidebar-command-trigger,.sidebar-account-trigger){border-color:var(--ch-line);background:var(--ch-canvas);color:var(--ch-copy)}
 body.executive-platform-body .executive-platform .header-command:hover,body.executive-platform-body .executive-platform :is(.sidebar-tools-trigger,.sidebar-command-trigger,.sidebar-account-trigger):hover{border-color:#a9cbd7;background:var(--ch-blue-soft);color:var(--ch-blue-hover)}
-body.executive-platform-body .executive-platform :is(.sidebar-home-link,.sidebar-stage-summary,.sidebar-stage-links a,.sidebar-utility-links a):is(:hover,.active),body.executive-platform-body .executive-platform .sidebar-stage.active>.sidebar-stage-summary{border-color:transparent;background:linear-gradient(90deg,var(--ch-blue-soft),rgba(231,241,245,.25));color:var(--ch-blue-hover);box-shadow:inset 3px 0 var(--ch-blue)}
-body.executive-platform-body .executive-platform :is(.sidebar-section-heading>span,.eyebrow){color:var(--ch-blue)!important}
+body.executive-platform-body .executive-platform :is(.sidebar-home-link,.sidebar-stage-summary,.sidebar-stage-links a,.sidebar-utility-links a):is(:hover,.active),body.executive-platform-body .executive-platform .sidebar-stage.active>.sidebar-stage-summary{border-color:rgba(37,99,235,.4);background:linear-gradient(90deg,#2563eb,rgba(37,99,235,.68));color:#fff;box-shadow:inset 3px 0 #6e9aff}
+body.executive-platform-body .executive-platform .sidebar-section-heading>span{color:#d8b66e!important}
+body.executive-platform-body .executive-platform .eyebrow{color:var(--ch-blue)!important}
 body.executive-platform-body .executive-platform .executive-page-frame :is(h1,h2,h3,h4,h5,h6,strong,b,label){color:var(--ch-ink)!important}
 body.executive-platform-body .executive-platform .executive-page-frame :is(p,li,small,.muted){color:var(--ch-copy)!important}
 body.executive-platform-body .executive-platform :is(.executive-metric-strip,.executive-kpis,.interview-kpis,.coach-kpis,.analytics-kpi-grid,.profile-summary-grid,.company-summary-grid,.company-detail-kpis,.watch-summary-grid,.automation-health-grid){border-color:var(--ch-line)!important}
