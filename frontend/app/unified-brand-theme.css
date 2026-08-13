@@ -46,8 +46,8 @@ body.executive-platform-body :is(.button.secondary, button.secondary) {
 
 /* Public pages */
 body.executive-platform-body :is(.public-page, .landing-page) {
-  background: var(--cn-cream);
-  color: #14283a;
+  background: var(--cn-night);
+  color: var(--cn-night-copy);
 }
 
 body.executive-platform-body :is(.public-header, .landing-header) {
@@ -92,11 +92,15 @@ body.executive-platform-body :is(.public-hero, .landing-hero) p {
 }
 
 body.executive-platform-body :is(.public-card, .public-related-card, .executive-value-card, .executive-capability-card) {
-  border-color: #ded7c9;
+  border-color: var(--cn-night-line);
   border-radius: 8px;
-  background: #fffefb;
-  box-shadow: 0 12px 34px rgba(5, 17, 31, .07);
+  background: var(--cn-night-raised);
+  color: var(--cn-night-copy);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, .18);
 }
+
+body.executive-platform-body :is(.public-page, .landing-page) :is(h1, h2, h3, h4, strong) { color: #fffdf8; }
+body.executive-platform-body :is(.public-page, .landing-page) :is(p, li, small) { color: var(--cn-night-copy); }
 
 body.executive-platform-body :is(.public-footer, .landing-footer) {
   border-top: 1px solid var(--cn-night-line);
@@ -132,15 +136,21 @@ body.executive-platform-body .auth-brand-panel {
 body.executive-platform-body .auth-card {
   border: 1px solid rgba(196, 154, 82, .28);
   border-radius: 10px;
-  background: rgba(255, 254, 251, .98);
+  background: rgba(10, 28, 46, .98);
+  color: #f7f3ea;
   box-shadow: 0 28px 70px rgba(0, 0, 0, .3);
 }
 
 body.executive-platform-body .auth-card :is(input, select, textarea) {
-  border-color: #b9ad97;
-  background: #fffdf8;
-  color: #14283a;
+  border-color: rgba(196, 154, 82, .38);
+  background: #071827;
+  color: #f7f3ea;
+  -webkit-text-fill-color: #f7f3ea;
 }
+
+body.executive-platform-body .auth-card :is(h1, h2, h3, label) { color: #fffdf8; }
+body.executive-platform-body .auth-card :is(p, small, .auth-card-intro, .auth-switch, .auth-security-note) { color: #b7c2c6; }
+body.executive-platform-body .auth-card input::placeholder { color: #7f9098; }
 
 /* Signed-in application shell */
 body.executive-platform-body .executive-platform,
@@ -205,15 +215,21 @@ body.executive-platform-body .executive-platform .sidebar-section-heading > span
 body.executive-platform-body .executive-platform .executive-page-frame :is(.card, .executive-panel, .dashboard-panel, .studio-panel, .analytics-panel, .settings-card, .resume-card) {
   border-color: rgba(196, 154, 82, .22) !important;
   border-radius: 9px !important;
-  background: #fffefb !important;
+  background: var(--cn-night-raised) !important;
+  color: #f7f3ea !important;
   box-shadow: 0 14px 36px rgba(0, 0, 0, .15) !important;
 }
 
 body.executive-platform-body .executive-platform .executive-page-frame :is(input:not([type="checkbox"]):not([type="radio"]), select, textarea) {
-  border-color: #b8ad99 !important;
-  background: #fffdf8 !important;
-  color: #14283a !important;
-  -webkit-text-fill-color: #14283a !important;
+  border-color: rgba(196, 154, 82, .35) !important;
+  background: #071827 !important;
+  color: #f7f3ea !important;
+  -webkit-text-fill-color: #f7f3ea !important;
+}
+
+body.executive-platform-body .executive-platform .executive-page-frame :is(input, textarea)::placeholder {
+  color: #7f9098 !important;
+  -webkit-text-fill-color: #7f9098 !important;
 }
 
 body.executive-platform-body .executive-platform :is(.badge, .status-badge) {
@@ -252,15 +268,15 @@ body.executive-platform-body .executive-platform :is(.progress-value, .pipeline-
 /* Public content reads as a publication rather than a card catalogue. */
 body.executive-platform-body :is(.public-card-grid, .public-related-grid) {
   gap: 0;
-  border-top: 1px solid #d7cbb8;
-  border-bottom: 1px solid #d7cbb8;
+  border-top: 1px solid var(--cn-night-line);
+  border-bottom: 1px solid var(--cn-night-line);
 }
 
 body.executive-platform-body :is(.public-card, .public-related-card) {
   margin: 0;
   padding: clamp(28px, 4vw, 52px) clamp(20px, 3vw, 40px);
   border: 0;
-  border-left: 1px solid #e0d6c5;
+  border-left: 1px solid var(--cn-night-line);
   border-radius: 0;
   background: transparent;
   box-shadow: none;
@@ -272,7 +288,7 @@ body.executive-platform-body :is(.public-card, .public-related-card):first-child
 
 body.executive-platform-body .public-content-block {
   padding-block: clamp(36px, 5vw, 72px);
-  border-bottom: 1px solid #ded7c9;
+  border-bottom: 1px solid var(--cn-night-line);
 }
 
 body.executive-platform-body :is(.public-final-card, .landing-final-card) {
@@ -460,14 +476,58 @@ body.executive-platform-body .executive-platform .executive-page-frame :is(
   .profile-edit-section,
   .outreach-controls,
   .outreach-editor,
-  .outreach-guidance,
-  .letter-preview,
-  .tailoring-output
+  .outreach-guidance
 ) {
   border: 1px solid rgba(196, 154, 82, .28) !important;
   border-radius: 6px !important;
-  background: #fffefb !important;
+  background: var(--cn-night-raised) !important;
+  color: #f7f3ea !important;
   box-shadow: 0 16px 38px rgba(0, 0, 0, .16) !important;
+}
+
+body.executive-platform-body .executive-platform .executive-page-frame :is(
+  form.card,
+  .market-criteria-panel,
+  .studio-panel,
+  .resume-upload-panel,
+  .resume-library-panel,
+  .resume-analysis-panel,
+  .settings-card,
+  .profile-edit-section,
+  .outreach-controls,
+  .outreach-editor,
+  .outreach-guidance
+) :is(h1, h2, h3, h4, label, strong) {
+  color: #fffdf8 !important;
+}
+
+body.executive-platform-body .executive-platform .executive-page-frame :is(
+  form.card,
+  .market-criteria-panel,
+  .studio-panel,
+  .resume-upload-panel,
+  .resume-library-panel,
+  .resume-analysis-panel,
+  .settings-card,
+  .profile-edit-section,
+  .outreach-controls,
+  .outreach-editor,
+  .outreach-guidance
+) :is(p, small, .muted) {
+  color: #b7c2c6 !important;
+}
+
+/* White is reserved for content that represents a printable document. */
+body.executive-platform-body .executive-platform .executive-page-frame :is(.letter-preview, .resume-preview, .tailoring-output) {
+  border: 1px solid #d8d3c8 !important;
+  border-radius: 2px !important;
+  background: #fff !important;
+  color: #172331 !important;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, .24) !important;
+}
+
+body.executive-platform-body .executive-platform .executive-page-frame :is(.letter-preview, .resume-preview, .tailoring-output) :is(h1, h2, h3, h4, p, li, span, strong) {
+  color: #172331 !important;
 }
 
 /* Profile and resume collections use columns divided by rules, not floating tiles. */
