@@ -7,8 +7,6 @@ import { useEffect, useMemo, useState, type MouseEvent, type ReactNode } from "r
 import { BrandCompass } from "@/components/BrandCompass";
 import { GuidedJourneyFooter } from "@/components/GuidedJourneyFooter";
 import {
-  CAREER_STAGES,
-  UTILITY_LINKS,
   getCareerStage,
   getCurrentPageLabel,
   isActivePath,
@@ -22,11 +20,36 @@ const mobileNavigation = [
   ["/resumes", "▤", "Resume"],
 ] as const;
 
-const toolLinks = [
-  { href: "/analytics", label: "Analytics" },
-  { href: "/reports/weekly", label: "Weekly Report" },
-  { href: "/automation", label: "Automation" },
+const sidebarSections = [
+  {
+    label: "Workspace",
+    items: [
+      { href: "/dashboard", label: "Home", icon: "⌂" },
+      { href: "/jobs", label: "Jobs", icon: "⌕" },
+      { href: "/applications", label: "Applications", icon: "✓" },
+    ],
+  },
+  {
+    label: "Career tools",
+    items: [
+      { href: "/profiles", label: "Profile", icon: "○" },
+      { href: "/resumes", label: "Resume", icon: "▤" },
+      { href: "/companies", label: "Companies", icon: "◇" },
+      { href: "/crm", label: "Contacts", icon: "◎" },
+      { href: "/interviews", label: "Interviews", icon: "◷" },
+    ],
+  },
+  {
+    label: "Insights",
+    items: [
+      { href: "/analytics", label: "Analytics", icon: "↗" },
+      { href: "/reports/weekly", label: "Weekly report", icon: "≡" },
+      { href: "/automation", label: "Automation", icon: "⚙" },
+    ],
+  },
 ];
+
+const sidebarLinks = sidebarSections.flatMap((section) => section.items);
 
 const headerActions: Array<{ match: string; href: string; label: string }> = [
   { match: "/jobs", href: "/jobs", label: "Run job search" },
@@ -57,7 +80,6 @@ const publicPaths = new Set([
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [toolsOpen, setToolsOpen] = useState(false);
   const [headerAccountOpen, setHeaderAccountOpen] = useState(false);
   const [commandOpen, setCommandOpen] = useState(false);
   const [commandQuery, setCommandQuery] = useState("");
@@ -67,9 +89,10 @@ export function AppShell({ children }: { children: ReactNode }) {
   const commandLinks = useMemo(() => {
     const all = [
       { href: "/dashboard", label: "Home" },
-      ...CAREER_STAGES.flatMap((stage) => stage.items),
-      ...toolLinks,
-      ...UTILITY_LINKS,
+      ...sidebarLinks,
+      { href: "/calendar", label: "Calendar" },
+      { href: "/notifications", label: "Notifications" },
+      { href: "/settings/automation", label: "Settings" },
     ];
     return [...new Map(all.map((item) => [item.href, item])).values()].filter((item) =>
       item.label.toLowerCase().includes(commandQuery.trim().toLowerCase()),
@@ -78,7 +101,6 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     setMenuOpen(false);
-    setToolsOpen(false);
     setHeaderAccountOpen(false);
     setCommandOpen(false);
     setCommandQuery("");
@@ -88,7 +110,6 @@ export function AppShell({ children }: { children: ReactNode }) {
     function closeOnEscape(event: KeyboardEvent) {
       if (event.key === "Escape") {
         setMenuOpen(false);
-        setToolsOpen(false);
         setHeaderAccountOpen(false);
         setCommandOpen(false);
       }
@@ -147,40 +168,27 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
 
         <nav className="sidebar-nav" aria-label="CareerNavIQ navigation">
-          <div className="sidebar-stage-list">
-            {CAREER_STAGES.map((stage) => {
-              const stageActive = stage.items.some((item) => isActivePath(pathname, item.href));
-              return (
-                <details className={`sidebar-stage ${stageActive ? "active" : ""}`} key={`${stage.id}-${pathname}`} open={stageActive || undefined}>
-                  <summary className="sidebar-stage-summary">
-                    <span><strong>{stage.shortLabel}</strong><small>{stage.description}</small></span>
-                  </summary>
-                  <div className="sidebar-stage-links">
-                    {stage.items.map((item) => {
-                      const itemActive = isActivePath(pathname, item.href);
-                      return <Link key={item.href} href={item.href} className={itemActive ? "active" : ""} aria-current={itemActive ? "page" : undefined}>{item.label}</Link>;
-                    })}
-                  </div>
-                </details>
-              );
-            })}
+          <div className="sidebar-primary-navigation">
+            {sidebarSections.map((section) => (
+              <section className="sidebar-nav-section" key={section.label} aria-labelledby={`nav-${section.label.toLowerCase().replaceAll(" ", "-")}`}>
+                <h2 id={`nav-${section.label.toLowerCase().replaceAll(" ", "-")}`}>{section.label}</h2>
+                <div>
+                  {section.items.map((item) => {
+                    const itemActive = isActivePath(pathname, item.href);
+                    return (
+                      <Link key={item.href} href={item.href} className={itemActive ? "active" : ""} aria-current={itemActive ? "page" : undefined}>
+                        <span className="sidebar-nav-icon" aria-hidden="true">{item.icon}</span>
+                        <span>{item.label}</span>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </section>
+            ))}
           </div>
-
-          <div className="sidebar-utility-actions">
-            <button type="button" className="sidebar-tools-trigger" onClick={() => setToolsOpen((value) => !value)} aria-expanded={toolsOpen}>
-              <span>Tools</span><small>{toolsOpen ? "Close" : "Open"}</small>
-            </button>
-          </div>
-
-          <div className={`sidebar-tools-drawer ${toolsOpen ? "open" : ""}`} aria-hidden={!toolsOpen}>
-            <div className="sidebar-tools-drawer-head"><strong>Tools</strong><button type="button" onClick={() => setToolsOpen(false)} aria-label="Close tools">×</button></div>
-            <div className="sidebar-utility-links">
-            {toolLinks.map((item) => {
-              const itemActive = isActivePath(pathname, item.href);
-              return <Link key={item.href} href={item.href} className={itemActive ? "active" : ""} aria-current={itemActive ? "page" : undefined}>{item.label}</Link>;
-            })}
-            </div>
-          </div>
+          <Link href="/settings/automation" className={`sidebar-settings-link ${isActivePath(pathname, "/settings") ? "active" : ""}`} aria-current={isActivePath(pathname, "/settings") ? "page" : undefined}>
+            <span className="sidebar-nav-icon" aria-hidden="true">⚙</span><span>Settings</span>
+          </Link>
         </nav>
       </aside>
 
