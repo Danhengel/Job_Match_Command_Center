@@ -241,6 +241,15 @@ export function AppShell({ children }: { children: ReactNode }) {
             {children}
             <GuidedJourneyFooter pathname={pathname} />
           </div>
+          <footer className="app-footer">
+            <span>© {new Date().getFullYear()} CareerNavIQ</span>
+            <nav aria-label="Product and legal links">
+              <Link href="/features">Features</Link>
+              <Link href="/contact">Support</Link>
+              <Link href="/privacy">Privacy</Link>
+              <Link href="/terms">Terms</Link>
+            </nav>
+          </footer>
         </main>
       </div>
 
