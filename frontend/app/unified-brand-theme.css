@@ -244,3 +244,265 @@ body.executive-platform-body .executive-platform :is(.progress-value, .pipeline-
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }
+
+/* -------------------------------------------------------------------------- */
+/* Editorial reduction: fewer boxes, stronger hierarchy                        */
+/* -------------------------------------------------------------------------- */
+
+/* Public content reads as a publication rather than a card catalogue. */
+body.executive-platform-body :is(.public-card-grid, .public-related-grid) {
+  gap: 0;
+  border-top: 1px solid #d7cbb8;
+  border-bottom: 1px solid #d7cbb8;
+}
+
+body.executive-platform-body :is(.public-card, .public-related-card) {
+  margin: 0;
+  padding: clamp(28px, 4vw, 52px) clamp(20px, 3vw, 40px);
+  border: 0;
+  border-left: 1px solid #e0d6c5;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body.executive-platform-body :is(.public-card, .public-related-card):first-child {
+  border-left: 0;
+}
+
+body.executive-platform-body .public-content-block {
+  padding-block: clamp(36px, 5vw, 72px);
+  border-bottom: 1px solid #ded7c9;
+}
+
+body.executive-platform-body :is(.public-final-card, .landing-final-card) {
+  border: 0;
+  border-top: 1px solid rgba(225, 188, 115, .4);
+  border-bottom: 1px solid rgba(225, 188, 115, .4);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Metrics become an open executive score strip. */
+body.executive-platform-body .executive-platform :is(
+  .executive-metric-strip,
+  .executive-kpis,
+  .interview-kpis,
+  .coach-kpis,
+  .analytics-kpi-grid,
+  .profile-summary-grid,
+  .company-summary-grid,
+  .company-detail-kpis,
+  .watch-summary-grid,
+  .automation-health-grid
+) {
+  overflow: visible;
+  border: 0 !important;
+  border-top: 1px solid var(--cn-night-line) !important;
+  border-bottom: 1px solid var(--cn-night-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body.executive-platform-body .executive-platform :is(
+  .executive-metric-strip,
+  .executive-kpis,
+  .interview-kpis,
+  .coach-kpis,
+  .analytics-kpi-grid,
+  .profile-summary-grid,
+  .company-summary-grid,
+  .company-detail-kpis,
+  .watch-summary-grid,
+  .automation-health-grid
+) > article {
+  border-left-color: var(--cn-night-line) !important;
+  background: transparent !important;
+}
+
+body.executive-platform-body .executive-platform :is(
+  .executive-metric-strip,
+  .executive-kpis,
+  .interview-kpis,
+  .coach-kpis,
+  .analytics-kpi-grid,
+  .profile-summary-grid,
+  .company-summary-grid,
+  .company-detail-kpis,
+  .watch-summary-grid,
+  .automation-health-grid
+) > article :is(strong, h2, h3) {
+  color: #fffdf8 !important;
+}
+
+/* Section panels are open editorial chapters. Form and editor surfaces remain contained. */
+body.executive-platform-body .executive-platform .executive-page-frame :is(
+  .executive-panel,
+  .dashboard-panel,
+  .analytics-panel,
+  .opportunity-portfolio-panel,
+  .market-results-panel,
+  .executive-interview-timeline-panel,
+  .practice-history-panel
+) {
+  padding: 28px 0 !important;
+  border: 0 !important;
+  border-top: 1px solid var(--cn-night-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body.executive-platform-body .executive-platform .executive-page-frame :is(
+  .executive-panel,
+  .dashboard-panel,
+  .analytics-panel,
+  .opportunity-portfolio-panel,
+  .market-results-panel,
+  .executive-interview-timeline-panel,
+  .practice-history-panel
+) :is(h2, h3) {
+  color: #fffdf8;
+}
+
+body.executive-platform-body .executive-platform .executive-page-frame :is(
+  .executive-panel,
+  .dashboard-panel,
+  .analytics-panel,
+  .opportunity-portfolio-panel,
+  .market-results-panel,
+  .executive-interview-timeline-panel,
+  .practice-history-panel
+) :is(p, small, .muted) {
+  color: var(--cn-night-copy) !important;
+}
+
+/* Repeated records become ledger rows with a restrained hover signal. */
+body.executive-platform-body .executive-platform .executive-page-frame :is(
+  .market-result-row,
+  .opportunity-portfolio-row,
+  .interview-event-card,
+  .activity-item,
+  .notification-row,
+  .automation-row,
+  .history-row,
+  .executive-priority-item,
+  .executive-action-card,
+  .prep-item
+) {
+  margin: 0 !important;
+  padding: 20px 12px !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--cn-night-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body.executive-platform-body .executive-platform .executive-page-frame :is(
+  .market-result-row,
+  .opportunity-portfolio-row,
+  .interview-event-card,
+  .activity-item,
+  .notification-row,
+  .automation-row,
+  .history-row,
+  .executive-priority-item,
+  .executive-action-card,
+  .prep-item
+):hover {
+  padding-left: 18px !important;
+  border-bottom-color: rgba(225, 188, 115, .42) !important;
+  background: linear-gradient(90deg, rgba(196, 154, 82, .1), transparent 62%) !important;
+  box-shadow: inset 2px 0 var(--cn-gold) !important;
+}
+
+body.executive-platform-body .executive-platform .executive-page-frame :is(
+  .market-result-row,
+  .opportunity-portfolio-row,
+  .interview-event-card,
+  .activity-item,
+  .notification-row,
+  .automation-row,
+  .history-row,
+  .executive-priority-item,
+  .executive-action-card,
+  .prep-item
+) :is(h3, h4, strong, b) {
+  color: #fffdf8;
+}
+
+body.executive-platform-body .executive-platform .executive-page-frame :is(
+  .market-result-row,
+  .opportunity-portfolio-row,
+  .interview-event-card,
+  .activity-item,
+  .notification-row,
+  .automation-row,
+  .history-row,
+  .executive-priority-item,
+  .executive-action-card,
+  .prep-item
+) :is(p, small, .muted) {
+  color: #aebbc0 !important;
+}
+
+/* Keep focused work areas visibly contained. */
+body.executive-platform-body .executive-platform .executive-page-frame :is(
+  form.card,
+  .market-criteria-panel,
+  .studio-panel,
+  .resume-upload-panel,
+  .resume-library-panel,
+  .resume-analysis-panel,
+  .settings-card,
+  .profile-edit-section,
+  .outreach-controls,
+  .outreach-editor,
+  .outreach-guidance,
+  .letter-preview,
+  .tailoring-output
+) {
+  border: 1px solid rgba(196, 154, 82, .28) !important;
+  border-radius: 6px !important;
+  background: #fffefb !important;
+  box-shadow: 0 16px 38px rgba(0, 0, 0, .16) !important;
+}
+
+/* Profile and resume collections use columns divided by rules, not floating tiles. */
+body.executive-platform-body .executive-platform :is(.profile-grid, .resume-card-grid, .watch-card-grid, .recommended-employer-grid) {
+  gap: 0 !important;
+  border-top: 1px solid var(--cn-night-line);
+  border-bottom: 1px solid var(--cn-night-line);
+}
+
+body.executive-platform-body .executive-platform :is(.profile-card, .resume-library-card, .watch-card, .recommended-employer-card) {
+  margin: 0 !important;
+  border: 0 !important;
+  border-left: 1px solid var(--cn-night-line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body.executive-platform-body .executive-platform :is(.profile-card, .resume-library-card, .watch-card, .recommended-employer-card):first-child {
+  border-left: 0 !important;
+}
+
+body.executive-platform-body .executive-platform :is(.profile-card, .resume-library-card, .watch-card, .recommended-employer-card) :is(h2, h3, h4, strong) {
+  color: #fffdf8 !important;
+}
+
+@media (max-width: 900px) {
+  body.executive-platform-body :is(.public-card, .public-related-card),
+  body.executive-platform-body .executive-platform :is(.profile-card, .resume-library-card, .watch-card, .recommended-employer-card) {
+    border-left: 0 !important;
+    border-top: 1px solid var(--cn-night-line) !important;
+  }
+
+  body.executive-platform-body :is(.public-card, .public-related-card):first-child,
+  body.executive-platform-body .executive-platform :is(.profile-card, .resume-library-card, .watch-card, .recommended-employer-card):first-child {
+    border-top: 0 !important;
+  }
+}
