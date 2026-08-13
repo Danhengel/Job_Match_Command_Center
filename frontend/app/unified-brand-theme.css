@@ -1,0 +1,246 @@
+/* CareerNavIQ unified brand theme
+   Carries the homepage's deep navy, warm metallic gold, and editorial rhythm
+   across public, authentication, and signed-in product surfaces. */
+
+:root {
+  --cn-night: #05111f;
+  --cn-night-raised: #0a1c2e;
+  --cn-night-soft: #10283d;
+  --cn-gold: #c49a52;
+  --cn-gold-bright: #e1bc73;
+  --cn-gold-wash: #f3e7cf;
+  --cn-cream: #fbfaf6;
+  --cn-cream-soft: #f3f0e8;
+  --cn-night-line: rgba(225, 188, 115, .2);
+  --cn-night-copy: #d7dfe2;
+}
+
+body.executive-platform-body {
+  background: var(--cn-night);
+}
+
+body.executive-platform-body :is(h1, h2, h3) {
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+/* Shared buttons and interaction states */
+body.executive-platform-body :is(.button, button):not(.mobile-nav-overlay):not(.mobile-menu-button):not(.sidebar-close) {
+  border-color: var(--cn-gold);
+  background: var(--cn-gold);
+  color: var(--cn-night);
+  box-shadow: 0 8px 22px rgba(5, 17, 31, .14);
+}
+
+body.executive-platform-body :is(.button, button):not(.mobile-nav-overlay):not(.mobile-menu-button):not(.sidebar-close):hover {
+  border-color: var(--cn-gold-bright);
+  background: var(--cn-gold-bright);
+  color: var(--cn-night);
+}
+
+body.executive-platform-body :is(.button.secondary, button.secondary) {
+  border-color: rgba(196, 154, 82, .55);
+  background: transparent;
+  color: var(--cn-gold-bright);
+  box-shadow: none;
+}
+
+/* Public pages */
+body.executive-platform-body :is(.public-page, .landing-page) {
+  background: var(--cn-cream);
+  color: #14283a;
+}
+
+body.executive-platform-body :is(.public-header, .landing-header) {
+  border-bottom: 1px solid rgba(255, 255, 255, .09);
+  background: rgba(5, 17, 31, .96);
+  backdrop-filter: blur(16px);
+}
+
+body.executive-platform-body :is(.public-header, .landing-header) :is(a, button) {
+  color: #f7f3ea;
+}
+
+body.executive-platform-body :is(.public-hero, .landing-hero) {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--cn-night-line);
+  background:
+    radial-gradient(circle at 78% 18%, rgba(196, 154, 82, .16), transparent 30%),
+    linear-gradient(128deg, var(--cn-night), var(--cn-night-raised) 62%, var(--cn-night-soft));
+  color: #f7f3ea;
+}
+
+body.executive-platform-body :is(.public-hero, .landing-hero)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .32;
+  background-image:
+    linear-gradient(rgba(225, 188, 115, .055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(225, 188, 115, .055) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: linear-gradient(90deg, transparent, #000 70%);
+}
+
+body.executive-platform-body :is(.public-hero, .landing-hero) :is(h1, h2, h3) {
+  color: #fffdf8;
+}
+
+body.executive-platform-body :is(.public-hero, .landing-hero) p {
+  color: var(--cn-night-copy);
+}
+
+body.executive-platform-body :is(.public-card, .public-related-card, .executive-value-card, .executive-capability-card) {
+  border-color: #ded7c9;
+  border-radius: 8px;
+  background: #fffefb;
+  box-shadow: 0 12px 34px rgba(5, 17, 31, .07);
+}
+
+body.executive-platform-body :is(.public-footer, .landing-footer) {
+  border-top: 1px solid var(--cn-night-line);
+  background: var(--cn-night);
+  color: var(--cn-night-copy);
+}
+
+body.executive-platform-body :is(.public-footer, .landing-footer) :is(h2, h3, a, strong) {
+  color: #fffdf8;
+}
+
+/* Authentication */
+body.executive-platform-body .auth-content {
+  max-width: none;
+  width: 100%;
+  padding: 0;
+  background: var(--cn-night);
+}
+
+body.executive-platform-body .auth-page {
+  background:
+    radial-gradient(circle at 16% 18%, rgba(196, 154, 82, .16), transparent 31%),
+    linear-gradient(135deg, var(--cn-night), var(--cn-night-raised));
+}
+
+body.executive-platform-body .auth-brand-panel {
+  border-right: 1px solid var(--cn-night-line);
+  background:
+    radial-gradient(circle at 28% 18%, rgba(196, 154, 82, .18), transparent 32%),
+    var(--cn-night);
+}
+
+body.executive-platform-body .auth-card {
+  border: 1px solid rgba(196, 154, 82, .28);
+  border-radius: 10px;
+  background: rgba(255, 254, 251, .98);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, .3);
+}
+
+body.executive-platform-body .auth-card :is(input, select, textarea) {
+  border-color: #b9ad97;
+  background: #fffdf8;
+  color: #14283a;
+}
+
+/* Signed-in application shell */
+body.executive-platform-body .executive-platform,
+body.executive-platform-body .executive-platform .app-workspace,
+body.executive-platform-body .executive-platform .app-content {
+  background:
+    radial-gradient(circle at 84% 0%, rgba(196, 154, 82, .1), transparent 27%),
+    linear-gradient(180deg, var(--cn-night), var(--cn-night-raised)) !important;
+}
+
+body.executive-platform-body .executive-platform .app-sidebar {
+  border-right: 1px solid var(--cn-night-line);
+  background:
+    radial-gradient(circle at 24% 4%, rgba(196, 154, 82, .12), transparent 24%),
+    var(--cn-night) !important;
+}
+
+body.executive-platform-body .executive-platform .app-header {
+  border-bottom: 1px solid var(--cn-night-line);
+  background: rgba(5, 17, 31, .93) !important;
+  backdrop-filter: blur(16px);
+}
+
+body.executive-platform-body .executive-platform .app-header :is(strong, .header-link) {
+  color: #fffdf8;
+}
+
+body.executive-platform-body .executive-platform .app-header span {
+  color: #9eabb0;
+}
+
+body.executive-platform-body .executive-platform :is(.sidebar-dashboard, .sidebar-utility-links a) {
+  border: 1px solid transparent;
+  color: #b9c5c9;
+}
+
+body.executive-platform-body .executive-platform :is(.sidebar-dashboard, .sidebar-utility-links a):is(:hover, .active) {
+  border-color: rgba(196, 154, 82, .2);
+  background: linear-gradient(90deg, rgba(196, 154, 82, .16), rgba(196, 154, 82, .035));
+  color: #fffdf8;
+  box-shadow: inset 2px 0 var(--cn-gold);
+}
+
+body.executive-platform-body .executive-platform .executive-page-frame > :is(.page-header, .executive-page-header, .hero, .executive-hero) {
+  border-left-color: var(--cn-gold) !important;
+  border-bottom-color: var(--cn-night-line) !important;
+}
+
+body.executive-platform-body .executive-platform .executive-page-frame > :is(.page-header, .executive-page-header, .hero, .executive-hero) h1 {
+  color: #fffdf8 !important;
+}
+
+body.executive-platform-body .executive-platform .executive-page-frame > :is(.page-header, .executive-page-header, .hero, .executive-hero) :is(p, .muted) {
+  color: var(--cn-night-copy) !important;
+}
+
+body.executive-platform-body .executive-platform .eyebrow,
+body.executive-platform-body .executive-platform .sidebar-section-heading > span {
+  color: var(--cn-gold-bright) !important;
+}
+
+body.executive-platform-body .executive-platform .executive-page-frame :is(.card, .executive-panel, .dashboard-panel, .studio-panel, .analytics-panel, .settings-card, .resume-card) {
+  border-color: rgba(196, 154, 82, .22) !important;
+  border-radius: 9px !important;
+  background: #fffefb !important;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, .15) !important;
+}
+
+body.executive-platform-body .executive-platform .executive-page-frame :is(input:not([type="checkbox"]):not([type="radio"]), select, textarea) {
+  border-color: #b8ad99 !important;
+  background: #fffdf8 !important;
+  color: #14283a !important;
+  -webkit-text-fill-color: #14283a !important;
+}
+
+body.executive-platform-body .executive-platform :is(.badge, .status-badge) {
+  background: var(--cn-gold-wash);
+  color: #6f4d1d;
+}
+
+body.executive-platform-body .executive-platform :is(.progress-value, .pipeline-fill, .funnel-value, .goal-track > div) {
+  background: linear-gradient(90deg, #9b7336, var(--cn-gold-bright));
+}
+
+@media (max-width: 900px) {
+  body.executive-platform-body .executive-platform .mobile-bottom-nav {
+    border-top: 1px solid var(--cn-night-line);
+    background: rgba(5, 17, 31, .97);
+  }
+
+  body.executive-platform-body .executive-platform .mobile-bottom-nav :is(a, button) {
+    color: #aebbc0;
+  }
+
+  body.executive-platform-body .executive-platform .mobile-bottom-nav :is(a, button).active {
+    background: rgba(196, 154, 82, .16);
+    color: var(--cn-gold-bright);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}

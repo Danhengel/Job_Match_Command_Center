@@ -3,6 +3,7 @@ import "./visual-system.css";
 import "./brand-logo.css";
 import "./premium-home.css";
 import "./homepage-background-fix.css";
+import "./unified-brand-theme.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 
