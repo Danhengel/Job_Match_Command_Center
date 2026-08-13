@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useMemo, useState, type MouseEvent, type ReactNode } from "react";
+import { useEffect, useState, type MouseEvent, type ReactNode } from "react";
 
 import { BrandCompass } from "@/components/BrandCompass";
 import { GuidedJourneyFooter } from "@/components/GuidedJourneyFooter";
 import {
-  getCareerStage,
+  PRIMARY_NAV,
+  SECONDARY_NAV,
   getCurrentPageLabel,
   isActivePath,
 } from "@/lib/careerJourney";
@@ -20,49 +21,21 @@ const mobileNavigation = [
   ["/resumes", "▤", "Resume"],
 ] as const;
 
-const sidebarSections = [
-  {
-    label: "Workspace",
-    items: [
-      { href: "/dashboard", label: "Home", icon: "⌂" },
-      { href: "/jobs", label: "Jobs", icon: "⌕" },
-      { href: "/applications", label: "Applications", icon: "✓" },
-    ],
-  },
-  {
-    label: "Career tools",
-    items: [
-      { href: "/profiles", label: "Profile", icon: "○" },
-      { href: "/resumes", label: "Resume", icon: "▤" },
-      { href: "/companies", label: "Companies", icon: "◇" },
-      { href: "/crm", label: "Contacts", icon: "◎" },
-      { href: "/interviews", label: "Interviews", icon: "◷" },
-    ],
-  },
-  {
-    label: "Insights",
-    items: [
-      { href: "/analytics", label: "Analytics", icon: "↗" },
-      { href: "/reports/weekly", label: "Weekly report", icon: "≡" },
-      { href: "/automation", label: "Automation", icon: "⚙" },
-    ],
-  },
-];
+const primaryDescriptions: Record<string, string> = {
+  "/dashboard": "What needs your attention now",
+  "/jobs": "Find and compare matching roles",
+  "/applications": "Track progress and next actions",
+  "/resumes": "Manage and tailor your resume",
+  "/profiles": "Goals, preferences, and experience",
+};
 
-const sidebarLinks = sidebarSections.flatMap((section) => section.items);
-
-const headerActions: Array<{ match: string; href: string; label: string }> = [
-  { match: "/jobs", href: "/jobs", label: "Run job search" },
-  { match: "/applications", href: "/applications", label: "Review pipeline" },
-  { match: "/resumes", href: "/resumes/studio", label: "Tailor résumé" },
-  { match: "/profiles", href: "/profiles/new", label: "Create profile" },
-  { match: "/interviews", href: "/interviews", label: "Plan interview" },
-  { match: "/interview-coach", href: "/interview-coach", label: "Start practice" },
-  { match: "/companies", href: "/companies", label: "Review companies" },
-  { match: "/crm", href: "/crm", label: "Manage contacts" },
-  { match: "/calendar", href: "/calendar", label: "Open calendar" },
-  { match: "/dashboard", href: "/jobs", label: "Explore opportunities" },
-];
+const primaryIcons: Record<string, string> = {
+  "/dashboard": "HM",
+  "/jobs": "JB",
+  "/applications": "AP",
+  "/resumes": "CV",
+  "/profiles": "ME",
+};
 
 const publicPaths = new Set([
   "/features",
@@ -80,43 +53,15 @@ const publicPaths = new Set([
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [headerAccountOpen, setHeaderAccountOpen] = useState(false);
-  const [commandOpen, setCommandOpen] = useState(false);
-  const [commandQuery, setCommandQuery] = useState("");
-  const currentStage = getCareerStage(pathname);
   const currentPageLabel = getCurrentPageLabel(pathname);
-  const headerAction = headerActions.find((action) => isActivePath(pathname, action.match)) ?? { href: "/dashboard", label: "Home" };
-  const commandLinks = useMemo(() => {
-    const all = [
-      { href: "/dashboard", label: "Home" },
-      ...sidebarLinks,
-      { href: "/calendar", label: "Calendar" },
-      { href: "/notifications", label: "Notifications" },
-      { href: "/settings/automation", label: "Settings" },
-    ];
-    return [...new Map(all.map((item) => [item.href, item])).values()].filter((item) =>
-      item.label.toLowerCase().includes(commandQuery.trim().toLowerCase()),
-    );
-  }, [commandQuery]);
 
   useEffect(() => {
     setMenuOpen(false);
-    setHeaderAccountOpen(false);
-    setCommandOpen(false);
-    setCommandQuery("");
   }, [pathname]);
 
   useEffect(() => {
     function closeOnEscape(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        setMenuOpen(false);
-        setHeaderAccountOpen(false);
-        setCommandOpen(false);
-      }
-      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
-        event.preventDefault();
-        setCommandOpen(true);
-      }
+      if (event.key === "Escape") setMenuOpen(false);
     }
 
     document.body.classList.toggle("mobile-menu-open", menuOpen);
@@ -168,27 +113,52 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
 
         <nav className="sidebar-nav" aria-label="CareerNavIQ navigation">
-          <div className="sidebar-primary-navigation">
-            {sidebarSections.map((section) => (
-              <section className="sidebar-nav-section" key={section.label} aria-labelledby={`nav-${section.label.toLowerCase().replaceAll(" ", "-")}`}>
-                <h2 id={`nav-${section.label.toLowerCase().replaceAll(" ", "-")}`}>{section.label}</h2>
-                <div>
-                  {section.items.map((item) => {
-                    const itemActive = isActivePath(pathname, item.href);
-                    return (
-                      <Link key={item.href} href={item.href} className={itemActive ? "active" : ""} aria-current={itemActive ? "page" : undefined}>
-                        <span className="sidebar-nav-icon" aria-hidden="true">{item.icon}</span>
-                        <span>{item.label}</span>
-                      </Link>
-                    );
-                  })}
-                </div>
-              </section>
-            ))}
+          <div className="sidebar-section-heading">
+            <span>Main</span>
           </div>
-          <Link href="/settings/automation" className={`sidebar-settings-link ${isActivePath(pathname, "/settings") ? "active" : ""}`} aria-current={isActivePath(pathname, "/settings") ? "page" : undefined}>
-            <span className="sidebar-nav-icon" aria-hidden="true">⚙</span><span>Settings</span>
-          </Link>
+
+          <div className="sidebar-stage-list">
+            {PRIMARY_NAV.map((item) => {
+              const itemActive = isActivePath(pathname, item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`sidebar-dashboard ${itemActive ? "active" : ""}`}
+                  aria-current={itemActive ? "page" : undefined}
+                >
+                  <span className="sidebar-dashboard-icon" aria-hidden="true">{primaryIcons[item.href]}</span>
+                  <span>
+                    <strong>{item.label}</strong>
+                    <small>{primaryDescriptions[item.href]}</small>
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
+
+          <div className="sidebar-section-heading sidebar-tools-heading">
+            <span>More</span>
+            <small>Tools & planning</small>
+          </div>
+          <div className="sidebar-utility-links">
+            {SECONDARY_NAV.map((item) => {
+              const itemActive = isActivePath(pathname, item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={itemActive ? "active" : ""}
+                  aria-current={itemActive ? "page" : undefined}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+            <Link href="/notifications" className={isActivePath(pathname, "/notifications") ? "active" : ""}>Notifications</Link>
+          </div>
+
+          <button type="button" className="sidebar-signout" onClick={signOut}>Sign out</button>
         </nav>
       </aside>
 
@@ -206,25 +176,16 @@ export function AppShell({ children }: { children: ReactNode }) {
           </button>
 
           <Link href="/dashboard" className="header-brand" aria-label="CareerNavIQ home">
+            <span className="header-brand-mark"><BrandCompass /></span>
             <span className="header-brand-copy">
-              <span>{currentStage?.shortLabel ?? "Workspace"}</span>
               <strong>{currentPageLabel}</strong>
             </span>
           </Link>
 
-          <button type="button" className="header-command" onClick={() => setCommandOpen(true)}>
-            <span aria-hidden="true">⌕</span>
-            <span>Search or ask CareerNavIQ</span>
-            <kbd>⌘K</kbd>
-          </button>
-
           <div className="header-actions">
-            <Link href={headerAction.href} className="button compact header-primary-action">{headerAction.label}</Link>
-            <Link href="/notifications" className="header-attention"><span aria-hidden="true">◆</span><span>Attention</span></Link>
-            <div className="header-account">
-              <button type="button" className="header-account-trigger" onClick={() => setHeaderAccountOpen((value) => !value)} aria-expanded={headerAccountOpen} aria-label="Open account menu">DH</button>
-              {headerAccountOpen ? <div className="header-account-menu"><Link href="/profiles">Profile</Link><Link href="/settings/automation">Settings</Link><Link href="/automation">Automation</Link><button type="button" onClick={signOut}>Sign out</button></div> : null}
-            </div>
+            {pathname !== "/dashboard" ? <Link href="/jobs" className="button compact">Find Jobs</Link> : null}
+            <Link href="/notifications" className="header-link">Notifications</Link>
+            <button type="button" className="button secondary compact header-signout" onClick={signOut}>Sign out</button>
           </div>
         </header>
 
@@ -233,15 +194,6 @@ export function AppShell({ children }: { children: ReactNode }) {
             {children}
             <GuidedJourneyFooter pathname={pathname} />
           </div>
-          <footer className="app-footer">
-            <span>© {new Date().getFullYear()} CareerNavIQ</span>
-            <nav aria-label="Product and legal links">
-              <Link href="/features">Features</Link>
-              <Link href="/contact">Support</Link>
-              <Link href="/privacy">Privacy</Link>
-              <Link href="/terms">Terms</Link>
-            </nav>
-          </footer>
         </main>
       </div>
 
@@ -260,21 +212,6 @@ export function AppShell({ children }: { children: ReactNode }) {
           <small>More</small>
         </button>
       </nav>
-
-      {commandOpen ? (
-        <div className="command-palette-backdrop" role="presentation" onMouseDown={() => setCommandOpen(false)}>
-          <section className="command-palette" role="dialog" aria-modal="true" aria-label="Search CareerNavIQ" onMouseDown={(event) => event.stopPropagation()}>
-            <div className="command-palette-input-row">
-              <span aria-hidden="true">⌕</span>
-              <input autoFocus value={commandQuery} onChange={(event) => setCommandQuery(event.target.value)} placeholder="Search pages and tools" aria-label="Search pages and tools" />
-              <button type="button" onClick={() => setCommandOpen(false)} aria-label="Close command palette">×</button>
-            </div>
-            <div className="command-palette-results">
-              {commandLinks.length ? commandLinks.map((item) => <Link key={item.href} href={item.href}><span>{item.label}</span><small>{item.href}</small></Link>) : <p>No matching destination</p>}
-            </div>
-          </section>
-        </div>
-      ) : null}
     </div>
   );
 }
