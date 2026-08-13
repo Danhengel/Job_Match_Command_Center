@@ -266,6 +266,43 @@
   letter-spacing: -.015em;
 }
 
+.app-header .header-actions > .button.compact {
+  color: #fff !important;
+}
+
+.executive-dashboard-side-stack {
+  display: grid;
+  gap: 20px;
+  align-content: start;
+}
+
+.executive-dashboard-compass {
+  position: relative;
+  min-height: 250px;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--editorial-line);
+  background: #0b1725;
+}
+
+.executive-dashboard-compass::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(145deg, rgba(4,16,28,.08), rgba(4,16,28,.5));
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.05);
+}
+
+.executive-dashboard-compass img {
+  width: 100%;
+  height: 100%;
+  min-height: 250px;
+  display: block;
+  object-fit: cover;
+  object-position: 67% 52%;
+}
+
 /* Editorial hierarchy gives the product a recognizable point of view. */
 .app-shell :is(h1, h2) {
   font-family: Georgia, "Times New Roman", serif;
