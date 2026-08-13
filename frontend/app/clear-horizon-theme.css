@@ -1,0 +1,106 @@
+/* CareerNavIQ Clear Horizon — single active color authority. */
+:root {
+  --ch-canvas:#f8fafc; --ch-surface:#fff; --ch-section:#eef5f7;
+  --ch-blue:#256f8f; --ch-blue-hover:#195a76; --ch-blue-soft:#e7f1f5;
+  --ch-green:#4f8b7d; --ch-green-soft:#e8f2ef;
+  --ch-ink:#1b2a34; --ch-copy:#5c6c76; --ch-faint:#7a8991;
+  --ch-line:#dce5e8; --ch-line-strong:#c7d5d9;
+  --ch-shadow:0 12px 34px rgba(27,42,52,.065);
+  --cn-paper:var(--ch-canvas); --cn-surface:var(--ch-surface); --cn-surface-soft:var(--ch-section);
+  --cn-ink:var(--ch-ink); --cn-muted:var(--ch-copy); --cn-muted-light:var(--ch-faint);
+  --cn-line:var(--ch-line); --cn-line-strong:var(--ch-line-strong);
+  --cn-navy-950:var(--ch-ink); --cn-navy-900:var(--ch-blue-hover); --cn-navy-800:var(--ch-blue);
+  --cn-teal-700:var(--ch-green); --cn-teal-100:var(--ch-green-soft);
+  --cn-brass-600:#b08a4b; --cn-brass-100:#f6f0e5; --cn-shadow:var(--ch-shadow);
+  --lux-ivory:var(--ch-canvas); --lux-parchment:var(--ch-section); --lux-paper:var(--ch-surface);
+  --lux-ink:var(--ch-ink); --lux-charcoal:var(--ch-surface); --lux-charcoal-soft:var(--ch-section);
+  --lux-brass:var(--ch-blue); --lux-brass-deep:var(--ch-blue-hover);
+  --lux-taupe:var(--ch-line-strong); --lux-muted:var(--ch-copy); --lux-line:rgba(27,42,52,.12);
+  --cn-night:var(--ch-ink); --cn-night-raised:#29404e; --cn-night-soft:#355260;
+  --cn-graphite:var(--ch-surface); --cn-graphite-deep:var(--ch-canvas); --cn-graphite-lift:var(--ch-section);
+  --cn-gold:var(--ch-blue); --cn-gold-bright:#3f86a3; --cn-gold-wash:var(--ch-blue-soft);
+  --cn-cream:var(--ch-surface); --cn-cream-soft:var(--ch-canvas);
+  --cn-night-line:rgba(27,42,52,.12); --cn-night-copy:var(--ch-copy);
+}
+html,body.executive-platform-body{background:var(--ch-canvas);color:var(--ch-ink)}
+::selection{background:var(--ch-blue-soft);color:var(--ch-ink)}
+
+body.executive-platform-body :is(.button,button):not(.mobile-nav-overlay):not(.mobile-menu-button):not(.sidebar-close):not(.header-command):not(.header-account-trigger):not(.sidebar-tools-trigger):not(.sidebar-command-trigger):not(.sidebar-account-trigger){border-color:var(--ch-blue);background:var(--ch-blue);color:#fff;box-shadow:none}
+body.executive-platform-body :is(.button,button):not(.mobile-nav-overlay):not(.mobile-menu-button):not(.sidebar-close):not(.header-command):not(.header-account-trigger):not(.sidebar-tools-trigger):not(.sidebar-command-trigger):not(.sidebar-account-trigger):hover{border-color:var(--ch-blue-hover);background:var(--ch-blue-hover);color:#fff}
+body.executive-platform-body :is(.button.secondary,button.secondary,.public-button-secondary,.landing-button-secondary){border-color:var(--ch-line-strong)!important;background:#fff!important;color:var(--ch-blue-hover)!important}
+body.executive-platform-body :is(.public-button-primary,.landing-button-primary,.auth-submit,.premium-button-primary){border-color:var(--ch-blue)!important;background:var(--ch-blue)!important;color:#fff!important}
+
+/* Homepage keeps its brand imagery but sheds the heavy treatment. */
+.premium-home{background:var(--ch-canvas)}
+.premium-home .premium-header{border-bottom-color:rgba(255,255,255,.18);background:linear-gradient(180deg,rgba(18,39,53,.82),rgba(18,39,53,.3) 78%,transparent)}
+.premium-home .premium-nav a{color:#f6fafb}.premium-home .premium-nav a:hover{color:#b9deea}
+.premium-home .premium-signin{border-color:rgba(255,255,255,.6);background:rgba(255,255,255,.1);color:#fff}
+.premium-home .premium-hero{background-image:linear-gradient(90deg,rgba(19,42,56,.86),rgba(22,51,68,.72) 34%,rgba(30,71,88,.4) 58%,rgba(31,80,96,.12)),url('/careernaviq-compass-architecture.webp?v=20260810office')}
+.premium-home .premium-hero::before{opacity:.24}.premium-home .premium-hero::after{opacity:.35}
+.premium-home .premium-hero h1 em,.premium-home .premium-hero-signin span{color:#a9d9e6}
+.premium-home .premium-rule span{background:linear-gradient(90deg,#9bcddd,transparent)}
+.premium-home .premium-hero-signin{border-bottom-color:#9bcddd;color:#fff}
+.premium-home .premium-outcome-grid{border-top:1px solid var(--ch-line);background:rgba(255,255,255,.98);box-shadow:0 -14px 38px rgba(27,42,52,.1)}
+.premium-home .premium-outcome-grid article{border-left-color:var(--ch-line)}
+.premium-home .premium-outcome-icon{border-color:#85b8c7;background:var(--ch-blue-soft);color:var(--ch-blue);box-shadow:none}
+.premium-home .premium-outcome-grid h2{color:var(--ch-ink)}.premium-home .premium-outcome-grid p{color:var(--ch-copy)}
+.premium-home .premium-footer{border-top-color:var(--ch-line);background:#fff;color:var(--ch-copy)}
+.premium-home .premium-footer :is(a,p,span){color:var(--ch-copy)}
+
+/* Public and authentication surfaces. */
+body.executive-platform-body :is(.public-page,.landing-page,.auth-content,.auth-page,.auth-form-panel){background:var(--ch-canvas);color:var(--ch-ink)}
+body.executive-platform-body :is(.public-header,.landing-header){border-bottom-color:var(--ch-line);background:rgba(255,255,255,.96);box-shadow:0 4px 18px rgba(27,42,52,.035)}
+body.executive-platform-body :is(.public-header,.landing-header) :is(a,button){color:var(--ch-ink)}
+body.executive-platform-body :is(.public-header,.landing-header) nav a:hover{color:var(--ch-blue)}
+body.executive-platform-body :is(.public-header,.landing-header) :is(.public-nav-cta,.landing-nav-cta){background:var(--ch-blue);color:#fff!important}
+body.executive-platform-body :is(.public-hero,.landing-hero){border-bottom-color:var(--ch-line);background:radial-gradient(circle at 84% 15%,rgba(79,139,125,.1),transparent 27%),linear-gradient(135deg,#fff,var(--ch-canvas) 62%,var(--ch-section));color:var(--ch-ink)}
+body.executive-platform-body :is(.public-page,.landing-page) :is(h1,h2,h3,h4,strong){color:var(--ch-ink)}
+body.executive-platform-body :is(.public-page,.landing-page) :is(p,li,small){color:var(--ch-copy)}
+body.executive-platform-body .public-card-section{background:#fff}
+body.executive-platform-body :is(.public-content-section,.public-related-section){background:var(--ch-canvas)}
+body.executive-platform-body .public-faq-section{background:var(--ch-section)}
+body.executive-platform-body :is(.public-card-grid,.public-related-grid),body.executive-platform-body .public-content-block{border-color:var(--ch-line)}
+body.executive-platform-body :is(.public-card,.public-related-card){border-left-color:var(--ch-line)!important;background:transparent;color:var(--ch-ink)}
+body.executive-platform-body .public-content-aside{border-left-color:var(--ch-blue);background:#fff}
+body.executive-platform-body .public-faq-list details,body.executive-platform-body .public-related-grid>a{border-color:var(--ch-line);background:#fff}
+body.executive-platform-body :is(.public-final-card,.landing-final-card){border:1px solid #c9dfe6;background:linear-gradient(135deg,#e9f4f7,#f5fafb);color:var(--ch-ink)}
+body.executive-platform-body :is(.public-final-card,.landing-final-card) :is(h2,strong){color:var(--ch-ink)!important}
+body.executive-platform-body :is(.public-final-card,.landing-final-card) p{color:var(--ch-copy)!important}
+body.executive-platform-body :is(.public-footer,.landing-footer){border-top-color:var(--ch-line);background:#fff;color:var(--ch-copy)}
+body.executive-platform-body :is(.public-footer,.landing-footer) :is(h2,h3,a,strong){color:var(--ch-ink)}
+body.executive-platform-body :is(.public-footer,.landing-footer) :is(p,span){color:var(--ch-copy)}
+body.executive-platform-body .auth-page{background:radial-gradient(circle at 78% 12%,rgba(37,111,143,.08),transparent 29%),var(--ch-canvas)}
+body.executive-platform-body .auth-brand-panel{border-right-color:#cfe1e7;background:radial-gradient(circle at 18% 18%,rgba(79,139,125,.14),transparent 31%),linear-gradient(145deg,#eaf4f6,#f8fbfc);color:var(--ch-ink)}
+body.executive-platform-body .auth-brand-panel :is(h1,h2,h3,strong){color:var(--ch-ink)}
+body.executive-platform-body .auth-brand-panel :is(p,small,span){color:var(--ch-copy)}
+body.executive-platform-body .auth-card{border-color:var(--ch-line);background:#fff;color:var(--ch-ink);box-shadow:var(--ch-shadow)}
+body.executive-platform-body .auth-card :is(h1,h2,h3,label){color:var(--ch-ink)}
+body.executive-platform-body .auth-card :is(p,small,.auth-card-intro,.auth-switch,.auth-security-note){color:var(--ch-copy)}
+
+/* Signed-in workspace: white chrome, airy canvas, blue active line. */
+body.executive-platform-body .executive-platform{--premium-canvas:var(--ch-canvas);--premium-surface:#fff;--premium-surface-soft:var(--ch-section);--premium-ink:var(--ch-ink);--premium-ink-soft:#40515b;--premium-muted:var(--ch-copy);--premium-line:var(--ch-line);--premium-line-strong:var(--ch-line-strong);--premium-primary:var(--ch-blue);--premium-primary-hover:var(--ch-blue-hover);--premium-primary-soft:var(--ch-blue-soft);--premium-sidebar:#fff;--premium-sidebar-soft:var(--ch-section);--premium-sidebar-text:var(--ch-ink);--premium-sidebar-muted:var(--ch-copy)}
+body.executive-platform-body .executive-platform,body.executive-platform-body .executive-platform :is(.app-workspace,.app-content){background:var(--ch-canvas)!important;color:var(--ch-ink)!important}
+body.executive-platform-body .executive-platform :is(.app-sidebar,.app-header){border-color:var(--ch-line);background:rgba(255,255,255,.98)!important;box-shadow:0 5px 22px rgba(27,42,52,.04)}
+body.executive-platform-body .executive-platform :is(.app-sidebar,.app-header) :is(h1,h2,h3,h4,strong,a,button){color:var(--ch-ink)}
+body.executive-platform-body .executive-platform :is(.app-sidebar,.app-header) :is(p,small,span){color:var(--ch-copy)}
+body.executive-platform-body .executive-platform .header-command,body.executive-platform-body .executive-platform :is(.sidebar-tools-trigger,.sidebar-command-trigger,.sidebar-account-trigger){border-color:var(--ch-line);background:var(--ch-canvas);color:var(--ch-copy)}
+body.executive-platform-body .executive-platform .header-command:hover,body.executive-platform-body .executive-platform :is(.sidebar-tools-trigger,.sidebar-command-trigger,.sidebar-account-trigger):hover{border-color:#a9cbd7;background:var(--ch-blue-soft);color:var(--ch-blue-hover)}
+body.executive-platform-body .executive-platform :is(.sidebar-home-link,.sidebar-stage-summary,.sidebar-stage-links a,.sidebar-utility-links a):is(:hover,.active),body.executive-platform-body .executive-platform .sidebar-stage.active>.sidebar-stage-summary{border-color:transparent;background:linear-gradient(90deg,var(--ch-blue-soft),rgba(231,241,245,.25));color:var(--ch-blue-hover);box-shadow:inset 3px 0 var(--ch-blue)}
+body.executive-platform-body .executive-platform :is(.sidebar-section-heading>span,.eyebrow){color:var(--ch-blue)!important}
+body.executive-platform-body .executive-platform .executive-page-frame :is(h1,h2,h3,h4,h5,h6,strong,b,label){color:var(--ch-ink)!important}
+body.executive-platform-body .executive-platform .executive-page-frame :is(p,li,small,.muted){color:var(--ch-copy)!important}
+body.executive-platform-body .executive-platform :is(.executive-metric-strip,.executive-kpis,.interview-kpis,.coach-kpis,.analytics-kpi-grid,.profile-summary-grid,.company-summary-grid,.company-detail-kpis,.watch-summary-grid,.automation-health-grid){border-color:var(--ch-line)!important}
+body.executive-platform-body .executive-platform :is(.executive-metric-strip,.executive-kpis,.interview-kpis,.coach-kpis,.analytics-kpi-grid,.profile-summary-grid,.company-summary-grid,.company-detail-kpis,.watch-summary-grid,.automation-health-grid)>article{border-left-color:var(--ch-line)!important;background:transparent!important}
+body.executive-platform-body .executive-platform :is(.executive-metric-strip,.executive-kpis,.interview-kpis,.coach-kpis,.analytics-kpi-grid,.profile-summary-grid,.company-summary-grid,.company-detail-kpis,.watch-summary-grid,.automation-health-grid)>article :is(strong,h2,h3){color:var(--ch-ink)!important}
+body.executive-platform-body .executive-platform .executive-page-frame :is(.executive-panel,.dashboard-panel,.analytics-panel,.opportunity-portfolio-panel,.market-results-panel,.executive-interview-timeline-panel,.practice-history-panel){border-top-color:var(--ch-line)!important;background:transparent!important}
+body.executive-platform-body .executive-platform .executive-page-frame :is(.market-result-row,.opportunity-portfolio-row,.interview-event-card,.activity-item,.notification-row,.automation-row,.history-row,.executive-priority-item,.executive-action-card,.prep-item){border-bottom-color:var(--ch-line)!important;background:transparent!important}
+body.executive-platform-body .executive-platform .executive-page-frame :is(.market-result-row,.opportunity-portfolio-row,.interview-event-card,.activity-item,.notification-row,.automation-row,.history-row,.executive-priority-item,.executive-action-card,.prep-item):hover{background:linear-gradient(90deg,var(--ch-blue-soft),transparent 70%)!important;box-shadow:inset 2px 0 var(--ch-blue)!important}
+body.executive-platform-body .executive-platform .executive-page-frame :is(.card,form.card,.market-criteria-panel,.studio-panel,.resume-upload-panel,.resume-library-panel,.resume-analysis-panel,.settings-card,.profile-edit-section,.outreach-controls,.outreach-editor,.outreach-guidance){border:1px solid var(--ch-line)!important;background:#fff!important;color:var(--ch-ink)!important;box-shadow:var(--ch-shadow)!important}
+body.executive-platform-body .executive-platform .executive-page-frame :is(.card,form.card,.market-criteria-panel,.studio-panel,.resume-upload-panel,.resume-library-panel,.resume-analysis-panel,.settings-card,.profile-edit-section,.outreach-controls,.outreach-editor,.outreach-guidance) :is(h1,h2,h3,h4,label,strong){color:var(--ch-ink)!important}
+body.executive-platform-body .executive-platform .executive-page-frame :is(.card,form.card,.market-criteria-panel,.studio-panel,.resume-upload-panel,.resume-library-panel,.resume-analysis-panel,.settings-card,.profile-edit-section,.outreach-controls,.outreach-editor,.outreach-guidance) :is(p,li,small,.muted){color:var(--ch-copy)!important}
+body.executive-platform-body .executive-platform .executive-page-frame :is(input:not([type=checkbox]):not([type=radio]),select,textarea),body.executive-platform-body .auth-card :is(input,select,textarea){border-color:var(--ch-line-strong)!important;background:#fff!important;color:var(--ch-ink)!important;-webkit-text-fill-color:var(--ch-ink)!important}
+body.executive-platform-body .executive-platform :is(.badge,.status-badge){background:var(--ch-green-soft);color:#326b5e!important}
+body.executive-platform-body .executive-platform :is(.sidebar-tools-drawer,.sidebar-account-menu,.header-account-menu),.command-palette{border-color:var(--ch-line-strong);background:#fff;color:var(--ch-ink);box-shadow:var(--ch-shadow)}
+body.executive-platform-body .executive-platform :is(.sidebar-tools-drawer,.sidebar-account-menu,.header-account-menu) :is(a,button,strong,span),.command-palette :is(a,button,strong,span){color:var(--ch-ink)!important}
+.command-palette-results a:hover,body.executive-platform-body .executive-platform :is(.sidebar-account-menu,.header-account-menu) :is(a,button):hover{background:var(--ch-blue-soft)}
+@media(max-width:900px){.premium-home .premium-hero{background-image:linear-gradient(180deg,rgba(19,42,56,.84),rgba(30,71,88,.55) 58%,rgba(19,42,56,.78)),url('/careernaviq-compass-architecture.webp?v=20260810office')}body.executive-platform-body .executive-platform .mobile-bottom-nav{border-top-color:var(--ch-line);background:rgba(255,255,255,.98)}body.executive-platform-body .executive-platform .mobile-bottom-nav :is(a,button){color:var(--ch-copy)}body.executive-platform-body .executive-platform .mobile-bottom-nav :is(a,button).active{background:var(--ch-blue-soft);color:var(--ch-blue)}}
