@@ -6,9 +6,10 @@
 
 .auth-page-centered .auth-form-panel-centered {
   min-height: 100vh;
-  display: grid;
-  place-items: center;
-  padding: clamp(44px, 6vw, 88px) 24px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: clamp(42px, 5vh, 64px) 24px 72px;
   background:
     radial-gradient(circle at 18% 14%, rgba(16, 92, 104, 0.22), transparent 30%),
     radial-gradient(circle at 84% 82%, rgba(178, 139, 78, 0.14), transparent 28%),
@@ -19,7 +20,7 @@
   width: min(100%, 780px);
   display: grid;
   justify-items: center;
-  gap: clamp(30px, 4.5vh, 52px);
+  gap: clamp(30px, 4vh, 46px);
 }
 
 .auth-centered-logo {
@@ -93,7 +94,11 @@
 
 @media (max-width: 680px) {
   .auth-page-centered .auth-form-panel-centered {
-    padding: 34px 16px;
+    padding: 28px 16px 44px;
+  }
+
+  .auth-centered-shell {
+    gap: 28px;
   }
 
   .auth-centered-logo {
