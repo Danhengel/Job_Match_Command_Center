@@ -106,7 +106,7 @@ def _create_daily_brief_notification(db: Session, preference: AutomationPreferen
     db.add(Notification(
         user_id=preference.user_id,
         kind="daily_brief",
-        title="Your CareerOS daily brief is ready",
+        title="Your CareerNavIQ daily brief is ready",
         message=message,
         link="/command-center",
         metadata_json={"local_date": key},
@@ -131,7 +131,7 @@ def _create_weekly_report_notification(db: Session, preference: AutomationPrefer
     db.add(Notification(
         user_id=preference.user_id,
         kind="weekly_report",
-        title="Your weekly executive report is ready",
+        title="Your weekly career report is ready",
         message=f"This week: {applications} applications, {interviews} interviews, and {matches} job matches recorded.",
         link="/reports/weekly",
         metadata_json={"week": week_key},
