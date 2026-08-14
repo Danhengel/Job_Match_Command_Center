@@ -55,26 +55,8 @@
   padding-bottom: 2px;
 }
 
-.executive-platform.app-shell .executive-page-frame > .page-header:has(+ .executive-metric-strip[aria-label="Market review criteria"]) .button.secondary {
-  min-height: 42px;
-  padding: 0 17px;
-  border: 1px solid rgba(214, 179, 112, .34) !important;
-  border-radius: 999px !important;
-  background: rgba(9, 27, 43, .38) !important;
-  color: #e4d2aa !important;
-  box-shadow: inset 0 1px rgba(255,255,255,.025) !important;
-  font-family: var(--cn-brand-text, var(--cn-font-ui)) !important;
-  font-size: .76rem !important;
-  font-weight: 600 !important;
-  letter-spacing: .035em !important;
-  text-transform: none !important;
-}
-
-.executive-platform.app-shell .executive-page-frame > .page-header:has(+ .executive-metric-strip[aria-label="Market review criteria"]) .button.secondary:hover {
-  border-color: rgba(240, 205, 122, .62) !important;
-  background: rgba(14, 39, 58, .7) !important;
-  color: #f4dfac !important;
-}
+/* The Career profile action deliberately inherits the shared sitewide
+   secondary-button system. Do not give this masthead a one-off pill style. */
 
 /* Market Intelligence is intentionally a vertical editorial workflow.
    Do not allow legacy grid/sticky rules to place the criteria and results in
