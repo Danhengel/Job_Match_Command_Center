@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { MetricStrip, Notice, SectionHeader } from "@/components/ui";
+
+import { Notice } from "@/components/ui";
 import { api } from "@/lib/api";
 
-type Activity = { label: string; detail?: string; created_at?: string };
 type DashboardData = {
   user_name?: string;
   average_completeness?: number;
@@ -15,48 +15,135 @@ type DashboardData = {
   application_count?: number;
   interview_count?: number;
   offer_count?: number;
-  tailored_resume_count?: number;
   followups_due?: number;
   status_counts?: Record<string, number>;
-  recent_activity?: Activity[];
-};
-type DigestData = { unread_count?: number; high_matches?: number; saved_search_updates?: number; follow_ups_due?: number };
-type Interview = { id: number; application_id: number; title: string; event_type: string; starts_at: string; completed: boolean };
-type Recruiter = { id: number; name: string; company: string; next_follow_up_at: string | null; last_contact_at: string | null; relationship_score: number };
-type SearchRun = { id: number; unique_count: number; matched_count: number; created_at: string };
-type Application = { id: number; status: string; created_at?: string; updated_at?: string; job: { title: string; company: string } };
-type Goals = { applications: number; recruiterFollowups: number; mockInterviews: number };
-
-const defaultGoals: Goals = { applications: 12, recruiterFollowups: 5, mockInterviews: 2 };
-const stageOrder = ["wishlist", "applied", "recruiter", "interview", "final", "offer", "accepted"];
-const stageLabels: Record<string, string> = {
-  wishlist: "Saved",
-  applied: "Applied",
-  recruiter: "Recruiter",
-  interview: "Interview",
-  final: "Final",
-  offer: "Offer",
-  accepted: "Accepted",
 };
 
-function startOfWeek() {
-  const date = new Date();
-  const day = date.getDay();
-  date.setDate(date.getDate() - (day === 0 ? 6 : day - 1));
-  date.setHours(0, 0, 0, 0);
-  return date;
-}
+type DigestData = {
+  unread_count?: number;
+  high_matches?: number;
+  follow_ups_due?: number;
+};
+
+type Interview = {
+  id: number;
+  application_id: number;
+  title: string;
+  event_type: string;
+  starts_at: string;
+  completed: boolean;
+};
+
+type Recruiter = {
+  id: number;
+  name: string;
+  company: string;
+  next_follow_up_at: string | null;
+  last_contact_at: string | null;
+  relationship_score: number;
+};
+
+type SearchRun = {
+  id: number;
+  unique_count: number;
+  matched_count: number;
+  created_at: string;
+};
+
+type Application = {
+  id: number;
+  status: string;
+  created_at?: string;
+  updated_at?: string;
+  job?: {
+    title: string;
+    company: string;
+  };
+};
+
+type Profile = {
+  id: number;
+  name: string;
+};
+
+type JobMatch = {
+  job: {
+    id: number;
+    title: string;
+    company: string;
+    location: string;
+    salary?: string;
+    remote?: boolean;
+  };
+  match: {
+    score: number;
+    explanation?: string;
+  };
+};
+
+type PriorityAction = {
+  title: string;
+  detail: string;
+  href: string;
+  action: string;
+};
+
+type UpcomingItem = {
+  id: string;
+  title: string;
+  detail: string;
+  date: string;
+  href: string;
+};
 
 function safeDate(value?: string | null) {
   return value ? new Date(value) : null;
 }
 
-function percent(value: number, target: number) {
-  return Math.min(100, Math.round((value / Math.max(1, target)) * 100));
-}
-
 function daysUntil(value: string) {
   return Math.ceil((new Date(value).getTime() - Date.now()) / 86400000);
+}
+
+function daypart() {
+  const hour = new Date().getHours();
+  if (hour < 12) return "morning";
+  if (hour < 18) return "afternoon";
+  return "evening";
+}
+
+function dateParts(value: string) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return { day: "—", month: "DATE" };
+  return {
+    day: date.toLocaleDateString("en-US", { day: "2-digit" }),
+    month: date.toLocaleDateString("en-US", { month: "short" }),
+  };
+}
+
+function fullDate(value: string) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleString("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  });
+}
+
+function freshness(value?: string) {
+  const date = safeDate(value);
+  if (!date) return "No recent scan";
+  const days = Math.max(0, Math.floor((Date.now() - date.getTime()) / 86400000));
+  if (days === 0) return "Updated today";
+  if (days === 1) return "Updated yesterday";
+  return `Updated ${days} days ago`;
+}
+
+function statusLabel(value?: string) {
+  if (!value) return "Tracked";
+  return value.replace(/_/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
 
 export default function Dashboard() {
@@ -66,47 +153,48 @@ export default function Dashboard() {
   const [recruiters, setRecruiters] = useState<Recruiter[]>([]);
   const [searches, setSearches] = useState<SearchRun[]>([]);
   const [applications, setApplications] = useState<Application[]>([]);
-  const [goals, setGoals] = useState<Goals>(defaultGoals);
-  const [practiceCount, setPracticeCount] = useState(0);
+  const [savedMatches, setSavedMatches] = useState<JobMatch[]>([]);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem("careeros-command-goals");
-      if (saved) setGoals({ ...defaultGoals, ...JSON.parse(saved) });
-      const practice = JSON.parse(localStorage.getItem("careeros-interview-history") || "[]");
-      setPracticeCount(
-        Array.isArray(practice)
-          ? practice.filter((item: { created_at?: string }) => (safeDate(item.created_at)?.getTime() || 0) >= startOfWeek().getTime()).length
-          : 0,
-      );
-    } catch {
-      // Local preferences are optional.
-    }
-
     let active = true;
+
     (async () => {
       try {
-        const [dashboard, interviewData, recruiterData, searchData, appData] = await Promise.all([
+        const [dashboard, interviewData, recruiterData, searchData, appData, profileData] = await Promise.all([
           api("/api/dashboard"),
           api("/api/recruiting/interviews").catch(() => []),
           api("/api/recruiting/recruiters").catch(() => []),
           api("/api/jobs/history").catch(() => []),
           api("/api/applications").catch(() => ({ applications: [] })),
+          api("/api/profiles").catch(() => []),
         ]);
+
         if (!active) return;
         setData(dashboard);
-        setInterviews(interviewData || []);
-        setRecruiters(recruiterData || []);
-        setSearches(searchData || []);
-        setApplications(appData.applications || []);
+        setInterviews(Array.isArray(interviewData) ? interviewData : []);
+        setRecruiters(Array.isArray(recruiterData) ? recruiterData : []);
+        setSearches(Array.isArray(searchData) ? searchData : []);
+        setApplications(Array.isArray(appData?.applications) ? appData.applications : []);
+
+        const profiles: Profile[] = Array.isArray(profileData) ? profileData : [];
+        if (profiles[0]?.id) {
+          try {
+            const matches = await api(`/api/jobs/matches/${profiles[0].id}`);
+            if (active) setSavedMatches(Array.isArray(matches) ? matches : []);
+          } catch {
+            if (active) setSavedMatches([]);
+          }
+        }
+
         try {
-          setDigest(await api("/api/automation/digest"));
+          const digestData = await api("/api/automation/digest");
+          if (active) setDigest(digestData);
         } catch {
-          setDigest(null);
+          if (active) setDigest(null);
         }
       } catch (err) {
-        if (active) setError(err instanceof Error ? err.message : "Unable to load your home page.");
+        if (active) setError(err instanceof Error ? err.message : "Unable to load your dashboard.");
       }
     })();
 
@@ -116,194 +204,346 @@ export default function Dashboard() {
   }, []);
 
   const computed = useMemo(() => {
-    const week = startOfWeek().getTime();
     const now = Date.now();
-    const upcoming = interviews
+    const stages = data?.status_counts || {};
+    const upcomingInterviews = interviews
       .filter((item) => !item.completed && new Date(item.starts_at).getTime() >= now)
       .sort((a, b) => a.starts_at.localeCompare(b.starts_at));
-    const dueRecruiters = recruiters.filter((item) => item.next_follow_up_at && new Date(item.next_follow_up_at).getTime() <= now);
-    const applicationsThisWeek = applications.filter((item) => (safeDate(item.created_at || item.updated_at)?.getTime() || 0) >= week).length;
-    const recruiterTouches = recruiters.filter((item) => (safeDate(item.last_contact_at)?.getTime() || 0) >= week).length;
-    const latestSearch = searches[0];
-    const stages = data?.status_counts || {};
-    const applicationsCount = data?.application_count || applications.length;
-    const interviewCount = data?.interview_count || 0;
-    const readinessParts = [
-      Math.min(100, data?.average_completeness || 0),
-      Math.min(100, (applicationsThisWeek / Math.max(1, goals.applications)) * 100),
-      Math.min(100, (recruiterTouches / Math.max(1, goals.recruiterFollowups)) * 100),
-      upcoming.length ? 100 : 55,
-      Math.min(100, (practiceCount / Math.max(1, goals.mockInterviews)) * 100),
-      (data?.followups_due || dueRecruiters.length) === 0 ? 100 : 55,
-    ];
-    const momentum = Math.round(readinessParts.reduce((a, b) => a + b, 0) / readinessParts.length);
-    return {
-      upcoming,
-      nextInterview: upcoming[0] || null,
-      dueRecruiters,
-      applicationsThisWeek,
-      recruiterTouches,
-      latestSearch,
-      stages,
-      applicationsCount,
-      interviewCount,
-      momentum,
-    };
-  }, [data, interviews, recruiters, searches, applications, goals, practiceCount]);
+    const dueRecruiters = recruiters
+      .filter((item) => item.next_follow_up_at && new Date(item.next_follow_up_at).getTime() <= now)
+      .sort((a, b) => String(a.next_follow_up_at).localeCompare(String(b.next_follow_up_at)));
+    const latestSearch = [...searches].sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)))[0];
+    const rankedMatches = [...savedMatches].sort((a, b) => (b.match?.score || 0) - (a.match?.score || 0));
+    const applicationsCount = data?.application_count ?? applications.length;
+    const interviewing = Math.max(
+      data?.interview_count || 0,
+      (stages.recruiter || 0) + (stages.interview || 0) + (stages.final || 0),
+    );
+    const offers = Math.max(data?.offer_count || 0, (stages.offer || 0) + (stages.accepted || 0));
+    const dueCount = Math.max(data?.followups_due || 0, digest?.follow_ups_due || 0, dueRecruiters.length);
 
-  function updateGoal(key: keyof Goals, value: number) {
-    const next = { ...goals, [key]: Math.max(1, value) };
-    setGoals(next);
-    localStorage.setItem("careeros-command-goals", JSON.stringify(next));
-  }
+    return {
+      stages,
+      upcomingInterviews,
+      nextInterview: upcomingInterviews[0] || null,
+      dueRecruiters,
+      dueCount,
+      latestSearch,
+      rankedMatches,
+      applicationsCount,
+      interviewing,
+      offers,
+    };
+  }, [data, digest, interviews, recruiters, searches, applications, savedMatches]);
 
   if (error) {
-    return <Notice title="Home page unavailable" tone="error"><p>{error}</p></Notice>;
+    return <Notice title="Dashboard unavailable" tone="error"><p>{error}</p></Notice>;
   }
 
   if (!data) {
-    return <section className="executive-loading"><p className="eyebrow">HOME</p><h2>Loading your next steps…</h2></section>;
+    return <section className="executive-loading"><p className="eyebrow">HOME</p><h2>Preparing your command center…</h2></section>;
   }
 
   const firstName = data.user_name?.trim().split(/\s+/)[0] || "there";
-  const highMatches = data.high_match_count ?? digest?.high_matches ?? 0;
-  const followups = (data.followups_due || 0) + computed.dueRecruiters.length;
-  const maxStage = Math.max(1, ...Object.values(computed.stages));
-  const priorities = [
-    ...(followups ? [{ title: `${followups} follow-up${followups === 1 ? "" : "s"} need attention`, detail: "Review contacts and active applications that are waiting on a next step.", href: "/crm", action: "Review follow-ups", urgency: "Due" }] : []),
-    ...(computed.nextInterview ? [{ title: `Prepare for ${computed.nextInterview.title}`, detail: `${Math.max(0, daysUntil(computed.nextInterview.starts_at))} day${daysUntil(computed.nextInterview.starts_at) === 1 ? "" : "s"} until the interview.`, href: "/interview-coach", action: "Prepare now", urgency: "Upcoming" }] : []),
-    ...(highMatches ? [{ title: `Review ${highMatches} strong job match${highMatches === 1 ? "" : "es"}`, detail: "Open the best current roles and decide which are worth pursuing.", href: "/jobs", action: "Review jobs", urgency: "Jobs" }] : []),
-  ];
-  if (!priorities.length) {
-    priorities.push({ title: "Find your next matching role", detail: "Search current jobs using the target and preferences in your profile.", href: "/jobs", action: "Find Jobs", urgency: "Recommended" });
-  }
+  const highMatches = data.high_match_count ?? digest?.high_matches ?? computed.rankedMatches.filter((item) => item.match.score >= 70).length;
+  const profileProgress = Math.round(data.average_completeness || 0);
+  const topMatch = computed.rankedMatches[0] || null;
 
-  const nextMoves = [
-    {
-      title: highMatches ? `${highMatches} job match${highMatches === 1 ? "" : "es"} to review` : "Find matching jobs",
-      detail: highMatches ? "Start with the roles that best fit your profile." : "Search for roles that fit your target and preferences.",
-      href: "/jobs",
-    },
-    {
-      title: followups ? `${followups} application follow-up${followups === 1 ? "" : "s"}` : "Review your applications",
-      detail: followups ? "Keep active opportunities moving before they go quiet." : "Check statuses, decisions, and next actions in one place.",
-      href: followups ? "/crm" : "/applications",
-    },
-    {
-      title: computed.nextInterview ? `Prepare for ${computed.nextInterview.title}` : "Get ready for interviews",
-      detail: computed.nextInterview ? `${Math.max(0, daysUntil(computed.nextInterview.starts_at))} day${daysUntil(computed.nextInterview.starts_at) === 1 ? "" : "s"} remaining to prepare.` : "Build stronger stories and practice before an interview is scheduled.",
-      href: computed.nextInterview ? "/interview-coach" : "/interviews",
-    },
+  const priorityActions: PriorityAction[] = [
+    computed.nextInterview
+      ? {
+          title: `Prepare for ${computed.nextInterview.title}`,
+          detail: `${Math.max(0, daysUntil(computed.nextInterview.starts_at))} day${daysUntil(computed.nextInterview.starts_at) === 1 ? "" : "s"} remaining · ${fullDate(computed.nextInterview.starts_at)}`,
+          href: "/interview-coach",
+          action: "Continue preparation",
+        }
+      : {
+          title: highMatches ? `Review ${highMatches} strong job match${highMatches === 1 ? "" : "es"}` : "Run your next market scan",
+          detail: highMatches ? "Start with the highest-alignment opportunities before the market moves." : "Refresh the market and surface the strongest roles for your profile.",
+          href: "/jobs",
+          action: highMatches ? "Review matches" : "Find opportunities",
+        },
+    computed.dueCount
+      ? {
+          title: `${computed.dueCount} follow-up${computed.dueCount === 1 ? "" : "s"} need attention`,
+          detail: "Keep active opportunities and recruiter relationships from going quiet.",
+          href: "/crm",
+          action: "Handle follow-ups",
+        }
+      : {
+          title: "Review your active application pipeline",
+          detail: "Confirm each tracked opportunity has a clear status and next action.",
+          href: "/applications",
+          action: "Open applications",
+        },
+    highMatches && computed.nextInterview
+      ? {
+          title: `Review ${highMatches} strong job match${highMatches === 1 ? "" : "es"}`,
+          detail: topMatch ? `${topMatch.job.title} at ${topMatch.job.company} currently leads your saved market results.` : "Protect time for the strongest new opportunities while you prepare for interviews.",
+          href: "/jobs",
+          action: "Review opportunities",
+        }
+      : profileProgress < 90
+        ? {
+            title: `Raise profile readiness from ${profileProgress}%`,
+            detail: "A more complete profile improves matching, positioning, and the quality of recommendations.",
+            href: "/profiles",
+            action: "Strengthen profile",
+          }
+        : {
+            title: "Keep your resume ready for the next priority role",
+            detail: "Review the current resume and tailor only when an opportunity is worth pursuing.",
+            href: "/resumes",
+            action: "Review resume",
+          },
   ];
+
+  const upcomingItems: UpcomingItem[] = [
+    ...computed.upcomingInterviews.slice(0, 3).map((item) => ({
+      id: `interview-${item.id}`,
+      title: item.title,
+      detail: `${item.event_type || "Interview"} · ${fullDate(item.starts_at)}`,
+      date: item.starts_at,
+      href: "/interviews",
+    })),
+    ...computed.dueRecruiters.slice(0, Math.max(0, 4 - computed.upcomingInterviews.slice(0, 3).length)).map((item) => ({
+      id: `recruiter-${item.id}`,
+      title: `Follow up with ${item.name}`,
+      detail: item.company ? `${item.company} · relationship follow-up` : "Relationship follow-up",
+      date: item.next_follow_up_at || new Date().toISOString(),
+      href: "/crm",
+    })),
+  ].slice(0, 4);
+
+  const activeApplications = [...applications]
+    .filter((item) => item.job?.title)
+    .sort((a, b) => String(b.updated_at || b.created_at || "").localeCompare(String(a.updated_at || a.created_at || "")))
+    .slice(0, 5);
+
+  const insight = computed.nextInterview
+    ? {
+        title: "Your highest-leverage move is interview preparation.",
+        body: `${computed.nextInterview.title} is your nearest time-sensitive opportunity. Finish your stories, company research, likely questions, and closing questions before shifting attention back to new applications.`,
+        href: "/interview-coach",
+        action: "Continue interview prep",
+      }
+    : computed.dueCount
+      ? {
+          title: "Your pipeline has momentum, but follow-ups are now the highest-value work.",
+          body: `${computed.dueCount} follow-up${computed.dueCount === 1 ? " is" : "s are"} due. Closing those loops is more valuable right now than adding another layer of passive job searching.`,
+          href: "/crm",
+          action: "Clear follow-ups",
+        }
+      : topMatch
+        ? {
+            title: `${topMatch.job.title} at ${topMatch.job.company} is your strongest current market signal.`,
+            body: `It is scoring ${Math.round(topMatch.match.score)}% alignment in your saved results. Review the role closely and decide whether it deserves a tailored resume and an application.`,
+            href: "/jobs",
+            action: "Review top opportunity",
+          }
+        : {
+            title: "Your next best move is to refresh the opportunity market.",
+            body: "Your core search workspace is in good shape. A fresh market scan will give CareerNavIQ better information for deciding what deserves your attention next.",
+            href: "/jobs",
+            action: "Run market scan",
+          };
+
+  const resumeReadiness = (data.analyzed_resumes || 0) > 0
+    ? "Reviewed"
+    : (data.resume_count || 0) > 0
+      ? "Needs analysis"
+      : "Resume needed";
 
   return (
-    <>
-      <section className="executive-command-hero">
-        <div>
-          <p className="eyebrow">HOME</p>
-          <h1>Good {new Date().getHours() < 12 ? "morning" : new Date().getHours() < 18 ? "afternoon" : "evening"}, {firstName}.</h1>
-          <p>Here are the actions most likely to move your search forward today.</p>
-          <div className="row wrap">
-            <Link className="button" href={priorities[0].href}>{priorities[0].action}</Link>
+    <div className="dashboard-command-center">
+      <section className="dashboard-welcome">
+        <div className="dashboard-welcome-copy">
+          <p className="eyebrow">CAREER COMMAND CENTER</p>
+          <h1>Good {daypart()}, {firstName}.</h1>
+          <p>Here is what deserves your attention now—and where your strongest opportunities stand.</p>
+        </div>
+        <div className="dashboard-focus-count" aria-label={`${priorityActions.length} priority actions`}>
+          <span>Needs attention</span>
+          <strong>{priorityActions.length}</strong>
+          <small>priority actions</small>
+        </div>
+      </section>
+
+      <section className="dashboard-section dashboard-next-actions">
+        <div className="dashboard-section-inner">
+          <div className="dashboard-section-heading">
+            <div>
+              <p className="eyebrow">YOUR NEXT ACTIONS</p>
+              <h2>Do these next</h2>
+              <p>Three actions selected from your interviews, follow-ups, opportunity market, and profile readiness.</p>
+            </div>
           </div>
-        </div>
-        <div className="executive-momentum-score" aria-label={`Search momentum ${computed.momentum} percent`}>
-          <span>Search momentum</span>
-          <strong>{computed.momentum}</strong>
-          <small>out of 100</small>
-        </div>
-      </section>
-
-      <section className="executive-panel executive-action-panel">
-        <SectionHeader eyebrow="START HERE" title="Your next three moves" description="The most useful actions based on your current jobs, applications, and interviews." />
-        <div className="executive-action-grid-v6">
-          {nextMoves.map((item) => (
-            <Link key={item.title} href={item.href}>
-              <strong>{item.title}</strong>
-              <span>{item.detail}</span>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <MetricStrip
-        ariaLabel="Career search summary"
-        items={[
-          { label: "Applications", value: computed.applicationsCount, detail: `${computed.applicationsThisWeek} added this week` },
-          { label: "Strong job matches", value: highMatches, detail: `${computed.latestSearch?.matched_count || 0} in the latest search` },
-          { label: "Interviews", value: computed.interviewCount, detail: computed.nextInterview ? "Next interview is scheduled" : "No interview currently scheduled" },
-          { label: "Profile progress", value: `${data.average_completeness || 0}%`, detail: `${data.analyzed_resumes || 0} resume${data.analyzed_resumes === 1 ? "" : "s"} reviewed` },
-        ]}
-      />
-
-      <section className="executive-command-grid executive-command-grid-primary">
-        <article className="executive-panel">
-          <SectionHeader eyebrow="NEEDS ATTENTION" title="What to handle next" description="A short list of open actions so nothing important gets lost." />
-          <div className="executive-priority-list">
-            {priorities.slice(0, 4).map((item, index) => (
-              <div className="executive-priority-item" key={item.title}>
-                <span className="executive-index">{String(index + 1).padStart(2, "0")}</span>
-                <div>
-                  <small>{item.urgency}</small>
-                  <h3>{item.title}</h3>
-                  <p>{item.detail}</p>
+          <div className="dashboard-action-list">
+            {priorityActions.map((item, index) => (
+              <div className="dashboard-action" key={`${item.title}-${index}`}>
+                <span className="dashboard-action-index">{String(index + 1).padStart(2, "0")}</span>
+                <div className="dashboard-action-copy">
+                  <strong>{item.title}</strong>
+                  <span>{item.detail}</span>
                 </div>
-                <Link className="button secondary compact" href={item.href}>{item.action}</Link>
+                <Link className="dashboard-action-link" href={item.href}>{item.action}</Link>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="dashboard-section">
+        <div className="dashboard-section-inner">
+          <div className="dashboard-section-heading">
+            <div>
+              <p className="eyebrow">OPPORTUNITY PIPELINE</p>
+              <h2>Your search at a glance</h2>
+            </div>
+            <Link className="dashboard-section-link" href="/applications">Open full pipeline →</Link>
+          </div>
+          <div className="dashboard-pipeline" aria-label="Opportunity pipeline summary">
+            <Link className="dashboard-pipeline-card" href="/jobs">
+              <span>Strong matches</span>
+              <strong>{highMatches}</strong>
+              <small>High-alignment roles</small>
+            </Link>
+            <Link className="dashboard-pipeline-card" href="/applications">
+              <span>Applied</span>
+              <strong>{computed.applicationsCount}</strong>
+              <small>Tracked applications</small>
+            </Link>
+            <Link className="dashboard-pipeline-card" href="/interviews">
+              <span>Interviewing</span>
+              <strong>{computed.interviewing}</strong>
+              <small>Recruiter through final</small>
+            </Link>
+            <Link className="dashboard-pipeline-card" href="/applications">
+              <span>Offers</span>
+              <strong>{computed.offers}</strong>
+              <small>Offer or accepted</small>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="dashboard-main-grid">
+        <article className="dashboard-section">
+          <div className="dashboard-section-inner">
+            <div className="dashboard-section-heading">
+              <div>
+                <p className="eyebrow">PRIORITY OPPORTUNITIES</p>
+                <h2>Roles worth your attention</h2>
+                <p>The strongest saved matches first; recent active applications are shown when saved match data is unavailable.</p>
+              </div>
+              <Link className="dashboard-section-link" href="/jobs">View all jobs →</Link>
+            </div>
+
+            <div className="dashboard-opportunity-list">
+              {computed.rankedMatches.length > 0 ? computed.rankedMatches.slice(0, 5).map((item) => (
+                <div className="dashboard-opportunity-row" key={`${item.job.id}-${item.job.title}`}>
+                  <div className="dashboard-opportunity-main">
+                    <strong>{item.job.title}</strong>
+                    <span className="dashboard-opportunity-company">{item.job.company}</span>
+                    <span>{[item.job.location, item.job.salary].filter(Boolean).join(" · ") || "Location and compensation not listed"}</span>
+                  </div>
+                  <div className="dashboard-match-score">
+                    <strong>{Math.round(item.match.score)}%</strong>
+                    <small>match</small>
+                  </div>
+                  <Link className="dashboard-opportunity-link" href="/jobs">Review</Link>
+                </div>
+              )) : activeApplications.length > 0 ? activeApplications.map((item) => (
+                <div className="dashboard-opportunity-row" key={`application-${item.id}`}>
+                  <div className="dashboard-opportunity-main">
+                    <strong>{item.job?.title}</strong>
+                    <span className="dashboard-opportunity-company">{item.job?.company}</span>
+                    <span>{statusLabel(item.status)}</span>
+                  </div>
+                  <div className="dashboard-match-score">
+                    <strong>—</strong>
+                    <small>tracked</small>
+                  </div>
+                  <Link className="dashboard-opportunity-link" href="/applications">Review</Link>
+                </div>
+              )) : (
+                <div className="dashboard-empty">No priority opportunities are available yet. Run a market scan to populate this area with your strongest matches.</div>
+              )}
+            </div>
           </div>
         </article>
 
-        <div className="executive-dashboard-side-stack">
-          <article className="executive-panel">
-            <SectionHeader eyebrow="WEEKLY GOALS" title="Keep your search moving" description="Simple activity targets stored only on this device." />
-            {([
-              ["applications", "Quality applications", computed.applicationsThisWeek],
-              ["recruiterFollowups", "Relationship follow-ups", computed.recruiterTouches],
-              ["mockInterviews", "Interview practice", practiceCount],
-            ] as const).map(([key, label, value]) => (
-              <div className="executive-goal-row" key={key}>
-                <div className="row between"><span>{label}</span><label>{value} / <input type="number" min="1" value={goals[key]} onChange={(event) => updateGoal(key, Number(event.target.value))} /></label></div>
-                <div className="executive-progress-track"><div style={{ width: `${percent(Number(value), goals[key])}%` }} /></div>
+        <div className="dashboard-side-stack">
+          <article className="dashboard-section">
+            <div className="dashboard-section-inner">
+              <div className="dashboard-section-heading">
+                <div>
+                  <p className="eyebrow">UPCOMING</p>
+                  <h2>Time-sensitive</h2>
+                  <p>Interviews and relationship follow-ups that should not slip.</p>
+                </div>
               </div>
-            ))}
+              <div className="dashboard-upcoming-list">
+                {upcomingItems.length ? upcomingItems.map((item) => {
+                  const parts = dateParts(item.date);
+                  return (
+                    <Link className="dashboard-upcoming-item" href={item.href} key={item.id}>
+                      <div className="dashboard-date-badge">
+                        <strong>{parts.day}</strong>
+                        <small>{parts.month}</small>
+                      </div>
+                      <div>
+                        <strong>{item.title}</strong>
+                        <span>{item.detail}</span>
+                      </div>
+                    </Link>
+                  );
+                }) : (
+                  <div className="dashboard-empty">Nothing time-sensitive is currently scheduled. Your calendar and follow-up queue are clear.</div>
+                )}
+              </div>
+            </div>
           </article>
-
-          <figure className="executive-dashboard-compass">
-            <img src="/careernaviq-compass-architecture.webp?v=20260810office" alt="Antique brass compass, the CareerNavIQ symbol for navigating a career journey" />
-          </figure>
         </div>
       </section>
 
-      <section className="executive-panel">
-        <SectionHeader eyebrow="APPLICATION PROGRESS" title="Where your opportunities stand" description="See how saved roles are moving from interest to offer." actions={<Link href="/applications">Open Applications →</Link>} />
-        <div className="executive-funnel">
-          {stageOrder.map((stage, index) => {
-            const count = computed.stages[stage] || 0;
-            const previous = index ? computed.stages[stageOrder[index - 1]] || 0 : computed.applicationsCount;
-            const conversion = previous ? Math.round((count / previous) * 100) : 0;
-            return (
-              <div className="executive-funnel-row" key={stage}>
-                <div><span>{stageLabels[stage]}</span><small>{index ? `${conversion}% from prior stage` : "Total tracked"}</small></div>
-                <div className="executive-progress-track"><div style={{ width: `${Math.max(count ? 8 : 0, (count / maxStage) * 100)}%` }} /></div>
-                <strong>{count}</strong>
-              </div>
-            );
-          })}
+      <section className="dashboard-section dashboard-insight">
+        <div className="dashboard-section-inner">
+          <span className="dashboard-insight-label">CareerNavIQ Insight</span>
+          <h2>{insight.title}</h2>
+          <p>{insight.body}</p>
+          <Link className="dashboard-insight-link" href={insight.href}>{insight.action}</Link>
         </div>
       </section>
 
-      <section className="executive-panel executive-action-panel">
-        <SectionHeader eyebrow="TOOLS" title="Go directly to what you need" />
-        <div className="executive-action-grid-v6">
-          <Link href="/jobs"><strong>Find Jobs</strong><span>Search and compare current opportunities.</span></Link>
-          <Link href="/applications"><strong>Applications</strong><span>Track statuses, follow-ups, and decisions.</span></Link>
-          <Link href="/resumes/studio"><strong>Tailor Resume</strong><span>Prepare a resume for a specific job.</span></Link>
-          <Link href="/crm"><strong>Contacts</strong><span>Manage recruiter and hiring relationships.</span></Link>
-          <Link href="/interview-coach"><strong>Interview Prep</strong><span>Practice answers, stories, and questions.</span></Link>
-          <Link href="/analytics"><strong>Analytics</strong><span>See what is working and where to adjust.</span></Link>
+      <section className="dashboard-section">
+        <div className="dashboard-section-inner">
+          <div className="dashboard-section-heading">
+            <div>
+              <p className="eyebrow">SEARCH HEALTH</p>
+              <h2>Ready for the next opportunity</h2>
+            </div>
+          </div>
+          <div className="dashboard-health">
+            <div className="dashboard-health-item">
+              <span>Profile</span>
+              <strong>{profileProgress}% complete</strong>
+            </div>
+            <div className="dashboard-health-item">
+              <span>Resume</span>
+              <strong>{resumeReadiness}</strong>
+            </div>
+            <div className="dashboard-health-item">
+              <span>Market scan</span>
+              <strong>{freshness(computed.latestSearch?.created_at)}</strong>
+            </div>
+            <div className="dashboard-health-item">
+              <span>Follow-ups</span>
+              <strong>{computed.dueCount ? `${computed.dueCount} due` : "Clear"}</strong>
+            </div>
+          </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }
