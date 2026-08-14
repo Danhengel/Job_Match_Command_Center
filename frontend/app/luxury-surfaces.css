@@ -486,6 +486,40 @@ body.executive-platform-body .premium-home .premium-actions.premium-actions-refi
   border-top-color: rgba(169,130,69,.24) !important;
 }
 
+/* Restore strong contrast and a stable CTA in the guided next-step panel. */
+.executive-platform.app-shell .app-content .executive-recommendation {
+  color: #10283a !important;
+}
+
+.executive-platform.app-shell .app-content .executive-recommendation .eyebrow {
+  color: #a9772d !important;
+}
+
+.executive-platform.app-shell .app-content .executive-recommendation h2 {
+  color: #071b2c !important;
+  text-shadow: none !important;
+}
+
+.executive-platform.app-shell .app-content .executive-recommendation p:last-child {
+  color: #506773 !important;
+}
+
+.executive-platform.app-shell .app-content .executive-recommendation .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto !important;
+  min-width: 210px;
+  min-height: 48px;
+  padding: 11px 20px !important;
+  color: #fff8e9 !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  letter-spacing: .015em !important;
+  white-space: nowrap;
+}
+
 .executive-platform.app-shell .app-content :is(input, select, textarea) {
   border-color: rgba(176,199,208,.28) !important;
   background: rgba(248,250,248,.96) !important;
@@ -505,6 +539,10 @@ body.executive-platform-body .premium-home .premium-actions.premium-actions-refi
 
   .executive-platform.app-shell .app-content .executive-action-grid-v6 > a { min-height: 126px; }
   .executive-platform.app-shell .app-content .profile-grid { gap: 18px !important; }
+  .executive-platform.app-shell .app-content .executive-recommendation .button {
+    width: 100% !important;
+    min-width: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
