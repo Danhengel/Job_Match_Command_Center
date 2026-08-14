@@ -48,9 +48,9 @@ export default function HomePage() {
             <div className="premium-hero-copy">
               <img
                 className="premium-hero-logo premium-hero-logo-unframed"
-                src="/careernaviq-logo.svg?v=20260813e"
-                width="1600"
-                height="300"
+                src="/careernaviq-logo-official.jpg?v=20260812a"
+                width="1227"
+                height="223"
                 alt="CareerNavIQ"
               />
               <h1 className="premium-hero-message">
@@ -61,8 +61,7 @@ export default function HomePage() {
               <div className="premium-rule" aria-hidden="true"><span /></div>
               <p className="premium-lead">Turn your experience, ambitions, and opportunities into a clearer strategy for what comes next.</p>
               <div className="premium-actions premium-actions-refined">
-                <Link href="/register" className="premium-button premium-button-primary">Explore opportunities <span aria-hidden="true">→</span></Link>
-                <Link href="/login" className="premium-hero-signin">Sign in <span aria-hidden="true">›</span></Link>
+                <Link href="/register" className="premium-button premium-button-primary">Start exploring opportunities <span aria-hidden="true">→</span></Link>
               </div>
             </div>
             <div className="premium-hero-visual" aria-hidden="true" />
