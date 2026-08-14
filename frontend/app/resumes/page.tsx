@@ -48,7 +48,7 @@ export default function ResumesPage() {
       setProfiles(loadedProfiles);
       if (loadedProfiles.length > 0) setProfileId((current) => current || String(loadedProfiles[0].id));
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Unable to load executive profiles.");
+      setError(err instanceof Error ? err.message : "Unable to load career profiles.");
     } finally {
       setLoadingProfiles(false);
     }
@@ -91,7 +91,7 @@ export default function ResumesPage() {
 
   async function handleUpload() {
     clearMessages();
-    if (!profileId) return setError("Select an executive profile first.");
+    if (!profileId) return setError("Select a career profile first.");
     if (!uploadFile) return setError("Choose a PDF, DOCX, or text résumé file.");
     if (!resumeName.trim()) return setError("Enter a résumé name.");
 
@@ -123,7 +123,7 @@ export default function ResumesPage() {
       const updated = await api(`/api/resumes/${resume.id}/analyze`, { method: "POST" });
       setResumes((current) => current.map((item) => item.id === updated.id ? updated : item));
       setSelectedId(updated.id);
-      setMessage("Executive evidence analysis completed.");
+      setMessage("Evidence analysis completed.");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Analysis failed.");
     } finally {
@@ -178,11 +178,11 @@ export default function ResumesPage() {
     <>
       <PageHeader
         eyebrow="EXPERIENCE LIBRARY"
-        title="Manage the evidence behind your executive position"
+        title="Manage the evidence behind your career direction"
         description="Maintain the résumé versions that support your search, identify evidence gaps, and designate the primary document CareerNavIQ should use for market evaluation."
         actions={
           <label className="resume-profile-control" htmlFor="resume-profile">
-            <span>Executive profile</span>
+            <span>Career profile</span>
             <select id="resume-profile" value={profileId} disabled={loadingProfiles} onChange={(event) => setProfileId(event.target.value)}>
               {profiles.map((profile) => <option key={profile.id} value={profile.id}>{profile.name}</option>)}
             </select>
@@ -197,7 +197,7 @@ export default function ResumesPage() {
         <aside className="resume-upload-panel">
           <SectionHeader eyebrow="ADD EVIDENCE" title="Add a résumé" description="Keep naming clear so each version has an obvious purpose." />
           <label htmlFor="resume-name">Résumé name</label>
-          <input id="resume-name" value={resumeName} placeholder="Executive master résumé" onChange={(event) => setResumeName(event.target.value)} />
+          <input id="resume-name" value={resumeName} placeholder="Master résumé" onChange={(event) => setResumeName(event.target.value)} />
           <label htmlFor="resume-file">Résumé file</label>
           <input id="resume-file" type="file" accept=".pdf,.doc,.docx,.txt" onChange={handleFileChange} />
           <label className="resume-checkbox-row"><input type="checkbox" checked={makePrimary} onChange={(event) => setMakePrimary(event.target.checked)} /> Set as primary résumé</label>
@@ -232,7 +232,7 @@ export default function ResumesPage() {
         </section>
 
         <aside className="resume-analysis-panel">
-          <SectionHeader eyebrow="EVIDENCE REVIEW" title="Executive evidence" description="Use this analysis to improve specificity, quantified impact, and role-relevant proof." />
+          <SectionHeader eyebrow="EVIDENCE REVIEW" title="Career evidence" description="Use this analysis to improve specificity, quantified impact, and role-relevant proof." />
           {!selectedResume ? (
             <div className="resume-empty-state"><h3>Select a résumé</h3><p className="muted">Evidence analysis will appear here.</p></div>
           ) : (
@@ -241,7 +241,7 @@ export default function ResumesPage() {
                 <div><h3>{selectedResume.name}</h3><p className="muted">{selectedResume.is_primary ? "Primary résumé" : "Alternate résumé"}</p></div>
                 <div className="resume-analysis-score"><strong>{analysisScore || "—"}</strong><small>overall</small></div>
               </div>
-              <div className="resume-analysis-section"><h3>Positioning summary</h3><p>{selectedResume.analysis_summary || "Run analysis to generate an executive evidence summary."}</p></div>
+              <div className="resume-analysis-section"><h3>Positioning summary</h3><p>{selectedResume.analysis_summary || "Run analysis to generate an evidence summary."}</p></div>
               <div className="resume-analysis-section"><h3>Strengths</h3>{selectedResume.strengths.length ? <ul>{selectedResume.strengths.map((strength, index) => <li key={`${strength}-${index}`}>{strength}</li>)}</ul> : <p className="muted">No strengths recorded yet.</p>}</div>
               <div className="resume-analysis-section"><h3>Evidence gaps</h3>{selectedResume.gaps.length ? <ul>{selectedResume.gaps.map((gap, index) => <li key={`${gap}-${index}`}>{gap}</li>)}</ul> : <p className="muted">No gaps recorded yet.</p>}</div>
               <div className="resume-analysis-section"><h3>Quantified impact detected</h3>{selectedResume.metrics_found.length ? <div className="resume-metric-tags">{selectedResume.metrics_found.map((metric, index) => <span className="badge" key={`${metric}-${index}`}>{metric}</span>)}</div> : <p className="muted">No quantified achievements detected yet.</p>}</div>
