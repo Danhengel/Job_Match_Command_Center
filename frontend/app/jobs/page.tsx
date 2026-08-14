@@ -223,6 +223,11 @@ export default function JobsPage() {
           <label htmlFor="market-location">Geography or remote preference</label>
           <input id="market-location" value={location} onChange={(event) => setLocation(event.target.value)} placeholder="Tampa, Florida or Remote" />
 
+          <label className="market-criteria-remote-toggle">
+            <input type="checkbox" checked={remoteOnly} onChange={(event) => setRemoteOnly(event.target.checked)} />
+            <span><strong>Remote opportunities only</strong><small>Show only remote roles in the evaluated opportunity results.</small></span>
+          </label>
+
           <details className="advanced-market-sources">
             <summary>Advanced source controls</summary>
             <p className="muted">CareerNavIQ reviews direct employer boards, remote sources, and broad-market publishers automatically. Add specific boards only when you need deeper coverage.</p>
@@ -253,7 +258,6 @@ export default function JobsPage() {
                 <div className="market-result-controls">
                   <label><span>Filter</span><input type="search" value={resultQuery} onChange={(event) => setResultQuery(event.target.value)} placeholder="Title, company, keyword" /></label>
                   <label><span>Sort</span><select value={sortMode} onChange={(event) => setSortMode(event.target.value as SortMode)}><option value="match">Alignment</option><option value="newest">Newest</option><option value="company">Company</option></select></label>
-                  <label className="market-remote-toggle"><input type="checkbox" checked={remoteOnly} onChange={(event) => setRemoteOnly(event.target.checked)} /> Remote only</label>
                 </div>
               }
             />
