@@ -1,5 +1,10 @@
 /* CareerNavIQ — Midnight Intelligence surface system */
 
+/* The greeting is self-explanatory; remove the redundant command-center label. */
+.executive-platform.app-shell .dashboard-welcome-copy > .eyebrow {
+  display: none !important;
+}
+
 :root {
   --cn-midnight-canvas: #071b2c;
   --cn-midnight-atmosphere:
