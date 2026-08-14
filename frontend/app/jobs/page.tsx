@@ -192,9 +192,9 @@ export default function JobsPage() {
   return (
     <>
       <PageHeader
-        title="Evaluate the market against your executive position"
+        title="Evaluate the market against your career direction"
         description="Review live opportunities through the lens of role level, experience, geography, compensation, and evidence—not job-board volume."
-        actions={<Link className="button secondary" href="/profiles">Executive profile</Link>}
+        actions={<Link className="button secondary" href="/profiles">Career profile</Link>}
       />
 
       <MetricStrip
@@ -209,9 +209,9 @@ export default function JobsPage() {
 
       <section className="market-intelligence-layout">
         <form className="executive-panel market-criteria-panel" onSubmit={search}>
-          <SectionHeader eyebrow="SEARCH MANDATE" title="Opportunity criteria" description="Keep the mandate narrow enough to surface roles worth executive attention. CareerNavIQ will rank all evaluated opportunities by alignment instead of hiding them behind a threshold." />
+          <SectionHeader eyebrow="SEARCH MANDATE" title="Opportunity criteria" description="Keep the mandate narrow enough to surface roles worth your attention. CareerNavIQ will rank all evaluated opportunities by alignment instead of hiding them behind a threshold." />
 
-          <label htmlFor="market-profile">Executive profile</label>
+          <label htmlFor="market-profile">Career profile</label>
           <select id="market-profile" value={profileId} onChange={(event) => void selectProfile(event.target.value)} required>
             <option value="">Select profile</option>
             {profiles.map((profile) => <option key={profile.id} value={profile.id}>{profile.name}</option>)}
@@ -240,7 +240,7 @@ export default function JobsPage() {
         </form>
 
         <div className="market-results-column">
-          {loadingSaved ? <Notice title="Loading prior market intelligence"><p>Restoring previously evaluated opportunities for this executive profile.</p></Notice> : null}
+          {loadingSaved ? <Notice title="Loading prior market intelligence"><p>Restoring previously evaluated opportunities for this career profile.</p></Notice> : null}
           {busy ? <Notice title="Market review in progress"><p>CareerNavIQ is evaluating enabled sources, removing duplication, and scoring opportunities against your position.</p></Notice> : null}
           {errors.length ? <Notice title="Some market coverage was unavailable" tone="warning"><ul>{Array.from(new Set(errors)).slice(0, 4).map((message) => <li key={message}>{message}</li>)}</ul></Notice> : null}
 
@@ -248,7 +248,7 @@ export default function JobsPage() {
             <SectionHeader
               eyebrow="OPPORTUNITY REVIEW"
               title="Current market signals"
-              description={summary ? `${summary.matched} opportunities ranked from ${summary.unique} unique roles reviewed.` : results.length ? "Previously evaluated opportunities for this executive profile." : "Run a market review to evaluate current opportunities."}
+              description={summary ? `${summary.matched} opportunities ranked from ${summary.unique} unique roles reviewed.` : results.length ? "Previously evaluated opportunities for this career profile." : "Run a market review to evaluate current opportunities."}
               actions={
                 <div className="market-result-controls">
                   <label><span>Filter</span><input type="search" value={resultQuery} onChange={(event) => setResultQuery(event.target.value)} placeholder="Title, company, keyword" /></label>
