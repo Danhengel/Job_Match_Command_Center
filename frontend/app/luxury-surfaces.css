@@ -244,3 +244,5 @@ body,
 @media (prefers-reduced-motion: reduce) {
   .executive-platform.app-shell .app-content .executive-action-grid-v6 > a { transition: none; }
 }
+
+/* production-refresh: brass-heading-20260814 */
