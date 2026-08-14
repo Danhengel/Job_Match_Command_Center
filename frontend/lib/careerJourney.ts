@@ -17,24 +17,36 @@ export const PRIMARY_NAV: CareerJourneyItem[] = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/jobs", label: "Jobs" },
   { href: "/applications", label: "Applications" },
-  { href: "/resumes", label: "Resume" },
-  { href: "/profiles", label: "Profile" },
 ];
 
-export const SECONDARY_NAV: CareerJourneyItem[] = [
-  { href: "/resumes/studio", label: "Resume Studio" },
-  { href: "/coach", label: "Application Prep" },
-  { href: "/interviews", label: "Interview Prep" },
-  { href: "/interview-coach", label: "Practice Interviews" },
-  { href: "/companies", label: "Companies" },
-  { href: "/company-watches", label: "Saved Companies" },
-  { href: "/crm", label: "Contacts" },
-  { href: "/outreach", label: "Outreach" },
-  { href: "/calendar", label: "Calendar" },
-  { href: "/analytics", label: "Analytics" },
-  { href: "/reports/weekly", label: "Weekly Report" },
-  { href: "/automation", label: "Automation" },
+export const SIDEBAR_GROUPS: Array<{ label: string; items: CareerJourneyItem[] }> = [
+  { label: "Positioning", items: [
+    { href: "/profiles", label: "Profile" },
+    { href: "/resumes", label: "Resume" },
+    { href: "/resumes/studio", label: "Resume Studio" },
+  ] },
+  { label: "Research", items: [
+    { href: "/companies", label: "Companies" },
+    { href: "/company-watches", label: "Saved Companies" },
+  ] },
+  { label: "Application", items: [
+    { href: "/coach", label: "Application Prep" },
+    { href: "/crm", label: "Contacts" },
+    { href: "/outreach", label: "Outreach" },
+  ] },
+  { label: "Interviews", items: [
+    { href: "/interviews", label: "Interview Prep" },
+    { href: "/interview-coach", label: "Practice Interviews" },
+    { href: "/calendar", label: "Calendar" },
+  ] },
+  { label: "Insights", items: [
+    { href: "/analytics", label: "Analytics" },
+    { href: "/reports/weekly", label: "Weekly Report" },
+    { href: "/automation", label: "Automation" },
+  ] },
 ];
+
+export const SECONDARY_NAV: CareerJourneyItem[] = SIDEBAR_GROUPS.flatMap((group) => group.items);
 
 export const CAREER_STAGES: CareerStage[] = [
   {
