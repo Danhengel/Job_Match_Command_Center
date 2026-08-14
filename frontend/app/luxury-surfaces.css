@@ -45,6 +45,19 @@ body.executive-platform-body :is(.eyebrow, .sidebar-nav, .header-utilities, .pre
   font-family: var(--cn-brand-text) !important;
 }
 
+body.executive-platform-body .premium-home :is(.premium-header, .premium-footer, .premium-mobile-menu) *,
+body.executive-platform-body .premium-home .premium-nav a,
+body.executive-platform-body .executive-platform.app-shell :is(.app-sidebar, .app-header, .app-content) :is(p, a, button, input, select, textarea, label, small, li, td, th),
+body.executive-platform-body .auth-page :is(p, a, button, input, label, small) {
+  font-family: var(--cn-brand-text) !important;
+}
+
+body.executive-platform-body .premium-home :is(.premium-header, .premium-footer) :is(h1, h2, h3, h4, h5, h6),
+body.executive-platform-body .executive-platform.app-shell .app-content :is(h1, h2, h3, h4, h5, h6),
+body.executive-platform-body .auth-page :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--cn-brand-display) !important;
+}
+
 html,
 body,
 .executive-platform.app-shell,
