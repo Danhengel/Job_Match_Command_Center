@@ -76,7 +76,7 @@ export const metadata: Metadata = {
     siteName: "CareerNavIQ",
     title: "CareerNavIQ | Executive Career Intelligence",
     description: SITE_DESCRIPTION,
-    images: [{ url: "/careernaviq-logo-hero-transparent.png?v=20260813a", width: 2076, height: 591, alt: "CareerNavIQ" }],
+    images: [{ url: "/careernaviq-logo-hero-transparent.png?v=20260813a", width: 1920, height: 547, alt: "CareerNavIQ" }],
   },
   twitter: {
     card: "summary_large_image",
