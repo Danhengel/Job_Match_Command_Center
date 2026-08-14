@@ -6,6 +6,7 @@ import { useEffect, useState, type MouseEvent, type ReactNode } from "react";
 
 import { BrandCompass } from "@/components/BrandCompass";
 import { GuidedJourneyFooter } from "@/components/GuidedJourneyFooter";
+import { SiteFooter } from "@/components/SiteFooter";
 import {
   PRIMARY_NAV,
   SECONDARY_NAV,
@@ -69,7 +70,14 @@ export function AppShell({ children }: { children: ReactNode }) {
   }, [menuOpen]);
 
   if (pathname === "/" || publicPaths.has(pathname)) return <>{children}</>;
-  if (pathname === "/login" || pathname === "/register") return <main className="auth-content">{children}</main>;
+  if (pathname === "/login" || pathname === "/register") {
+    return (
+      <div className="auth-shell-with-footer">
+        <main className="auth-content">{children}</main>
+        <SiteFooter variant="auth" />
+      </div>
+    );
+  }
 
   function closeMenuFromLink(event: MouseEvent<HTMLElement>) {
     if ((event.target as HTMLElement).closest("a")) setMenuOpen(false);
@@ -171,6 +179,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           <div className="executive-page-frame">
             {children}
             <GuidedJourneyFooter pathname={pathname} />
+            <SiteFooter />
           </div>
         </main>
       </div>
