@@ -26,6 +26,31 @@ body,
   background-attachment: fixed !important;
 }
 
+/* One uninterrupted atmosphere across sidebar, header, and page workspace. */
+.executive-platform.app-shell {
+  background-image: var(--cn-midnight-atmosphere) !important;
+  background-repeat: no-repeat !important;
+  background-position: center top !important;
+  background-size: cover !important;
+  background-attachment: fixed !important;
+}
+
+.executive-platform.app-shell .app-workspace {
+  background: transparent !important;
+}
+
+.executive-platform.app-shell .app-sidebar {
+  border-right: 0 !important;
+  background: linear-gradient(180deg, rgba(7,27,44,.72), rgba(7,27,44,.38)) !important;
+  box-shadow: inset -1px 0 0 rgba(255,255,255,.035), 22px 0 60px rgba(0,8,18,.10) !important;
+  backdrop-filter: blur(18px) saturate(112%);
+  -webkit-backdrop-filter: blur(18px) saturate(112%);
+}
+
+.executive-platform.app-shell .app-header {
+  background: linear-gradient(180deg, rgba(7,27,44,.88), rgba(7,27,44,.42) 72%, transparent) !important;
+}
+
 .executive-platform.app-shell .app-content {
   position: relative;
   isolation: isolate;
