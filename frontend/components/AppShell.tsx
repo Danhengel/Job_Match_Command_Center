@@ -170,7 +170,6 @@ export function AppShell({ children }: { children: ReactNode }) {
           <div className="header-actions">
             {pathname !== "/dashboard" ? <Link href="/jobs" className="button compact">Find Jobs</Link> : null}
             <Link href="/notifications" className="header-link">Notifications</Link>
-            <button type="button" className="button secondary compact header-signout" onClick={signOut}>Sign out</button>
           </div>
         </header>
 
