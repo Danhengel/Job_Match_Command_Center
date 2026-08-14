@@ -100,9 +100,10 @@ body.executive-platform-body :is(button, a, input, select, textarea) {
 .app-header {
   min-height: 72px !important;
   padding-inline: var(--ui-space-page) !important;
-  border-bottom: 1px solid rgba(174,187,184,.65) !important;
-  background: rgba(255,254,250,.82) !important;
-  backdrop-filter: blur(20px) saturate(140%);
+  border-bottom: 0 !important;
+  background: linear-gradient(180deg, #0e2030 0%, var(--ui-navy) 72%, var(--ui-canvas) 100%) !important;
+  box-shadow: none !important;
+  backdrop-filter: none;
 }
 
 .app-header:has(.header-utilities) {
@@ -122,15 +123,15 @@ body.executive-platform-body :is(button, a, input, select, textarea) {
   align-items: center;
   border: 1px solid transparent;
   border-radius: 999px;
-  color: var(--ui-copy);
+  color: #f7f4ec;
   font-size: 13px;
   font-weight: 750;
 }
 
 .header-utilities .header-link:hover {
-  border-color: var(--ui-line);
-  background: rgba(255,255,255,.72);
-  color: var(--ui-navy);
+  border-color: rgba(255,255,255,.22);
+  background: rgba(255,255,255,.1);
+  color: #fff;
 }
 
 .header-brand-copy strong {
