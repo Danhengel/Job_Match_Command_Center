@@ -19,7 +19,7 @@ const structuredData = {
       "@id": `${SITE_URL}/#organization`,
       name: "CareerNavIQ",
       url: SITE_URL,
-      logo: `${SITE_URL}/careernaviq-logo-official.jpg?v=20260812a`,
+      logo: `${SITE_URL}/careernaviq-logo-hero-transparent.png?v=20260813a`,
       description: SITE_DESCRIPTION,
     },
     {
@@ -76,13 +76,13 @@ export const metadata: Metadata = {
     siteName: "CareerNavIQ",
     title: "CareerNavIQ | Executive Career Intelligence",
     description: SITE_DESCRIPTION,
-    images: [{ url: "/careernaviq-logo-official.jpg?v=20260812a", width: 1227, height: 223, alt: "CareerNavIQ" }],
+    images: [{ url: "/careernaviq-logo-hero-transparent.png?v=20260813a", width: 2076, height: 591, alt: "CareerNavIQ" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "CareerNavIQ | Executive Career Intelligence",
     description: SITE_DESCRIPTION,
-    images: ["/careernaviq-logo-official.jpg?v=20260812a"],
+    images: ["/careernaviq-logo-hero-transparent.png?v=20260813a"],
   },
   robots: {
     index: true,

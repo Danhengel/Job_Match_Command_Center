@@ -3,7 +3,7 @@
    contrast, spacing, and responsive sizing; they do not redraw the logo. */
 
 :root {
-  --careernaviq-logo: url("/careernaviq-logo-official.jpg?v=20260812a");
+  --careernaviq-logo: url("/careernaviq-logo-hero-transparent.png?v=20260813a");
   --careernaviq-mark: url("/careernaviq-mark.svg");
 }
 
@@ -31,7 +31,7 @@ body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) > 
 body.executive-platform-body :is(.landing-brand, .public-brand) {
   width: 218px !important;
   max-width: min(218px, 42vw) !important;
-  aspect-ratio: 1227 / 223 !important;
+  aspect-ratio: 2076 / 591 !important;
   height: auto !important;
   min-width: 0 !important;
   min-height: 0 !important;
@@ -45,7 +45,7 @@ body.executive-platform-body :is(.landing-brand, .public-brand) {
 body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) {
   width: 194px !important;
   max-width: min(194px, 58vw) !important;
-  aspect-ratio: 1227 / 223 !important;
+  aspect-ratio: 2076 / 591 !important;
   height: auto !important;
   min-width: 0 !important;
   min-height: 0 !important;
@@ -92,7 +92,7 @@ body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) {
 .auth-mobile-brand {
   width: 252px !important;
   max-width: min(252px, 78vw) !important;
-  aspect-ratio: 1227 / 223 !important;
+  aspect-ratio: 2076 / 591 !important;
   height: auto !important;
   min-width: 0 !important;
   min-height: 0 !important;
