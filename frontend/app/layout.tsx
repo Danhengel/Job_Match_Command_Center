@@ -5,6 +5,7 @@ import "./premium-home.css";
 import "./homepage-background-fix.css";
 import "./modern-2026.css";
 import "./open-editorial-workspace.css";
+import "./signature-workspace.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 
