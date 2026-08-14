@@ -1,14 +1,36 @@
 /* CareerNavIQ — Midnight Intelligence surface system */
 
-.executive-platform.app-shell .app-workspace { background: #071b2c; }
+:root {
+  --cn-midnight-canvas: #071b2c;
+  --cn-midnight-atmosphere:
+    radial-gradient(circle at 8% 2%, rgba(49,111,135,.34), transparent 28rem),
+    radial-gradient(circle at 92% 24%, rgba(176,132,59,.10), transparent 30rem),
+    linear-gradient(145deg, #0b2940 0%, #071d30 44%, #061827 100%);
+}
+
+html,
+body,
+.executive-platform.app-shell,
+.executive-platform.app-shell .app-workspace,
+.auth-page,
+.premium-home {
+  background-color: var(--cn-midnight-canvas) !important;
+}
+
+.executive-platform.app-shell .app-workspace,
+.auth-page {
+  background-image: var(--cn-midnight-atmosphere) !important;
+  background-repeat: no-repeat !important;
+  background-position: center top !important;
+  background-size: cover !important;
+  background-attachment: fixed !important;
+}
 
 .executive-platform.app-shell .app-content {
   position: relative;
   isolation: isolate;
-  background:
-    radial-gradient(circle at 8% 2%, rgba(49,111,135,.34), transparent 28rem),
-    radial-gradient(circle at 92% 24%, rgba(176,132,59,.10), transparent 30rem),
-    linear-gradient(145deg, #0b2940 0%, #071d30 44%, #061827 100%) !important;
+  min-height: calc(100vh - 72px);
+  background: transparent !important;
 }
 
 .executive-platform.app-shell .app-content::before {
