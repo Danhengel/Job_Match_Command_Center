@@ -76,6 +76,75 @@
   color: #f4dfac !important;
 }
 
+/* Keep the criteria form and results as two distinct layout regions. */
+.executive-platform.app-shell .market-intelligence-layout {
+  isolation: isolate;
+}
+
+.executive-platform.app-shell .market-criteria-panel {
+  overflow: visible !important;
+}
+
+.executive-platform.app-shell .market-criteria-panel > button {
+  position: static !important;
+  inset: auto !important;
+  float: none !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: auto !important;
+  max-width: 100%;
+  min-height: 46px !important;
+  margin: 8px 0 0 !important;
+  padding: 0 22px !important;
+  transform: none !important;
+  z-index: auto !important;
+}
+
+.executive-platform.app-shell .advanced-market-sources summary {
+  color: #c7d2dc !important;
+  font-family: var(--cn-brand-text, var(--cn-font-ui)) !important;
+  font-weight: 600 !important;
+  letter-spacing: .01em !important;
+}
+
+.executive-platform.app-shell .advanced-market-sources summary:hover {
+  color: #e5c778 !important;
+}
+
+.executive-platform.app-shell .market-results-column,
+.executive-platform.app-shell .market-results-panel {
+  position: relative;
+  z-index: 0;
+}
+
+@media (max-width: 1180px) {
+  .executive-platform.app-shell .market-intelligence-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: clamp(38px, 5vw, 58px) !important;
+  }
+
+  .executive-platform.app-shell .market-criteria-panel {
+    position: relative !important;
+    top: auto !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding-bottom: clamp(30px, 4vw, 42px) !important;
+  }
+
+  .executive-platform.app-shell .market-results-column {
+    width: 100% !important;
+    min-width: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .executive-platform.app-shell .market-results-panel {
+    margin-top: 0 !important;
+  }
+}
+
 @media (max-width: 780px) {
   .executive-platform.app-shell .executive-page-frame > .page-header:has(+ .executive-metric-strip[aria-label="Market review criteria"]) {
     grid-template-columns: 1fr;
@@ -91,5 +160,13 @@
 
   .executive-platform.app-shell .executive-page-frame > .page-header:has(+ .executive-metric-strip[aria-label="Market review criteria"]) .executive-page-header-actions {
     justify-self: start;
+  }
+
+  .executive-platform.app-shell .market-intelligence-layout {
+    gap: 34px !important;
+  }
+
+  .executive-platform.app-shell .market-criteria-panel > button {
+    width: 100% !important;
   }
 }
