@@ -94,10 +94,96 @@
   font-family: var(--cn-font-ui) !important;
 }
 
+/* Luxury shell typography: sidebar, header, and guided footer. */
+.executive-platform.app-shell .sidebar-brand strong {
+  font-family: var(--cn-font-display) !important;
+  font-weight: 400 !important;
+  font-size: 1.08rem !important;
+  letter-spacing: -0.018em !important;
+  line-height: 1 !important;
+}
+
+.executive-platform.app-shell .sidebar-brand small {
+  font-family: var(--cn-font-ui) !important;
+  font-size: .62rem !important;
+  font-weight: 600 !important;
+  letter-spacing: .14em !important;
+  text-transform: uppercase;
+}
+
+.executive-platform.app-shell .sidebar-dashboard strong,
+.executive-platform.app-shell .sidebar-utility-links a,
+.executive-platform.app-shell .sidebar-signout {
+  font-family: var(--cn-font-ui) !important;
+  font-weight: 540 !important;
+  letter-spacing: .025em !important;
+}
+
+.executive-platform.app-shell .sidebar-dashboard.active strong,
+.executive-platform.app-shell .sidebar-utility-links a.active {
+  font-weight: 650 !important;
+  letter-spacing: .035em !important;
+}
+
+.executive-platform.app-shell .header-utilities .header-link {
+  font-family: var(--cn-font-ui) !important;
+  font-size: .72rem !important;
+  font-weight: 620 !important;
+  letter-spacing: .105em !important;
+  text-transform: uppercase;
+}
+
+.executive-platform.app-shell .mobile-menu-button,
+.executive-platform.app-shell .sidebar-close {
+  font-family: var(--cn-font-ui) !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+}
+
+.executive-platform.app-shell .executive-recommendation .eyebrow {
+  font-family: var(--cn-font-ui) !important;
+  font-size: .66rem !important;
+  font-weight: 650 !important;
+  letter-spacing: .16em !important;
+}
+
+.executive-platform.app-shell .executive-recommendation h2 {
+  font-family: var(--cn-font-display) !important;
+  font-weight: 400 !important;
+  letter-spacing: -.022em !important;
+  line-height: 1.04 !important;
+}
+
+.executive-platform.app-shell .executive-recommendation > div > p:not(.eyebrow) {
+  font-family: var(--cn-font-ui) !important;
+  font-weight: 400 !important;
+  letter-spacing: .003em !important;
+  line-height: 1.62 !important;
+}
+
+.executive-platform.app-shell .executive-recommendation .button {
+  font-family: var(--cn-font-ui) !important;
+  font-size: .72rem !important;
+  font-weight: 650 !important;
+  letter-spacing: .085em !important;
+}
+
+.executive-platform.app-shell .mobile-bottom-nav a,
+.executive-platform.app-shell .mobile-bottom-nav button,
+.executive-platform.app-shell .mobile-bottom-nav small {
+  font-family: var(--cn-font-ui) !important;
+  font-weight: 600 !important;
+  letter-spacing: .045em !important;
+}
+
 @media (max-width: 680px) {
   .executive-platform.app-shell .app-content h1,
   .executive-platform.app-shell .dashboard-welcome h1 {
     letter-spacing: -0.026em !important;
     line-height: 1.01 !important;
+  }
+
+  .executive-platform.app-shell .header-utilities .header-link {
+    letter-spacing: .075em !important;
   }
 }
