@@ -9,4 +9,4 @@ class TailoringRequest(BaseModel):
 
 
 class CoverLetterRequest(BaseModel):
-    tone: str = Field(default="executive", max_length=50)
+    tone: str = Field(default="professional", max_length=50)
