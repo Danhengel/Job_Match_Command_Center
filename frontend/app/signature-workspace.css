@@ -1,0 +1,422 @@
+/* CareerNavIQ Signature Workspace
+   Extend the smoked-glass, navy, teal and warm-gold language from authentication
+   across the signed-in product without returning to a card-heavy layout. */
+
+body.executive-platform-body .app-shell {
+  --signature-bg: #04111d;
+  --signature-bg-deep: #020b13;
+  --signature-navy: #071b2c;
+  --signature-navy-2: #0b2d47;
+  --signature-glass: rgba(14, 32, 47, .62);
+  --signature-glass-soft: rgba(255, 255, 255, .035);
+  --signature-glass-strong: rgba(15, 36, 53, .78);
+  --signature-line: rgba(220, 178, 94, .22);
+  --signature-line-soft: rgba(231, 239, 242, .10);
+  --signature-text: #f4efe6;
+  --signature-copy: #c2d0d6;
+  --signature-muted: #91a7b1;
+  --signature-gold: #d8b56a;
+  --signature-teal: #53aeb7;
+  --open-rule: var(--signature-line);
+  --open-rule-soft: var(--signature-line-soft);
+  --open-tint: rgba(255, 255, 255, .045);
+  color: var(--signature-text);
+  background: var(--signature-bg);
+}
+
+body.executive-platform-body .app-workspace {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse at 48% -8%, rgba(46, 104, 137, .28) 0%, rgba(18, 58, 84, .12) 32%, transparent 58%),
+    radial-gradient(circle at 82% 18%, rgba(214, 171, 82, .095), transparent 25rem),
+    radial-gradient(circle at 22% 70%, rgba(29, 142, 153, .09), transparent 30rem),
+    linear-gradient(145deg, #09243a 0%, #061927 36%, #04111d 72%, #020b13 100%);
+}
+
+body.executive-platform-body .app-workspace::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 0 var(--cn-sidebar, 286px);
+  z-index: -1;
+  pointer-events: none;
+  opacity: .65;
+  background:
+    linear-gradient(116deg, transparent 0 58%, rgba(216, 181, 106, .045) 58.08%, transparent 58.17%),
+    linear-gradient(72deg, transparent 0 79%, rgba(83, 174, 183, .04) 79.08%, transparent 79.17%),
+    repeating-radial-gradient(circle at 92% 10%, transparent 0 74px, rgba(216, 181, 106, .026) 75px, transparent 76px 116px);
+}
+
+body.executive-platform-body .app-content {
+  position: relative;
+  z-index: 1;
+  color: var(--signature-text);
+  background: transparent !important;
+}
+
+/* Header and navigation read as one continuous smoked architectural frame. */
+body.executive-platform-body .app-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  border-bottom: 1px solid rgba(255, 255, 255, .055) !important;
+  background: linear-gradient(180deg, rgba(7, 27, 44, .90), rgba(5, 20, 33, .76)) !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, .12) !important;
+  backdrop-filter: blur(22px) saturate(135%) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(135%) !important;
+}
+
+body.executive-platform-body .header-utilities .header-link {
+  color: rgba(244, 239, 230, .86) !important;
+}
+
+body.executive-platform-body .header-utilities .header-link:hover {
+  border-color: rgba(216, 181, 106, .24) !important;
+  background: rgba(255, 255, 255, .055) !important;
+  color: #fffdf8 !important;
+}
+
+body.executive-platform-body .app-sidebar {
+  background:
+    radial-gradient(circle at 18% 0, rgba(37, 142, 153, .13), transparent 22rem),
+    radial-gradient(circle at 70% 80%, rgba(216, 181, 106, .06), transparent 20rem),
+    linear-gradient(180deg, rgba(10, 34, 53, .98), rgba(3, 15, 26, .99)) !important;
+  box-shadow: 20px 0 50px rgba(0, 0, 0, .10);
+}
+
+body.executive-platform-body .sidebar-dashboard,
+body.executive-platform-body .sidebar-utility-links a,
+body.executive-platform-body .sidebar-signout {
+  border: 1px solid transparent !important;
+  background: transparent !important;
+}
+
+body.executive-platform-body .sidebar-dashboard:hover,
+body.executive-platform-body .sidebar-utility-links a:hover,
+body.executive-platform-body .sidebar-signout:hover {
+  border-color: rgba(255, 255, 255, .07) !important;
+  background: rgba(255, 255, 255, .035) !important;
+}
+
+body.executive-platform-body .sidebar-dashboard.active,
+body.executive-platform-body .sidebar-utility-links a.active {
+  border-color: rgba(216, 181, 106, .19) !important;
+  background: linear-gradient(90deg, rgba(216, 181, 106, .13), rgba(255, 255, 255, .035)) !important;
+  box-shadow: inset 3px 0 0 rgba(216, 181, 106, .72);
+}
+
+/* Open editorial page introductions gain atmosphere without becoming cards. */
+body.executive-platform-body .app-shell :is(.executive-page-header, .executive-command-hero) {
+  position: relative;
+  padding-top: clamp(28px, 4vw, 54px) !important;
+  background:
+    radial-gradient(circle at 86% 22%, rgba(216, 181, 106, .09), transparent 22rem),
+    radial-gradient(circle at 15% 55%, rgba(83, 174, 183, .075), transparent 24rem) !important;
+  color: var(--signature-text) !important;
+  border-bottom-color: var(--signature-line) !important;
+}
+
+body.executive-platform-body .app-shell :is(.executive-page-header, .executive-command-hero) :is(h1, h2, h3, strong) {
+  color: var(--signature-text) !important;
+  text-shadow: 0 10px 28px rgba(0, 0, 0, .16);
+}
+
+body.executive-platform-body .app-shell :is(.executive-page-header, .executive-command-hero) p {
+  color: var(--signature-copy) !important;
+}
+
+body.executive-platform-body .app-shell :is(.executive-page-header, .executive-command-hero) .eyebrow {
+  color: var(--signature-gold) !important;
+}
+
+/* Typography across every signed-in page. */
+body.executive-platform-body .app-content :is(h1, h2, h3, h4, h5, h6, strong) {
+  color: var(--signature-text);
+}
+
+body.executive-platform-body .app-content :is(p, li, dd, dt) {
+  color: var(--signature-copy);
+}
+
+body.executive-platform-body .app-content :is(.muted, small, .helper-text, .field-note) {
+  color: var(--signature-muted) !important;
+}
+
+body.executive-platform-body .app-content .eyebrow {
+  color: var(--signature-gold) !important;
+}
+
+body.executive-platform-body .app-content a:not(.button) {
+  color: #e2c57e;
+}
+
+body.executive-platform-body .app-content a:not(.button):hover {
+  color: #f4dda4;
+}
+
+/* Preserve the open layout: sections are translucent bands, not boxed cards. */
+body.executive-platform-body .executive-page-frame > :is(
+  .executive-panel,
+  .dashboard-panel,
+  .studio-panel,
+  .analytics-panel,
+  .settings-card,
+  .resume-card,
+  .resume-library-panel,
+  .resume-analysis-panel,
+  .connector-panel,
+  .priority-card,
+  .outreach-controls,
+  .outreach-editor,
+  .outreach-guidance,
+  .executive-command-grid,
+  .executive-metric-strip,
+  .executive-kpis,
+  .analytics-kpi-grid,
+  .profile-summary-grid,
+  .company-summary-grid
+) {
+  background: linear-gradient(90deg, rgba(255,255,255,.022), transparent 72%) !important;
+  border-bottom-color: var(--signature-line-soft) !important;
+}
+
+body.executive-platform-body .app-shell :is(
+  .executive-panel,
+  .card,
+  .dashboard-panel,
+  .studio-panel,
+  .analytics-panel,
+  .settings-card,
+  .resume-card,
+  .resume-library-panel,
+  .resume-analysis-panel,
+  .connector-panel,
+  .priority-card,
+  .outreach-controls,
+  .outreach-editor,
+  .outreach-guidance,
+  .market-results-panel
+) {
+  color: var(--signature-text) !important;
+}
+
+/* Metric areas become broad smoked-glass rails. */
+body.executive-platform-body .app-shell :is(
+  .executive-metric-strip,
+  .executive-kpis,
+  .interview-kpis,
+  .analytics-kpi-grid,
+  .profile-summary-grid,
+  .company-summary-grid,
+  .company-detail-kpis,
+  .watch-summary-grid,
+  .automation-health-grid
+) {
+  background: linear-gradient(180deg, rgba(15, 38, 56, .45), rgba(6, 22, 35, .28)) !important;
+  border-top: 1px solid rgba(255,255,255,.045) !important;
+  border-bottom: 1px solid rgba(216,181,106,.16) !important;
+  backdrop-filter: blur(14px) saturate(125%);
+  -webkit-backdrop-filter: blur(14px) saturate(125%);
+}
+
+body.executive-platform-body .app-shell :is(
+  .executive-metric-strip,
+  .executive-kpis,
+  .interview-kpis,
+  .analytics-kpi-grid,
+  .profile-summary-grid,
+  .company-summary-grid,
+  .company-detail-kpis,
+  .watch-summary-grid,
+  .automation-health-grid
+) > article {
+  border-right-color: rgba(216,181,106,.15) !important;
+}
+
+body.executive-platform-body .app-shell :is(
+  .executive-metric-strip,
+  .executive-kpis,
+  .interview-kpis,
+  .analytics-kpi-grid,
+  .profile-summary-grid,
+  .company-summary-grid,
+  .company-detail-kpis,
+  .watch-summary-grid,
+  .automation-health-grid
+) :is(strong, h3, h4) {
+  color: #fffaf0 !important;
+}
+
+/* Lists, rows and results remain flat and data-first, with a glass hover state. */
+body.executive-platform-body .executive-priority-item,
+body.executive-platform-body .market-result-row,
+body.executive-platform-body .application-row,
+body.executive-platform-body .company-row,
+body.executive-platform-body .resume-row {
+  color: var(--signature-text) !important;
+  border-bottom-color: var(--signature-line-soft) !important;
+}
+
+body.executive-platform-body .market-result-row:hover,
+body.executive-platform-body .application-row:hover,
+body.executive-platform-body .company-row:hover,
+body.executive-platform-body .resume-row:hover {
+  background: linear-gradient(90deg, rgba(255,255,255,.055), rgba(83,174,183,.028)) !important;
+}
+
+body.executive-platform-body .market-results-panel > .executive-section-header {
+  border-bottom-color: var(--signature-line) !important;
+}
+
+/* Functional panels intentionally retain containment. */
+body.executive-platform-body .app-shell :is(
+  .market-criteria-panel,
+  .notice,
+  .executive-notice,
+  .empty-state-panel,
+  .executive-empty-state,
+  .resume-upload-zone,
+  .drop-zone,
+  .modal,
+  [role="dialog"]
+) {
+  border: 1px solid rgba(216,181,106,.18) !important;
+  background: linear-gradient(160deg, rgba(18, 42, 60, .74), rgba(7, 22, 35, .70)) !important;
+  color: var(--signature-text) !important;
+  box-shadow: 0 22px 56px rgba(0,0,0,.20), inset 0 1px 0 rgba(255,255,255,.045) !important;
+  backdrop-filter: blur(18px) saturate(130%);
+  -webkit-backdrop-filter: blur(18px) saturate(130%);
+}
+
+/* Forms mirror the refined auth material language. */
+body.executive-platform-body .app-content label {
+  color: #dce6e9 !important;
+}
+
+body.executive-platform-body .app-content input:not([type="checkbox"]):not([type="radio"]),
+body.executive-platform-body .app-content select,
+body.executive-platform-body .app-content textarea {
+  border: 1px solid rgba(255,255,255,.14) !important;
+  background: rgba(252, 249, 242, .94) !important;
+  color: #0b1a27 !important;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.055), 0 1px 0 rgba(255,255,255,.06) !important;
+}
+
+body.executive-platform-body .app-content :is(input, select, textarea):focus {
+  border-color: rgba(216,181,106,.58) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(216,181,106,.13), inset 0 1px 2px rgba(0,0,0,.05) !important;
+}
+
+body.executive-platform-body .app-content input::placeholder,
+body.executive-platform-body .app-content textarea::placeholder {
+  color: #6d7b84 !important;
+}
+
+body.executive-platform-body .app-content input[type="checkbox"],
+body.executive-platform-body .app-content input[type="radio"] {
+  accent-color: #cda95d;
+}
+
+/* Buttons use quiet-luxury contrast rather than bright SaaS color. */
+body.executive-platform-body .app-content :is(.button:not(.secondary):not(.danger), button:not(.secondary):not(.danger)) {
+  border-color: rgba(216,181,106,.42) !important;
+  background: linear-gradient(180deg, #f3e7cb 0%, #d4b979 100%) !important;
+  color: #071724 !important;
+  box-shadow: 0 10px 28px rgba(0,0,0,.20), inset 0 1px 0 rgba(255,255,255,.52) !important;
+}
+
+body.executive-platform-body .app-content :is(.button:not(.secondary):not(.danger), button:not(.secondary):not(.danger)):hover {
+  background: linear-gradient(180deg, #fff4dc 0%, #dfc487 100%) !important;
+  box-shadow: 0 14px 34px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.58) !important;
+}
+
+body.executive-platform-body .app-content :is(.button.secondary, button.secondary) {
+  border-color: rgba(255,255,255,.14) !important;
+  background: rgba(255,255,255,.045) !important;
+  color: #edf2f1 !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.035) !important;
+  backdrop-filter: blur(12px);
+}
+
+body.executive-platform-body .app-content :is(.button.secondary, button.secondary):hover {
+  border-color: rgba(216,181,106,.24) !important;
+  background: rgba(255,255,255,.075) !important;
+}
+
+/* Tables and structured data inherit the same dark intelligence-platform finish. */
+body.executive-platform-body .app-content table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--signature-copy);
+  background: transparent !important;
+}
+
+body.executive-platform-body .app-content th {
+  color: #d8bd81 !important;
+  border-bottom: 1px solid var(--signature-line) !important;
+  background: rgba(255,255,255,.022) !important;
+}
+
+body.executive-platform-body .app-content td {
+  color: var(--signature-copy) !important;
+  border-bottom-color: var(--signature-line-soft) !important;
+  background: transparent !important;
+}
+
+body.executive-platform-body .app-content tr:hover td {
+  background: rgba(255,255,255,.028) !important;
+}
+
+/* Existing dark visual moments are refined rather than flattened. */
+body.executive-platform-body .executive-dashboard-compass {
+  border: 1px solid rgba(216,181,106,.20) !important;
+  background: #061827 !important;
+  box-shadow: 0 26px 64px rgba(0,0,0,.30), inset 0 1px 0 rgba(255,255,255,.04) !important;
+}
+
+body.executive-platform-body .market-alignment-score {
+  border: 1px solid rgba(216,181,106,.18) !important;
+  background: rgba(5, 19, 31, .82) !important;
+  color: #fff8e9 !important;
+}
+
+body.executive-platform-body .market-keywords span,
+body.executive-platform-body .market-alignment-label {
+  background: rgba(83,174,183,.11) !important;
+  color: #b9e4e5 !important;
+  border: 1px solid rgba(83,174,183,.14) !important;
+}
+
+body.executive-platform-body .mobile-bottom-nav {
+  border-top-color: rgba(255,255,255,.075) !important;
+  background: rgba(4,17,29,.92) !important;
+  backdrop-filter: blur(20px) saturate(135%);
+  -webkit-backdrop-filter: blur(20px) saturate(135%);
+}
+
+@media (max-width: 980px) {
+  body.executive-platform-body .app-workspace::before {
+    inset-left: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  body.executive-platform-body .app-content {
+    width: calc(100% - 28px) !important;
+  }
+
+  body.executive-platform-body .app-shell :is(
+    .executive-metric-strip,
+    .executive-kpis,
+    .interview-kpis,
+    .analytics-kpi-grid,
+    .profile-summary-grid,
+    .company-summary-grid,
+    .company-detail-kpis,
+    .watch-summary-grid,
+    .automation-health-grid
+  ) > article {
+    border-bottom-color: var(--signature-line-soft) !important;
+  }
+}

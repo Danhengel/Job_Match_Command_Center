@@ -1,0 +1,234 @@
+/* CareerNavIQ Signature Public Pages
+   Bring the same quiet-luxury smoked-glass language to informational pages. */
+
+body.executive-platform-body .public-page {
+  min-height: 100vh;
+  color: #f4efe6;
+  background:
+    radial-gradient(ellipse at 50% -8%, rgba(46, 104, 137, .30) 0%, rgba(18, 58, 84, .13) 32%, transparent 58%),
+    radial-gradient(circle at 84% 20%, rgba(216, 181, 106, .09), transparent 27rem),
+    radial-gradient(circle at 12% 68%, rgba(39, 147, 158, .08), transparent 30rem),
+    linear-gradient(145deg, #09243a 0%, #061927 38%, #04111d 74%, #020b13 100%);
+}
+
+body.executive-platform-body .public-page :is(h1, h2, h3, h4, strong) {
+  color: #f7f1e6;
+}
+
+body.executive-platform-body .public-page :is(p, li) {
+  color: #bdcdd4;
+}
+
+body.executive-platform-body .public-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  background: rgba(5, 20, 33, .78);
+  box-shadow: 0 16px 40px rgba(0,0,0,.12);
+  backdrop-filter: blur(22px) saturate(135%);
+  -webkit-backdrop-filter: blur(22px) saturate(135%);
+}
+
+body.executive-platform-body .public-brand,
+body.executive-platform-body .public-nav a {
+  color: #f4efe6;
+}
+
+body.executive-platform-body .public-nav a:hover {
+  color: #f2d99e;
+}
+
+body.executive-platform-body .public-nav-cta {
+  border: 1px solid rgba(216,181,106,.34) !important;
+  background: linear-gradient(180deg, rgba(244,231,203,.98), rgba(212,185,121,.96)) !important;
+  color: #071724 !important;
+  box-shadow: 0 9px 24px rgba(0,0,0,.18);
+}
+
+body.executive-platform-body .public-hero {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(216,181,106,.17);
+  background:
+    radial-gradient(circle at 86% 24%, rgba(216,181,106,.10), transparent 23rem),
+    radial-gradient(circle at 10% 72%, rgba(83,174,183,.08), transparent 25rem),
+    transparent !important;
+}
+
+body.executive-platform-body .public-hero::after {
+  content: "";
+  position: absolute;
+  inset: -15%;
+  pointer-events: none;
+  opacity: .60;
+  background:
+    linear-gradient(116deg, transparent 0 58%, rgba(216,181,106,.045) 58.08%, transparent 58.17%),
+    repeating-radial-gradient(circle at 92% 12%, transparent 0 76px, rgba(216,181,106,.025) 77px, transparent 78px 118px);
+}
+
+body.executive-platform-body .public-hero-inner {
+  position: relative;
+  z-index: 1;
+}
+
+body.executive-platform-body .public-breadcrumb,
+body.executive-platform-body .public-breadcrumb a,
+body.executive-platform-body .public-updated {
+  color: #8fa6b1;
+}
+
+body.executive-platform-body .public-eyebrow {
+  color: #d8b56a !important;
+}
+
+body.executive-platform-body .public-hero h1 {
+  color: #f8f2e7 !important;
+  text-shadow: 0 16px 38px rgba(0,0,0,.18);
+}
+
+body.executive-platform-body .public-intro {
+  color: #c5d3d9 !important;
+}
+
+body.executive-platform-body .public-button-primary,
+body.executive-platform-body .public-button-light {
+  border: 1px solid rgba(216,181,106,.38) !important;
+  background: linear-gradient(180deg, #f3e7cb 0%, #d4b979 100%) !important;
+  color: #071724 !important;
+  box-shadow: 0 12px 30px rgba(0,0,0,.20), inset 0 1px 0 rgba(255,255,255,.48) !important;
+}
+
+body.executive-platform-body .public-button-primary:hover,
+body.executive-platform-body .public-button-light:hover {
+  background: linear-gradient(180deg, #fff4dc 0%, #dfc487 100%) !important;
+  transform: translateY(-1px);
+}
+
+body.executive-platform-body .public-button-secondary {
+  border: 1px solid rgba(255,255,255,.13) !important;
+  background: rgba(255,255,255,.045) !important;
+  color: #edf2f1 !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+body.executive-platform-body .public-card-section,
+body.executive-platform-body .public-content-section,
+body.executive-platform-body .public-faq-section,
+body.executive-platform-body .public-related-section,
+body.executive-platform-body .public-final-cta {
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  background: transparent !important;
+}
+
+/* Public cards retain containment because they are discrete feature summaries, but use smoke instead of white boxes. */
+body.executive-platform-body .public-card {
+  border: 1px solid rgba(216,181,106,.16) !important;
+  background: linear-gradient(155deg, rgba(18,42,60,.62), rgba(7,22,35,.54)) !important;
+  color: #f4efe6 !important;
+  box-shadow: 0 22px 52px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.04) !important;
+  backdrop-filter: blur(16px) saturate(125%);
+  -webkit-backdrop-filter: blur(16px) saturate(125%);
+}
+
+body.executive-platform-body .public-card:hover {
+  border-color: rgba(216,181,106,.28) !important;
+  background: linear-gradient(155deg, rgba(22,50,70,.72), rgba(8,25,39,.62)) !important;
+  transform: translateY(-2px);
+}
+
+body.executive-platform-body .public-card-icon {
+  color: #d8b56a !important;
+  background: rgba(216,181,106,.08) !important;
+  border-color: rgba(216,181,106,.18) !important;
+}
+
+body.executive-platform-body .public-content-aside {
+  border-right-color: rgba(216,181,106,.17) !important;
+}
+
+body.executive-platform-body .public-content-aside a,
+body.executive-platform-body .public-content-main a,
+body.executive-platform-body .public-final-text-link {
+  color: #e1c47b !important;
+}
+
+body.executive-platform-body .public-content-block {
+  border-bottom-color: rgba(255,255,255,.075) !important;
+}
+
+body.executive-platform-body .public-content-block li::marker {
+  color: #d8b56a;
+}
+
+body.executive-platform-body .public-faq-list details {
+  border: 0 !important;
+  border-bottom: 1px solid rgba(255,255,255,.085) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body.executive-platform-body .public-faq-list summary {
+  color: #f4efe6 !important;
+}
+
+body.executive-platform-body .public-related-grid a {
+  border: 1px solid rgba(255,255,255,.08) !important;
+  background: rgba(255,255,255,.028) !important;
+  color: #f4efe6 !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.025) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+body.executive-platform-body .public-related-grid a:hover {
+  border-color: rgba(216,181,106,.22) !important;
+  background: rgba(255,255,255,.052) !important;
+}
+
+body.executive-platform-body .public-related-grid span {
+  color: #9eb2bb !important;
+}
+
+body.executive-platform-body .public-final-card {
+  border: 1px solid rgba(216,181,106,.22) !important;
+  background:
+    radial-gradient(circle at 90% 10%, rgba(216,181,106,.09), transparent 20rem),
+    linear-gradient(155deg, rgba(17,43,61,.76), rgba(5,19,31,.78)) !important;
+  color: #f4efe6 !important;
+  box-shadow: 0 28px 68px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.045) !important;
+  backdrop-filter: blur(18px) saturate(130%);
+  -webkit-backdrop-filter: blur(18px) saturate(130%);
+}
+
+body.executive-platform-body .public-footer {
+  border-top: 1px solid rgba(216,181,106,.12);
+  background: rgba(2,11,19,.70) !important;
+  color: #9fb1b9 !important;
+}
+
+body.executive-platform-body .public-footer a,
+body.executive-platform-body .public-footer strong {
+  color: #d8e1e3 !important;
+}
+
+body.executive-platform-body .public-footer a:hover {
+  color: #f2d99e !important;
+}
+
+body.executive-platform-body .public-footer-bottom {
+  border-top-color: rgba(255,255,255,.065) !important;
+}
+
+@media (max-width: 760px) {
+  body.executive-platform-body .public-header {
+    background: rgba(4,17,29,.92);
+  }
+
+  body.executive-platform-body .public-content-aside {
+    border-right: 0 !important;
+    border-bottom: 1px solid rgba(216,181,106,.15) !important;
+  }
+}
