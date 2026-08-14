@@ -50,9 +50,9 @@ export default function RegisterPage() {
           </Link>
 
           <div className="auth-card auth-card-large">
-            <p className="eyebrow">PRIVATE ACCESS</p>
-            <h1>Create your account</h1>
-            <p className="auth-card-intro">Establish your private executive career workspace.</p>
+            <p className="eyebrow">CREATE YOUR ACCOUNT</p>
+            <h1>Start building your CareerNavIQ workspace</h1>
+            <p className="auth-card-intro">Create a smarter, more strategic foundation for your next opportunity.</p>
 
             <form onSubmit={submit} className="auth-form">
               <label htmlFor="full-name">Full name</label>
