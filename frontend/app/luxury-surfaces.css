@@ -444,3 +444,13 @@ body.executive-platform-body .premium-home .premium-actions.premium-actions-refi
 @media (prefers-reduced-motion: reduce) {
   .executive-platform.app-shell .app-content .executive-action-grid-v6 > a { transition: none; }
 }
+
+
+/* Workflow-grouped sidebar navigation. */
+.executive-platform.app-shell .sidebar-nav-group { margin-top: 13px; }
+.executive-platform.app-shell .sidebar-nav-group .sidebar-section-heading { margin-bottom: 3px; }
+.executive-platform.app-shell .sidebar-bottom-links {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,.07);
+}
