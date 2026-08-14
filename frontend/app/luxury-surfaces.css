@@ -58,6 +58,15 @@ body.executive-platform-body .auth-page :is(h1, h2, h3, h4, h5, h6) {
   font-family: var(--cn-brand-display) !important;
 }
 
+body.executive-platform-body .executive-platform.app-shell .header-utilities .header-link {
+  font-family: var(--cn-brand-text) !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+  letter-spacing: .01em !important;
+  text-transform: none !important;
+}
+
 html,
 body,
 .executive-platform.app-shell,
