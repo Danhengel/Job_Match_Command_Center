@@ -17,6 +17,7 @@ import "./luxury-color-balance.css";
 import "./dashboard-command-center.css";
 import "./calm-dashboard.css";
 import "./frameless-luxury-workspace.css";
+import "./luxury-typography.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 
