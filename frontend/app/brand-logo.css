@@ -62,11 +62,11 @@ body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) {
   min-width: 0 !important;
   min-height: 70px !important;
   flex: 0 1 232px !important;
-  background-color: #071b2c !important;
-  background-size: calc(100% - 12px) auto !important;
-  border: 1px solid rgba(212, 175, 55, .28) !important;
-  border-radius: 10px !important;
-  box-shadow: 0 5px 18px rgba(0, 0, 0, .18) !important;
+  background-color: transparent !important;
+  background-size: contain !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
 
 /* Authenticated page header: show the full approved wordmark on every page. */
@@ -101,6 +101,24 @@ body.executive-platform-body :is(.landing-footer-brand, .public-footer-brand) {
   border: 0 !important;
   border-radius: 0 !important;
   box-shadow: none !important;
+}
+
+.auth-centered-logo {
+  display: block;
+  width: min(340px, 78vw);
+  margin: 0 auto clamp(24px, 4vw, 40px);
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.auth-centered-logo img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .auth-mobile-brand {
