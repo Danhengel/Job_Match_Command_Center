@@ -32,7 +32,7 @@ export default function Profiles() {
     let active = true;
     api("/api/profiles")
       .then((data) => { if (active) setItems(Array.isArray(data) ? data : []); })
-      .catch((err) => { if (active) setError(err instanceof Error ? err.message : "Unable to load executive profiles."); })
+      .catch((err) => { if (active) setError(err instanceof Error ? err.message : "Unable to load career profiles."); })
       .finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
   }, []);
@@ -48,17 +48,17 @@ export default function Profiles() {
   return (
     <>
       <PageHeader
-        eyebrow="EXECUTIVE POSITIONING"
-        title="Executive profiles"
-        description="Create a disciplined mandate for each serious career direction, including target roles, geography, compensation, and the résumé evidence that supports it."
-        actions={<Link className="button" href="/profiles/new">Create executive profile</Link>}
+        eyebrow="CAREER POSITIONING"
+        title="Career profiles"
+        description="Create a clear mandate for each serious career direction, including target roles, geography, compensation, and the résumé evidence that supports it."
+        actions={<Link className="button" href="/profiles/new">Create career profile</Link>}
       />
 
-      {error ? <Notice title="Executive profiles could not be loaded" tone="error"><p>{error}</p></Notice> : null}
+      {error ? <Notice title="Career profiles could not be loaded" tone="error"><p>{error}</p></Notice> : null}
 
       {!loading && items.length ? (
         <MetricStrip
-          ariaLabel="Executive profile summary"
+          ariaLabel="Career profile summary"
           items={[
             { label: "Active profiles", value: summary.profileCount, detail: "distinct mandates" },
             { label: "Average readiness", value: `${summary.averageCompleteness}%`, detail: "profile completeness" },
@@ -68,10 +68,10 @@ export default function Profiles() {
         />
       ) : null}
 
-      {loading ? <section className="executive-loading"><p className="eyebrow">EXECUTIVE POSITIONING</p><h2>Preparing your profiles…</h2><p className="muted">Loading mandates and résumé readiness.</p></section> : null}
+      {loading ? <section className="executive-loading"><p className="eyebrow">CAREER POSITIONING</p><h2>Preparing your profiles…</h2><p className="muted">Loading mandates and résumé readiness.</p></section> : null}
 
       {!loading && items.length ? (
-        <section className="profile-grid" aria-label="Executive profiles">
+        <section className="profile-grid" aria-label="Career profiles">
           {items.map((profile) => (
             <article className="card profile-card" key={profile.id}>
               <div className="profile-card-head">
@@ -97,7 +97,7 @@ export default function Profiles() {
 
               <footer className="profile-card-footer">
                 <span className="muted">Use this profile as the mandate for market reviews, positioning, and active pursuits.</span>
-                <Link className="button secondary" href={`/profiles/${profile.id}`}>Open executive profile</Link>
+                <Link className="button secondary" href={`/profiles/${profile.id}`}>Open career profile</Link>
               </footer>
             </article>
           ))}
@@ -106,9 +106,9 @@ export default function Profiles() {
 
       {!loading && !items.length && !error ? (
         <EmptyState
-          title="Create your first executive profile"
+          title="Create your first career profile"
           description="Define target roles, geography, compensation, priority evidence, and your primary résumé before evaluating the market."
-          action={<Link className="button" href="/profiles/new">Create executive profile</Link>}
+          action={<Link className="button" href="/profiles/new">Create career profile</Link>}
         />
       ) : null}
     </>

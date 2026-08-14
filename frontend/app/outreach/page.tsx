@@ -38,7 +38,7 @@ type MessageType =
   | "offer_acceptance"
   | "offer_decline";
 
-type Tone = "executive" | "professional" | "friendly" | "direct";
+type Tone = "professional" | "friendly" | "direct";
 
 const labels: Record<MessageType, string> = {
   cover_letter: "Cover letter",
@@ -126,9 +126,7 @@ export default function OutreachStudio() {
         ? "I wanted to connect about"
         : tone === "direct"
           ? "I am writing about"
-          : tone === "executive"
-            ? "I am reaching out regarding"
-            : "I am writing to express my interest in";
+          : "I am writing to express my interest in";
 
     let nextSubject = "";
     let nextMessage = "";
@@ -241,7 +239,6 @@ export default function OutreachStudio() {
             value={tone}
             onChange={(event) => setTone(event.target.value as Tone)}
           >
-            <option value="executive">Executive</option>
             <option value="professional">Professional</option>
             <option value="friendly">Friendly</option>
             <option value="direct">Direct</option>

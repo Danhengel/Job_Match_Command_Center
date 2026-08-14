@@ -42,7 +42,7 @@ export default function ResumeStudioPage() {
         setProfiles(rows);
         if (rows[0]) setProfileId(String(rows[0].id));
       })
-      .catch((err) => setError(err instanceof Error ? err.message : "Unable to load executive profiles."))
+      .catch((err) => setError(err instanceof Error ? err.message : "Unable to load career profiles."))
       .finally(() => setLoading(false));
     return () => { active = false; };
   }, []);
@@ -69,14 +69,14 @@ export default function ResumeStudioPage() {
     <>
       <PageHeader
         eyebrow="POSITIONING STUDIO"
-        title="Shape your executive evidence for a specific opportunity"
+        title="Shape your evidence for a specific opportunity"
         description="Choose the strongest source résumé, review its evidence, and move into role-specific positioning without inventing experience or overstating fit."
         actions={<Link className="button secondary" href="/resumes">Experience library</Link>}
       />
 
       {error ? <Notice title="Positioning Studio is unavailable" tone="error"><p>{error}</p></Notice> : null}
 
-      <section className="studio-steps" aria-label="Executive positioning workflow">
+      <section className="studio-steps" aria-label="Positioning workflow">
         {["Choose source résumé", "Review evidence", "Select opportunity", "Tailor and verify", "Export materials"].map((step, index) => (
           <div className="studio-step" key={step}><span>{index + 1}</span><strong>{step}</strong></div>
         ))}
@@ -86,7 +86,7 @@ export default function ResumeStudioPage() {
         <aside className="studio-panel studio-source-panel">
           <p className="eyebrow">SOURCE EVIDENCE</p>
           <h2>Choose the strongest foundation</h2>
-          <label>Executive profile</label>
+          <label>Career profile</label>
           <select value={profileId} onChange={(event) => setProfileId(event.target.value)}>
             {profiles.map((profile) => <option value={profile.id} key={profile.id}>{profile.name}</option>)}
           </select>
@@ -133,7 +133,7 @@ export default function ResumeStudioPage() {
           <p className="muted">CareerNavIQ starts from a saved opportunity and only selects or reorganizes evidence found in the chosen résumé.</p>
           <div className="studio-target-summary">
             <span>Current profile</span><strong>{selectedProfile?.name || "Select a profile"}</strong>
-            <span>Target titles</span><strong>{selectedProfile?.target_titles?.slice(0, 3).join(" • ") || "Add target titles in your executive profile"}</strong>
+            <span>Target titles</span><strong>{selectedProfile?.target_titles?.slice(0, 3).join(" • ") || "Add target titles in your career profile"}</strong>
           </div>
           <Link className="button" href="/jobs">Open market intelligence</Link>
           <Link className="button secondary" href="/applications">Review opportunity portfolio</Link>

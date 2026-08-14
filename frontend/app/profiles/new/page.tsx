@@ -42,14 +42,14 @@ export default function NewProfile() {
       });
       router.push(`/profiles/${profile.id}`);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Could not save executive profile");
+      setError(err instanceof Error ? err.message : "Could not save career profile");
       setSaving(false);
     }
   }
 
   return <>
     <PageHeader
-      eyebrow="EXECUTIVE PROFILE"
+      eyebrow="CAREER PROFILE"
       title="Define the mandate for your next move"
       description="Set the roles, geography, compensation, and selection criteria CareerNavIQ should use when evaluating your market."
       actions={<Link className="button secondary" href="/profiles">Back to profiles</Link>}
@@ -59,7 +59,7 @@ export default function NewProfile() {
 
     <form className="profile-edit-form" onSubmit={save}>
       <ExecutivePanel className="profile-edit-section">
-        <SectionHeader eyebrow="01 · SEARCH MANDATE" title="Profile foundation" description="Name this executive direction and establish the market CareerNavIQ should evaluate." />
+        <SectionHeader eyebrow="01 · SEARCH MANDATE" title="Profile foundation" description="Name this career direction and establish the market CareerNavIQ should evaluate." />
         <div className="profile-edit-two-column">
           <div><label htmlFor="profile-name">Profile name</label><input id="profile-name" value={name} onChange={(event) => setName(event.target.value)} placeholder="Commercial lending leadership" required /></div>
           <div><label htmlFor="home-location">Home location</label><input id="home-location" value={location} onChange={(event) => setLocation(event.target.value)} placeholder="Tampa, FL" /></div>
@@ -94,8 +94,8 @@ export default function NewProfile() {
       </ExecutivePanel>
 
       <footer className="profile-edit-save-bar">
-        <div><strong>Executive profile</strong><span>These settings drive future opportunity scoring and recurring market intelligence.</span></div>
-        <div className="row wrap"><Link className="button secondary" href="/profiles">Cancel</Link><button type="submit" disabled={saving}>{saving ? "Saving profile…" : "Save executive profile"}</button></div>
+        <div><strong>Career profile</strong><span>These settings drive future opportunity scoring and recurring market intelligence.</span></div>
+        <div className="row wrap"><Link className="button secondary" href="/profiles">Cancel</Link><button type="submit" disabled={saving}>{saving ? "Saving profile…" : "Save career profile"}</button></div>
       </footer>
     </form>
   </>;

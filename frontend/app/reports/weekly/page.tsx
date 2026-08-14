@@ -31,7 +31,7 @@ export default function WeeklyReportPage() {
 
   function summary() {
     if (!report) return "";
-    return `CareerNavIQ Weekly Executive Briefing\n${new Date(report.period_start).toLocaleDateString()}–${new Date(report.period_end).toLocaleDateString()}\n\nApplications submitted: ${report.applications_submitted}\nOpportunities discovered: ${report.jobs_discovered}\nHigh-alignment opportunities: ${report.high_matches}\nRecruiter contacts updated: ${report.recruiter_contacts_updated}\nInterviews completed: ${report.interviews_completed}\nUpcoming interviews: ${report.interviews_upcoming}\nResponse rate: ${report.response_rate}%\nInterview rate: ${report.interview_rate}%\nOverdue follow-ups: ${report.follow_ups_overdue}\n\nRecommended priorities:\n${report.recommendations.map((item, i) => `${i + 1}. ${item}`).join("\n")}`;
+    return `CareerNavIQ Weekly Briefing\n${new Date(report.period_start).toLocaleDateString()}–${new Date(report.period_end).toLocaleDateString()}\n\nApplications submitted: ${report.applications_submitted}\nOpportunities discovered: ${report.jobs_discovered}\nHigh-alignment opportunities: ${report.high_matches}\nRecruiter contacts updated: ${report.recruiter_contacts_updated}\nInterviews completed: ${report.interviews_completed}\nUpcoming interviews: ${report.interviews_upcoming}\nResponse rate: ${report.response_rate}%\nInterview rate: ${report.interview_rate}%\nOverdue follow-ups: ${report.follow_ups_overdue}\n\nRecommended priorities:\n${report.recommendations.map((item, i) => `${i + 1}. ${item}`).join("\n")}`;
   }
 
   async function copyReport() {
@@ -56,7 +56,7 @@ export default function WeeklyReportPage() {
       />
 
       <MetricStrip
-        ariaLabel="Weekly executive briefing summary"
+        ariaLabel="Weekly career briefing summary"
         items={[
           { label: "Applications", value: report.applications_submitted, detail: "submitted this week" },
           { label: "Opportunities discovered", value: report.jobs_discovered, detail: "across market reviews" },
@@ -76,7 +76,7 @@ export default function WeeklyReportPage() {
         <article className="priority-card">
           <SectionHeader eyebrow="NEXT-WEEK PRIORITIES" title="Recommended focus" />
           <ol>{report.recommendations.map((item) => <li key={item}>{item}</li>)}</ol>
-          <div className="row wrap"><Link className="button" href="/dashboard">Executive command center</Link><Link className="button secondary" href="/notifications">Review updates</Link></div>
+          <div className="row wrap"><Link className="button" href="/dashboard">Career command center</Link><Link className="button secondary" href="/notifications">Review updates</Link></div>
         </article>
       </section>
 

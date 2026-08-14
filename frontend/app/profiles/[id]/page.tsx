@@ -186,7 +186,7 @@ export default function ProfileDetail({ params }: { params: Promise<{ id: string
   async function deleteProfile() {
     if (!p) return;
     const confirmed = window.confirm(
-      `Delete “${p.name}”?\n\nThis permanently removes this executive profile and its connected résumé versions, saved matches, search history, and applications. This action cannot be undone.`
+      `Delete “${p.name}”?\n\nThis permanently removes this career profile and its connected résumé versions, saved matches, search history, and applications. This action cannot be undone.`
     );
     if (!confirmed) return;
 
@@ -197,18 +197,18 @@ export default function ProfileDetail({ params }: { params: Promise<{ id: string
       router.push("/profiles");
       router.refresh();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Could not delete this executive profile.");
+      setError(err instanceof Error ? err.message : "Could not delete this career profile.");
       setDeletingProfile(false);
     }
   }
 
-  if (!p) return <ExecutivePanel><p className="eyebrow">EXECUTIVE PROFILE</p><h2>Loading profile…</h2></ExecutivePanel>;
+  if (!p) return <ExecutivePanel><p className="eyebrow">CAREER PROFILE</p><h2>Loading profile…</h2></ExecutivePanel>;
 
   const primaryResume = resumes.find((resume) => resume.is_primary) || null;
 
   return <>
     <PageHeader
-      eyebrow="EXECUTIVE PROFILE"
+      eyebrow="CAREER PROFILE"
       title={p.name}
       description={`${p.home_location || "Location not set"} · ${p.salary_target ? `Target $${p.salary_target.toLocaleString()}` : "Salary target not set"}`}
       actions={<Link className="button secondary" href={`/profiles/${id}/edit`}>Edit profile</Link>}
@@ -381,13 +381,13 @@ export default function ProfileDetail({ params }: { params: Promise<{ id: string
           </footer>
         </article>)}
       </div>
-      {!resumes.length ? <EmptyState title="No résumé versions yet" description="Upload your first résumé above to establish the evidence base for this executive profile." /> : null}
+      {!resumes.length ? <EmptyState title="No résumé versions yet" description="Upload your first résumé above to establish the evidence base for this career profile." /> : null}
     </section>
 
     <ExecutivePanel className="profile-danger-zone">
       <SectionHeader
         eyebrow="PROFILE MANAGEMENT"
-        title="Delete this executive profile"
+        title="Delete this career profile"
         description="Use this only when the career direction is no longer needed. Deleting the profile also removes its connected résumé versions, market matches, search history, and applications."
       />
       <div className="row between wrap">

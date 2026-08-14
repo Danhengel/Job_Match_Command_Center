@@ -26,7 +26,7 @@ import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaults
 
 const SITE_URL = "https://careernaviq.com";
 const SITE_DESCRIPTION =
-  "CareerNavIQ is a private executive career intelligence platform for positioning, market intelligence, opportunity management, relationship strategy, and interview preparation.";
+  "CareerNavIQ is a private career intelligence platform for positioning, market intelligence, opportunity management, relationship strategy, and interview preparation.";
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -64,13 +64,13 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   applicationName: "CareerNavIQ",
   title: {
-    default: "CareerNavIQ | Executive Career Intelligence",
+    default: "CareerNavIQ | Career Intelligence",
     template: "%s | CareerNavIQ",
   },
   description: SITE_DESCRIPTION,
   keywords: [
-    "executive career management",
-    "executive job search",
+    "career management software",
+    "job search platform",
     "career intelligence",
     "job application management",
     "resume optimization",
@@ -91,13 +91,13 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "/",
     siteName: "CareerNavIQ",
-    title: "CareerNavIQ | Executive Career Intelligence",
+    title: "CareerNavIQ | Career Intelligence",
     description: SITE_DESCRIPTION,
     images: [{ url: "/careernaviq-logo-hero-transparent.png?v=20260813b", width: 1920, height: 547, alt: "CareerNavIQ" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "CareerNavIQ | Executive Career Intelligence",
+    title: "CareerNavIQ | Career Intelligence",
     description: SITE_DESCRIPTION,
     images: ["/careernaviq-logo-hero-transparent.png?v=20260813b"],
   },

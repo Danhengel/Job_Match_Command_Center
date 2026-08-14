@@ -110,7 +110,7 @@ export default function Analytics() {
             </article>
 
             <article className="card analytics-panel">
-              <div className="analytics-panel-heading"><div><p className="eyebrow">ROLE CONCENTRATION</p><h2>Most-pursued titles</h2></div><Link href="/profiles">Executive profiles →</Link></div>
+              <div className="analytics-panel-heading"><div><p className="eyebrow">ROLE CONCENTRATION</p><h2>Most-pursued titles</h2></div><Link href="/profiles">Career profiles →</Link></div>
               <div className="analytics-ranking-list">
                 {data.top_titles.map((item, index) => <div key={item.title}><span className="analytics-rank">{index + 1}</span><div><strong>{item.title}</strong><span className="analytics-mini-track"><i style={{ width: `${(item.count / maxTitle) * 100}%` }} /></span></div><b>{item.count}</b></div>)}
                 {!data.top_titles.length ? <p className="muted">No role pursuit data yet.</p> : null}

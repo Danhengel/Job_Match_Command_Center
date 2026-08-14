@@ -87,7 +87,7 @@ export default function AutomationPage() {
     event.preventDefault();
     clearNotices();
     const titleList = form.titles.split("\n").map((value) => value.trim()).filter(Boolean);
-    if (!form.profileId) return setError("Select an executive profile.");
+    if (!form.profileId) return setError("Select a career profile.");
     if (!form.name.trim()) return setError("Enter a name for this market review.");
     if (!titleList.length) return setError("Enter at least one target title.");
     if (!form.useCatalog && !form.useRemotive && !form.useJsearch) return setError("Select at least one market source.");
@@ -168,7 +168,7 @@ export default function AutomationPage() {
       <PageHeader
         eyebrow="AUTOMATION"
         title="Commission recurring market reviews without adding noise"
-        description="Create focused searches, choose the cadence and sources, run them on demand, and keep recurring market discovery aligned to an executive profile."
+        description="Create focused searches, choose the cadence and sources, run them on demand, and keep recurring market discovery aligned to a career profile."
         actions={<button className="secondary" type="button" disabled={loading} onClick={() => void load()}>{loading ? "Refreshing…" : "Refresh"}</button>}
       />
 
@@ -187,7 +187,7 @@ export default function AutomationPage() {
       <div className="two-col">
         <form className="card" onSubmit={createSearch}>
           <SectionHeader eyebrow="NEW MARKET REVIEW" title="Create a recurring search" description="Keep the search mandate clear and the threshold high enough to protect attention." />
-          <label>Executive profile</label>
+          <label>Career profile</label>
           <select value={form.profileId} onChange={(event) => setForm({ ...form, profileId: event.target.value })}>{profiles.map((profile) => <option key={profile.id} value={profile.id}>{profile.name}</option>)}</select>
           <label>Review name</label><input value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} />
           <label>Target titles, one per line</label><textarea rows={7} value={form.titles} onChange={(event) => setForm({ ...form, titles: event.target.value })} />
