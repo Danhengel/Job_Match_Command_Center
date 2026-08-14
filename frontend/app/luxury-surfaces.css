@@ -1,0 +1,88 @@
+/* CareerNavIQ luxury surface treatment
+   Structure comes from tonal elevation, light and spacing—not visible outlines. */
+
+.app-shell .app-content {
+  background:
+    radial-gradient(circle at 12% 4%, rgba(255, 255, 255, .92), transparent 34rem),
+    linear-gradient(155deg, rgba(244, 242, 235, .62), rgba(251, 250, 246, .96) 48%, rgba(238, 243, 242, .72));
+}
+
+.app-shell .app-content :is(
+  .executive-panel,
+  .card,
+  .dashboard-panel,
+  .studio-panel,
+  .analytics-panel,
+  .settings-card,
+  .resume-card,
+  .executive-metric-strip
+) {
+  border-color: transparent !important;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, .98), rgba(250, 248, 241, .94)) !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, .95) inset,
+    0 18px 48px rgba(7, 27, 44, .075),
+    0 3px 10px rgba(7, 27, 44, .045) !important;
+}
+
+.app-shell .app-content .executive-panel {
+  position: relative;
+  isolation: isolate;
+}
+
+.app-shell .app-content .executive-panel::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background:
+    linear-gradient(112deg, rgba(255, 255, 255, .5), transparent 28%),
+    radial-gradient(circle at 100% 0, rgba(203, 160, 75, .055), transparent 19rem);
+}
+
+.app-shell .app-content :is(
+  .executive-action-grid-v6 a,
+  .dashboard-action-card,
+  .executive-opportunity-card,
+  .resume-card
+) {
+  transition: transform .22s ease, box-shadow .22s ease, background-color .22s ease;
+}
+
+.app-shell .app-content :is(
+  .executive-action-grid-v6 a,
+  .dashboard-action-card,
+  .executive-opportunity-card,
+  .resume-card
+):hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, .96) inset,
+    0 22px 44px rgba(7, 27, 44, .11) !important;
+}
+
+/* Keep hierarchy inside dense information without drawing boxes around sections. */
+.app-shell .app-content :is(table, .market-result-row, .executive-list-row) {
+  --luxury-divider: rgba(35, 59, 72, .11);
+}
+
+.app-shell .app-content table :is(th, td),
+.app-shell .app-content .market-result-row,
+.app-shell .app-content .executive-list-row {
+  border-color: var(--luxury-divider, rgba(35, 59, 72, .11)) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-shell .app-content :is(
+    .executive-action-grid-v6 a,
+    .dashboard-action-card,
+    .executive-opportunity-card,
+    .resume-card
+  ) {
+    transition: none;
+  }
+}
+
