@@ -40,6 +40,23 @@
   letter-spacing: .065em !important;
 }
 
+/* Keep every sidebar navigation label in the same editorial face. Later global
+   UI typography rules target anchors/buttons directly, so use the full shell
+   scope here to prevent utility links and Sign out from falling back to sans. */
+body.executive-platform-body .executive-platform.app-shell .app-sidebar .sidebar-dashboard strong,
+body.executive-platform-body .executive-platform.app-shell .app-sidebar .sidebar-utility-links a,
+body.executive-platform-body .executive-platform.app-shell .app-sidebar .sidebar-signout {
+  font-family: var(--cn-font-display) !important;
+  font-feature-settings: "kern" 1, "liga" 1;
+  font-weight: 400 !important;
+  letter-spacing: .012em !important;
+}
+
+body.executive-platform-body .executive-platform.app-shell .app-sidebar .sidebar-dashboard.active strong,
+body.executive-platform-body .executive-platform.app-shell .app-sidebar .sidebar-utility-links a.active {
+  font-weight: 600 !important;
+}
+
 /* Signed-in guided footer and mobile navigation */
 .executive-platform.app-shell .executive-recommendation,
 .executive-platform.app-shell .executive-recommendation .eyebrow,
