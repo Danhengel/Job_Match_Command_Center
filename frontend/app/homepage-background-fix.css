@@ -3,6 +3,7 @@
   --careernaviq-navy-deep: 4, 16, 28;
   --careernaviq-navy-core: 11, 23, 37;
   --careernaviq-navy-lift: 17, 30, 46;
+  --careernaviq-logo-navy: 5, 14, 29;
 }
 
 .premium-home {
@@ -40,8 +41,9 @@
   overflow: hidden;
   isolation: isolate;
   background-image:
+    linear-gradient(rgba(var(--careernaviq-logo-navy),.34),rgba(var(--careernaviq-logo-navy),.34)),
     radial-gradient(circle at 70% 34%,rgba(var(--careernaviq-navy-lift),.32),transparent 29%),
-    linear-gradient(90deg,rgba(var(--careernaviq-navy-deep),.99) 0%,rgba(var(--careernaviq-navy-core),.96) 30%,rgba(var(--careernaviq-navy-core),.82) 46%,rgba(var(--careernaviq-navy-lift),.38) 64%,rgba(var(--careernaviq-navy-core),.14) 100%),
+    linear-gradient(90deg,rgba(var(--careernaviq-logo-navy),.99) 0%,rgba(var(--careernaviq-logo-navy),.96) 30%,rgba(var(--careernaviq-navy-core),.86) 46%,rgba(var(--careernaviq-navy-core),.58) 64%,rgba(var(--careernaviq-logo-navy),.42) 100%),
     url('/careernaviq-compass-architecture.webp?v=20260810office');
   background-size: cover;
   background-position: center center;
@@ -208,6 +210,7 @@
     min-height: auto;
     padding-top: 82px;
     background-image:
+      linear-gradient(rgba(var(--careernaviq-logo-navy),.30),rgba(var(--careernaviq-logo-navy),.30)),
       radial-gradient(circle at 80% 30%,rgba(12,92,104,.15),transparent 25%),
       linear-gradient(180deg,rgba(var(--careernaviq-navy-deep),.96) 0%,rgba(var(--careernaviq-navy-core),.83) 40%,rgba(var(--careernaviq-navy-lift),.60) 65%,rgba(var(--careernaviq-navy-deep),.92) 100%),
       url('/careernaviq-compass-architecture.webp?v=20260810office');
