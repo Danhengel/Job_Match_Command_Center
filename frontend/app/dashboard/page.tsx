@@ -205,7 +205,6 @@ export default function Dashboard() {
           <p>Here are the actions most likely to move your search forward today.</p>
           <div className="row wrap">
             <Link className="button" href={priorities[0].href}>{priorities[0].action}</Link>
-            <Link className="button secondary" href="/jobs">Find Jobs</Link>
           </div>
         </div>
         <div className="executive-momentum-score" aria-label={`Search momentum ${computed.momentum} percent`}>
