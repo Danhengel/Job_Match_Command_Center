@@ -1,88 +1,171 @@
-/* CareerNavIQ luxury surface treatment
-   Structure comes from tonal elevation, light and spacing—not visible outlines. */
+/* CareerNavIQ — Midnight Intelligence surface system */
 
-.app-shell .app-content {
-  background:
-    radial-gradient(circle at 12% 4%, rgba(255, 255, 255, .92), transparent 34rem),
-    linear-gradient(155deg, rgba(244, 242, 235, .62), rgba(251, 250, 246, .96) 48%, rgba(238, 243, 242, .72));
-}
+.executive-platform.app-shell .app-workspace { background: #071b2c; }
 
-.app-shell .app-content :is(
-  .executive-panel,
-  .card,
-  .dashboard-panel,
-  .studio-panel,
-  .analytics-panel,
-  .settings-card,
-  .resume-card,
-  .executive-metric-strip
-) {
-  border-color: transparent !important;
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, .98), rgba(250, 248, 241, .94)) !important;
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, .95) inset,
-    0 18px 48px rgba(7, 27, 44, .075),
-    0 3px 10px rgba(7, 27, 44, .045) !important;
-}
-
-.app-shell .app-content .executive-panel {
+.executive-platform.app-shell .app-content {
   position: relative;
   isolation: isolate;
+  background:
+    radial-gradient(circle at 8% 2%, rgba(49,111,135,.34), transparent 28rem),
+    radial-gradient(circle at 92% 24%, rgba(176,132,59,.10), transparent 30rem),
+    linear-gradient(145deg, #0b2940 0%, #071d30 44%, #061827 100%) !important;
 }
 
-.app-shell .app-content .executive-panel::before {
+.executive-platform.app-shell .app-content::before {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  opacity: .16;
+  background-image:
+    linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.014) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(to bottom, #000, transparent 78%);
+}
+
+.executive-platform.app-shell .app-content :is(
+  .executive-panel, .card, .dashboard-panel, .studio-panel,
+  .analytics-panel, .settings-card, .resume-card, .executive-metric-strip
+) {
+  border: 0 !important;
+  border-radius: 22px !important;
+  background: linear-gradient(145deg, rgba(18,51,73,.88), rgba(7,27,44,.94)) !important;
+  color: #f7f3e9 !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.105),
+    inset 0 -1px 0 rgba(0,0,0,.32),
+    0 26px 70px rgba(0,8,18,.27),
+    0 6px 20px rgba(0,8,18,.18) !important;
+  backdrop-filter: blur(24px) saturate(118%);
+  -webkit-backdrop-filter: blur(24px) saturate(118%);
+}
+
+.executive-platform.app-shell .app-content .executive-panel {
+  position: relative;
+  overflow: hidden;
+}
+
+.executive-platform.app-shell .app-content .executive-panel::before {
   content: "";
   position: absolute;
-  z-index: -1;
+  z-index: 0;
   inset: 0;
   pointer-events: none;
   border-radius: inherit;
   background:
-    linear-gradient(112deg, rgba(255, 255, 255, .5), transparent 28%),
-    radial-gradient(circle at 100% 0, rgba(203, 160, 75, .055), transparent 19rem);
+    radial-gradient(circle at 0 0, rgba(111,167,190,.15), transparent 28rem),
+    linear-gradient(115deg, rgba(255,255,255,.035), transparent 32%);
 }
 
-.app-shell .app-content :is(
-  .executive-action-grid-v6 a,
-  .dashboard-action-card,
-  .executive-opportunity-card,
-  .resume-card
+.executive-platform.app-shell .app-content .executive-panel > * {
+  position: relative;
+  z-index: 1;
+}
+
+.executive-platform.app-shell .app-content :is(
+  .executive-section-header h2, .executive-section-header h3,
+  .executive-panel h2, .executive-panel h3,
+  .dashboard-panel h2, .dashboard-panel h3, .card h2, .card h3
 ) {
-  transition: transform .22s ease, box-shadow .22s ease, background-color .22s ease;
+  color: #fffaf0 !important;
+  text-shadow: 0 2px 18px rgba(0,0,0,.22);
 }
 
-.app-shell .app-content :is(
-  .executive-action-grid-v6 a,
-  .dashboard-action-card,
-  .executive-opportunity-card,
-  .resume-card
-):hover {
-  transform: translateY(-3px);
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, .96) inset,
-    0 22px 44px rgba(7, 27, 44, .11) !important;
+.executive-platform.app-shell .app-content :is(
+  .executive-section-header p, .executive-panel p, .executive-panel small,
+  .dashboard-panel p, .dashboard-panel small, .card p, .card small, .muted
+) { color: #b8c7ce !important; }
+
+.executive-platform.app-shell .app-content .eyebrow {
+  color: #e4c277 !important;
+  letter-spacing: .16em !important;
+  text-shadow: 0 0 24px rgba(228,194,119,.18);
 }
 
-/* Keep hierarchy inside dense information without drawing boxes around sections. */
-.app-shell .app-content :is(table, .market-result-row, .executive-list-row) {
-  --luxury-divider: rgba(35, 59, 72, .11);
+.executive-platform.app-shell .app-content .executive-action-grid-v6 {
+  gap: 14px !important;
+  border: 0 !important;
+  background: transparent !important;
 }
 
-.app-shell .app-content table :is(th, td),
-.app-shell .app-content .market-result-row,
-.app-shell .app-content .executive-list-row {
-  border-color: var(--luxury-divider, rgba(35, 59, 72, .11)) !important;
+.executive-platform.app-shell .app-content .executive-action-grid-v6 > a {
+  position: relative;
+  overflow: hidden;
+  min-height: 150px;
+  padding: 24px !important;
+  border: 0 !important;
+  border-radius: 17px !important;
+  background: linear-gradient(145deg, rgba(32,70,94,.76), rgba(10,35,53,.92)) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.10), 0 14px 32px rgba(0,8,18,.24) !important;
+  transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
+}
+
+.executive-platform.app-shell .app-content .executive-action-grid-v6 > a::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: linear-gradient(180deg, #f0d18b, #a7752c 62%, transparent);
+  box-shadow: 0 0 22px rgba(224,179,83,.28);
+}
+
+.executive-platform.app-shell .app-content .executive-action-grid-v6 > a::after {
+  content: "↗";
+  position: absolute;
+  right: 19px;
+  top: 17px;
+  color: rgba(228,194,119,.72);
+  font-size: 16px;
+}
+
+.executive-platform.app-shell .app-content .executive-action-grid-v6 > a:hover {
+  transform: translateY(-4px);
+  background: linear-gradient(145deg, rgba(40,83,108,.88), rgba(12,40,60,.98)) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.14), 0 24px 50px rgba(0,8,18,.34) !important;
+}
+
+.executive-platform.app-shell .app-content .executive-action-grid-v6 > a strong {
+  padding-right: 26px;
+  color: #fff8e9 !important;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(19px, 1.45vw, 24px);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.executive-platform.app-shell .app-content .executive-action-grid-v6 > a span {
+  margin-top: 13px !important;
+  color: #b9c8cf !important;
+  font-size: 14px !important;
+  line-height: 1.55;
+}
+
+.executive-platform.app-shell .app-content .executive-metric-strip article { background: transparent !important; }
+.executive-platform.app-shell .app-content .executive-metric-strip :is(span, small) { color: #9fb2bc !important; }
+.executive-platform.app-shell .app-content .executive-metric-strip strong { color: #fff8e8 !important; }
+
+.executive-platform.app-shell .app-content :is(input, select, textarea) {
+  border-color: rgba(176,199,208,.28) !important;
+  background: rgba(248,250,248,.96) !important;
+  box-shadow: inset 0 1px 2px rgba(7,27,44,.06) !important;
+}
+
+.executive-platform.app-shell .app-content :is(input, select, textarea):focus {
+  border-color: #d5ab57 !important;
+  box-shadow: 0 0 0 3px rgba(213,171,87,.17) !important;
+}
+
+@media (max-width: 760px) {
+  .executive-platform.app-shell .app-content :is(
+    .executive-panel, .card, .dashboard-panel, .studio-panel,
+    .analytics-panel, .settings-card, .resume-card, .executive-metric-strip
+  ) { border-radius: 16px !important; }
+
+  .executive-platform.app-shell .app-content .executive-action-grid-v6 > a { min-height: 126px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .app-shell .app-content :is(
-    .executive-action-grid-v6 a,
-    .dashboard-action-card,
-    .executive-opportunity-card,
-    .resume-card
-  ) {
-    transition: none;
-  }
+  .executive-platform.app-shell .app-content .executive-action-grid-v6 > a { transition: none; }
 }
-
