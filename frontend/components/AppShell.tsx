@@ -46,6 +46,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const currentPageLabel = getCurrentPageLabel(pathname);
+  const toolsActive = pathname === "/tools" || SECONDARY_NAV.some((item) => isActivePath(pathname, item.href));
 
   useEffect(() => {
     setMenuOpen(false);
@@ -104,7 +105,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           <button type="button" className="sidebar-close" aria-label="Close navigation" onClick={() => setMenuOpen(false)}>×</button>
         </div>
 
-        <nav className="sidebar-nav" aria-label="CareerNavIQ navigation">
+        <nav className="sidebar-nav sidebar-nav-refined" aria-label="CareerNavIQ navigation">
           <div className="sidebar-stage-list">
             {PRIMARY_NAV.map((item) => {
               const itemActive = isActivePath(pathname, item.href);
@@ -124,25 +125,22 @@ export function AppShell({ children }: { children: ReactNode }) {
             })}
           </div>
 
-          <div className="sidebar-section-heading sidebar-tools-heading">
-            <span>More</span>
-            <small>Tools & planning</small>
+          <div className="sidebar-tools-entry">
+            <Link
+              href="/tools"
+              className={`sidebar-dashboard ${toolsActive ? "active" : ""}`}
+              aria-current={pathname === "/tools" ? "page" : undefined}
+            >
+              <span>
+                <strong>Tools</strong>
+                <small>Planning, preparation & insights</small>
+              </span>
+            </Link>
           </div>
-          <div className="sidebar-utility-links">
-            {SECONDARY_NAV.map((item) => {
-              const itemActive = isActivePath(pathname, item.href);
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={itemActive ? "active" : ""}
-                  aria-current={itemActive ? "page" : undefined}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
+
+          <div className="sidebar-utility-links sidebar-bottom-links">
             <Link href="/notifications" className={isActivePath(pathname, "/notifications") ? "active" : ""}>Notifications</Link>
+            <Link href="/settings/automation" className={isActivePath(pathname, "/settings/automation") ? "active" : ""}>Settings</Link>
           </div>
 
           <button type="button" className="sidebar-signout" onClick={signOut}>Sign out</button>
