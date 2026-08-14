@@ -296,7 +296,7 @@ body,
 }
 
 /* Homepage CTA mirrors the refined opportunity-action pill used in-product. */
-body.executive-platform-body .premium-home a.premium-button.premium-button-primary {
+body.executive-platform-body .premium-home .premium-actions.premium-actions-refined a.premium-button.premium-button-primary {
   width: fit-content;
   min-width: 0 !important;
   min-height: 50px;
@@ -312,7 +312,7 @@ body.executive-platform-body .premium-home a.premium-button.premium-button-prima
   text-shadow: 0 1px 12px rgba(215,168,68,.16) !important;
 }
 
-body.executive-platform-body .premium-home a.premium-button.premium-button-primary:hover {
+body.executive-platform-body .premium-home .premium-actions.premium-actions-refined a.premium-button.premium-button-primary:hover {
   border-color: rgba(240,205,122,.62) !important;
   background: linear-gradient(145deg, rgba(20,45,63,.88), rgba(7,25,40,.96)) !important;
   color: #f5d88f !important;
