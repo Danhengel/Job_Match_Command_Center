@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "../login/login.css";
 
 export const metadata: Metadata = {
   title: "Create an account",
