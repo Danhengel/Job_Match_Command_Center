@@ -29,14 +29,6 @@ const primaryDescriptions: Record<string, string> = {
   "/profiles": "Goals, preferences, and experience",
 };
 
-const primaryIcons: Record<string, string> = {
-  "/dashboard": "HM",
-  "/jobs": "JB",
-  "/applications": "AP",
-  "/resumes": "CV",
-  "/profiles": "ME",
-};
-
 const publicPaths = new Set([
   "/features",
   "/about",
@@ -113,10 +105,6 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
 
         <nav className="sidebar-nav" aria-label="CareerNavIQ navigation">
-          <div className="sidebar-section-heading">
-            <span>Main</span>
-          </div>
-
           <div className="sidebar-stage-list">
             {PRIMARY_NAV.map((item) => {
               const itemActive = isActivePath(pathname, item.href);
@@ -127,7 +115,6 @@ export function AppShell({ children }: { children: ReactNode }) {
                   className={`sidebar-dashboard ${itemActive ? "active" : ""}`}
                   aria-current={itemActive ? "page" : undefined}
                 >
-                  <span className="sidebar-dashboard-icon" aria-hidden="true">{primaryIcons[item.href]}</span>
                   <span>
                     <strong>{item.label}</strong>
                     <small>{primaryDescriptions[item.href]}</small>
