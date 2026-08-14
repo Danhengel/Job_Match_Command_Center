@@ -32,7 +32,7 @@
   display: none !important;
 }
 
-/* Keep only the four core dashboard zones visible. Insight is folded into the
+/* Keep the core dashboard zones visible. Insight is folded into the
    priority ordering and Search Health belongs on Profile / Resume / Tools. */
 .dashboard-insight,
 .dashboard-command-center > .dashboard-section:last-child {
@@ -104,10 +104,8 @@
   display: none !important;
 }
 
-/* Three opportunities and three upcoming items are enough for a dashboard.
-   The full lists remain one click away. */
-.dashboard-opportunity-row:nth-child(n+4),
-.dashboard-upcoming-item:nth-child(n+4) {
+/* Three opportunities are enough for a dashboard. The full list remains one click away. */
+.dashboard-opportunity-row:nth-child(n+4) {
   display: none !important;
 }
 
@@ -115,21 +113,13 @@
   padding: 14px 0 !important;
 }
 
-.dashboard-upcoming-item {
-  padding: 12px 0 !important;
-}
-
-.dashboard-date-badge {
-  width: 44px !important;
-  height: 44px !important;
+/* Remove the Upcoming / Time-sensitive dashboard column completely. */
+.dashboard-side-stack {
+  display: none !important;
 }
 
 .dashboard-main-grid {
-  grid-template-columns: minmax(0,1.7fr) minmax(280px,.68fr) !important;
-  gap: 14px !important;
-}
-
-.dashboard-side-stack {
+  grid-template-columns: minmax(0,1fr) !important;
   gap: 14px !important;
 }
 
