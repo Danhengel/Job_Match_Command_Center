@@ -61,10 +61,10 @@ body,
 
 .executive-platform.app-shell .app-sidebar {
   border-right: 0 !important;
-  background: linear-gradient(180deg, rgba(7,27,44,.72), rgba(7,27,44,.38)) !important;
-  box-shadow: inset -1px 0 0 rgba(255,255,255,.035), 22px 0 60px rgba(0,8,18,.10) !important;
-  backdrop-filter: blur(18px) saturate(112%);
-  -webkit-backdrop-filter: blur(18px) saturate(112%);
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 .executive-platform.app-shell .app-header {
