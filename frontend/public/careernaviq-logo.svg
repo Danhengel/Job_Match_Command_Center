@@ -41,7 +41,7 @@
     <text x="535" y="205" font-family="Georgia, 'Times New Roman', serif" font-size="174" font-weight="500" letter-spacing="-7" fill="url(#teal)" stroke="#025b6d" stroke-width="1.2">Nav</text>
     <text x="842" y="205" font-family="Georgia, 'Times New Roman', serif" font-size="174" font-weight="500" fill="url(#gold)" stroke="#7e5513" stroke-width="1.2">I</text>
 
-    <g transform="translate(930 28)">
+    <g transform="translate(875 28)">
       <circle cx="118" cy="118" r="93" fill="none" stroke="url(#gold)" stroke-width="17"/>
       <circle cx="118" cy="118" r="76" fill="#071b2c" stroke="#9d721f" stroke-width="2.5"/>
       <g fill="none" stroke="#d8a933" stroke-width="2" opacity=".8">
