@@ -295,6 +295,31 @@ body,
   color: var(--cn-luxury-ivory) !important;
 }
 
+/* Homepage CTA mirrors the refined opportunity-action pill used in-product. */
+.premium-home a.premium-button.premium-button-primary {
+  width: fit-content;
+  min-width: 0 !important;
+  min-height: 50px;
+  padding: 0 24px !important;
+  border: 1px solid rgba(215,168,68,.34) !important;
+  border-radius: 999px !important;
+  background: linear-gradient(145deg, rgba(13,32,47,.80), rgba(5,18,30,.90)) !important;
+  color: #f0cd7a !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 8px 22px rgba(0,5,14,.18) !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  letter-spacing: -.01em !important;
+  text-shadow: 0 1px 12px rgba(215,168,68,.16) !important;
+}
+
+.premium-home a.premium-button.premium-button-primary:hover {
+  border-color: rgba(240,205,122,.62) !important;
+  background: linear-gradient(145deg, rgba(20,45,63,.88), rgba(7,25,40,.96)) !important;
+  color: #f5d88f !important;
+  transform: translateY(-2px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.10), 0 13px 28px rgba(0,5,14,.25) !important;
+}
+
 .executive-platform.app-shell .app-content .executive-action-grid-v6 {
   gap: 14px !important;
   border: 0 !important;
