@@ -1,7 +1,7 @@
 /* CareerNavIQ — Market Intelligence hero refinement
    Bring the Jobs / Market Intelligence masthead into the current restrained luxury system. */
 
-.executive-platform.app-shell .market-intelligence-hero {
+.executive-platform.app-shell .executive-page-frame > .page-header:has(+ .executive-metric-strip[aria-label="Market review criteria"]) {
   position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -13,7 +13,7 @@
   background: transparent !important;
 }
 
-.executive-platform.app-shell .market-intelligence-hero::before {
+.executive-platform.app-shell .executive-page-frame > .page-header:has(+ .executive-metric-strip[aria-label="Market review criteria"])::before {
   position: absolute;
   left: 0;
   top: 0;
@@ -23,11 +23,11 @@
   content: "";
 }
 
-.executive-platform.app-shell .market-intelligence-hero .executive-page-header-copy {
+.executive-platform.app-shell .executive-page-frame > .page-header:has(+ .executive-metric-strip[aria-label="Market review criteria"]) .executive-page-header-copy {
   max-width: 860px;
 }
 
-.executive-platform.app-shell .market-intelligence-hero h1 {
+.executive-platform.app-shell .executive-page-frame > .page-header:has(+ .executive-metric-strip[aria-label="Market review criteria"]) h1 {
   max-width: 780px;
   margin: 0;
   color: #f8f1e5 !important;
@@ -39,7 +39,7 @@
   text-wrap: balance;
 }
 
-.executive-platform.app-shell .market-intelligence-hero .muted {
+.executive-platform.app-shell .executive-page-frame > .page-header:has(+ .executive-metric-strip[aria-label="Market review criteria"]) .muted {
   max-width: 690px;
   margin: 16px 0 0;
   color: #b9c5ce !important;
@@ -50,12 +50,12 @@
   letter-spacing: .002em !important;
 }
 
-.executive-platform.app-shell .market-intelligence-hero .executive-page-header-actions {
+.executive-platform.app-shell .executive-page-frame > .page-header:has(+ .executive-metric-strip[aria-label="Market review criteria"]) .executive-page-header-actions {
   align-self: end;
   padding-bottom: 2px;
 }
 
-.executive-platform.app-shell .market-intelligence-hero .button.secondary {
+.executive-platform.app-shell .executive-page-frame > .page-header:has(+ .executive-metric-strip[aria-label="Market review criteria"]) .button.secondary {
   min-height: 42px;
   padding: 0 17px;
   border: 1px solid rgba(214, 179, 112, .34) !important;
@@ -70,26 +70,26 @@
   text-transform: none !important;
 }
 
-.executive-platform.app-shell .market-intelligence-hero .button.secondary:hover {
+.executive-platform.app-shell .executive-page-frame > .page-header:has(+ .executive-metric-strip[aria-label="Market review criteria"]) .button.secondary:hover {
   border-color: rgba(240, 205, 122, .62) !important;
   background: rgba(14, 39, 58, .7) !important;
   color: #f4dfac !important;
 }
 
 @media (max-width: 780px) {
-  .executive-platform.app-shell .market-intelligence-hero {
+  .executive-platform.app-shell .executive-page-frame > .page-header:has(+ .executive-metric-strip[aria-label="Market review criteria"]) {
     grid-template-columns: 1fr;
     align-items: start;
     gap: 20px;
     padding-top: 28px;
   }
 
-  .executive-platform.app-shell .market-intelligence-hero h1 {
+  .executive-platform.app-shell .executive-page-frame > .page-header:has(+ .executive-metric-strip[aria-label="Market review criteria"]) h1 {
     font-size: clamp(2.4rem, 12vw, 4rem) !important;
     line-height: 1 !important;
   }
 
-  .executive-platform.app-shell .market-intelligence-hero .executive-page-header-actions {
+  .executive-platform.app-shell .executive-page-frame > .page-header:has(+ .executive-metric-strip[aria-label="Market review criteria"]) .executive-page-header-actions {
     justify-self: start;
   }
 }
