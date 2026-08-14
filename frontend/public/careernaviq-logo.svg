@@ -22,17 +22,8 @@
       <stop offset="0.78" stop-color="#f7d46f"/>
       <stop offset="1" stop-color="#9b6615"/>
     </linearGradient>
-    <linearGradient id="goldLine" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#c67c16" stop-opacity=".3"/>
-      <stop offset=".5" stop-color="#ffcf61"/>
-      <stop offset="1" stop-color="#c67c16" stop-opacity=".4"/>
-    </linearGradient>
     <filter id="shadow" x="-20%" y="-25%" width="140%" height="160%">
       <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#00101e" flood-opacity=".72"/>
-    </filter>
-    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="4" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
   </defs>
 
@@ -55,7 +46,4 @@
       <path d="M183 188 C211 197 243 212 278 238 C246 230 217 225 191 217 C174 212 163 204 155 195 Z" fill="url(#gold)"/>
     </g>
   </g>
-
-  <path d="M62 250 C390 210 780 210 1198 242 C1320 251 1435 265 1530 288" fill="none" stroke="#6b3f0b" stroke-width="7" opacity=".5"/>
-  <path d="M62 246 C390 207 780 207 1198 238 C1320 247 1435 260 1530 282" fill="none" stroke="url(#goldLine)" stroke-width="3.5" filter="url(#glow)"/>
 </svg>
