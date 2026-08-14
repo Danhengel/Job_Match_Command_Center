@@ -1,0 +1,103 @@
+/* CareerNavIQ luxury typography system
+   Editorial display type for hierarchy; restrained modern sans for working UI. */
+
+.executive-platform.app-shell {
+  --cn-font-display: Didot, "Bodoni MT", Baskerville, "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --cn-font-ui: "Avenir Next", Avenir, "Segoe UI Variable Text", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --cn-font-data: "Avenir Next", Avenir, "Segoe UI Variable Text", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+.executive-platform.app-shell,
+.executive-platform.app-shell button,
+.executive-platform.app-shell input,
+.executive-platform.app-shell select,
+.executive-platform.app-shell textarea,
+.executive-platform.app-shell table,
+.executive-platform.app-shell .app-sidebar,
+.executive-platform.app-shell .app-header {
+  font-family: var(--cn-font-ui) !important;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+.executive-platform.app-shell .app-content h1,
+.executive-platform.app-shell .dashboard-welcome h1,
+.executive-platform.app-shell .executive-page-frame > header h1,
+.executive-platform.app-shell .page-heading h1,
+.executive-platform.app-shell .hero-copy h1 {
+  font-family: var(--cn-font-display) !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.035em !important;
+  line-height: 0.98 !important;
+  text-wrap: balance;
+}
+
+.executive-platform.app-shell .app-content h2,
+.executive-platform.app-shell .dashboard-section-heading h2,
+.executive-platform.app-shell .section-heading h2,
+.executive-platform.app-shell .panel-heading h2 {
+  font-family: var(--cn-font-display) !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.018em !important;
+  line-height: 1.08 !important;
+}
+
+.executive-platform.app-shell .eyebrow,
+.executive-platform.app-shell .section-kicker,
+.executive-platform.app-shell .dashboard-insight-label,
+.executive-platform.app-shell .field-label,
+.executive-platform.app-shell label {
+  font-family: var(--cn-font-ui) !important;
+  font-weight: 650 !important;
+  letter-spacing: 0.13em !important;
+}
+
+.executive-platform.app-shell .eyebrow,
+.executive-platform.app-shell .section-kicker,
+.executive-platform.app-shell .dashboard-insight-label {
+  text-transform: uppercase;
+}
+
+.executive-platform.app-shell .dashboard-opportunity-main > strong,
+.executive-platform.app-shell .dashboard-action-copy > strong,
+.executive-platform.app-shell .job-title,
+.executive-platform.app-shell .opportunity-title,
+.executive-platform.app-shell .application-title {
+  font-family: var(--cn-font-display) !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.012em !important;
+  line-height: 1.12 !important;
+}
+
+.executive-platform.app-shell .dashboard-match-score,
+.executive-platform.app-shell .metric-value,
+.executive-platform.app-shell .stat-value,
+.executive-platform.app-shell [class*="score"],
+.executive-platform.app-shell [class*="metric"] strong {
+  font-family: var(--cn-font-data) !important;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.025em;
+}
+
+.executive-platform.app-shell .app-sidebar a,
+.executive-platform.app-shell .app-header a,
+.executive-platform.app-shell .app-header button {
+  font-family: var(--cn-font-ui) !important;
+  font-weight: 520 !important;
+  letter-spacing: 0.012em !important;
+}
+
+.executive-platform.app-shell .btn,
+.executive-platform.app-shell [class*="button"],
+.executive-platform.app-shell button,
+.executive-platform.app-shell a[class*="action"],
+.executive-platform.app-shell a[class*="link"] {
+  font-family: var(--cn-font-ui) !important;
+}
+
+@media (max-width: 680px) {
+  .executive-platform.app-shell .app-content h1,
+  .executive-platform.app-shell .dashboard-welcome h1 {
+    letter-spacing: -0.026em !important;
+    line-height: 1.01 !important;
+  }
+}
