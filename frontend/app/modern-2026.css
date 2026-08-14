@@ -105,6 +105,34 @@ body.executive-platform-body :is(button, a, input, select, textarea) {
   backdrop-filter: blur(20px) saturate(140%);
 }
 
+.app-header:has(.header-utilities) {
+  justify-content: flex-end;
+}
+
+.header-utilities {
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 1.5vw, 18px);
+}
+
+.header-utilities .header-link {
+  min-height: 40px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--ui-copy);
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.header-utilities .header-link:hover {
+  border-color: var(--ui-line);
+  background: rgba(255,255,255,.72);
+  color: var(--ui-navy);
+}
+
 .header-brand-copy strong {
   color: var(--ui-ink) !important;
   font-size: clamp(17px, 1.3vw, 20px) !important;
@@ -406,4 +434,7 @@ label {
   .executive-dashboard-compass img { min-height: 220px; }
   .market-result-row { grid-template-columns: 1fr !important; }
   .market-alignment-score { width: fit-content; min-width: 94px; }
+  .app-header:has(.header-utilities) { justify-content: space-between; }
+  .header-utilities { gap: 2px; }
+  .header-utilities .header-link { min-height: 38px; padding: 0 8px; font-size: 11px; }
 }
