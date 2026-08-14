@@ -1,0 +1,287 @@
+/* CareerNavIQ open editorial workspace
+   Reduce card chrome and let typography, spacing, rules, and data structure carry hierarchy. */
+
+body.executive-platform-body .app-shell {
+  --open-rule: rgba(10, 27, 42, .14);
+  --open-rule-soft: rgba(10, 27, 42, .085);
+  --open-tint: rgba(232, 239, 236, .58);
+}
+
+body.executive-platform-body .app-content {
+  padding-bottom: clamp(64px, 8vw, 112px) !important;
+}
+
+body.executive-platform-body .executive-page-frame {
+  gap: 0 !important;
+}
+
+/* Page introductions become open editorial headers rather than rounded hero cards. */
+body.executive-platform-body .app-shell :is(.executive-page-header, .executive-command-hero) {
+  overflow: visible !important;
+  padding: clamp(10px, 2vw, 22px) 0 clamp(32px, 4vw, 52px) !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--open-rule) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--ui-ink) !important;
+  box-shadow: none !important;
+}
+
+body.executive-platform-body .app-shell :is(.executive-page-header, .executive-command-hero)::after {
+  display: none !important;
+}
+
+body.executive-platform-body .app-shell :is(.executive-page-header, .executive-command-hero) :is(h1, h2, h3, strong) {
+  color: var(--ui-ink) !important;
+}
+
+body.executive-platform-body .app-shell :is(.executive-page-header, .executive-command-hero) p {
+  color: var(--ui-copy) !important;
+}
+
+body.executive-platform-body .app-shell :is(.executive-page-header, .executive-command-hero) .eyebrow {
+  color: var(--ui-brass) !important;
+}
+
+body.executive-platform-body .executive-momentum-score {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* General content surfaces sit directly on the canvas. */
+body.executive-platform-body .app-shell :is(
+  .executive-panel,
+  .card,
+  .dashboard-panel,
+  .studio-panel,
+  .analytics-panel,
+  .settings-card,
+  .resume-card,
+  .resume-library-panel,
+  .resume-analysis-panel,
+  .connector-panel,
+  .priority-card,
+  .outreach-controls,
+  .outreach-editor,
+  .outreach-guidance,
+  .market-results-panel
+) {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body.executive-platform-body .app-shell :is(
+  .executive-panel,
+  .dashboard-panel,
+  .studio-panel,
+  .analytics-panel,
+  .settings-card,
+  .resume-card,
+  .resume-library-panel,
+  .resume-analysis-panel,
+  .connector-panel,
+  .priority-card,
+  .outreach-controls,
+  .outreach-editor,
+  .outreach-guidance
+) {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* Top-level sections are separated with restrained rules, not containers. */
+body.executive-platform-body .executive-page-frame > :is(
+  .executive-panel,
+  .dashboard-panel,
+  .studio-panel,
+  .analytics-panel,
+  .settings-card,
+  .resume-card,
+  .resume-library-panel,
+  .resume-analysis-panel,
+  .connector-panel,
+  .priority-card,
+  .outreach-controls,
+  .outreach-editor,
+  .outreach-guidance,
+  .executive-command-grid,
+  .executive-metric-strip,
+  .executive-kpis,
+  .analytics-kpi-grid,
+  .profile-summary-grid,
+  .company-summary-grid
+) {
+  padding-top: clamp(28px, 4vw, 52px) !important;
+  padding-bottom: clamp(28px, 4vw, 52px) !important;
+  border-bottom: 1px solid var(--open-rule) !important;
+}
+
+/* Metrics read as an executive strip rather than individual cards. */
+body.executive-platform-body .app-shell :is(
+  .executive-metric-strip,
+  .executive-kpis,
+  .interview-kpis,
+  .analytics-kpi-grid,
+  .profile-summary-grid,
+  .company-summary-grid,
+  .company-detail-kpis,
+  .watch-summary-grid,
+  .automation-health-grid
+) {
+  overflow: visible !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body.executive-platform-body .app-shell :is(
+  .executive-metric-strip,
+  .executive-kpis,
+  .interview-kpis,
+  .analytics-kpi-grid,
+  .profile-summary-grid,
+  .company-summary-grid,
+  .company-detail-kpis,
+  .watch-summary-grid,
+  .automation-health-grid
+) > article {
+  min-height: 104px !important;
+  padding: 18px clamp(18px, 2.2vw, 32px) !important;
+  border: 0 !important;
+  border-right: 1px solid var(--open-rule) !important;
+  background: transparent !important;
+}
+
+body.executive-platform-body .app-shell :is(
+  .executive-metric-strip,
+  .executive-kpis,
+  .interview-kpis,
+  .analytics-kpi-grid,
+  .profile-summary-grid,
+  .company-summary-grid,
+  .company-detail-kpis,
+  .watch-summary-grid,
+  .automation-health-grid
+) > article:first-child {
+  padding-left: 0 !important;
+}
+
+body.executive-platform-body .app-shell :is(
+  .executive-metric-strip,
+  .executive-kpis,
+  .interview-kpis,
+  .analytics-kpi-grid,
+  .profile-summary-grid,
+  .company-summary-grid,
+  .company-detail-kpis,
+  .watch-summary-grid,
+  .automation-health-grid
+) > article:last-child {
+  border-right: 0 !important;
+}
+
+body.executive-platform-body .executive-metric-strip article::after {
+  display: none !important;
+}
+
+/* Lists and results use thin rules and subtle hover tinting. */
+body.executive-platform-body .executive-priority-item,
+body.executive-platform-body .market-result-row,
+body.executive-platform-body .application-row,
+body.executive-platform-body .company-row,
+body.executive-platform-body .resume-row {
+  border: 0 !important;
+  border-bottom: 1px solid var(--open-rule-soft) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body.executive-platform-body .market-result-row:hover,
+body.executive-platform-body .application-row:hover,
+body.executive-platform-body .company-row:hover,
+body.executive-platform-body .resume-row:hover {
+  background: var(--open-tint) !important;
+}
+
+body.executive-platform-body .market-results-panel > .executive-section-header {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  border-bottom: 1px solid var(--open-rule) !important;
+  background: transparent !important;
+}
+
+/* Grid cards become editorial columns with dividers. */
+body.executive-platform-body .app-shell :is(
+  .two-col,
+  .three-col,
+  .profile-grid,
+  .company-grid,
+  .resume-card-grid,
+  .tools-workspace-grid
+) > :is(.card, .executive-panel, article) {
+  padding: clamp(22px, 2.5vw, 34px) 0 !important;
+  border: 0 !important;
+  border-top: 1px solid var(--open-rule-soft) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Keep functional boundaries where they communicate state or interaction. */
+body.executive-platform-body .app-shell :is(
+  .notice,
+  .executive-notice,
+  .empty-state-panel,
+  .executive-empty-state,
+  .resume-upload-zone,
+  .drop-zone,
+  .modal,
+  [role="dialog"]
+) {
+  border-radius: 14px !important;
+}
+
+/* Images can still carry presence without looking like another white card. */
+body.executive-platform-body .executive-dashboard-compass {
+  border: 0 !important;
+  border-radius: 18px !important;
+  box-shadow: 0 18px 46px rgba(4, 16, 28, .12) !important;
+}
+
+@media (max-width: 760px) {
+  body.executive-platform-body .app-shell :is(
+    .executive-metric-strip,
+    .executive-kpis,
+    .interview-kpis,
+    .analytics-kpi-grid,
+    .profile-summary-grid,
+    .company-summary-grid,
+    .company-detail-kpis,
+    .watch-summary-grid,
+    .automation-health-grid
+  ) > article {
+    padding: 16px 0 !important;
+    border-right: 0 !important;
+    border-bottom: 1px solid var(--open-rule-soft) !important;
+  }
+
+  body.executive-platform-body .app-shell :is(
+    .executive-metric-strip,
+    .executive-kpis,
+    .interview-kpis,
+    .analytics-kpi-grid,
+    .profile-summary-grid,
+    .company-summary-grid,
+    .company-detail-kpis,
+    .watch-summary-grid,
+    .automation-health-grid
+  ) > article:last-child {
+    border-bottom: 0 !important;
+  }
+}
