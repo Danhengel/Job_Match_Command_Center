@@ -477,6 +477,45 @@ body.executive-platform-body .premium-home .premium-actions.premium-actions-refi
   border-top: 1px solid rgba(255,255,255,.07);
 }
 
+.executive-platform.app-shell .market-criteria-remote-toggle {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  align-items: start;
+  gap: 11px;
+  margin: 4px 0 8px;
+  padding: 14px 15px;
+  border: 1px solid rgba(215,168,68,.18);
+  border-radius: 14px;
+  background: rgba(255,255,255,.035);
+  cursor: pointer;
+}
+
+.executive-platform.app-shell .market-criteria-remote-toggle input {
+  width: 17px !important;
+  height: 17px !important;
+  min-height: 0 !important;
+  margin: 3px 0 0 !important;
+  accent-color: var(--cn-luxury-brass);
+}
+
+.executive-platform.app-shell .market-criteria-remote-toggle span,
+.executive-platform.app-shell .market-criteria-remote-toggle strong,
+.executive-platform.app-shell .market-criteria-remote-toggle small {
+  display: block;
+}
+
+.executive-platform.app-shell .market-criteria-remote-toggle strong {
+  color: var(--cn-luxury-ivory);
+  font-size: 14px;
+}
+
+.executive-platform.app-shell .market-criteria-remote-toggle small {
+  margin-top: 3px;
+  color: var(--cn-luxury-muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
 /* Keep hover feedback distinct from the single current-page selection. */
 .executive-platform.app-shell .sidebar-dashboard:hover,
 .executive-platform.app-shell .sidebar-utility-links a:hover {
