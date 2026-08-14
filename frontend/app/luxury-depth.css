@@ -1,0 +1,134 @@
+/* CareerNavIQ Luxury Depth
+   Adds restrained dimensionality to the cool-blue Signature system without
+   changing the palette or turning the background into a visual effect. */
+
+/* Signed-in workspace: layered midnight navy with a soft overhead steel-blue bloom. */
+body.executive-platform-body .app-workspace {
+  background:
+    radial-gradient(ellipse 92% 58% at 52% -10%, rgba(91, 144, 199, .24) 0%, rgba(52, 101, 153, .13) 28%, rgba(20, 52, 87, .035) 52%, transparent 70%),
+    radial-gradient(circle at 86% 20%, rgba(210, 173, 101, .070) 0%, rgba(210, 173, 101, .024) 17%, transparent 34%),
+    radial-gradient(ellipse 58% 44% at 14% 64%, rgba(49, 91, 148, .095) 0%, rgba(32, 67, 113, .035) 42%, transparent 70%),
+    radial-gradient(ellipse 68% 50% at 72% 84%, rgba(35, 72, 124, .070) 0%, transparent 66%),
+    linear-gradient(148deg, #0b2a49 0%, #071e36 26%, #041526 52%, #020d19 78%, #010812 100%) !important;
+}
+
+/* Architectural linework stays deliberately quiet. */
+body.executive-platform-body .app-workspace::before {
+  opacity: .54 !important;
+  background:
+    linear-gradient(118deg, transparent 0 58%, rgba(218, 182, 111, .034) 58.07%, transparent 58.15%),
+    linear-gradient(72deg, transparent 0 79%, rgba(105, 151, 199, .028) 79.07%, transparent 79.15%),
+    repeating-radial-gradient(circle at 92% 10%, transparent 0 76px, rgba(218, 182, 111, .020) 77px, transparent 78px 121px),
+    repeating-radial-gradient(circle at 5% 91%, transparent 0 118px, rgba(94, 137, 184, .012) 119px, transparent 120px 168px) !important;
+}
+
+/* A vignette and microscopic grain keep large navy areas from reading flat. */
+body.executive-platform-body .app-workspace::after {
+  content: "";
+  position: fixed;
+  inset: 0 0 0 var(--cn-sidebar, 286px);
+  z-index: 0;
+  pointer-events: none;
+  opacity: .72;
+  background:
+    radial-gradient(ellipse at 51% 42%, transparent 0%, transparent 39%, rgba(1, 7, 14, .11) 68%, rgba(0, 4, 10, .42) 100%),
+    radial-gradient(circle, rgba(255,255,255,.027) 0 .45px, transparent .62px) 0 0 / 7px 7px;
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,.72), rgba(0,0,0,.48));
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,.72), rgba(0,0,0,.48));
+}
+
+/* Sidebar receives its own shallow lighting so it feels integrated, not flat. */
+body.executive-platform-body .app-sidebar {
+  background:
+    radial-gradient(ellipse at 34% -4%, rgba(92, 142, 194, .16), transparent 31rem),
+    radial-gradient(circle at 78% 82%, rgba(216, 181, 106, .048), transparent 22rem),
+    linear-gradient(180deg, #092844 0%, #051b30 38%, #031321 72%, #010b15 100%) !important;
+  box-shadow:
+    20px 0 54px rgba(0, 4, 12, .18),
+    inset -1px 0 0 rgba(255,255,255,.025) !important;
+}
+
+/* Page mastheads catch just enough light to separate them from the canvas. */
+body.executive-platform-body .app-shell :is(.executive-page-header, .executive-command-hero) {
+  background:
+    radial-gradient(ellipse 66% 74% at 18% 4%, rgba(72, 124, 181, .095), transparent 68%),
+    radial-gradient(circle at 88% 20%, rgba(216, 181, 106, .075), transparent 24rem) !important;
+}
+
+/* Public pages use the same depth hierarchy as the workspace. */
+body.executive-platform-body .public-page {
+  background:
+    radial-gradient(ellipse 94% 58% at 52% -10%, rgba(91, 144, 199, .25) 0%, rgba(50, 99, 151, .13) 28%, rgba(21, 53, 88, .035) 52%, transparent 70%),
+    radial-gradient(circle at 86% 20%, rgba(210, 173, 101, .068) 0%, rgba(210, 173, 101, .022) 18%, transparent 34%),
+    radial-gradient(ellipse 56% 44% at 12% 68%, rgba(49, 91, 148, .085) 0%, rgba(31, 65, 111, .030) 43%, transparent 70%),
+    radial-gradient(ellipse 70% 50% at 75% 86%, rgba(33, 70, 122, .065) 0%, transparent 66%),
+    radial-gradient(circle, rgba(255,255,255,.018) 0 .42px, transparent .58px) 0 0 / 8px 8px,
+    linear-gradient(148deg, #0b2948 0%, #071e35 27%, #041525 54%, #020d19 79%, #010812 100%) !important;
+  background-attachment: fixed;
+}
+
+body.executive-platform-body .public-hero {
+  background:
+    radial-gradient(ellipse 72% 80% at 20% 0%, rgba(75, 129, 186, .090), transparent 69%),
+    radial-gradient(circle at 88% 22%, rgba(216,181,106,.075), transparent 24rem),
+    transparent !important;
+}
+
+body.executive-platform-body .public-header {
+  background: linear-gradient(180deg, rgba(6, 25, 44, .91), rgba(3, 16, 30, .82)) !important;
+  box-shadow: 0 18px 44px rgba(0, 4, 12, .16) !important;
+}
+
+/* Authentication keeps the same Signature composition, with richer spatial lighting. */
+.auth-page-centered .auth-form-panel-centered {
+  background:
+    radial-gradient(ellipse 92% 60% at 50% -8%, rgba(96, 151, 207, .31) 0%, rgba(53, 104, 157, .15) 28%, rgba(23, 58, 94, .040) 52%, transparent 70%),
+    radial-gradient(circle at 12% 26%, rgba(55, 101, 161, .12) 0%, transparent 32%),
+    radial-gradient(circle at 88% 18%, rgba(218, 181, 108, .10) 0%, transparent 28%),
+    radial-gradient(ellipse at 76% 82%, rgba(36, 78, 138, .12) 0%, transparent 37%),
+    linear-gradient(145deg, #0b2d4e 0%, #071f38 38%, #041526 70%, #010b16 100%) !important;
+}
+
+.auth-page-centered .auth-form-panel-centered::before {
+  opacity: .66 !important;
+  background:
+    linear-gradient(118deg, transparent 0 55%, rgba(221, 176, 93, .054) 55.08%, transparent 55.18%),
+    linear-gradient(73deg, transparent 0 75%, rgba(88, 139, 193, .036) 75.08%, transparent 75.18%),
+    repeating-radial-gradient(circle at 88% 12%, transparent 0 58px, rgba(213, 172, 91, .026) 59px, transparent 60px 92px),
+    repeating-radial-gradient(circle at 8% 94%, transparent 0 91px, rgba(86, 133, 183, .017) 92px, transparent 93px 136px) !important;
+}
+
+.auth-page-centered .auth-form-panel-centered::after {
+  background:
+    radial-gradient(ellipse at 50% 38%, transparent 0%, transparent 30%, rgba(2, 10, 20, .12) 61%, rgba(0, 5, 12, .62) 100%),
+    radial-gradient(circle, rgba(255,255,255,.023) 0 .42px, transparent .58px) 0 0 / 7px 7px,
+    linear-gradient(180deg, rgba(255,255,255,.025), transparent 24%, transparent 74%, rgba(0,0,0,.24)) !important;
+}
+
+/* Glass surfaces pick up a little more separation from the richer background. */
+body.executive-platform-body .app-shell :is(
+  .executive-metric-strip,
+  .executive-kpis,
+  .interview-kpis,
+  .analytics-kpi-grid,
+  .profile-summary-grid,
+  .company-summary-grid,
+  .company-detail-kpis,
+  .watch-summary-grid,
+  .automation-health-grid
+) {
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.035),
+    0 18px 46px rgba(0, 5, 14, .10) !important;
+}
+
+@media (max-width: 760px) {
+  body.executive-platform-body .app-workspace::after {
+    inset: 0;
+    opacity: .52;
+  }
+
+  body.executive-platform-body .public-page {
+    background-attachment: scroll;
+  }
+}

@@ -8,6 +8,7 @@ import "./open-editorial-workspace.css";
 import "./signature-workspace.css";
 import "./signature-public.css";
 import "./cool-blue-signature.css";
+import "./luxury-depth.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 
