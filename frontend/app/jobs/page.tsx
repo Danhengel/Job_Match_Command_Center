@@ -251,7 +251,6 @@ export default function JobsPage() {
 
           <section className="executive-panel market-results-panel">
             <SectionHeader
-              eyebrow="OPPORTUNITY REVIEW"
               title="Current market signals"
               description={summary ? `${summary.matched} opportunities ranked from ${summary.unique} unique roles reviewed.` : results.length ? "Previously evaluated opportunities for this career profile." : "Run a market review to evaluate current opportunities."}
               actions={
