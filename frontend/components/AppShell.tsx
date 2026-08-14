@@ -20,14 +20,6 @@ const mobileNavigation = [
   ["/resumes", "▤", "Resume"],
 ] as const;
 
-const primaryDescriptions: Record<string, string> = {
-  "/dashboard": "What needs your attention now",
-  "/jobs": "Find and compare matching roles",
-  "/applications": "Track progress and next actions",
-  "/resumes": "Manage and tailor your resume",
-  "/profiles": "Goals, preferences, and experience",
-};
-
 const publicPaths = new Set([
   "/features",
   "/about",
@@ -128,7 +120,6 @@ export function AppShell({ children }: { children: ReactNode }) {
                 >
                   <span>
                     <strong>{item.label}</strong>
-                    <small>{primaryDescriptions[item.href]}</small>
                   </span>
                 </Link>
               );
@@ -143,7 +134,6 @@ export function AppShell({ children }: { children: ReactNode }) {
             >
               <span>
                 <strong>Tools</strong>
-                <small>Planning, preparation & insights</small>
               </span>
             </Link>
           </div>
