@@ -42,9 +42,9 @@ export default function RegisterPage() {
         <div className="auth-centered-shell">
           <Link href="/" className="auth-centered-logo" aria-label="CareerNavIQ home">
             <img
-              src="/careernaviq-logo.svg?v=20260813-register"
-              width="1600"
-              height="300"
+              src="/careernaviq-logo-official.jpg?v=20260812a"
+              width="1227"
+              height="223"
               alt="CareerNavIQ"
             />
           </Link>
