@@ -14,6 +14,7 @@ import "./true-navy.css";
 import "./blue-lock.css";
 import "./premium-blended-header.css";
 import "./luxury-color-balance.css";
+import "./dashboard-command-center.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 
