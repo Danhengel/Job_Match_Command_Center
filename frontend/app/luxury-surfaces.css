@@ -99,11 +99,33 @@ body,
 }
 
 .executive-platform.app-shell .app-sidebar {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden !important;
   border-right: 0 !important;
   background: transparent !important;
   box-shadow: none !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
+}
+
+.executive-platform.app-shell .sidebar-brand-row {
+  flex: 0 0 auto;
+}
+
+.executive-platform.app-shell .sidebar-nav {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.executive-platform.app-shell .sidebar-nav::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 .executive-platform.app-shell .app-header {
