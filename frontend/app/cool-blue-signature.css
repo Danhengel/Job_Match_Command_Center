@@ -1,0 +1,131 @@
+/* CareerNavIQ Cool Blue Signature Correction
+   Keep the luxury smoked-glass system, but remove the blue-green cast.
+   The atmosphere is now midnight navy, steel blue and restrained gold. */
+
+body.executive-platform-body .app-shell {
+  --signature-bg: #03101d;
+  --signature-bg-deep: #010914;
+  --signature-navy: #061a2d;
+  --signature-navy-2: #0a2948;
+  --signature-teal: #6398c2;
+}
+
+/* Signed-in workspace: true navy / steel-blue atmosphere. */
+body.executive-platform-body .app-workspace {
+  background:
+    radial-gradient(ellipse at 48% -8%, rgba(62, 119, 174, .30) 0%, rgba(26, 65, 103, .13) 32%, transparent 58%),
+    radial-gradient(circle at 82% 18%, rgba(214, 171, 82, .085), transparent 25rem),
+    radial-gradient(circle at 22% 70%, rgba(50, 103, 165, .075), transparent 30rem),
+    linear-gradient(145deg, #0a2743 0%, #061a2d 36%, #03101d 72%, #010914 100%) !important;
+}
+
+body.executive-platform-body .app-workspace::before {
+  background:
+    linear-gradient(116deg, transparent 0 58%, rgba(216, 181, 106, .042) 58.08%, transparent 58.17%),
+    linear-gradient(72deg, transparent 0 79%, rgba(72, 126, 184, .035) 79.08%, transparent 79.17%),
+    repeating-radial-gradient(circle at 92% 10%, transparent 0 74px, rgba(216, 181, 106, .024) 75px, transparent 76px 116px) !important;
+}
+
+body.executive-platform-body .app-header {
+  background: linear-gradient(180deg, rgba(6, 26, 45, .92), rgba(3, 17, 31, .80)) !important;
+}
+
+body.executive-platform-body .app-sidebar {
+  background:
+    radial-gradient(circle at 18% 0, rgba(62, 118, 176, .12), transparent 22rem),
+    radial-gradient(circle at 70% 80%, rgba(216, 181, 106, .055), transparent 20rem),
+    linear-gradient(180deg, rgba(8, 34, 58, .99), rgba(2, 12, 23, .99)) !important;
+}
+
+body.executive-platform-body .app-shell :is(.executive-page-header, .executive-command-hero) {
+  background:
+    radial-gradient(circle at 86% 22%, rgba(216, 181, 106, .085), transparent 22rem),
+    radial-gradient(circle at 15% 55%, rgba(68, 126, 184, .07), transparent 24rem) !important;
+}
+
+body.executive-platform-body .market-result-row:hover,
+body.executive-platform-body .application-row:hover,
+body.executive-platform-body .company-row:hover,
+body.executive-platform-body .resume-row:hover {
+  background: linear-gradient(90deg, rgba(255,255,255,.052), rgba(65, 121, 181, .028)) !important;
+}
+
+body.executive-platform-body .app-shell :is(
+  .market-criteria-panel,
+  .notice,
+  .executive-notice,
+  .empty-state-panel,
+  .executive-empty-state,
+  .resume-upload-zone,
+  .drop-zone,
+  .modal,
+  [role="dialog"]
+) {
+  background: linear-gradient(160deg, rgba(17, 40, 63, .78), rgba(5, 18, 32, .74)) !important;
+}
+
+/* Public informational pages use the same cooler blue family. */
+body.executive-platform-body .public-page {
+  background:
+    radial-gradient(ellipse at 50% -8%, rgba(62, 119, 174, .31) 0%, rgba(26, 65, 103, .13) 32%, transparent 58%),
+    radial-gradient(circle at 84% 20%, rgba(216, 181, 106, .085), transparent 27rem),
+    radial-gradient(circle at 12% 68%, rgba(54, 108, 171, .07), transparent 30rem),
+    linear-gradient(145deg, #0a2743 0%, #061a2d 38%, #03101d 74%, #010914 100%) !important;
+}
+
+body.executive-platform-body .public-header {
+  background: rgba(3, 18, 33, .82) !important;
+}
+
+body.executive-platform-body .public-hero {
+  background:
+    radial-gradient(circle at 86% 24%, rgba(216,181,106,.095), transparent 23rem),
+    radial-gradient(circle at 10% 72%, rgba(66,123,181,.07), transparent 25rem),
+    transparent !important;
+}
+
+body.executive-platform-body .public-card {
+  background: linear-gradient(155deg, rgba(17, 41, 64, .66), rgba(5, 19, 33, .58)) !important;
+}
+
+body.executive-platform-body .public-card:hover {
+  background: linear-gradient(155deg, rgba(22, 50, 78, .74), rgba(6, 23, 39, .65)) !important;
+}
+
+body.executive-platform-body .public-final-card {
+  background:
+    radial-gradient(circle at 90% 10%, rgba(216,181,106,.085), transparent 20rem),
+    linear-gradient(155deg, rgba(17, 42, 66, .79), rgba(4, 17, 30, .82)) !important;
+}
+
+body.executive-platform-body .public-footer {
+  background: rgba(1, 9, 20, .78) !important;
+}
+
+/* Login and register: remove the strongest teal/green glow. */
+.auth-page-centered .auth-form-panel-centered {
+  background:
+    radial-gradient(ellipse at 50% -10%, rgba(62, 119, 174, .38) 0%, rgba(26, 65, 103, .17) 31%, transparent 58%),
+    radial-gradient(circle at 12% 23%, rgba(54, 108, 171, .15) 0%, transparent 31%),
+    radial-gradient(circle at 88% 18%, rgba(221, 183, 108, .12) 0%, transparent 27%),
+    radial-gradient(circle at 75% 78%, rgba(42, 91, 153, .16) 0%, transparent 34%),
+    linear-gradient(142deg, #0a2a49 0%, #061a2d 43%, #031321 72%, #010b15 100%) !important;
+}
+
+.auth-page-centered .auth-form-panel-centered::before {
+  background:
+    linear-gradient(118deg, transparent 0 55%, rgba(221, 176, 93, .068) 55.08%, transparent 55.18%),
+    linear-gradient(73deg, transparent 0 75%, rgba(70, 126, 184, .05) 75.08%, transparent 75.18%),
+    repeating-radial-gradient(circle at 88% 12%, transparent 0 56px, rgba(213, 172, 91, .034) 57px, transparent 58px 89px),
+    repeating-radial-gradient(circle at 8% 94%, transparent 0 88px, rgba(67, 122, 179, .022) 89px, transparent 90px 132px) !important;
+}
+
+.auth-centered-logo::before {
+  background: radial-gradient(ellipse at center, rgba(220, 177, 92, .11), rgba(57, 111, 169, .045) 42%, transparent 72%) !important;
+}
+
+@media (max-width: 760px) {
+  body.executive-platform-body .public-header {
+    background: rgba(2, 13, 25, .94) !important;
+  }
+}
