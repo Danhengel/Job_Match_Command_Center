@@ -24,8 +24,6 @@ export default function HomePage() {
             <Link href="/login">Sign in</Link>
           </nav>
 
-          <Link href="/register" className="premium-signin">Get started <span aria-hidden="true">→</span></Link>
-
           <details className="premium-mobile-menu">
             <summary aria-label="Open navigation menu">
               <span />
@@ -39,7 +37,6 @@ export default function HomePage() {
               <Link href="/ai-job-search">Resources</Link>
               <Link href="/contact">Contact</Link>
               <Link href="/login">Sign in</Link>
-              <Link href="/register" className="mobile-menu-cta">Get started →</Link>
             </nav>
           </details>
         </div>
@@ -51,9 +48,9 @@ export default function HomePage() {
             <div className="premium-hero-copy">
               <img
                 className="premium-hero-logo premium-hero-logo-unframed"
-                src="/careernaviq-logo.svg?v=20260813-no-tagline"
-                width="1600"
-                height="300"
+                src="/careernaviq-logo-official.jpg?v=20260812a"
+                width="1227"
+                height="223"
                 alt="CareerNavIQ"
               />
               <h1 className="premium-hero-message">
