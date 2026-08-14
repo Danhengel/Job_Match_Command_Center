@@ -75,7 +75,7 @@ export default function InterviewCenter() {
     <>
       <PageHeader
         eyebrow="INTERVIEW ADVISORY"
-        title="Prepare every senior-level conversation with intention"
+        title="Prepare every important conversation with intention"
         description="Keep recruiter calls, interviews, preparation, meeting details, and follow-up connected to the opportunity under consideration."
         actions={<div className="row wrap"><Link className="button secondary" href="/applications">Opportunity portfolio</Link><Link className="button" href="/crm">Relationship network</Link></div>}
       />
@@ -118,17 +118,17 @@ export default function InterviewCenter() {
               <span className="badge">{nextEvent.event_type}</span>
               <h2>{nextEvent.title}</h2>
               <p className="muted">{new Date(nextEvent.starts_at).toLocaleString()}</p>
-              <p>{nextEvent.notes || "Review the opportunity, alignment evidence, executive stories, and questions before the conversation."}</p>
+              <p>{nextEvent.notes || "Review the opportunity, alignment evidence, key stories, and questions before the conversation."}</p>
               <div className="row wrap">{nextEvent.meeting_url ? <a className="button" href={nextEvent.meeting_url} target="_blank" rel="noreferrer">Join meeting</a> : null}<Link className="button secondary" href={`/applications/${nextEvent.application_id}`}>Review opportunity</Link></div>
             </>
           ) : (
             <><h2>No upcoming interviews</h2><p className="muted">Add a recruiter call or interview when an opportunity advances.</p></>
           )}
           <div className="interview-checklist">
-            <strong>Executive preparation checklist</strong>
-            <span>Review the role, mandate, and decision criteria</span>
-            <span>Select three quantified leadership stories</span>
-            <span>Prepare questions that test scope, culture, and authority</span>
+            <strong>Preparation checklist</strong>
+            <span>Review the role, priorities, and decision criteria</span>
+            <span>Select three quantified experience stories</span>
+            <span>Prepare questions that test scope, culture, and expectations</span>
             <span>Confirm logistics and post-interview follow-up</span>
           </div>
         </section>
