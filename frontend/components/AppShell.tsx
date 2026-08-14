@@ -9,7 +9,7 @@ import { GuidedJourneyFooter } from "@/components/GuidedJourneyFooter";
 import { SiteFooter } from "@/components/SiteFooter";
 import {
   PRIMARY_NAV,
-  SECONDARY_NAV,
+  SIDEBAR_GROUPS,
   isActivePath,
 } from "@/lib/careerJourney";
 import { endAuthenticatedSession } from "@/lib/sessionStorage";
@@ -38,7 +38,6 @@ export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [headerScrolled, setHeaderScrolled] = useState(false);
-  const toolsActive = pathname === "/tools" || SECONDARY_NAV.some((item) => isActivePath(pathname, item.href));
 
   useEffect(() => {
     setMenuOpen(false);
@@ -126,25 +125,27 @@ export function AppShell({ children }: { children: ReactNode }) {
                   className={`sidebar-dashboard ${itemActive ? "active" : ""}`}
                   aria-current={itemActive ? "page" : undefined}
                 >
-                  <span>
-                    <strong>{item.label}</strong>
-                  </span>
+                  <span><strong>{item.label}</strong></span>
                 </Link>
               );
             })}
           </div>
 
-          <div className="sidebar-tools-entry">
-            <Link
-              href="/tools"
-              className={`sidebar-dashboard ${toolsActive ? "active" : ""}`}
-              aria-current={pathname === "/tools" ? "page" : undefined}
-            >
-              <span>
-                <strong>Tools</strong>
-              </span>
-            </Link>
-          </div>
+          {SIDEBAR_GROUPS.map((group) => (
+            <div className="sidebar-nav-group" key={group.label}>
+              <div className="sidebar-section-heading"><span>{group.label}</span></div>
+              <div className="sidebar-utility-links">
+                {group.items.map((item) => {
+                  const itemActive = isActivePath(pathname, item.href);
+                  return (
+                    <Link key={item.href} href={item.href} className={itemActive ? "active" : ""} aria-current={itemActive ? "page" : undefined}>
+                      {item.label}
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
 
           <div className="sidebar-utility-links sidebar-bottom-links">
             <Link href="/notifications" className={isActivePath(pathname, "/notifications") ? "active" : ""}>Notifications</Link>
