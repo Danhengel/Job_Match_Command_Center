@@ -47,7 +47,7 @@ export default function LoginPage() {
           <div className="auth-card auth-card-large">
             <p className="eyebrow">WELCOME BACK</p>
             <h1>Access your CareerNavIQ workspace</h1>
-            <p className="auth-card-intro">Continue your executive search with clarity, strategy, and momentum.</p>
+            <p className="auth-card-intro">Continue your job search with clarity, focus, and momentum.</p>
 
             <form onSubmit={submit} className="auth-form">
               <label htmlFor="email">Email address</label>
