@@ -1,0 +1,127 @@
+/* CareerNavIQ — permanent footer treatment
+   A quiet editorial close for authenticated and authentication routes. */
+
+.site-footer {
+  width: 100%;
+  margin-top: clamp(42px, 6vw, 76px);
+  padding: 24px 0 20px;
+  border-top: 1px solid rgba(220, 199, 151, .16);
+  color: #aebdca;
+  font-family: var(--cn-font-display, Didot, "Bodoni MT", Baskerville, "Iowan Old Style", Georgia, serif);
+}
+
+.site-footer-inner,
+.site-footer-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.site-footer-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  min-width: 0;
+}
+
+.site-footer-brand strong {
+  color: #fff8ec;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: -.018em;
+}
+
+.site-footer-brand span,
+.site-footer-links a,
+.site-footer-meta {
+  font-family: inherit;
+  font-weight: 400;
+}
+
+.site-footer-brand span {
+  color: #8fa3b4;
+  font-size: .76rem;
+  letter-spacing: .018em;
+}
+
+.site-footer-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2.4vw, 28px);
+  flex-wrap: wrap;
+}
+
+.site-footer-links a {
+  color: #bdc9d3;
+  font-size: .78rem;
+  letter-spacing: .012em;
+  text-decoration: none;
+  transition: color .18s ease;
+}
+
+.site-footer-links a:hover {
+  color: #e1c681;
+}
+
+.site-footer-meta {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(205, 216, 232, .075);
+  color: #758a9b;
+  font-size: .68rem;
+  letter-spacing: .018em;
+}
+
+/* Authentication routes retain their full-screen composition, then close with a
+   dedicated midnight footer rather than ending abruptly. */
+.auth-shell-with-footer {
+  width: 100%;
+  min-height: 100vh;
+  background: #071b2c;
+}
+
+.auth-shell-with-footer .site-footer-auth {
+  margin-top: 0;
+  padding: 24px clamp(22px, 5vw, 72px) 20px;
+  background: linear-gradient(180deg, #071b2c, #061724);
+  border-top-color: rgba(220, 199, 151, .18);
+}
+
+.executive-platform.app-shell .site-footer-app {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 760px) {
+  .site-footer {
+    margin-top: 38px;
+    padding-top: 22px;
+  }
+
+  .site-footer-inner,
+  .site-footer-meta,
+  .site-footer-brand {
+    align-items: flex-start;
+  }
+
+  .site-footer-inner,
+  .site-footer-meta {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .site-footer-brand {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .site-footer-links {
+    gap: 16px 20px;
+  }
+
+  .executive-platform.app-shell .site-footer-app {
+    margin-bottom: calc(70px + env(safe-area-inset-bottom));
+  }
+}
