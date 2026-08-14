@@ -92,7 +92,7 @@ export default function InterviewCoach() {
   const question = questions[questionIndex % questions.length];
   const selectedApp = applications.find((item) => String(item.id) === applicationId);
   const average = history.length ? Math.round(history.reduce((sum, item) => sum + item.score, 0) / history.length) : 0;
-  const readiness = Math.min(100, Math.round((average * 0.65) + (Math.min(stories.length, 5) / 5 * 20) + (Math.min(history.length, 5) / 5 * 15));
+  const readiness = Math.min(100, Math.round((average * 0.65) + (Math.min(stories.length, 5) / 5 * 20) + (Math.min(history.length, 5) / 5 * 15)));
 
   const suggestedStories = useMemo(() => {
     const words = question.toLowerCase().split(/\W+/).filter((word) => word.length > 4);
