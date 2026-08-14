@@ -59,14 +59,14 @@ export default function Coach() {
       <PageHeader
         eyebrow="APPLICATION STRATEGY"
         title="Examine the decision before you make the move"
-        description="Bring your executive profile, active opportunities, and saved evidence into one focused strategy conversation."
+        description="Bring your career profile, active opportunities, and saved evidence into one focused strategy conversation."
       />
 
       <div className="coach-brief-grid">
         <form className="card coach-brief-form" onSubmit={ask}>
           <SectionHeader eyebrow="DECISION CONTEXT" title="Frame the question" description="Select the profile and opportunity that should inform the guidance, then make the decision explicit." />
 
-          <label htmlFor="coach-profile">Executive profile</label>
+          <label htmlFor="coach-profile">Career profile</label>
           <select id="coach-profile" value={profileId} onChange={(event) => setProfileId(event.target.value)}>
             <option value="">General career strategy</option>
             {profiles.map((profile) => <option key={profile.id} value={profile.id}>{profile.name}</option>)}
