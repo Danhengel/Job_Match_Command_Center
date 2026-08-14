@@ -470,7 +470,11 @@ body.executive-platform-body .premium-home .premium-actions.premium-actions-refi
 
 /* Workflow-grouped sidebar navigation. */
 .executive-platform.app-shell .sidebar-nav-group { margin-top: 13px; }
-.executive-platform.app-shell .sidebar-nav-group .sidebar-section-heading { margin-bottom: 3px; }
+.executive-platform.app-shell .sidebar-nav-group .sidebar-section-heading {
+  margin-bottom: 3px;
+  color: rgba(240,205,122,.82) !important;
+  text-shadow: 0 1px 12px rgba(215,168,68,.08);
+}
 .executive-platform.app-shell .sidebar-bottom-links {
   margin-top: 18px;
   padding-top: 14px;
