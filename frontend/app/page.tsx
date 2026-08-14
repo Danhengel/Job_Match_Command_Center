@@ -48,7 +48,7 @@ export default function HomePage() {
             <div className="premium-hero-copy">
               <img
                 className="premium-hero-logo premium-hero-logo-unframed"
-                src="/careernaviq-logo-hero-transparent.png?v=20260813a"
+                src="/careernaviq-logo-hero-transparent.png?v=20260813b"
                 width="1920"
                 height="547"
                 alt="CareerNavIQ"
