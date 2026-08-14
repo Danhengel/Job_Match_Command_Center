@@ -44,11 +44,23 @@ const publicPaths = new Set([
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [headerScrolled, setHeaderScrolled] = useState(false);
   const toolsActive = pathname === "/tools" || SECONDARY_NAV.some((item) => isActivePath(pathname, item.href));
 
   useEffect(() => {
     setMenuOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    function updateHeaderState() {
+      setHeaderScrolled(window.scrollY > 18);
+    }
+
+    updateHeaderState();
+    window.addEventListener("scroll", updateHeaderState, { passive: true });
+
+    return () => window.removeEventListener("scroll", updateHeaderState);
+  }, []);
 
   useEffect(() => {
     function closeOnEscape(event: KeyboardEvent) {
@@ -146,7 +158,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       </aside>
 
       <div className="app-workspace">
-        <header className="app-header">
+        <header className={`app-header ${headerScrolled ? "app-header-scrolled" : ""}`}>
           <button
             type="button"
             className="mobile-menu-button"

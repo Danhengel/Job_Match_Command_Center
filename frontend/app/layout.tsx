@@ -11,6 +11,7 @@ import "./cool-blue-signature.css";
 import "./luxury-depth.css";
 import "./true-navy.css";
 import "./blue-lock.css";
+import "./premium-blended-header.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 

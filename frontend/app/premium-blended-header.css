@@ -1,0 +1,97 @@
+/* CareerNavIQ Premium Blended Header
+   The utility header disappears into the page at rest, then gains a restrained
+   smoked-glass veil only after the user begins scrolling. */
+
+body.executive-platform-body .app-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  isolation: isolate;
+  border-bottom: 1px solid transparent !important;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(5, 18, 40, .30) 0%,
+      rgba(5, 18, 40, .14) 56%,
+      rgba(5, 18, 40, 0) 100%
+    ) !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(0) saturate(100%) !important;
+  -webkit-backdrop-filter: blur(0) saturate(100%) !important;
+  transition:
+    background .34s cubic-bezier(.22, .61, .36, 1),
+    border-color .34s cubic-bezier(.22, .61, .36, 1),
+    box-shadow .34s cubic-bezier(.22, .61, .36, 1),
+    backdrop-filter .34s cubic-bezier(.22, .61, .36, 1),
+    -webkit-backdrop-filter .34s cubic-bezier(.22, .61, .36, 1);
+}
+
+/* Soft fade eliminates the visual edge between header and canvas. */
+body.executive-platform-body .app-header::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  right: 0;
+  bottom: -22px;
+  height: 24px;
+  pointer-events: none;
+  opacity: .58;
+  background: linear-gradient(180deg, rgba(4, 14, 31, .18), transparent);
+  transition: opacity .34s cubic-bezier(.22, .61, .36, 1);
+}
+
+/* Once scrolling begins, add just enough glass to preserve legibility while
+   keeping the header visually connected to the royal-navy page beneath it. */
+body.executive-platform-body .app-header.app-header-scrolled {
+  border-bottom-color: rgba(145, 174, 224, .055) !important;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(5, 16, 36, .74) 0%,
+      rgba(4, 14, 32, .62) 66%,
+      rgba(4, 14, 32, .50) 100%
+    ) !important;
+  box-shadow:
+    0 14px 34px rgba(0, 3, 12, .10),
+    inset 0 -1px 0 rgba(255, 255, 255, .012) !important;
+  backdrop-filter: blur(22px) saturate(116%) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(116%) !important;
+}
+
+body.executive-platform-body .app-header.app-header-scrolled::after {
+  opacity: .32;
+}
+
+/* Utility links stay visually light so the header never becomes a toolbar slab. */
+body.executive-platform-body .app-header .header-utilities .header-link {
+  border-color: transparent !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body.executive-platform-body .app-header .header-utilities .header-link:hover {
+  border-color: rgba(205, 178, 116, .14) !important;
+  background: rgba(255, 255, 255, .035) !important;
+}
+
+@media (max-width: 760px) {
+  body.executive-platform-body .app-header {
+    background: linear-gradient(180deg, rgba(4, 14, 32, .54), rgba(4, 14, 32, .18)) !important;
+    backdrop-filter: blur(10px) saturate(108%) !important;
+    -webkit-backdrop-filter: blur(10px) saturate(108%) !important;
+  }
+
+  body.executive-platform-body .app-header.app-header-scrolled {
+    background: rgba(3, 12, 28, .82) !important;
+    backdrop-filter: blur(20px) saturate(112%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(112%) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.executive-platform-body .app-header,
+  body.executive-platform-body .app-header::after {
+    transition: none !important;
+  }
+}
