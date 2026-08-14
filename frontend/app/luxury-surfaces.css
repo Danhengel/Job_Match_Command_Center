@@ -476,3 +476,22 @@ body.executive-platform-body .premium-home .premium-actions.premium-actions-refi
   padding-top: 14px;
   border-top: 1px solid rgba(255,255,255,.07);
 }
+
+/* Keep hover feedback distinct from the single current-page selection. */
+.executive-platform.app-shell .sidebar-dashboard:hover,
+.executive-platform.app-shell .sidebar-utility-links a:hover {
+  border-color: transparent !important;
+  background: rgba(255,255,255,.035) !important;
+  box-shadow: none !important;
+  color: #f7f2e8 !important;
+}
+
+.executive-platform.app-shell .sidebar-dashboard.active,
+.executive-platform.app-shell .sidebar-dashboard.active:hover,
+.executive-platform.app-shell .sidebar-utility-links a.active,
+.executive-platform.app-shell .sidebar-utility-links a.active:hover {
+  border-color: rgba(215,168,68,.38) !important;
+  background: linear-gradient(90deg, rgba(215,168,68,.17), rgba(255,255,255,.045)) !important;
+  box-shadow: inset 3px 0 0 var(--cn-luxury-brass) !important;
+  color: #fff !important;
+}
