@@ -74,8 +74,16 @@ body.executive-platform-body :is(button, a, input, select, textarea) {
 .app-sidebar {
   background:
     radial-gradient(circle at 20% 0, rgba(40,162,160,.13), transparent 22rem),
-    linear-gradient(180deg, #0e2030, var(--ui-navy) 55%, #07121d) !important;
-  border-right: 1px solid rgba(215,168,68,.18) !important;
+    linear-gradient(90deg, #0e2030 0%, var(--ui-navy) 89%, var(--ui-canvas) 100%) !important;
+  border-right: 0 !important;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.app-sidebar::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 .sidebar-dashboard,
@@ -370,85 +378,6 @@ label {
   color: #185f5e !important;
 }
 
-/* Refined sidebar: keep only core destinations persistent and move deeper tools into one hub. */
-.sidebar-nav-refined {
-  display: flex !important;
-  min-height: calc(100vh - 96px);
-  flex-direction: column;
-  padding-bottom: 18px;
-}
-
-.sidebar-tools-entry {
-  margin-top: 18px;
-  padding-top: 18px;
-  border-top: 1px solid rgba(215,168,68,.18);
-}
-
-.sidebar-bottom-links {
-  display: grid;
-  gap: 4px;
-  margin-top: auto;
-  padding-top: 20px;
-  border-top: 1px solid rgba(255,255,255,.09);
-}
-
-.sidebar-bottom-links a {
-  display: flex;
-  min-height: 38px;
-  align-items: center;
-  padding: 8px 11px;
-}
-
-.sidebar-bottom-links + .sidebar-signout {
-  margin-top: 6px;
-}
-
-/* Tools hub: grouped, scannable workspaces instead of a long persistent menu. */
-.tools-workspace-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-}
-
-.tools-workspace-card {
-  display: flex;
-  min-height: 154px;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 22px;
-  padding: 22px;
-  border: 1px solid var(--ui-line);
-  border-radius: 16px;
-  background: linear-gradient(145deg, rgba(255,255,255,.98), rgba(238,243,242,.72));
-  color: var(--ui-ink);
-  box-shadow: 0 1px 2px rgba(4,16,28,.03);
-}
-
-.tools-workspace-card:hover {
-  border-color: rgba(23,111,115,.42);
-  color: var(--ui-ink);
-  box-shadow: 0 16px 34px rgba(4,16,28,.08);
-  transform: translateY(-2px);
-}
-
-.tools-workspace-card h3 {
-  margin-bottom: 7px;
-  color: var(--ui-ink);
-  font-size: 20px;
-}
-
-.tools-workspace-card p {
-  margin: 0;
-  color: var(--ui-muted);
-}
-
-.tools-workspace-open {
-  color: var(--ui-teal);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: .02em;
-}
-
 /* Homepage: retain the cinematic identity while making navigation and cards more current. */
 .premium-home .premium-header-inner { min-height: 88px; }
 .premium-home .premium-nav a { color: #f4f1e9; }
@@ -477,5 +406,4 @@ label {
   .executive-dashboard-compass img { min-height: 220px; }
   .market-result-row { grid-template-columns: 1fr !important; }
   .market-alignment-score { width: fit-content; min-width: 94px; }
-  .tools-workspace-grid { grid-template-columns: 1fr; }
 }
