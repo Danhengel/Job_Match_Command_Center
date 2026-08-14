@@ -1,0 +1,208 @@
+/* CareerNavIQ Luxury Color Balance
+   Breaks up the navy field with restrained champagne, ivory, cobalt and smoked-plum
+   accents while keeping the overall executive visual system cohesive. */
+
+:root {
+  --lux-ivory: #f3eee4;
+  --lux-champagne: #d8c39a;
+  --lux-brass: #b58a52;
+  --lux-cobalt: #4169aa;
+  --lux-periwinkle: #7f89bb;
+  --lux-plum: #71526d;
+  --lux-silver: #aebbd0;
+}
+
+/* Keep the canvas navy, but introduce localized color so sections do not merge together. */
+body.executive-platform-body .app-shell :is(.executive-page-header, .executive-command-hero) {
+  background:
+    radial-gradient(ellipse 70% 80% at 14% 3%, rgba(73, 106, 176, .15), transparent 68%),
+    radial-gradient(ellipse 46% 58% at 89% 18%, rgba(113, 82, 109, .085), transparent 72%),
+    linear-gradient(180deg, rgba(255,255,255,.015), transparent 70%) !important;
+}
+
+/* Primary KPI and metric surfaces: champagne, cobalt and plum rotate subtly. */
+body.executive-platform-body :is(
+  .executive-metric-card,
+  .metric-card,
+  .analytics-kpi-card,
+  .profile-summary-card,
+  .company-summary-card,
+  .company-detail-kpi,
+  .watch-summary-card,
+  .automation-health-card
+) {
+  border-color: rgba(216,195,154,.16) !important;
+  background:
+    linear-gradient(145deg, rgba(244,238,226,.085), rgba(18,31,56,.70)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.045),
+    0 18px 42px rgba(0,5,18,.12) !important;
+}
+
+body.executive-platform-body :is(
+  .executive-metric-card,
+  .metric-card,
+  .analytics-kpi-card,
+  .profile-summary-card,
+  .company-summary-card,
+  .company-detail-kpi,
+  .watch-summary-card,
+  .automation-health-card
+):nth-child(3n + 2) {
+  border-color: rgba(91,126,190,.22) !important;
+  background:
+    linear-gradient(145deg, rgba(65,105,170,.14), rgba(10,25,50,.74)) !important;
+}
+
+body.executive-platform-body :is(
+  .executive-metric-card,
+  .metric-card,
+  .analytics-kpi-card,
+  .profile-summary-card,
+  .company-summary-card,
+  .company-detail-kpi,
+  .watch-summary-card,
+  .automation-health-card
+):nth-child(3n + 3) {
+  border-color: rgba(138,101,132,.20) !important;
+  background:
+    linear-gradient(145deg, rgba(113,82,109,.12), rgba(12,24,47,.76)) !important;
+}
+
+/* Larger working panels get distinct material identities instead of endless navy boxes. */
+body.executive-platform-body .app-shell :is(
+  .dashboard-panel,
+  .executive-panel,
+  .studio-panel,
+  .analytics-panel,
+  .settings-card,
+  .resume-card,
+  .resume-library-panel,
+  .resume-analysis-panel,
+  .connector-panel,
+  .priority-card,
+  .outreach-controls,
+  .outreach-editor,
+  .outreach-guidance,
+  .market-criteria-panel
+) {
+  border-color: rgba(174,187,208,.12) !important;
+  background:
+    linear-gradient(112deg, rgba(174,187,208,.055), rgba(255,255,255,.018) 38%, transparent 76%) !important;
+}
+
+body.executive-platform-body .app-shell :is(
+  .resume-card,
+  .resume-library-panel,
+  .resume-analysis-panel,
+  .priority-card
+) {
+  background:
+    linear-gradient(112deg, rgba(216,195,154,.070), rgba(255,255,255,.018) 40%, transparent 78%) !important;
+}
+
+body.executive-platform-body .app-shell :is(
+  .analytics-panel,
+  .connector-panel,
+  .outreach-guidance
+) {
+  background:
+    linear-gradient(112deg, rgba(73,106,176,.085), rgba(255,255,255,.016) 42%, transparent 80%) !important;
+}
+
+body.executive-platform-body .app-shell :is(
+  .settings-card,
+  .outreach-editor
+) {
+  background:
+    linear-gradient(112deg, rgba(113,82,109,.072), rgba(255,255,255,.016) 42%, transparent 80%) !important;
+}
+
+/* Status / empty / notice areas use a warmer neutral instead of another blue panel. */
+body.executive-platform-body .app-shell :is(
+  .notice,
+  .executive-notice,
+  .empty-state-panel,
+  .executive-empty-state,
+  .resume-upload-zone,
+  .drop-zone
+) {
+  border-color: rgba(216,195,154,.18) !important;
+  background:
+    linear-gradient(145deg, rgba(216,195,154,.075), rgba(20,29,48,.76)) !important;
+}
+
+/* Utility links and secondary controls pick up silver/periwinkle rather than more navy. */
+body.executive-platform-body .app-content :is(
+  .button-secondary,
+  .secondary-button,
+  .ghost-button,
+  .filter-chip,
+  .chip,
+  .pill
+) {
+  border-color: rgba(127,137,187,.28) !important;
+  background: rgba(127,137,187,.075) !important;
+}
+
+body.executive-platform-body .app-content :is(
+  .button-secondary,
+  .secondary-button,
+  .ghost-button,
+  .filter-chip,
+  .chip,
+  .pill
+):hover {
+  border-color: rgba(216,195,154,.34) !important;
+  background: rgba(216,195,154,.10) !important;
+}
+
+/* Section labels and small metadata use warmer neutrals to diversify typography. */
+body.executive-platform-body .app-content :is(.eyebrow, .section-label, .kicker) {
+  color: var(--lux-champagne) !important;
+}
+
+body.executive-platform-body .app-content :is(.muted, small, .helper-text, .field-note) {
+  color: #aebbd0 !important;
+}
+
+/* Public cards rotate through three restrained materials. */
+body.executive-platform-body .public-card {
+  border-color: rgba(216,195,154,.15) !important;
+  background:
+    linear-gradient(150deg, rgba(244,238,226,.075), rgba(12,27,52,.72)) !important;
+}
+
+body.executive-platform-body .public-card:nth-child(3n + 2) {
+  border-color: rgba(73,106,176,.22) !important;
+  background:
+    linear-gradient(150deg, rgba(65,105,170,.13), rgba(9,24,48,.74)) !important;
+}
+
+body.executive-platform-body .public-card:nth-child(3n + 3) {
+  border-color: rgba(113,82,109,.20) !important;
+  background:
+    linear-gradient(150deg, rgba(113,82,109,.11), rgba(10,24,47,.75)) !important;
+}
+
+/* Authentication gets a subtle champagne halo around the card, not the whole page. */
+.auth-page-centered .auth-card-large,
+.auth-page-centered .auth-card {
+  box-shadow:
+    0 30px 80px rgba(0,4,15,.28),
+    0 0 0 1px rgba(216,195,154,.10),
+    0 0 54px rgba(216,195,154,.045) !important;
+}
+
+/* Maintain the premium restraint on small screens. */
+@media (max-width: 760px) {
+  body.executive-platform-body :is(
+    .executive-metric-card,
+    .metric-card,
+    .analytics-kpi-card,
+    .profile-summary-card,
+    .company-summary-card
+  ) {
+    background: linear-gradient(145deg, rgba(244,238,226,.065), rgba(13,28,53,.78)) !important;
+  }
+}
