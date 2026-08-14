@@ -9,6 +9,7 @@ import "./signature-workspace.css";
 import "./signature-public.css";
 import "./cool-blue-signature.css";
 import "./luxury-depth.css";
+import "./true-navy.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 
@@ -106,7 +107,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#071b2c",
+  themeColor: "#06162a",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
