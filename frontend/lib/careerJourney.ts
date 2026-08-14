@@ -14,7 +14,7 @@ export type CareerStage = {
 };
 
 export const PRIMARY_NAV: CareerJourneyItem[] = [
-  { href: "/dashboard", label: "Home" },
+  { href: "/dashboard", label: "Dashboard" },
   { href: "/jobs", label: "Jobs" },
   { href: "/applications", label: "Applications" },
   { href: "/resumes", label: "Resume" },
@@ -22,15 +22,18 @@ export const PRIMARY_NAV: CareerJourneyItem[] = [
 ];
 
 export const SECONDARY_NAV: CareerJourneyItem[] = [
+  { href: "/resumes/studio", label: "Resume Studio" },
+  { href: "/coach", label: "Application Prep" },
   { href: "/interviews", label: "Interview Prep" },
   { href: "/interview-coach", label: "Practice Interviews" },
   { href: "/companies", label: "Companies" },
+  { href: "/company-watches", label: "Saved Companies" },
   { href: "/crm", label: "Contacts" },
+  { href: "/outreach", label: "Outreach" },
   { href: "/calendar", label: "Calendar" },
   { href: "/analytics", label: "Analytics" },
   { href: "/reports/weekly", label: "Weekly Report" },
   { href: "/automation", label: "Automation" },
-  { href: "/settings/automation", label: "Settings" },
 ];
 
 export const CAREER_STAGES: CareerStage[] = [
@@ -101,9 +104,7 @@ export const CAREER_STAGES: CareerStage[] = [
 ];
 
 export const UTILITY_LINKS: CareerJourneyItem[] = [
-  { href: "/analytics", label: "Analytics" },
-  { href: "/reports/weekly", label: "Weekly Report" },
-  { href: "/automation", label: "Automation" },
+  { href: "/notifications", label: "Notifications" },
   { href: "/settings/automation", label: "Settings" },
 ];
 
@@ -127,7 +128,8 @@ export function getCareerStage(pathname: string) {
 }
 
 export function getCurrentPageLabel(pathname: string) {
-  if (pathname === "/dashboard" || pathname === "/command-center") return "Home";
+  if (pathname === "/dashboard" || pathname === "/command-center") return "Dashboard";
+  if (pathname === "/tools") return "Tools";
 
   return getActiveJourneyItem(pathname, [
     ...CAREER_STAGES.flatMap((stage) => stage.items),
