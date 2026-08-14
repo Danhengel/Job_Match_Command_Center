@@ -84,7 +84,7 @@ export default function JobWorkspace() {
     if (!active) return;
     setBusy(true); setError("");
     try {
-      const item = await api(`/api/tailoring/${active.id}/cover-letter`, { method:"POST", body:JSON.stringify({ tone:"executive" }) });
+      const item = await api(`/api/tailoring/${active.id}/cover-letter`, { method:"POST", body:JSON.stringify({ tone:"professional" }) });
       setActive(item); await load();
     } catch (e) { setError(e instanceof Error ? e.message : "Cover letter failed"); }
     finally { setBusy(false); }
@@ -101,7 +101,7 @@ export default function JobWorkspace() {
 
   async function copy(text:string) { await navigator.clipboard.writeText(text); }
 
-  if (!profileId) return <ExecutivePanel><p className="eyebrow">MARKET INTELLIGENCE</p><h2>Executive profile required</h2><p className="muted">Open this opportunity from Market Intelligence with an executive profile selected.</p><Link className="button" href="/jobs">Return to Market Intelligence</Link></ExecutivePanel>;
+  if (!profileId) return <ExecutivePanel><p className="eyebrow">MARKET INTELLIGENCE</p><h2>Career profile required</h2><p className="muted">Open this opportunity from Market Intelligence with a career profile selected.</p><Link className="button" href="/jobs">Return to Market Intelligence</Link></ExecutivePanel>;
   if (!data) return <ExecutivePanel><p className="eyebrow">OPPORTUNITY REVIEW</p><h2>Loading opportunity workspace…</h2>{error ? <p className="error">{error}</p> : null}</ExecutivePanel>;
 
   return <>
