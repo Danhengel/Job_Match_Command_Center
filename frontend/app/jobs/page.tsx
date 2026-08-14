@@ -192,7 +192,6 @@ export default function JobsPage() {
   return (
     <>
       <PageHeader
-        eyebrow="MARKET INTELLIGENCE"
         title="Evaluate the market against your executive position"
         description="Review live opportunities through the lens of role level, experience, geography, compensation, and evidence—not job-board volume."
         actions={<Link className="button secondary" href="/profiles">Executive profile</Link>}
