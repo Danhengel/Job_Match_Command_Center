@@ -19,6 +19,7 @@ import "./calm-dashboard.css";
 import "./frameless-luxury-workspace.css";
 import "./luxury-typography.css";
 import "./unified-shell-font.css";
+import "./sitewide-footer.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 
