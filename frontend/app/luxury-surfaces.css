@@ -516,6 +516,31 @@ body.executive-platform-body .premium-home .premium-actions.premium-actions-refi
   line-height: 1.45;
 }
 
+.executive-platform.app-shell .market-criteria-result-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  margin: 4px 0 8px;
+  padding: 15px;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 14px;
+  background: rgba(3,14,26,.26);
+}
+
+.executive-platform.app-shell .market-criteria-result-controls label,
+.executive-platform.app-shell .market-criteria-result-controls label > span {
+  display: grid;
+  gap: 7px;
+}
+
+.executive-platform.app-shell .market-criteria-result-controls label > span {
+  color: var(--cn-luxury-muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .055em;
+  text-transform: uppercase;
+}
+
 /* Keep hover feedback distinct from the single current-page selection. */
 .executive-platform.app-shell .sidebar-dashboard:hover,
 .executive-platform.app-shell .sidebar-utility-links a:hover {
