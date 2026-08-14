@@ -9,12 +9,12 @@ type PracticeRecord = { id: string; application: string; track: string; question
 type StarStory = { id: string; title: string; situation: string; task: string; action: string; result: string; tags: string };
 
 const tracks: Record<string, string[]> = {
-  Executive: [
-    "Walk me through the leadership experience that best prepares you for this role.",
+  Strategy: [
+    "Walk me through the experience that best prepares you for this role.",
     "Tell me about a time you inherited an unclear or underperforming operation. What did you change?",
     "How do you balance growth, customer experience, risk, and operational control?",
     "Describe a high-stakes decision you made with incomplete information.",
-    "How do you communicate difficult news to executives, regulators, or clients?",
+    "How do you communicate difficult news to senior stakeholders, regulators, or clients?",
   ],
   Behavioral: [
     "Tell me about a time you faced significant resistance to a change you were leading.",
@@ -66,7 +66,7 @@ function evaluate(answer: string) {
 export default function InterviewCoach() {
   const [applications, setApplications] = useState<Application[]>([]);
   const [applicationId, setApplicationId] = useState("");
-  const [track, setTrack] = useState("Executive");
+  const [track, setTrack] = useState("Strategy");
   const [questionIndex, setQuestionIndex] = useState(0);
   const [answer, setAnswer] = useState("");
   const [result, setResult] = useState<{ score: number; feedback: string[] } | null>(null);
@@ -92,7 +92,7 @@ export default function InterviewCoach() {
   const question = questions[questionIndex % questions.length];
   const selectedApp = applications.find((item) => String(item.id) === applicationId);
   const average = history.length ? Math.round(history.reduce((sum, item) => sum + item.score, 0) / history.length) : 0;
-  const readiness = Math.min(100, Math.round((average * 0.65) + (Math.min(stories.length, 5) / 5 * 20) + (Math.min(history.length, 5) / 5 * 15)));
+  const readiness = Math.min(100, Math.round((average * 0.65) + (Math.min(stories.length, 5) / 5 * 20) + (Math.min(history.length, 5) / 5 * 15));
 
   const suggestedStories = useMemo(() => {
     const words = question.toLowerCase().split(/\W+/).filter((word) => word.length > 4);
