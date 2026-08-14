@@ -1,0 +1,172 @@
+/* CareerNavIQ Blue Lock
+   Deliberately biases the active visual system toward ink navy, royal blue and cobalt.
+   This layer exists to eliminate any remaining aqua/green perception from legacy teal
+   tokens and hard-coded atmospheric surfaces. */
+
+:root {
+  --ui-navy: #071328;
+  --ui-navy-raised: #0d2146;
+  --ui-teal: #315fa8;
+  --ui-teal-bright: #4f7fd0;
+  --ui-surface-tint: #eef2f9;
+  --cn-navy-950: #071328;
+  --cn-navy-900: #0d2146;
+  --cn-navy-800: #15336a;
+  --cn-teal-700: #315fa8;
+  --cn-teal-100: #e9eef9;
+}
+
+body.executive-platform-body,
+body.executive-platform-body .app-shell {
+  --signature-bg: #030817;
+  --signature-bg-deep: #01040d;
+  --signature-navy: #071328;
+  --signature-navy-2: #0c2552;
+  --signature-glass: rgba(7, 18, 42, .70);
+  --signature-glass-strong: rgba(9, 23, 51, .86);
+  --signature-copy: #cbd5e5;
+  --signature-muted: #94a5bf;
+  --signature-teal: #3b69b5;
+  background-color: #020713;
+}
+
+body.executive-platform-body .app-workspace {
+  background:
+    radial-gradient(ellipse 88% 54% at 50% -10%, rgba(66, 88, 184, .30) 0%, rgba(38, 58, 128, .16) 30%, rgba(15, 31, 76, .05) 53%, transparent 70%),
+    radial-gradient(ellipse 54% 42% at 12% 68%, rgba(35, 62, 139, .12) 0%, rgba(19, 39, 96, .045) 44%, transparent 72%),
+    radial-gradient(ellipse 66% 48% at 80% 84%, rgba(28, 49, 118, .09) 0%, transparent 68%),
+    linear-gradient(150deg, #0c2454 0%, #091a3d 28%, #06132e 55%, #030a1b 80%, #01040d 100%) !important;
+}
+
+body.executive-platform-body .app-workspace::before {
+  opacity: .42 !important;
+  background:
+    linear-gradient(118deg, transparent 0 58%, rgba(90, 112, 198, .032) 58.07%, transparent 58.15%),
+    linear-gradient(72deg, transparent 0 79%, rgba(80, 104, 194, .026) 79.07%, transparent 79.15%),
+    repeating-radial-gradient(circle at 92% 10%, transparent 0 80px, rgba(79, 102, 185, .016) 81px, transparent 82px 126px),
+    repeating-radial-gradient(circle at 5% 91%, transparent 0 120px, rgba(61, 82, 165, .012) 121px, transparent 122px 170px) !important;
+}
+
+body.executive-platform-body .app-workspace::after {
+  background:
+    radial-gradient(ellipse at 51% 42%, transparent 0%, transparent 37%, rgba(0, 4, 14, .14) 66%, rgba(0, 2, 8, .52) 100%),
+    radial-gradient(circle, rgba(221,228,250,.022) 0 .42px, transparent .60px) 0 0 / 7px 7px !important;
+}
+
+body.executive-platform-body .app-header {
+  background: linear-gradient(180deg, rgba(6, 18, 42, .96), rgba(3, 9, 25, .88)) !important;
+}
+
+body.executive-platform-body .app-sidebar {
+  background:
+    radial-gradient(ellipse at 34% -4%, rgba(56, 78, 169, .18), transparent 31rem),
+    linear-gradient(180deg, #0b224d 0%, #071737 42%, #041026 74%, #010714 100%) !important;
+}
+
+body.executive-platform-body .app-shell :is(.executive-page-header, .executive-command-hero) {
+  background:
+    radial-gradient(ellipse 72% 80% at 16% 2%, rgba(49, 73, 160, .115), transparent 69%),
+    radial-gradient(ellipse 48% 56% at 90% 18%, rgba(37, 58, 139, .060), transparent 72%) !important;
+}
+
+body.executive-platform-body .app-shell :is(
+  .executive-panel,
+  .dashboard-panel,
+  .studio-panel,
+  .analytics-panel,
+  .settings-card,
+  .resume-card,
+  .resume-library-panel,
+  .resume-analysis-panel,
+  .connector-panel,
+  .priority-card,
+  .outreach-controls,
+  .outreach-editor,
+  .outreach-guidance,
+  .executive-command-grid,
+  .executive-metric-strip,
+  .executive-kpis,
+  .analytics-kpi-grid,
+  .profile-summary-grid,
+  .company-summary-grid,
+  .market-criteria-panel,
+  .notice,
+  .executive-notice,
+  .empty-state-panel,
+  .executive-empty-state,
+  .resume-upload-zone,
+  .drop-zone,
+  .modal,
+  [role="dialog"]
+) {
+  background-color: rgba(5, 14, 34, .56) !important;
+  border-color: rgba(116, 137, 194, .12) !important;
+}
+
+body.executive-platform-body :is(.market-result-row, .application-row, .company-row, .resume-row):hover {
+  background: linear-gradient(90deg, rgba(255,255,255,.048), rgba(48, 70, 151, .032)) !important;
+}
+
+body.executive-platform-body .public-page {
+  background:
+    radial-gradient(ellipse 90% 54% at 50% -10%, rgba(66, 88, 184, .31) 0%, rgba(38, 58, 128, .16) 30%, rgba(15, 31, 76, .05) 53%, transparent 70%),
+    radial-gradient(ellipse 54% 42% at 12% 68%, rgba(35, 62, 139, .11) 0%, rgba(19, 39, 96, .04) 44%, transparent 72%),
+    radial-gradient(ellipse 66% 48% at 80% 84%, rgba(28, 49, 118, .085) 0%, transparent 68%),
+    radial-gradient(circle, rgba(221,228,250,.017) 0 .40px, transparent .58px) 0 0 / 8px 8px,
+    linear-gradient(150deg, #0c2454 0%, #091a3d 28%, #06132e 55%, #030a1b 80%, #01040d 100%) !important;
+}
+
+body.executive-platform-body .public-header {
+  background: linear-gradient(180deg, rgba(6, 18, 42, .96), rgba(3, 9, 25, .90)) !important;
+}
+
+body.executive-platform-body .public-hero {
+  background:
+    radial-gradient(ellipse 72% 80% at 18% 0%, rgba(49, 73, 160, .11), transparent 69%),
+    radial-gradient(ellipse 46% 55% at 90% 20%, rgba(36, 57, 137, .055), transparent 72%),
+    transparent !important;
+}
+
+body.executive-platform-body .public-card,
+body.executive-platform-body .public-final-card {
+  background: linear-gradient(155deg, rgba(9, 24, 55, .78), rgba(3, 10, 27, .72)) !important;
+}
+
+body.executive-platform-body .public-card:hover {
+  background: linear-gradient(155deg, rgba(14, 32, 72, .84), rgba(4, 13, 34, .76)) !important;
+}
+
+body.executive-platform-body .public-footer {
+  background: rgba(1, 5, 15, .90) !important;
+}
+
+.auth-page-centered {
+  background: #020713 !important;
+}
+
+.auth-page-centered .auth-form-panel-centered {
+  background:
+    radial-gradient(ellipse 88% 58% at 50% -8%, rgba(70, 93, 190, .34) 0%, rgba(40, 62, 135, .17) 30%, rgba(16, 34, 80, .05) 53%, transparent 70%),
+    radial-gradient(circle at 12% 27%, rgba(34, 59, 137, .13) 0%, transparent 32%),
+    radial-gradient(ellipse at 77% 82%, rgba(27, 48, 116, .13) 0%, transparent 38%),
+    linear-gradient(147deg, #0d285e 0%, #091c43 39%, #06132f 70%, #010615 100%) !important;
+}
+
+.auth-page-centered .auth-form-panel-centered::before {
+  opacity: .50 !important;
+  background:
+    linear-gradient(118deg, transparent 0 55%, rgba(84, 106, 192, .032) 55.08%, transparent 55.18%),
+    linear-gradient(73deg, transparent 0 75%, rgba(73, 96, 184, .028) 75.08%, transparent 75.18%),
+    repeating-radial-gradient(circle at 88% 12%, transparent 0 58px, rgba(77, 100, 187, .018) 59px, transparent 60px 92px),
+    repeating-radial-gradient(circle at 8% 94%, transparent 0 91px, rgba(64, 86, 170, .014) 92px, transparent 93px 136px) !important;
+}
+
+.auth-page-centered .auth-centered-logo::before {
+  background: radial-gradient(ellipse at center, rgba(54, 77, 165, .10), rgba(34, 55, 127, .04) 42%, transparent 72%) !important;
+}
+
+@media (max-width: 760px) {
+  body.executive-platform-body .public-header {
+    background: rgba(2, 7, 20, .97) !important;
+  }
+}
