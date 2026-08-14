@@ -10,6 +10,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import {
   PRIMARY_NAV,
   SIDEBAR_GROUPS,
+  getActiveJourneyItem,
   isActivePath,
 } from "@/lib/careerJourney";
 import { endAuthenticatedSession } from "@/lib/sessionStorage";
@@ -20,6 +21,8 @@ const mobileNavigation = [
   ["/applications", "✓", "Applications"],
   ["/resumes", "▤", "Resume"],
 ] as const;
+
+const groupedSidebarItems = SIDEBAR_GROUPS.flatMap((group) => group.items);
 
 const publicPaths = new Set([
   "/features",
@@ -36,6 +39,7 @@ const publicPaths = new Set([
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
+  const activeSidebarItem = getActiveJourneyItem(pathname, groupedSidebarItems);
   const [menuOpen, setMenuOpen] = useState(false);
   const [headerScrolled, setHeaderScrolled] = useState(false);
 
@@ -136,7 +140,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               <div className="sidebar-section-heading"><span>{group.label}</span></div>
               <div className="sidebar-utility-links">
                 {group.items.map((item) => {
-                  const itemActive = isActivePath(pathname, item.href);
+                  const itemActive = activeSidebarItem?.href === item.href;
                   return (
                     <Link key={item.href} href={item.href} className={itemActive ? "active" : ""} aria-current={itemActive ? "page" : undefined}>
                       {item.label}
