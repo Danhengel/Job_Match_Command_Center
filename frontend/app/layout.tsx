@@ -12,6 +12,7 @@ import "./luxury-depth.css";
 import "./true-navy.css";
 import "./blue-lock.css";
 import "./premium-blended-header.css";
+import "./luxury-color-balance.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 
