@@ -221,3 +221,22 @@ body,
 @media (prefers-reduced-motion: reduce) {
   .executive-platform.app-shell .app-content .executive-action-grid-v6 > a { transition: none; }
 }
+
+
+/* Concise navigation: labels scan faster without explanatory subcopy. */
+.executive-platform.app-shell .sidebar-stage-list,
+.executive-platform.app-shell .sidebar-utility-links {
+  gap: 5px;
+}
+
+.executive-platform.app-shell .sidebar-dashboard {
+  min-height: 48px;
+  align-items: center;
+  padding: 11px 13px !important;
+}
+
+.executive-platform.app-shell .sidebar-dashboard strong {
+  font-size: 14px;
+  letter-spacing: .012em;
+  line-height: 1.2;
+}
