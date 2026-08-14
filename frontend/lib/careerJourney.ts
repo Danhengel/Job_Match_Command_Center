@@ -15,8 +15,6 @@ export type CareerStage = {
 
 export const PRIMARY_NAV: CareerJourneyItem[] = [
   { href: "/dashboard", label: "Dashboard" },
-  { href: "/jobs", label: "Jobs" },
-  { href: "/applications", label: "Applications" },
 ];
 
 export const SIDEBAR_GROUPS: Array<{ label: string; items: CareerJourneyItem[] }> = [
@@ -28,19 +26,21 @@ export const SIDEBAR_GROUPS: Array<{ label: string; items: CareerJourneyItem[] }
   { label: "Research", items: [
     { href: "/companies", label: "Companies" },
     { href: "/company-watches", label: "Saved Companies" },
+    { href: "/jobs", label: "Job" },
   ] },
   { label: "Application", items: [
     { href: "/coach", label: "Application Prep" },
+    { href: "/applications", label: "Application" },
     { href: "/crm", label: "Contacts" },
     { href: "/outreach", label: "Outreach" },
   ] },
   { label: "Interviews", items: [
     { href: "/interviews", label: "Interview Prep" },
-    { href: "/interview-coach", label: "Practice Interviews" },
+    { href: "/interview-coach", label: "Practice Interview" },
     { href: "/calendar", label: "Calendar" },
   ] },
   { label: "Insights", items: [
-    { href: "/analytics", label: "Analytics" },
+    { href: "/analytics", label: "Analysis" },
     { href: "/reports/weekly", label: "Weekly Report" },
     { href: "/automation", label: "Automation" },
   ] },
