@@ -39,6 +39,12 @@
   display: none !important;
 }
 
+/* Remove the Opportunity Pipeline / "Your search at a glance" section.
+   Next Actions now flows directly into Priority Opportunities. */
+.dashboard-next-actions + .dashboard-section {
+  display: none !important;
+}
+
 .dashboard-section {
   border-radius: 20px !important;
   box-shadow: inset 0 1px rgba(255,255,255,.028), 0 16px 44px rgba(0,0,0,.08) !important;
@@ -83,25 +89,6 @@
   min-height: 34px !important;
   padding: 0 12px !important;
   font-size: .75rem !important;
-}
-
-/* Pipeline becomes a compact status strip rather than four large cards. */
-.dashboard-pipeline {
-  border-radius: 16px !important;
-}
-
-.dashboard-pipeline-card {
-  min-height: 86px !important;
-  padding: 15px 17px !important;
-}
-
-.dashboard-pipeline-card strong {
-  margin: 5px 0 2px !important;
-  font-size: 1.65rem !important;
-}
-
-.dashboard-pipeline-card small {
-  display: none !important;
 }
 
 /* Three opportunities are enough for a dashboard. The full list remains one click away. */
