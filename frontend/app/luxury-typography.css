@@ -1,6 +1,7 @@
 /* CareerNavIQ luxury typography system
    Editorial display type for hierarchy; restrained modern sans for working UI. */
 
+:root,
 .executive-platform.app-shell {
   --cn-font-display: Didot, "Bodoni MT", Baskerville, "Iowan Old Style", "Palatino Linotype", Georgia, serif;
   --cn-font-ui: "Avenir Next", Avenir, "Segoe UI Variable Text", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
@@ -94,10 +95,181 @@
   font-family: var(--cn-font-ui) !important;
 }
 
+/* Signed-in sidebar. */
+.executive-platform.app-shell .sidebar-brand strong {
+  font-family: var(--cn-font-display) !important;
+  font-size: 1.08rem !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.018em !important;
+  line-height: 1 !important;
+}
+
+.executive-platform.app-shell .sidebar-brand small {
+  font-family: var(--cn-font-ui) !important;
+  font-size: .61rem !important;
+  font-weight: 620 !important;
+  letter-spacing: .145em !important;
+  text-transform: uppercase;
+}
+
+.executive-platform.app-shell .sidebar-dashboard strong,
+.executive-platform.app-shell .sidebar-utility-links a,
+.executive-platform.app-shell .sidebar-signout {
+  font-family: var(--cn-font-ui) !important;
+  font-weight: 540 !important;
+  letter-spacing: .025em !important;
+}
+
+.executive-platform.app-shell .sidebar-dashboard.active strong,
+.executive-platform.app-shell .sidebar-utility-links a.active {
+  font-weight: 650 !important;
+  letter-spacing: .035em !important;
+}
+
+/* Signed-in header utility typography. */
+.executive-platform.app-shell .header-utilities .header-link {
+  font-family: var(--cn-font-ui) !important;
+  font-size: .72rem !important;
+  font-weight: 620 !important;
+  letter-spacing: .105em !important;
+  text-transform: uppercase;
+}
+
+.executive-platform.app-shell .mobile-menu-button,
+.executive-platform.app-shell .sidebar-close {
+  font-family: var(--cn-font-ui) !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+}
+
+/* Signed-in guided footer. */
+.executive-platform.app-shell .executive-recommendation .eyebrow {
+  font-family: var(--cn-font-ui) !important;
+  font-size: .66rem !important;
+  font-weight: 650 !important;
+  letter-spacing: .16em !important;
+}
+
+.executive-platform.app-shell .executive-recommendation h2 {
+  font-family: var(--cn-font-display) !important;
+  font-weight: 400 !important;
+  letter-spacing: -.022em !important;
+  line-height: 1.04 !important;
+}
+
+.executive-platform.app-shell .executive-recommendation > div > p:not(.eyebrow) {
+  font-family: var(--cn-font-ui) !important;
+  font-weight: 400 !important;
+  letter-spacing: .003em !important;
+  line-height: 1.62 !important;
+}
+
+.executive-platform.app-shell .executive-recommendation .button {
+  font-family: var(--cn-font-ui) !important;
+  font-size: .72rem !important;
+  font-weight: 650 !important;
+  letter-spacing: .085em !important;
+}
+
+.executive-platform.app-shell .mobile-bottom-nav a,
+.executive-platform.app-shell .mobile-bottom-nav button,
+.executive-platform.app-shell .mobile-bottom-nav small {
+  font-family: var(--cn-font-ui) !important;
+  font-weight: 600 !important;
+  letter-spacing: .045em !important;
+}
+
+/* Homepage header and footer. */
+.premium-home .premium-header,
+.premium-home .premium-footer,
+.premium-home .premium-mobile-menu {
+  font-family: var(--cn-font-ui) !important;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+.premium-home .premium-nav a,
+.premium-home .premium-mobile-menu nav a {
+  font-family: var(--cn-font-ui) !important;
+  font-size: .73rem !important;
+  font-weight: 620 !important;
+  letter-spacing: .105em !important;
+  text-transform: uppercase;
+}
+
+.premium-home .premium-footer > .premium-shell > span {
+  font-family: var(--cn-font-display) !important;
+  font-weight: 400 !important;
+  letter-spacing: -.018em !important;
+}
+
+.premium-home .premium-footer p {
+  font-family: var(--cn-font-ui) !important;
+  font-weight: 400 !important;
+  letter-spacing: .004em !important;
+}
+
+.premium-home .premium-footer a {
+  font-family: var(--cn-font-ui) !important;
+  font-size: .69rem !important;
+  font-weight: 600 !important;
+  letter-spacing: .085em !important;
+  text-transform: uppercase;
+}
+
+/* Public-page header and footer. */
+.public-page .public-header,
+.public-page .public-footer {
+  font-family: var(--cn-font-ui) !important;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+.public-page .public-wordmark {
+  font-family: var(--cn-font-display) !important;
+  font-weight: 400 !important;
+  letter-spacing: -.018em !important;
+}
+
+.public-page .public-nav a {
+  font-family: var(--cn-font-ui) !important;
+  font-size: .72rem !important;
+  font-weight: 620 !important;
+  letter-spacing: .095em !important;
+}
+
+.public-page .public-footer-grid > div > strong {
+  font-family: var(--cn-font-ui) !important;
+  font-size: .67rem !important;
+  font-weight: 680 !important;
+  letter-spacing: .145em !important;
+  text-transform: uppercase;
+}
+
+.public-page .public-footer a,
+.public-page .public-footer span,
+.public-page .public-footer p {
+  font-family: var(--cn-font-ui) !important;
+}
+
+.public-page .public-footer a {
+  font-weight: 500 !important;
+  letter-spacing: .018em !important;
+}
+
+.public-page .public-footer-bottom {
+  font-size: .68rem !important;
+  letter-spacing: .035em !important;
+}
+
 @media (max-width: 680px) {
   .executive-platform.app-shell .app-content h1,
   .executive-platform.app-shell .dashboard-welcome h1 {
     letter-spacing: -0.026em !important;
     line-height: 1.01 !important;
+  }
+
+  .executive-platform.app-shell .header-utilities .header-link,
+  .premium-home .premium-nav a,
+  .public-page .public-nav a {
+    letter-spacing: .075em !important;
   }
 }
