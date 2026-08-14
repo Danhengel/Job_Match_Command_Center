@@ -9,7 +9,6 @@ import { GuidedJourneyFooter } from "@/components/GuidedJourneyFooter";
 import {
   PRIMARY_NAV,
   SECONDARY_NAV,
-  getCurrentPageLabel,
   isActivePath,
 } from "@/lib/careerJourney";
 import { endAuthenticatedSession } from "@/lib/sessionStorage";
@@ -45,7 +44,6 @@ const publicPaths = new Set([
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
-  const currentPageLabel = getCurrentPageLabel(pathname);
   const toolsActive = pathname === "/tools" || SECONDARY_NAV.some((item) => isActivePath(pathname, item.href));
 
   useEffect(() => {
@@ -160,17 +158,11 @@ export function AppShell({ children }: { children: ReactNode }) {
             <span aria-hidden="true">☰</span>
           </button>
 
-          <Link href="/dashboard" className="header-brand" aria-label="CareerNavIQ home">
-            <span className="header-brand-mark"><BrandCompass /></span>
-            <span className="header-brand-copy">
-              <strong>{currentPageLabel}</strong>
-            </span>
-          </Link>
-
-          <div className="header-actions">
-            {pathname !== "/dashboard" ? <Link href="/jobs" className="button compact">Find Jobs</Link> : null}
+          <nav className="header-actions header-utilities" aria-label="Page utilities">
+            <Link href="/contact" className="header-link">Help</Link>
+            <Link href="/jobs" className="header-link">Search</Link>
             <Link href="/notifications" className="header-link">Notifications</Link>
-          </div>
+          </nav>
         </header>
 
         <main className="app-content">
