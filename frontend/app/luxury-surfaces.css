@@ -17,6 +17,11 @@
   --careernaviq-navy-core: 8, 26, 42;
   --careernaviq-navy-lift: 16, 42, 61;
   --careernaviq-logo-navy: 5, 14, 29;
+  --cn-homepage-material:
+    linear-gradient(rgba(5,14,29,.34), rgba(5,14,29,.34)),
+    radial-gradient(circle at 70% 34%, rgba(16,42,61,.32), transparent 29%),
+    linear-gradient(90deg, rgba(5,14,29,.99) 0%, rgba(5,14,29,.96) 30%, rgba(8,26,42,.86) 46%, rgba(8,26,42,.58) 64%, rgba(5,14,29,.42) 100%),
+    url("/careernaviq-compass-architecture.webp?v=20260810office");
   --cn-midnight-atmosphere:
     radial-gradient(circle at 10% 0%, rgba(24,67,91,.46), transparent 30rem),
     radial-gradient(circle at 88% 18%, rgba(176,132,59,.09), transparent 32rem),
@@ -43,7 +48,7 @@ body,
 
 /* One uninterrupted atmosphere across sidebar, header, and page workspace. */
 .executive-platform.app-shell {
-  background-image: var(--cn-midnight-atmosphere) !important;
+  background-image: var(--cn-homepage-material) !important;
   background-repeat: no-repeat !important;
   background-position: center top !important;
   background-size: cover !important;
@@ -238,7 +243,7 @@ body,
 /* Route-level authority: legacy page bundles must not replace the brand system. */
 .auth-page.auth-page-centered {
   background-color: var(--cn-midnight-canvas) !important;
-  background-image: var(--cn-midnight-atmosphere) !important;
+  background-image: var(--cn-homepage-material) !important;
   background-repeat: no-repeat !important;
   background-position: center top !important;
   background-size: cover !important;
@@ -251,6 +256,10 @@ body,
   border-radius: 10px !important;
   background: linear-gradient(145deg, #f0cd7a 0%, #d7a844 48%, #b77c25 100%) !important;
   color: #071421 !important;
+  padding-inline: 34px !important;
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  letter-spacing: .025em !important;
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,.50),
     inset 0 -1px 0 rgba(93,55,7,.34),
@@ -274,6 +283,10 @@ body,
   border-color: rgba(255,232,170,.52) !important;
   background: linear-gradient(145deg, #f0cd7a 0%, #d7a844 48%, #b77c25 100%) !important;
   color: #071421 !important;
+  padding-inline: 34px !important;
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  letter-spacing: .025em !important;
 }
 
 .executive-platform.app-shell .app-content :is(a.button.secondary, button.secondary) {
