@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 360" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 300" role="img" aria-labelledby="title desc">
   <title id="title">CareerNavIQ</title>
-  <desc id="desc">CareerNavIQ wordmark with Career in silver, Nav in teal, IQ in gold, a compass integrated into the Q, and the tagline Strategic insight. Targeted opportunities. Meaningful results.</desc>
+  <desc id="desc">CareerNavIQ wordmark with Career in silver, Nav in teal, IQ in gold, and a compass integrated into the Q.</desc>
   <defs>
     <linearGradient id="silver" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#ffffff"/>
@@ -58,10 +58,4 @@
 
   <path d="M62 250 C390 210 780 210 1198 242 C1320 251 1435 265 1530 288" fill="none" stroke="#6b3f0b" stroke-width="7" opacity=".5"/>
   <path d="M62 246 C390 207 780 207 1198 238 C1320 247 1435 260 1530 282" fill="none" stroke="url(#goldLine)" stroke-width="3.5" filter="url(#glow)"/>
-
-  <g font-family="Georgia, 'Times New Roman', serif" font-size="30" letter-spacing="5.5">
-    <text x="162" y="322" fill="#d8a22d">STRATEGIC INSIGHT.</text>
-    <text x="515" y="322" fill="#12bccb">TARGETED OPPORTUNITIES.</text>
-    <text x="1045" y="322" fill="#d4d8dc">MEANINGFUL RESULTS.</text>
-  </g>
 </svg>

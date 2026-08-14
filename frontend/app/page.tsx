@@ -53,7 +53,7 @@ export default function HomePage() {
                 className="premium-hero-logo premium-hero-logo-unframed"
                 src="/careernaviq-logo.svg"
                 width="1600"
-                height="360"
+                height="300"
                 alt="CareerNavIQ"
               />
               <h1 className="premium-hero-message">
