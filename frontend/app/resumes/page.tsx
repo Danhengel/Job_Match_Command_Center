@@ -177,7 +177,7 @@ export default function ResumesPage() {
   return (
     <>
       <PageHeader
-        title="Manage the evidence behind your career direction"
+        title="Resume"
         description="Maintain the résumé versions that support your search, identify evidence gaps, and designate the primary document CareerNavIQ should use for market evaluation."
         actions={
           <label className="resume-profile-control" htmlFor="resume-profile">
