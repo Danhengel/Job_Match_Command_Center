@@ -68,7 +68,6 @@ export default function ResumeStudioPage() {
   return (
     <>
       <PageHeader
-        eyebrow="RESUME STUDIO"
         title="Resume Studio"
         description="Choose the strongest source résumé, review its evidence, and move into role-specific positioning without inventing experience or overstating fit."
         actions={<Link className="button secondary" href="/resumes">Experience library</Link>}
