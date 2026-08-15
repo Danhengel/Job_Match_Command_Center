@@ -528,6 +528,36 @@ body.executive-platform-body .premium-home .premium-actions.premium-actions-refi
   white-space: nowrap;
 }
 
+/* Let the Résumés hero emerge from the shared navy atmosphere without a hard edge. */
+.executive-platform.app-shell .app-content .resume-library-page {
+  display: grid;
+  gap: clamp(18px, 2vw, 28px);
+}
+
+.executive-platform.app-shell .app-content .resume-library-page > .executive-page-header {
+  isolation: isolate;
+  overflow: visible;
+  padding-inline: clamp(18px, 3vw, 42px) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.executive-platform.app-shell .app-content .resume-library-page > .executive-page-header::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -42px calc(-1 * var(--ui-space-page)) -72px;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 82% 22%, rgba(40,162,160,.14), transparent 26rem),
+    linear-gradient(180deg, rgba(5,14,29,.58) 0%, rgba(5,14,29,.34) 56%, transparent 100%);
+}
+
+.executive-platform.app-shell .app-content .resume-library-page > .executive-page-header::after {
+  display: none;
+}
+
 .executive-platform.app-shell .app-content :is(input, select, textarea) {
   border-color: rgba(176,199,208,.28) !important;
   background: rgba(248,250,248,.96) !important;
