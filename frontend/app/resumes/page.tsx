@@ -177,7 +177,6 @@ export default function ResumesPage() {
   return (
     <>
       <PageHeader
-        eyebrow="EXPERIENCE LIBRARY"
         title="Manage the evidence behind your career direction"
         description="Maintain the résumé versions that support your search, identify evidence gaps, and designate the primary document CareerNavIQ should use for market evaluation."
         actions={
