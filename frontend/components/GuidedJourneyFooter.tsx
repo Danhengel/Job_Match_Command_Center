@@ -89,7 +89,7 @@ export function GuidedJourneyFooter({ pathname }: { pathname: string }) {
         <h2>{current.title}</h2>
         <p>{current.description}</p>
       </div>
-      <Link className="button secondary" href={current.href}>{current.label}</Link>
+      <Link className="button" href={current.href}>{current.label}</Link>
     </aside>
   );
 }
