@@ -150,6 +150,105 @@ body,
   line-height: 1.2;
 }
 
+.executive-platform.app-shell .sidebar-nav-group {
+  margin-top: 13px;
+}
+
+.executive-platform.app-shell .sidebar-nav-group .sidebar-section-heading {
+  margin-bottom: 3px;
+  color: rgba(240,205,122,.82) !important;
+  text-shadow: 0 1px 12px rgba(215,168,68,.08);
+}
+
+.executive-platform.app-shell .sidebar-bottom-links {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,.07);
+}
+
+.executive-platform.app-shell .market-criteria-remote-toggle {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  align-items: start;
+  gap: 11px;
+  margin: 4px 0 8px;
+  padding: 14px 15px;
+  border: 1px solid rgba(215,168,68,.18);
+  border-radius: 14px;
+  background: rgba(255,255,255,.035);
+  cursor: pointer;
+}
+
+.executive-platform.app-shell .market-criteria-remote-toggle input {
+  width: 17px !important;
+  height: 17px !important;
+  min-height: 0 !important;
+  margin: 3px 0 0 !important;
+  accent-color: var(--cn-luxury-brass);
+}
+
+.executive-platform.app-shell .market-criteria-remote-toggle span,
+.executive-platform.app-shell .market-criteria-remote-toggle strong,
+.executive-platform.app-shell .market-criteria-remote-toggle small {
+  display: block;
+}
+
+.executive-platform.app-shell .market-criteria-remote-toggle strong {
+  color: var(--cn-luxury-ivory);
+  font-size: 14px;
+}
+
+.executive-platform.app-shell .market-criteria-remote-toggle small {
+  margin-top: 3px;
+  color: var(--cn-luxury-muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.executive-platform.app-shell .market-criteria-result-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  margin: 4px 0 8px;
+  padding: 15px;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 14px;
+  background: rgba(3,14,26,.26);
+}
+
+.executive-platform.app-shell .market-criteria-result-controls label,
+.executive-platform.app-shell .market-criteria-result-controls label > span {
+  display: grid;
+  gap: 7px;
+}
+
+.executive-platform.app-shell .market-criteria-result-controls label > span {
+  color: var(--cn-luxury-muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .055em;
+  text-transform: uppercase;
+}
+
+/* Keep hover feedback distinct from the single current-page selection. */
+.executive-platform.app-shell .sidebar-dashboard:hover,
+.executive-platform.app-shell .sidebar-utility-links a:hover {
+  border-color: transparent !important;
+  background: rgba(255,255,255,.035) !important;
+  box-shadow: none !important;
+  color: #f7f2e8 !important;
+}
+
+.executive-platform.app-shell .sidebar-dashboard.active,
+.executive-platform.app-shell .sidebar-dashboard.active:hover,
+.executive-platform.app-shell .sidebar-utility-links a.active,
+.executive-platform.app-shell .sidebar-utility-links a.active:hover {
+  border-color: rgba(215,168,68,.38) !important;
+  background: linear-gradient(90deg, rgba(215,168,68,.17), rgba(255,255,255,.045)) !important;
+  box-shadow: inset 3px 0 0 var(--cn-luxury-brass) !important;
+  color: #fff !important;
+}
+
 .executive-platform.app-shell .app-content {
   position: relative;
   isolation: isolate;
@@ -528,6 +627,84 @@ body.executive-platform-body .premium-home .premium-actions.premium-actions-refi
   white-space: nowrap;
 }
 
+/* One continuous navy atmosphere for every authenticated page hero. */
+.executive-platform.app-shell .app-content .executive-page-header {
+  isolation: isolate;
+  overflow: visible;
+  padding-inline: clamp(18px, 3vw, 42px) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.executive-platform.app-shell .app-content .executive-page-header::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -42px -100vw -72px;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 82% 22%, rgba(40,162,160,.14), transparent 26rem),
+    linear-gradient(180deg, rgba(5,14,29,.58) 0%, rgba(5,14,29,.34) 56%, transparent 100%);
+}
+
+.executive-platform.app-shell .app-content .executive-page-header::after {
+  display: none;
+}
+
+/* Extend the layered navy material to every major product surface. */
+.executive-platform.app-shell .app-content :is(
+  .resume-upload-panel,
+  .resume-library-panel,
+  .resume-analysis-panel,
+  .connector-panel,
+  .priority-card,
+  .outreach-controls,
+  .outreach-editor,
+  .outreach-guidance,
+  .executive-recommendation
+) {
+  border: 0 !important;
+  border-radius: 20px !important;
+  background:
+    radial-gradient(circle at 88% 0%, rgba(40,162,160,.08), transparent 16rem),
+    linear-gradient(145deg, rgba(16,42,61,.72), rgba(5,18,31,.88)) !important;
+  color: var(--cn-luxury-ivory) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    0 18px 48px rgba(0,8,18,.18) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.executive-platform.app-shell .app-content :is(
+  .resume-upload-panel,
+  .resume-library-panel,
+  .resume-analysis-panel,
+  .connector-panel,
+  .priority-card,
+  .outreach-controls,
+  .outreach-editor,
+  .outreach-guidance,
+  .executive-recommendation
+) :is(h2, h3, strong) {
+  color: var(--cn-luxury-ivory) !important;
+}
+
+.executive-platform.app-shell .app-content :is(
+  .resume-upload-panel,
+  .resume-library-panel,
+  .resume-analysis-panel,
+  .connector-panel,
+  .priority-card,
+  .outreach-controls,
+  .outreach-editor,
+  .outreach-guidance,
+  .executive-recommendation
+) :is(p, .muted, label, small) {
+  color: #afc0c8 !important;
+}
+
 /* Let the Résumés hero emerge from the shared navy atmosphere without a hard edge. */
 .executive-platform.app-shell .app-content .resume-library-page {
   display: grid;
@@ -606,6 +783,86 @@ body.executive-platform-body .premium-home .premium-actions.premium-actions-refi
   background: linear-gradient(145deg, rgba(27,62,82,.68), rgba(7,25,40,.78)) !important;
 }
 
+/* Carry the same uninterrupted navy atmosphere through the Profiles page. */
+.executive-platform.app-shell .app-content .profiles-page {
+  display: grid;
+  gap: clamp(18px, 2vw, 28px);
+}
+
+.executive-platform.app-shell .app-content .profiles-page > .executive-page-header {
+  isolation: isolate;
+  overflow: visible;
+  padding-inline: clamp(18px, 3vw, 42px) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.executive-platform.app-shell .app-content .profiles-page > .executive-page-header::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -42px -100vw -72px;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 82% 22%, rgba(40,162,160,.14), transparent 26rem),
+    linear-gradient(180deg, rgba(5,14,29,.58) 0%, rgba(5,14,29,.34) 56%, transparent 100%);
+}
+
+.executive-platform.app-shell .app-content .profiles-page > .executive-page-header::after {
+  display: none;
+}
+
+.executive-platform.app-shell .app-content .profiles-page .executive-metric-strip,
+.executive-platform.app-shell .app-content .profiles-page .profile-card,
+.executive-platform.app-shell .app-content .profiles-page .executive-recommendation {
+  border: 0 !important;
+  background:
+    radial-gradient(circle at 88% 0%, rgba(40,162,160,.08), transparent 16rem),
+    linear-gradient(145deg, rgba(16,42,61,.72), rgba(5,18,31,.88)) !important;
+  color: var(--cn-luxury-ivory) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    0 18px 48px rgba(0,8,18,.18) !important;
+}
+
+.executive-platform.app-shell .app-content .profiles-page .profile-card {
+  border: 1px solid rgba(215,168,68,.22) !important;
+}
+
+.executive-platform.app-shell .app-content .profiles-page .profile-card:hover {
+  border-color: rgba(215,168,68,.48) !important;
+  background: linear-gradient(145deg, rgba(25,58,78,.82), rgba(6,23,37,.94)) !important;
+}
+
+.executive-platform.app-shell .app-content .profiles-page :is(
+  .profile-card h2,
+  .executive-recommendation h2,
+  .executive-metric-strip strong
+) {
+  color: var(--cn-luxury-ivory) !important;
+}
+
+.executive-platform.app-shell .app-content .profiles-page :is(
+  .profile-card-footer > span,
+  .executive-recommendation p:last-child,
+  .executive-metric-strip span,
+  .executive-metric-strip small
+) {
+  color: #afc0c8 !important;
+}
+
+.executive-platform.app-shell .app-content .profiles-page .profile-meta span,
+.executive-platform.app-shell .app-content .profiles-page .profile-title-tags span {
+  border-color: rgba(255,255,255,.09) !important;
+  background: rgba(5,20,33,.58) !important;
+  color: #d8e2e3 !important;
+}
+
+.executive-platform.app-shell .app-content .profiles-page .profile-card-footer {
+  border-top-color: rgba(255,255,255,.09) !important;
+}
+
 .executive-platform.app-shell .app-content :is(input, select, textarea) {
   border-color: rgba(176,199,208,.28) !important;
   background: rgba(248,250,248,.96) !important;
@@ -633,103 +890,6 @@ body.executive-platform-body .premium-home .premium-actions.premium-actions-refi
 
 @media (prefers-reduced-motion: reduce) {
   .executive-platform.app-shell .app-content .executive-action-grid-v6 > a { transition: none; }
-}
-
-
-/* Workflow-grouped sidebar navigation. */
-.executive-platform.app-shell .sidebar-nav-group { margin-top: 13px; }
-.executive-platform.app-shell .sidebar-nav-group .sidebar-section-heading {
-  margin-bottom: 3px;
-  color: rgba(240,205,122,.82) !important;
-  text-shadow: 0 1px 12px rgba(215,168,68,.08);
-}
-.executive-platform.app-shell .sidebar-bottom-links {
-  margin-top: 18px;
-  padding-top: 14px;
-  border-top: 1px solid rgba(255,255,255,.07);
-}
-
-.executive-platform.app-shell .market-criteria-remote-toggle {
-  display: grid;
-  grid-template-columns: 20px minmax(0, 1fr);
-  align-items: start;
-  gap: 11px;
-  margin: 4px 0 8px;
-  padding: 14px 15px;
-  border: 1px solid rgba(215,168,68,.18);
-  border-radius: 14px;
-  background: rgba(255,255,255,.035);
-  cursor: pointer;
-}
-
-.executive-platform.app-shell .market-criteria-remote-toggle input {
-  width: 17px !important;
-  height: 17px !important;
-  min-height: 0 !important;
-  margin: 3px 0 0 !important;
-  accent-color: var(--cn-luxury-brass);
-}
-
-.executive-platform.app-shell .market-criteria-remote-toggle span,
-.executive-platform.app-shell .market-criteria-remote-toggle strong,
-.executive-platform.app-shell .market-criteria-remote-toggle small {
-  display: block;
-}
-
-.executive-platform.app-shell .market-criteria-remote-toggle strong {
-  color: var(--cn-luxury-ivory);
-  font-size: 14px;
-}
-
-.executive-platform.app-shell .market-criteria-remote-toggle small {
-  margin-top: 3px;
-  color: var(--cn-luxury-muted);
-  font-size: 12px;
-  line-height: 1.45;
-}
-
-.executive-platform.app-shell .market-criteria-result-controls {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 12px;
-  margin: 4px 0 8px;
-  padding: 15px;
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 14px;
-  background: rgba(3,14,26,.26);
-}
-
-.executive-platform.app-shell .market-criteria-result-controls label,
-.executive-platform.app-shell .market-criteria-result-controls label > span {
-  display: grid;
-  gap: 7px;
-}
-
-.executive-platform.app-shell .market-criteria-result-controls label > span {
-  color: var(--cn-luxury-muted);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .055em;
-  text-transform: uppercase;
-}
-
-/* Keep hover feedback distinct from the single current-page selection. */
-.executive-platform.app-shell .sidebar-dashboard:hover,
-.executive-platform.app-shell .sidebar-utility-links a:hover {
-  border-color: transparent !important;
-  background: rgba(255,255,255,.035) !important;
-  box-shadow: none !important;
-  color: #f7f2e8 !important;
-}
-
-.executive-platform.app-shell .sidebar-dashboard.active,
-.executive-platform.app-shell .sidebar-dashboard.active:hover,
-.executive-platform.app-shell .sidebar-utility-links a.active,
-.executive-platform.app-shell .sidebar-utility-links a.active:hover {
-  border-color: rgba(215,168,68,.38) !important;
-  background: linear-gradient(90deg, rgba(215,168,68,.17), rgba(255,255,255,.045)) !important;
-  box-shadow: inset 3px 0 0 var(--cn-luxury-brass) !important;
-  color: #fff !important;
 }
 
 
