@@ -731,3 +731,80 @@ body.executive-platform-body .premium-home .premium-actions.premium-actions-refi
   box-shadow: inset 3px 0 0 var(--cn-luxury-brass) !important;
   color: #fff !important;
 }
+
+
+/* Resume library: match the compact workspace composition used across authenticated pages. */
+.executive-platform.app-shell .app-content .resume-library-page {
+  display: grid;
+  gap: 24px;
+}
+
+.executive-platform.app-shell .app-content .resume-library-page .executive-resume-workspace {
+  grid-template-columns: minmax(280px, .72fr) minmax(0, 1.28fr) !important;
+  align-items: start;
+  gap: 20px;
+}
+
+.executive-platform.app-shell .app-content .resume-library-page :is(
+  .resume-upload-panel,
+  .resume-library-panel,
+  .resume-analysis-panel
+) {
+  min-height: 0 !important;
+  position: static !important;
+}
+
+.executive-platform.app-shell .app-content .resume-library-page .resume-analysis-panel {
+  grid-column: 1 / -1;
+}
+
+.executive-platform.app-shell .app-content .resume-library-page .resume-upload-panel :is(
+  input:not([type="checkbox"]),
+  select
+) {
+  min-height: 44px !important;
+  padding: 9px 12px !important;
+}
+
+.executive-platform.app-shell .app-content .resume-library-page .resume-checkbox-row {
+  display: flex !important;
+  align-items: center;
+  gap: 9px;
+  margin: 16px 0 !important;
+}
+
+.executive-platform.app-shell .app-content .resume-library-page .resume-checkbox-row input {
+  width: 16px !important;
+  height: 16px !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  flex: 0 0 auto;
+}
+
+.executive-platform.app-shell .app-content .resume-library-page .resume-upload-note {
+  margin: 12px 0 0;
+}
+
+@media (max-width: 900px) {
+  .executive-platform.app-shell .app-content .resume-library-page .executive-resume-workspace {
+    grid-template-columns: 1fr !important;
+  }
+
+  .executive-platform.app-shell .app-content .resume-library-page .resume-analysis-panel {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .executive-platform.app-shell .app-content .resume-library-page {
+    gap: 18px;
+  }
+
+  .executive-platform.app-shell .app-content .resume-library-page :is(
+    .resume-upload-panel,
+    .resume-library-panel,
+    .resume-analysis-panel
+  ) {
+    padding: 20px !important;
+  }
+}
