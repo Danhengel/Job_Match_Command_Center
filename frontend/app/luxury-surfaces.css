@@ -547,7 +547,7 @@ body.executive-platform-body .premium-home .premium-actions.premium-actions-refi
   content: "";
   position: absolute;
   z-index: -1;
-  inset: -42px calc(-1 * var(--ui-space-page)) -72px;
+  inset: -42px -100vw -72px;
   pointer-events: none;
   background:
     radial-gradient(circle at 82% 22%, rgba(40,162,160,.14), transparent 26rem),
@@ -556,6 +556,54 @@ body.executive-platform-body .premium-home .premium-actions.premium-actions-refi
 
 .executive-platform.app-shell .app-content .resume-library-page > .executive-page-header::after {
   display: none;
+}
+
+.executive-platform.app-shell .app-content .resume-library-page :is(
+  .resume-upload-panel,
+  .resume-library-panel,
+  .resume-analysis-panel
+) {
+  border: 0 !important;
+  border-radius: 20px !important;
+  background:
+    radial-gradient(circle at 88% 0%, rgba(40,162,160,.08), transparent 16rem),
+    linear-gradient(145deg, rgba(16,42,61,.72), rgba(5,18,31,.88)) !important;
+  color: var(--cn-luxury-ivory) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    0 18px 48px rgba(0,8,18,.18) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.executive-platform.app-shell .app-content .resume-library-page :is(
+  .resume-upload-panel,
+  .resume-library-panel,
+  .resume-analysis-panel
+) :is(h2, h3, strong) {
+  color: var(--cn-luxury-ivory) !important;
+}
+
+.executive-platform.app-shell .app-content .resume-library-page :is(
+  .resume-upload-panel,
+  .resume-library-panel,
+  .resume-analysis-panel
+) :is(p, .muted, label, small) {
+  color: #afc0c8 !important;
+}
+
+.executive-platform.app-shell .app-content .resume-library-page .resume-library-card,
+.executive-platform.app-shell .app-content .resume-library-page .resume-empty-state,
+.executive-platform.app-shell .app-content .resume-library-page .resume-analysis-section {
+  border: 1px solid rgba(255,255,255,.07) !important;
+  background: linear-gradient(145deg, rgba(20,50,70,.54), rgba(5,20,33,.66)) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.055) !important;
+}
+
+.executive-platform.app-shell .app-content .resume-library-page .resume-library-card:hover,
+.executive-platform.app-shell .app-content .resume-library-page .resume-library-card.selected {
+  border-color: rgba(215,168,68,.34) !important;
+  background: linear-gradient(145deg, rgba(27,62,82,.68), rgba(7,25,40,.78)) !important;
 }
 
 .executive-platform.app-shell .app-content :is(input, select, textarea) {
