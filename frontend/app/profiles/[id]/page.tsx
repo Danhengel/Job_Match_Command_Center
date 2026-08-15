@@ -343,7 +343,7 @@ export default function ProfileDetail({ params }: { params: Promise<{ id: string
     </section>
 
     <ExecutivePanel>
-      <SectionHeader eyebrow="EXPERIENCE LIBRARY" title="Add a résumé version" description="Upload a private PDF, DOCX, or TXT source résumé. Maximum file size is 10 MB." />
+      <SectionHeader title="Add a résumé version" description="Upload a private PDF, DOCX, or TXT source résumé. Maximum file size is 10 MB." />
       <form onSubmit={upload}>
         <div className="two-col">
           <div><label>Version name</label><input value={resumeName} onChange={(e) => setResumeName(e.target.value)} /></div>
@@ -354,7 +354,7 @@ export default function ProfileDetail({ params }: { params: Promise<{ id: string
     </ExecutivePanel>
 
     <section>
-      <SectionHeader eyebrow="EXPERIENCE LIBRARY" title="Résumé versions" description="Review analysis, evidence, and the primary source used across CareerNavIQ." />
+      <SectionHeader title="Résumé versions" description="Review analysis, evidence, and the primary source used across CareerNavIQ." />
       <div className="profile-grid">
         {resumes.map((r) => <article className="card resume-card" key={r.id}>
           <div className="row between wrap">
