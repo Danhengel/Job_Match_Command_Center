@@ -175,7 +175,7 @@ export default function ResumesPage() {
   const analysisScore = selectedResume?.analysis_score ?? 0;
 
   return (
-    <>
+    <div className="resume-library-page">
       <PageHeader
         title="Resume"
         description="Maintain the résumé versions that support your search, identify evidence gaps, and designate the primary document CareerNavIQ should use for market evaluation."
@@ -249,6 +249,6 @@ export default function ResumesPage() {
           )}
         </aside>
       </section>
-    </>
+    </div>
   );
 }
