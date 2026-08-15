@@ -46,7 +46,7 @@ export default function Profiles() {
   }, [items]);
 
   return (
-    <>
+    <div className="profiles-page">
       <PageHeader
         title="Profiles"
         description="Create a clear mandate for each serious career direction, including target roles, geography, compensation, and the résumé evidence that supports it."
@@ -110,6 +110,6 @@ export default function Profiles() {
           action={<Link className="button" href="/profiles/new">Create career profile</Link>}
         />
       ) : null}
-    </>
+    </div>
   );
 }
