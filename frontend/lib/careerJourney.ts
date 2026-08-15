@@ -21,7 +21,6 @@ export const SIDEBAR_GROUPS: Array<{ label: string; items: CareerJourneyItem[] }
   { label: "Positioning", items: [
     { href: "/profiles", label: "Profile" },
     { href: "/resumes", label: "Resume" },
-    { href: "/resumes/studio", label: "Resume Studio" },
   ] },
   { label: "Research", items: [
     { href: "/companies", label: "Companies" },
