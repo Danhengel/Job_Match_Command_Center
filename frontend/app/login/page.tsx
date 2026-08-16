@@ -6,6 +6,14 @@ import { useState } from "react";
 import { api } from "@/lib/api";
 import { startAuthenticatedSession } from "@/lib/sessionStorage";
 
+const authHeroBackgroundStyle = {
+  backgroundImage:
+    "radial-gradient(ellipse at 50% -10%, rgba(49, 104, 137, 0.34) 0%, rgba(20, 59, 85, 0.15) 31%, transparent 58%), radial-gradient(circle at 12% 23%, rgba(22, 139, 153, 0.14) 0%, transparent 31%), radial-gradient(circle at 88% 18%, rgba(221, 183, 108, 0.10) 0%, transparent 27%), linear-gradient(142deg, rgba(11, 45, 71, 0.72) 0%, rgba(7, 27, 44, 0.72) 43%, rgba(5, 21, 35, 0.78) 72%, rgba(3, 15, 26, 0.88) 100%), url('/careernaviq-compass-architecture.webp?v=20260810office')",
+  backgroundSize: "cover",
+  backgroundPosition: "center center",
+  backgroundRepeat: "no-repeat",
+} as const;
+
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -33,7 +41,7 @@ export default function LoginPage() {
 
   return (
     <div className="auth-page executive-auth-page auth-page-centered">
-      <section className="auth-form-panel auth-form-panel-centered">
+      <section className="auth-form-panel auth-form-panel-centered" style={authHeroBackgroundStyle}>
         <div className="auth-centered-shell">
           <Link href="/" className="auth-centered-logo" aria-label="CareerNavIQ home">
             <img
