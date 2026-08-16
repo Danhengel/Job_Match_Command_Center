@@ -145,11 +145,16 @@ body.executive-platform-body .public-footer {
 }
 
 .auth-page-centered .auth-form-panel-centered {
-  background:
-    radial-gradient(ellipse 88% 58% at 50% -8%, rgba(70, 93, 190, .34) 0%, rgba(40, 62, 135, .17) 30%, rgba(16, 34, 80, .05) 53%, transparent 70%),
-    radial-gradient(circle at 12% 27%, rgba(34, 59, 137, .13) 0%, transparent 32%),
-    radial-gradient(ellipse at 77% 82%, rgba(27, 48, 116, .13) 0%, transparent 38%),
-    linear-gradient(147deg, #0d285e 0%, #091c43 39%, #06132f 70%, #010615 100%) !important;
+  background-color: #010615 !important;
+  background-image:
+    radial-gradient(ellipse at 50% -10%, rgba(49, 104, 137, .34) 0%, rgba(20, 59, 85, .15) 31%, transparent 58%),
+    radial-gradient(circle at 12% 23%, rgba(22, 139, 153, .14) 0%, transparent 31%),
+    radial-gradient(circle at 88% 18%, rgba(221, 183, 108, .10) 0%, transparent 27%),
+    linear-gradient(142deg, rgba(11, 45, 71, .72) 0%, rgba(7, 27, 44, .72) 43%, rgba(5, 21, 35, .78) 72%, rgba(3, 15, 26, .88) 100%),
+    url("/careernaviq-compass-architecture.webp?v=20260810office") !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
 }
 
 .auth-page-centered .auth-form-panel-centered::before {
