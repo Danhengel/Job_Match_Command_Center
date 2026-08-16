@@ -33,6 +33,30 @@ export default function LoginPage() {
 
   return (
     <div className="auth-page executive-auth-page auth-page-centered">
+      <section className="auth-hero-panel" aria-labelledby="login-hero-title">
+        <div className="auth-hero-content">
+          <Link href="/" className="auth-hero-logo" aria-label="CareerNavIQ home">
+            <img
+              src="/careernaviq-logo-hero-transparent.png?v=20260813b"
+              width="1920"
+              height="547"
+              alt="CareerNavIQ"
+            />
+          </Link>
+          <div className="auth-hero-copy">
+            <p className="eyebrow">YOUR CAREER COMMAND CENTER</p>
+            <h2 id="login-hero-title">Your next move starts with a clearer view.</h2>
+            <p>Bring your opportunities, positioning, and progress together in one focused workspace.</p>
+          </div>
+          <img
+            className="auth-hero-visual"
+            src="/premium-career-visual.svg"
+            width="720"
+            height="420"
+            alt="A career path dashboard leading toward a compass"
+          />
+        </div>
+      </section>
       <section className="auth-form-panel auth-form-panel-centered">
         <div className="auth-centered-shell">
           <Link href="/" className="auth-centered-logo" aria-label="CareerNavIQ home">
