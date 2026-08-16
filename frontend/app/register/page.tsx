@@ -38,6 +38,30 @@ export default function RegisterPage() {
 
   return (
     <div className="auth-page executive-auth-page auth-page-centered">
+      <section className="auth-hero-panel" aria-labelledby="register-hero-title">
+        <div className="auth-hero-content">
+          <Link href="/" className="auth-hero-logo" aria-label="CareerNavIQ home">
+            <img
+              src="/careernaviq-logo-hero-transparent.png?v=20260813b"
+              width="1920"
+              height="547"
+              alt="CareerNavIQ"
+            />
+          </Link>
+          <div className="auth-hero-copy">
+            <p className="eyebrow">BUILD YOUR ADVANTAGE</p>
+            <h2 id="register-hero-title">Navigate your career with purpose.</h2>
+            <p>Turn scattered job-search activity into a clear strategy for finding and winning the right opportunity.</p>
+          </div>
+          <img
+            className="auth-hero-visual"
+            src="/premium-career-visual.svg"
+            width="720"
+            height="420"
+            alt="A career path dashboard leading toward a compass"
+          />
+        </div>
+      </section>
       <section className="auth-form-panel auth-form-panel-centered">
         <div className="auth-centered-shell">
           <Link href="/" className="auth-centered-logo" aria-label="CareerNavIQ home">
