@@ -1,97 +1,8 @@
 .auth-page-centered {
   min-height: 100vh;
-  display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(480px, 0.92fr);
+  display: block;
   background: #04111d;
   color: #f4efe6;
-}
-
-.auth-hero-panel {
-  position: relative;
-  isolation: isolate;
-  min-height: 100vh;
-  overflow: hidden;
-  padding: clamp(36px, 5vw, 76px);
-  background:
-    linear-gradient(90deg, rgba(1, 7, 13, 0.28), rgba(1, 7, 13, 0.02)),
-    url("/careernaviq-home-background.svg") 62% center / cover no-repeat,
-    #020b13;
-}
-
-.auth-hero-panel::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    linear-gradient(180deg, rgba(1, 8, 14, 0.04), rgba(1, 8, 14, 0.72)),
-    linear-gradient(90deg, transparent 72%, rgba(4, 17, 29, 0.72));
-}
-
-.auth-hero-content {
-  position: relative;
-  z-index: 1;
-  width: min(100%, 760px);
-  min-height: calc(100vh - clamp(72px, 10vw, 152px));
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.auth-hero-logo {
-  display: block;
-  width: min(390px, 72%);
-}
-
-.auth-hero-logo img,
-.auth-hero-visual {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.auth-hero-logo img {
-  filter: drop-shadow(0 12px 26px rgba(0, 0, 0, 0.36));
-}
-
-.auth-hero-copy {
-  max-width: 630px;
-  margin: clamp(44px, 8vh, 92px) 0 28px;
-}
-
-.auth-hero-copy .eyebrow {
-  margin: 0 0 14px;
-  color: #ddb96d;
-  font-size: 10px;
-  font-weight: 850;
-  letter-spacing: 0.18em;
-}
-
-.auth-hero-copy h2 {
-  margin: 0 0 18px;
-  color: #fffaf0;
-  font-family: var(--x-serif, Georgia, "Times New Roman", serif);
-  font-size: clamp(42px, 4.8vw, 68px);
-  font-weight: 600;
-  line-height: 0.98;
-  letter-spacing: -0.045em;
-  text-wrap: balance;
-}
-
-.auth-hero-copy p:last-child {
-  max-width: 54ch;
-  margin: 0;
-  color: rgba(219, 232, 236, 0.79);
-  font-size: clamp(14px, 1.25vw, 18px);
-  line-height: 1.65;
-}
-
-.auth-hero-visual {
-  width: min(610px, 88%);
-  margin-top: auto;
-  filter: drop-shadow(0 28px 40px rgba(0, 0, 0, 0.35));
 }
 
 .auth-page-centered .auth-form-panel-centered {
@@ -100,9 +11,9 @@
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   overflow: hidden;
-  padding: clamp(34px, 4.8vh, 58px) 24px;
+  padding: clamp(34px, 4.8vh, 58px) 24px 78px;
   background:
     radial-gradient(ellipse at 50% -10%, rgba(49, 104, 137, 0.38) 0%, rgba(20, 59, 85, 0.17) 31%, transparent 58%),
     radial-gradient(circle at 12% 23%, rgba(22, 139, 153, 0.18) 0%, transparent 31%),
@@ -149,7 +60,7 @@
 .auth-centered-logo {
   position: relative;
   display: block;
-  width: min(430px, 82%);
+  width: min(620px, 88vw);
   text-decoration: none;
   overflow: visible;
 }
@@ -441,94 +352,7 @@
   }
 }
 
-@media (max-width: 1100px) {
-  .auth-page-centered {
-    grid-template-columns: minmax(0, 0.9fr) minmax(440px, 1fr);
-  }
-
-  .auth-hero-panel {
-    padding: 42px 34px;
-  }
-
-  .auth-hero-copy h2 {
-    font-size: clamp(38px, 4.5vw, 54px);
-  }
-
-  .auth-hero-visual {
-    width: 100%;
-  }
-}
-
-@media (max-width: 860px) {
-  .auth-page-centered {
-    display: block;
-  }
-
-  .auth-hero-panel {
-    min-height: auto;
-    padding: 28px 24px 42px;
-    background-position: 68% center;
-  }
-
-  .auth-hero-content {
-    min-height: 360px;
-    width: min(100%, 680px);
-    margin: 0 auto;
-  }
-
-  .auth-hero-logo {
-    width: min(340px, 68%);
-  }
-
-  .auth-hero-copy {
-    margin: 46px 0 0;
-  }
-
-  .auth-hero-copy h2 {
-    max-width: 570px;
-    font-size: clamp(38px, 7vw, 54px);
-  }
-
-  .auth-hero-copy p:last-child {
-    max-width: 47ch;
-  }
-
-  .auth-hero-visual {
-    position: absolute;
-    right: -95px;
-    bottom: -55px;
-    width: 380px;
-    opacity: 0.34;
-  }
-
-  .auth-page-centered .auth-form-panel-centered {
-    min-height: auto;
-    padding-block: 48px 64px;
-  }
-}
-
 @media (max-width: 680px) {
-  .auth-hero-panel {
-    padding: 24px 20px 34px;
-  }
-
-  .auth-hero-content {
-    min-height: 310px;
-  }
-
-  .auth-hero-copy {
-    margin-top: 34px;
-  }
-
-  .auth-hero-copy h2 {
-    font-size: clamp(34px, 10vw, 46px);
-  }
-
-  .auth-hero-visual {
-    right: -120px;
-    width: 330px;
-  }
-
   .auth-page-centered .auth-form-panel-centered {
     padding: 24px 15px 42px;
     background:
@@ -542,7 +366,7 @@
   }
 
   .auth-centered-logo {
-    display: none;
+    width: min(500px, 92vw);
   }
 
   .auth-page-centered .auth-card-large {
@@ -573,14 +397,6 @@
 }
 
 @media (max-width: 420px) {
-  .auth-hero-logo {
-    width: 78%;
-  }
-
-  .auth-hero-copy p:last-child {
-    font-size: 13px;
-  }
-
   .auth-page-centered .auth-form-panel-centered {
     padding-inline: 12px;
   }
