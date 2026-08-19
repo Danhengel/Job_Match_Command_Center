@@ -21,7 +21,43 @@ MAJOR_BOARD_SOURCES = {
     "linkedin": "LinkedIn",
     "glassdoor": "Glassdoor",
     "ziprecruiter": "ZipRecruiter",
+    "usajobs": "USAJOBS",
+    "ycombinator": "Y Combinator Jobs",
 }
+CORE_ATS_COVERAGE = [
+    "Workday",
+    "Greenhouse",
+    "Lever",
+    "Ashby",
+    "SmartRecruiters",
+    "iCIMS",
+    "Workable",
+    "BambooHR",
+    "Paycom",
+    "Paylocity",
+    "SAP SuccessFactors",
+    "Jobvite",
+    "Taleo",
+    "Oracle Recruiting Cloud",
+    "Dayforce",
+    "Cornerstone",
+    "Rippling",
+    "Teamtailor",
+    "Personio",
+    "Breezy HR",
+    "JazzHR",
+]
+SPECIALTY_DISCOVERY_TARGETS = [
+    "Monster",
+    "CareerBuilder",
+    "Dice",
+    "SimplyHired",
+    "Wellfound",
+    "Built In",
+    "The Muse",
+    "eFinancialCareers",
+    "GovernmentJobs",
+]
 
 
 def configured() -> bool:
