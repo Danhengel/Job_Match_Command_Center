@@ -2,19 +2,18 @@
    Loaded last. This file owns the visible design across public, auth, and signed-in experiences. */
 
 :root {
-  --cni-navy: #0d3153;
-  --cni-navy-deep: #082a48;
+  --cni-navy: #0b3153;
+  --cni-navy-deep: #062744;
   --cni-ink: #173a59;
   --cni-muted: rgba(23, 58, 89, .68);
-  --cni-gold: #b89a66;
-  --cni-line: rgba(22, 58, 89, .10);
-  --cni-surface: rgba(255, 255, 255, .035);
-  --cni-surface-soft: rgba(255, 255, 255, .018);
-  --cni-surface-hover: rgba(255, 255, 255, .075);
-  --cni-shadow: 0 18px 48px rgba(16, 47, 82, .055);
-  --cni-radius: 18px;
-  --cni-control-radius: 10px;
-  --cni-content-max: 1460px;
+  --cni-gold: #b59661;
+  --cni-line: rgba(22, 58, 89, .11);
+  --cni-surface: rgba(255, 255, 255, .012);
+  --cni-surface-soft: rgba(255, 255, 255, .006);
+  --cni-surface-hover: rgba(255, 255, 255, .035);
+  --cni-radius: 16px;
+  --cni-control-radius: 9px;
+  --cni-content-max: 1480px;
 }
 
 html { scroll-behavior: smooth; }
@@ -23,21 +22,22 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   background:
-    radial-gradient(circle at 12% 8%, rgba(185, 216, 239, .22), transparent 34%),
-    radial-gradient(circle at 88% 18%, rgba(231, 221, 199, .16), transparent 30%),
-    linear-gradient(180deg, #f7fbfe 0%, #eef5fa 52%, #f8fbfd 100%) !important;
+    radial-gradient(circle at 8% 4%, rgba(207, 224, 236, .28), transparent 31%),
+    radial-gradient(circle at 92% 8%, rgba(226, 213, 188, .16), transparent 28%),
+    linear-gradient(180deg, #fbfcfd 0%, #f4f8fb 48%, #f9fbfc 100%) !important;
 }
 
-/* Typography is shared everywhere. */
+/* Typography: more editorial, less SaaS. */
 :where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(h1,h2,h3,h4) {
   color: var(--cni-navy) !important;
-  font-weight: 650 !important;
-  letter-spacing: -.026em !important;
+  font-weight: 620 !important;
+  letter-spacing: -.032em !important;
   text-shadow: none !important;
   text-wrap: balance;
 }
 :where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) h1 {
-  letter-spacing: -.045em !important;
+  letter-spacing: -.052em !important;
+  line-height: .98 !important;
 }
 :where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(p,li,label,small,.muted) {
   color: var(--cni-muted) !important;
@@ -45,42 +45,46 @@ body {
 
 /* Signed-in shell. */
 .executive-platform .app-sidebar {
-  background: linear-gradient(180deg, var(--cni-navy-deep), #0b395b) !important;
+  background: linear-gradient(180deg, var(--cni-navy-deep), #0b3657) !important;
   border-right: 0 !important;
-  box-shadow: 16px 0 42px rgba(8, 31, 51, .10) !important;
+  box-shadow: 14px 0 36px rgba(8, 31, 51, .07) !important;
 }
 .executive-platform .app-header {
-  min-height: 68px;
-  background: rgba(255,255,255,.025) !important;
-  border: 1px solid rgba(255,255,255,.08) !important;
-  box-shadow: 0 8px 28px rgba(16,47,82,.045) !important;
-  backdrop-filter: blur(22px) saturate(108%) !important;
-  -webkit-backdrop-filter: blur(22px) saturate(108%) !important;
+  min-height: 66px;
+  background: rgba(255,255,255,.018) !important;
+  border: 0 !important;
+  border-bottom: 1px solid rgba(20,56,86,.08) !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(4px) saturate(102%) !important;
+  -webkit-backdrop-filter: blur(4px) saturate(102%) !important;
 }
-.executive-platform .app-content { padding-top: 106px !important; }
+.executive-platform .app-content {
+  padding-top: 102px !important;
+  background: transparent !important;
+}
 .executive-platform .executive-page-frame {
   width: min(100%, var(--cni-content-max));
   margin-inline: auto;
-  padding-inline: clamp(20px, 2.6vw, 42px);
+  padding-inline: clamp(22px, 3vw, 52px);
 }
 .executive-platform .sidebar-section-heading {
-  color: rgba(244,248,252,.48) !important;
-  font-size: 10px !important;
+  color: rgba(244,248,252,.43) !important;
+  font-size: 9px !important;
   font-weight: 760 !important;
-  letter-spacing: .18em !important;
+  letter-spacing: .2em !important;
   text-transform: uppercase;
 }
 .executive-platform .app-sidebar :is(a:hover,.active) {
-  background: rgba(255,255,255,.075) !important;
-  box-shadow: inset 2px 0 0 rgba(196,165,106,.72) !important;
+  background: rgba(255,255,255,.055) !important;
+  box-shadow: inset 2px 0 0 rgba(196,165,106,.68) !important;
 }
 .executive-platform .sidebar-signout {
-  background: rgba(255,255,255,.045) !important;
-  border: 1px solid rgba(255,255,255,.08) !important;
+  background: transparent !important;
+  border: 1px solid rgba(255,255,255,.09) !important;
   box-shadow: none !important;
 }
 
-/* One surface language for every signed-in page. */
+/* Surfaces are now intentionally clear: hierarchy comes from spacing and fine rules, not frosting. */
 .executive-platform :where(
   .card,.panel,.executive-panel,.executive-metric-strip,.empty-state-panel,.executive-empty-state,
   .jobs-search-shell,.jobs-results-shell,.studio-setup-card,.studio-opportunity-card,
@@ -89,12 +93,14 @@ body {
   .interview-card,.company-card,.crm-card,.table-shell,.data-table-shell,
   [class$="-card"],[class$="-panel"]
 ) {
-  border: 1px solid rgba(255,255,255,.08) !important;
+  border: 0 !important;
+  border-top: 1px solid rgba(255,255,255,.62) !important;
+  border-bottom: 1px solid rgba(22,58,89,.09) !important;
   border-radius: var(--cni-radius) !important;
   background: var(--cni-surface) !important;
-  box-shadow: var(--cni-shadow) !important;
-  backdrop-filter: blur(18px) saturate(106%) !important;
-  -webkit-backdrop-filter: blur(18px) saturate(106%) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 .executive-platform :where(
@@ -103,61 +109,65 @@ body {
   [class$="-row"]
 ) {
   background: var(--cni-surface-soft) !important;
-  border: 1px solid rgba(21,58,89,.045) !important;
+  border: 0 !important;
+  border-bottom: 1px solid rgba(21,58,89,.07) !important;
   box-shadow: none !important;
+  backdrop-filter: none !important;
 }
 .executive-platform :where(
   .resume-list-row,.jobs-opportunity-card,.studio-opportunity-row,.resume-library-card,
   .application-row,.saved-job-row,[class$="-row"]
 ):hover {
   background: var(--cni-surface-hover) !important;
-  border-color: rgba(184,154,102,.18) !important;
+  border-bottom-color: rgba(184,154,102,.27) !important;
 }
 
-/* Controls are consistent across all experiences. */
+/* Controls: crisp and restrained rather than frosted. */
 :where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(input,select,textarea) {
   min-height: 46px;
   color: var(--cni-ink) !important;
-  background: rgba(255,255,255,.07) !important;
-  border: 1px solid rgba(22,58,89,.10) !important;
+  background: rgba(255,255,255,.32) !important;
+  border: 1px solid rgba(22,58,89,.12) !important;
   border-radius: var(--cni-control-radius) !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.22) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
 }
 :where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) textarea { min-height: 118px; }
 :where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(input,select,textarea):focus-visible {
-  outline: 3px solid rgba(39,98,151,.24) !important;
+  outline: 2px solid rgba(39,98,151,.22) !important;
   outline-offset: 2px;
-  border-color: rgba(39,98,151,.26) !important;
+  border-color: rgba(39,98,151,.28) !important;
 }
 
-/* Buttons: compact executive treatment. */
+/* Buttons: tailored executive treatment. */
 :where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(
   button:not(.secondary):not(.danger):not(.mobile-menu-button):not(.mobile-nav-overlay),
   .button:not(.secondary):not(.danger),.public-button-primary,.public-nav-cta,.premium-button-primary
 ) {
-  min-height: 44px;
-  border-radius: 9px !important;
-  background: linear-gradient(180deg, #17446f, #0d3153) !important;
+  min-height: 43px;
+  border-radius: 8px !important;
+  background: linear-gradient(180deg, #16456f, #0b3153) !important;
   color: #fff !important;
-  border: 1px solid rgba(6,34,60,.16) !important;
-  box-shadow: 0 8px 20px rgba(13,49,83,.11) !important;
+  border: 1px solid rgba(6,34,60,.14) !important;
+  box-shadow: 0 6px 16px rgba(13,49,83,.08) !important;
   font-weight: 650 !important;
-  letter-spacing: .01em;
+  letter-spacing: .008em;
 }
 :where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(.secondary,[class*="secondary"]) {
-  background: rgba(255,255,255,.045) !important;
-  border: 1px solid rgba(22,58,89,.08) !important;
+  background: transparent !important;
+  border: 1px solid rgba(22,58,89,.12) !important;
   box-shadow: none !important;
   color: var(--cni-navy) !important;
 }
 
-/* Public and marketing pages share the same system. */
+/* Public and marketing pages. */
 :where(.public-page,.premium-home) :where(.public-header,.premium-header) {
-  background: rgba(255,255,255,.025) !important;
-  border: 1px solid rgba(255,255,255,.08) !important;
-  box-shadow: 0 10px 32px rgba(16,47,82,.045) !important;
-  backdrop-filter: blur(22px) saturate(108%) !important;
-  -webkit-backdrop-filter: blur(22px) saturate(108%) !important;
+  background: rgba(255,255,255,.02) !important;
+  border: 0 !important;
+  border-bottom: 1px solid rgba(22,58,89,.08) !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(4px) saturate(102%) !important;
+  -webkit-backdrop-filter: blur(4px) saturate(102%) !important;
 }
 :where(.public-page,.premium-home) :where(
   .public-card,.public-content-aside,.public-content-block,.public-faq-list details,
@@ -165,22 +175,24 @@ body {
   [class$="-card"],[class$="-panel"]
 ) {
   background: var(--cni-surface) !important;
-  border: 1px solid rgba(255,255,255,.08) !important;
+  border: 0 !important;
+  border-top: 1px solid rgba(255,255,255,.62) !important;
+  border-bottom: 1px solid rgba(22,58,89,.09) !important;
   border-radius: var(--cni-radius) !important;
-  box-shadow: var(--cni-shadow) !important;
-  backdrop-filter: blur(18px) saturate(106%) !important;
-  -webkit-backdrop-filter: blur(18px) saturate(106%) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 .premium-home .premium-hero h1.premium-hero-message {
-  max-width: 780px !important;
-  font-size: clamp(52px, 5.2vw, 86px) !important;
-  line-height: .97 !important;
-  font-weight: 620 !important;
+  max-width: 820px !important;
+  font-size: clamp(54px, 5.4vw, 90px) !important;
+  line-height: .94 !important;
+  font-weight: 600 !important;
 }
 .premium-home .premium-hero h1 em,
 .public-page .public-eyebrow { color: var(--cni-gold) !important; }
 
-/* Auth pages match the rest of the product. */
+/* Auth pages. */
 .auth-shell-with-footer .auth-content {
   min-height: calc(100vh - 100px);
   display: grid;
@@ -189,50 +201,53 @@ body {
 }
 .auth-shell-with-footer :where(.auth-card,.login-card,.register-card,.auth-panel) {
   width: min(100%, 540px);
-  background: var(--cni-surface) !important;
-  border: 1px solid rgba(255,255,255,.08) !important;
-  border-radius: 20px !important;
-  box-shadow: 0 24px 64px rgba(16,47,82,.07) !important;
-  backdrop-filter: blur(20px) saturate(106%) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(106%) !important;
+  background: rgba(255,255,255,.018) !important;
+  border: 0 !important;
+  border-top: 1px solid rgba(255,255,255,.68) !important;
+  border-bottom: 1px solid rgba(22,58,89,.10) !important;
+  border-radius: 18px !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 /* Shared widths. */
 .public-page :where(.public-header-inner,.public-hero-inner,.public-section-inner,.public-footer-inner),
 .premium-home :where(.premium-header-inner,.premium-hero-grid,.premium-outcome-grid,.premium-footer-inner) {
-  width: min(calc(100% - 48px), 1420px);
+  width: min(calc(100% - 56px), 1440px);
   margin-inline: auto;
 }
 
-/* Tables and status UI inherit the same restraint. */
+/* Tables and status UI. */
 .executive-platform :where(table,thead,tbody,tr,th,td) { border-color: rgba(22,58,89,.07) !important; }
 .executive-platform :where(th,.table-heading) {
-  color: rgba(13,49,83,.62) !important;
-  font-size: 11px !important;
-  letter-spacing: .08em !important;
+  color: rgba(13,49,83,.60) !important;
+  font-size: 10px !important;
+  letter-spacing: .11em !important;
   text-transform: uppercase;
 }
 .executive-platform :where(.badge,.pill,.tag,[class*="badge"],[class*="pill"],[class*="tag"]) {
   box-shadow: none !important;
-  border-color: rgba(22,58,89,.08) !important;
+  border-color: rgba(22,58,89,.09) !important;
+  backdrop-filter: none !important;
 }
 
 @media (max-width: 760px) {
-  .executive-platform .app-content { padding-top: 82px !important; padding-bottom: 86px; }
+  .executive-platform .app-content { padding-top: 80px !important; padding-bottom: 86px; }
   .executive-platform .executive-page-frame { padding-inline: 14px; }
   .executive-platform .app-header {
-    top: 10px !important;
-    left: 10px !important;
-    right: 10px !important;
-    min-height: 58px;
-    border-radius: 15px !important;
+    top: 8px !important;
+    left: 8px !important;
+    right: 8px !important;
+    min-height: 56px;
+    border-radius: 13px !important;
   }
   :where(.public-page,.premium-home) :where(.public-header,.premium-header) {
-    top: 10px !important;
-    left: 10px !important;
-    right: 10px !important;
+    top: 8px !important;
+    left: 8px !important;
+    right: 8px !important;
     width: auto !important;
-    border-radius: 15px !important;
+    border-radius: 13px !important;
   }
   .public-page :where(.public-header-inner,.public-hero-inner,.public-section-inner,.public-footer-inner),
   .premium-home :where(.premium-header-inner,.premium-hero-grid,.premium-outcome-grid,.premium-footer-inner) {
