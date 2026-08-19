@@ -28,6 +28,7 @@ import "./sitewide-glass-theme.css";
 import "./public-glass-theme.css";
 import "./reference-glass-system.css";
 import "./final-polish.css";
+import "./half-opacity.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 
