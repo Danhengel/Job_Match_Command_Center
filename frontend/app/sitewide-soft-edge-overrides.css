@@ -1,22 +1,22 @@
-/* Final refinement: transparent headers, matched controls, and softer blurred edges. Loaded after sitewide-consolidated.css. */
+/* Final sitewide refinement: feather every surface edge into the background.
+   Loaded last. No hard 1px borders on visual containers. */
 
-/* Remove header fill entirely so the background art flows through. */
+/* Headers stay completely open to the background. */
 .executive-platform .app-header,
 :where(.public-page,.premium-home) :where(.public-header,.premium-header) {
   background: transparent !important;
-  border-color: transparent !important;
+  border: 0 !important;
   box-shadow: none !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
 }
 
-/* Let the background remain visible behind header content. */
 .executive-platform .app-header::before,
 :where(.public-page,.premium-home) :where(.public-header,.premium-header)::before {
   content: none !important;
 }
 
-/* Restore the fuller logo asset without a visible frame. */
+/* Logo stays unframed. */
 .premium-home .premium-hero-logo-classic,
 .auth-shell-with-footer .auth-centered-logo img {
   background: transparent !important;
@@ -26,7 +26,8 @@
   object-fit: contain !important;
 }
 
-/* Major surfaces: clear center, soft edge blur. */
+/* Every major visual container uses a clear center and a feathered outer halo.
+   The halo extends past the box, so the perimeter dissolves into the page art. */
 .executive-platform :where(
   .card,.panel,.executive-panel,.executive-metric-strip,.empty-state-panel,.executive-empty-state,
   .jobs-search-shell,.jobs-results-shell,.studio-setup-card,.studio-opportunity-card,
@@ -41,31 +42,97 @@
   [class$='-card'],[class$='-panel']
 ),
 .auth-shell-with-footer :where(.auth-card,.login-card,.register-card,.auth-panel) {
-  background: linear-gradient(145deg, rgba(255,255,255,.13), rgba(255,255,255,.055)) !important;
-  border: 1px solid rgba(255,255,255,.25) !important;
-  box-shadow:
-    0 18px 46px rgba(17,49,78,.07),
-    0 0 28px rgba(255,255,255,.32),
-    0 0 9px rgba(255,255,255,.42),
-    inset 0 1px 0 rgba(255,255,255,.50) !important;
-  backdrop-filter: blur(13px) saturate(110%) !important;
-  -webkit-backdrop-filter: blur(13px) saturate(110%) !important;
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: visible !important;
+  background: linear-gradient(145deg, rgba(255,255,255,.095), rgba(255,255,255,.028)) !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: 0 16px 46px rgba(17,49,78,.045) !important;
+  backdrop-filter: blur(8px) saturate(106%) !important;
+  -webkit-backdrop-filter: blur(8px) saturate(106%) !important;
 }
 
-/* Rows and compact surfaces receive the same soft edge treatment. */
+.executive-platform :where(
+  .card,.panel,.executive-panel,.executive-metric-strip,.empty-state-panel,.executive-empty-state,
+  .jobs-search-shell,.jobs-results-shell,.studio-setup-card,.studio-opportunity-card,
+  .tailor-primary-panel,.tailor-fit-panel,.tailor-job-description,.tailor-saved-versions,
+  .profile-card,.resume-list-shell,.resume-inline-upload,.application-card,.saved-job-card,
+  .interview-card,.company-card,.crm-card,.table-shell,.data-table-shell,
+  [class$='-card'],[class$='-panel']
+)::before,
+:where(.public-page,.premium-home) :where(
+  .public-card,.public-content-aside,.public-content-block,.public-faq-list details,
+  .public-related-grid a,.public-final-card,.premium-outcome-grid,.premium-outcome-card,
+  [class$='-card'],[class$='-panel']
+)::before,
+.auth-shell-with-footer :where(.auth-card,.login-card,.register-card,.auth-panel)::before {
+  content: "" !important;
+  position: absolute !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  inset: -14px !important;
+  border-radius: calc(var(--cni-radius, 20px) + 12px) !important;
+  background: rgba(255,255,255,.09) !important;
+  filter: blur(18px) !important;
+  opacity: .76 !important;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 50%, rgba(0,0,0,.82) 67%, rgba(0,0,0,.30) 82%, transparent 100%) !important;
+  mask-image: radial-gradient(ellipse at center, #000 50%, rgba(0,0,0,.82) 67%, rgba(0,0,0,.30) 82%, transparent 100%) !important;
+}
+
+/* Compact rows use the same fade, at a smaller scale. */
 .executive-platform :where(
   .resume-list-row,.jobs-opportunity-card,.studio-opportunity-row,.resume-library-card,
   .application-row,.saved-job-row,.profile-selected-resume,.tailor-selected-resume,
   [class$='-row']
 ) {
-  background: rgba(255,255,255,.07) !important;
-  border: 1px solid rgba(255,255,255,.20) !important;
-  box-shadow: 0 8px 22px rgba(17,49,78,.035), 0 0 16px rgba(255,255,255,.24) !important;
-  backdrop-filter: blur(10px) saturate(108%) !important;
-  -webkit-backdrop-filter: blur(10px) saturate(108%) !important;
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: visible !important;
+  background: rgba(255,255,255,.045) !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(6px) saturate(104%) !important;
+  -webkit-backdrop-filter: blur(6px) saturate(104%) !important;
 }
 
-/* Match primary and secondary actions in height, radius, padding, typography and edge softness. */
+.executive-platform :where(
+  .resume-list-row,.jobs-opportunity-card,.studio-opportunity-row,.resume-library-card,
+  .application-row,.saved-job-row,.profile-selected-resume,.tailor-selected-resume,
+  [class$='-row']
+)::before {
+  content: "" !important;
+  position: absolute !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  inset: -8px !important;
+  border-radius: 18px !important;
+  background: rgba(255,255,255,.07) !important;
+  filter: blur(12px) !important;
+  opacity: .70 !important;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 48%, rgba(0,0,0,.72) 68%, transparent 100%) !important;
+  mask-image: radial-gradient(ellipse at center, #000 48%, rgba(0,0,0,.72) 68%, transparent 100%) !important;
+}
+
+.executive-platform :where(
+  .resume-list-row,.jobs-opportunity-card,.studio-opportunity-row,.resume-library-card,
+  .application-row,.saved-job-row,[class$='-row']
+):hover {
+  background: rgba(255,255,255,.075) !important;
+}
+
+/* Inputs keep definition for usability, but lose the hard perimeter. */
+:where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(input,select,textarea) {
+  border: 0 !important;
+  outline: 0 !important;
+  background: rgba(255,255,255,.16) !important;
+  box-shadow: 0 7px 24px rgba(17,49,78,.035), inset 0 0 0 1px rgba(255,255,255,.16) !important;
+  backdrop-filter: blur(7px) saturate(106%) !important;
+  -webkit-backdrop-filter: blur(7px) saturate(106%) !important;
+}
+
+/* Keep every action button visually matched sitewide. */
 :where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(
   button:not(.mobile-menu-button):not(.mobile-nav-overlay),
   .button,.premium-button,.public-button-primary,.public-nav-cta,.premium-header-cta
@@ -75,7 +142,8 @@
   border-radius: 12px !important;
   font-weight: 650 !important;
   letter-spacing: .01em !important;
-  box-shadow: 0 9px 24px rgba(13,49,83,.08), 0 0 14px rgba(255,255,255,.18) !important;
+  border: 0 !important;
+  box-shadow: 0 9px 26px rgba(13,49,83,.09) !important;
 }
 
 :where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(
@@ -84,22 +152,13 @@
 ) {
   background: linear-gradient(180deg, rgba(25,73,115,.96), rgba(10,47,82,.96)) !important;
   color: #fff !important;
-  border: 1px solid rgba(255,255,255,.20) !important;
 }
 
 :where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(
   .secondary,[class*='secondary'],.premium-button-secondary
 ) {
-  background: rgba(255,255,255,.11) !important;
+  background: rgba(255,255,255,.12) !important;
   color: #0b3153 !important;
-  border: 1px solid rgba(255,255,255,.28) !important;
-  backdrop-filter: blur(10px) saturate(108%) !important;
-  -webkit-backdrop-filter: blur(10px) saturate(108%) !important;
-}
-
-/* Inputs retain readable centers but softened perimeter. */
-:where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(input,select,textarea) {
-  box-shadow: 0 7px 20px rgba(17,49,78,.035), 0 0 14px rgba(255,255,255,.22), inset 0 1px 0 rgba(255,255,255,.45) !important;
-  backdrop-filter: blur(9px) saturate(108%) !important;
-  -webkit-backdrop-filter: blur(9px) saturate(108%) !important;
+  backdrop-filter: blur(8px) saturate(106%) !important;
+  -webkit-backdrop-filter: blur(8px) saturate(106%) !important;
 }
