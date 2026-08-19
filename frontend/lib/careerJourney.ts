@@ -20,7 +20,7 @@ export const PRIMARY_NAV: CareerJourneyItem[] = [
 export const SIDEBAR_GROUPS: Array<{ label: string; items: CareerJourneyItem[] }> = [
   { label: "Step 1", items: [
     { href: "/profiles", label: "Career Profiles" },
-    { href: "/resumes", label: "Resumes" },
+    { href: "/resumes", label: "Resume Library" },
     { href: "/resumes/studio", label: "Resume Studio" },
   ] },
   { label: "Step 2", items: [
@@ -58,7 +58,7 @@ export const CAREER_STAGES: CareerStage[] = [
     href: "/profiles",
     items: [
       { href: "/profiles", label: "Career Profiles" },
-      { href: "/resumes", label: "Resumes" },
+      { href: "/resumes", label: "Resume Library" },
       { href: "/resumes/studio", label: "Resume Studio" },
     ],
   },
