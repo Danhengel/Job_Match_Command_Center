@@ -4,6 +4,7 @@ import "./hero-background.css";
 import "./sitewide-luxury-reference.css";
 import "./sitewide-luxury-qa.css";
 import "./compact-viewport.css";
+import "./auth-luxury-fix.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 
