@@ -98,9 +98,9 @@ export default function ResumeStudioPage() {
       {error ? <Notice title="Resume Studio needs attention" tone="error"><p>{error}</p></Notice> : null}
 
       <section className="studio-simple-steps" aria-label="Resume tailoring workflow">
-        <div className="studio-simple-step active"><span>1</span><strong>Choose résumé</strong></div>
-        <div className="studio-simple-step"><span>2</span><strong>Pick a job</strong></div>
-        <div className="studio-simple-step"><span>3</span><strong>Tailor & download</strong></div>
+        <div className="studio-simple-step active"><strong>Choose résumé</strong></div>
+        <div className="studio-simple-step"><strong>Pick a job</strong></div>
+        <div className="studio-simple-step"><strong>Tailor & download</strong></div>
       </section>
 
       <div className="studio-flow-layout">
