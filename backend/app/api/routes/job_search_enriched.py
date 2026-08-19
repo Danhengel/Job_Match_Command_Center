@@ -14,8 +14,8 @@ from app.services import jobspipe_source
 
 
 router = APIRouter(prefix="/api/jobs", tags=["Jobs"])
-MAX_WORKERS = 6
-BROAD_JOBSPIPE_LIMIT = 17
+MAX_WORKERS = 8
+BROAD_JOBSPIPE_LIMIT = 13
 MAJOR_BOARD_LIMIT = 2
 
 
@@ -130,6 +130,24 @@ def enriched_search(
         "via": "CareerNavIQ ATS connectors",
     }
 
+    ats_coverage = {
+        name: {"status": "enabled", "via": "JobsPipe broad coverage"}
+        for name in jobspipe_source.CORE_ATS_COVERAGE
+    }
+    specialty_board_coverage = {
+        name: {
+            "status": "discovery",
+            "via": "JSearch / Google Jobs and employer-source dedupe",
+        }
+        for name in jobspipe_source.SPECIALTY_DISCOVERY_TARGETS
+    }
+
+    coverage_notes.append(
+        "CareerNavIQ also checks specialty publishers through Google Jobs/JSearch "
+        "when their listings are indexed there, while preferring the original "
+        "employer posting when the same job is available from an ATS."
+    )
+
     job_search_all.merge_rows(
         base,
         rows,
@@ -149,6 +167,8 @@ def enriched_search(
             "searched_sources": list(dict.fromkeys(searched_sources)),
             "source_status": source_status,
             "major_board_coverage": major_board_coverage,
+            "ats_coverage": ats_coverage,
+            "specialty_board_coverage": specialty_board_coverage,
         }
     )
 
