@@ -96,7 +96,7 @@ export default function Profiles() {
 
               <footer className="profile-card-footer">
                 <span className="muted">Use this profile as the mandate for market reviews, positioning, and active pursuits.</span>
-                <Link className="button secondary" href={`/profiles/${profile.id}`}>Open career profile</Link>
+                <Link className="button" href={`/profiles/${profile.id}`}>Open career profile</Link>
               </footer>
             </article>
           ))}
