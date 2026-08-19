@@ -70,7 +70,12 @@ export default function Profiles() {
         eyebrow="CAREER PROFILES"
         title="Define your career direction"
         description="Create a clear mandate for each serious career direction, including target roles, geography, compensation, and the résumé evidence that supports it."
-        actions={<Link className="button" href="/profiles/new">Create career profile</Link>}
+        actions={
+          <div className="row wrap">
+            <Link className="button secondary" href="/profiles/new">Create career profile</Link>
+            <Link className="button" href="/resumes">Next: Résumés →</Link>
+          </div>
+        }
       />
 
       {error ? <Notice title="Career profiles could not be loaded" tone="error"><p>{error}</p></Notice> : null}
