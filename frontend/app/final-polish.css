@@ -1,67 +1,125 @@
-/* CareerNavIQ final polish layer — intentionally loaded last. */
+/* CareerNavIQ high-end polish layer — intentionally loaded last. */
 :root {
-  --polish-content-max: 1480px;
-  --polish-focus: rgba(45, 108, 176, .42);
+  --polish-content-max: 1460px;
+  --polish-focus: rgba(41, 91, 137, .34);
+  --luxury-navy: #102f52;
+  --luxury-ink: #183854;
+  --luxury-muted: rgba(24, 56, 84, .66);
+  --luxury-gold: #b99b68;
+  --luxury-line: rgba(31, 70, 104, .10);
+  --luxury-white: rgba(252, 253, 254, .76);
+  --luxury-white-soft: rgba(252, 253, 254, .50);
+  --luxury-shadow: 0 24px 60px rgba(29, 59, 87, .075);
+  --luxury-shadow-soft: 0 10px 32px rgba(29, 59, 87, .055);
 }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  font-kerning: normal;
+}
 
-/* Keep the signed-in workspace airy, aligned, and readable. */
+/* Editorial hierarchy: restrained, crisp and executive. */
+.executive-platform :is(h1,h2,h3),
+.public-page :is(h1,h2,h3),
+.premium-home :is(h1,h2,h3),
+.auth-shell-with-footer :is(h1,h2,h3) {
+  color: var(--luxury-navy) !important;
+  text-wrap: balance;
+  font-weight: 650 !important;
+  letter-spacing: -.025em !important;
+  text-shadow: none !important;
+}
+.executive-platform h1,
+.public-page h1,
+.premium-home h1,
+.auth-shell-with-footer h1 {
+  letter-spacing: -.045em !important;
+}
+.executive-platform :is(p,.muted,small,label),
+.public-page :is(p,li,.public-intro,.public-breadcrumb,.public-eyebrow),
+.premium-home :is(p,.premium-lead),
+.auth-shell-with-footer :is(p,label,small) {
+  color: var(--luxury-muted) !important;
+}
+.executive-platform p,
+.public-page p,
+.premium-home p { text-wrap: pretty; }
+
+/* Signed-in workspace: use whitespace and hierarchy before borders. */
 .executive-platform .app-content {
-  padding-top: 104px !important;
+  padding-top: 110px !important;
 }
 .executive-platform .executive-page-frame {
   width: min(100%, var(--polish-content-max));
   margin-inline: auto;
-  padding-inline: clamp(18px, 2.4vw, 38px);
+  padding-inline: clamp(22px, 2.7vw, 44px);
 }
 .executive-platform .app-header {
   min-height: 68px;
+  border-color: rgba(255,255,255,.70) !important;
+  background: rgba(249,252,254,.66) !important;
+  box-shadow: 0 8px 30px rgba(31,62,91,.055) !important;
+  backdrop-filter: blur(24px) saturate(112%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(112%) !important;
 }
-.executive-platform .header-utilities {
-  gap: clamp(16px, 2vw, 28px);
-}
+.executive-platform .header-utilities { gap: clamp(18px, 2vw, 30px); }
 .executive-platform .header-link {
-  font-weight: 700;
-  letter-spacing: .015em;
+  color: rgba(16,47,82,.78) !important;
+  font-size: 13px;
+  font-weight: 650;
+  letter-spacing: .045em;
   text-decoration: none;
 }
+.executive-platform .header-link:hover { color: var(--luxury-navy) !important; }
 
-/* Compact, clear sidebar hierarchy. */
-.executive-platform .sidebar-nav-refined {
-  padding-bottom: 24px;
+/* Sidebar: deep tailored navy, quieter than a typical SaaS rail. */
+.executive-platform .app-sidebar {
+  background: linear-gradient(180deg, #0c2b49 0%, #0a3555 100%) !important;
+  border-right: 0 !important;
+  box-shadow: 18px 0 44px rgba(8,31,51,.10) !important;
 }
+.executive-platform .sidebar-nav-refined { padding-bottom: 26px; }
 .executive-platform .sidebar-section-heading {
-  margin: 16px 18px 6px;
-  color: rgba(255,255,255,.58) !important;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: .15em;
+  margin: 18px 20px 7px;
+  color: rgba(242,247,251,.46) !important;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: .18em;
   text-transform: uppercase;
 }
 .executive-platform .sidebar-utility-links a,
 .executive-platform .sidebar-dashboard {
-  min-height: 38px;
-  border-radius: 10px;
+  min-height: 39px;
+  border-radius: 9px;
+  font-size: 13.5px;
+  letter-spacing: .005em;
 }
 .executive-platform .sidebar-utility-links a {
   display: flex;
   align-items: center;
   padding: 8px 14px;
-  margin: 2px 10px;
+  margin: 2px 11px;
 }
 .executive-platform .sidebar-dashboard {
-  margin: 0 10px 8px;
+  margin: 0 11px 9px;
   padding: 9px 14px;
 }
+.executive-platform .app-sidebar :is(a:hover,.active) {
+  background: rgba(255,255,255,.085) !important;
+  box-shadow: inset 2px 0 0 rgba(198,168,111,.72);
+}
 .executive-platform .sidebar-signout {
-  margin: 18px 10px 0;
-  width: calc(100% - 20px);
+  margin: 20px 11px 0;
+  width: calc(100% - 22px);
+  background: rgba(255,255,255,.065) !important;
+  border: 1px solid rgba(255,255,255,.10) !important;
+  box-shadow: none !important;
 }
 
-/* A restrained shared surface rhythm instead of page-specific box stacks. */
+/* Primary surfaces: translucent porcelain rather than obvious glass cards. */
 .executive-platform :is(
   .card,.executive-panel,.executive-metric-strip,.empty-state-panel,.executive-empty-state,
   .jobs-search-shell,.jobs-results-shell,.studio-setup-card,.studio-opportunity-card,
@@ -69,16 +127,155 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
   .profile-card,.resume-list-shell,.resume-inline-upload,.application-card,.saved-job-card,
   .interview-card,.company-card,.crm-card,.table-shell,.data-table-shell
 ) {
-  padding: clamp(18px, 2vw, 28px);
+  padding: clamp(20px, 2.2vw, 30px);
+  border: 1px solid rgba(255,255,255,.64) !important;
+  border-radius: 19px !important;
+  background: linear-gradient(145deg, rgba(255,255,255,.68), rgba(246,250,253,.48)) !important;
+  box-shadow: var(--luxury-shadow-soft) !important;
+  backdrop-filter: blur(20px) saturate(108%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(108%) !important;
 }
-.executive-platform :is(h1,h2,h3) {
-  text-wrap: balance;
+.executive-platform :is(
+  .resume-list-row,.jobs-opportunity-card,.studio-opportunity-row,.resume-library-card,
+  .application-row,.saved-job-row,.profile-selected-resume,.tailor-selected-resume
+) {
+  border: 1px solid rgba(34,70,101,.075) !important;
+  background: rgba(255,255,255,.43) !important;
+  box-shadow: none !important;
 }
-.executive-platform p {
-  text-wrap: pretty;
+.executive-platform :is(
+  .resume-list-row,.jobs-opportunity-card,.studio-opportunity-row,.resume-library-card,
+  .application-row,.saved-job-row
+):hover {
+  background: rgba(255,255,255,.62) !important;
+  border-color: rgba(185,155,104,.24) !important;
+  box-shadow: 0 10px 28px rgba(31,62,91,.05) !important;
+  transform: translateY(-1px);
 }
-.executive-platform :is(input,select,textarea,button,.button,a) {
-  transition: border-color .18s ease, box-shadow .18s ease, background-color .18s ease, transform .18s ease, opacity .18s ease;
+
+/* Form controls feel architectural and precise. */
+.executive-platform :is(input,select,textarea),
+.auth-shell-with-footer :is(input,select,textarea),
+.public-page :is(input,select,textarea) {
+  min-height: 46px;
+  border: 1px solid rgba(34,70,101,.12) !important;
+  border-radius: 10px !important;
+  background: rgba(255,255,255,.66) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.82) !important;
+}
+.executive-platform textarea,
+.auth-shell-with-footer textarea,
+.public-page textarea { min-height: 120px; }
+
+/* Buttons: compact, tailored, no oversized SaaS glow. */
+.executive-platform .button:not(.secondary):not(.danger),
+.executive-platform button:not(.secondary):not(.danger):not(.resume-more-button):not(.mobile-menu-button):not(.mobile-nav-overlay),
+.public-page .public-button-primary,
+.public-page .public-nav-cta,
+.premium-home .premium-button-primary,
+.auth-shell-with-footer button[type="submit"] {
+  min-height: 44px;
+  border-radius: 9px !important;
+  background: linear-gradient(180deg,#153f67,#0d3153) !important;
+  border: 1px solid rgba(7,39,69,.20) !important;
+  color: #fff !important;
+  box-shadow: 0 9px 22px rgba(16,47,82,.12) !important;
+  font-weight: 650 !important;
+  letter-spacing: .015em;
+}
+.executive-platform .secondary,
+.public-page .secondary {
+  border: 1px solid rgba(34,70,101,.10) !important;
+  background: rgba(255,255,255,.50) !important;
+  box-shadow: none !important;
+}
+
+/* Homepage: premium editorial landing page, not a dashboard. */
+.premium-home .premium-header {
+  border-color: rgba(255,255,255,.65) !important;
+  background: rgba(248,251,253,.62) !important;
+  box-shadow: 0 12px 38px rgba(31,62,91,.065) !important;
+}
+.premium-home .premium-header-inner { min-height: 98px !important; }
+.premium-home .premium-nav a {
+  font-size: 13px !important;
+  font-weight: 650 !important;
+  letter-spacing: .055em !important;
+}
+.premium-home .premium-hero-copy { padding-top: 58px !important; }
+.premium-home .premium-hero h1.premium-hero-message {
+  max-width: 760px !important;
+  font-size: clamp(52px, 5.2vw, 86px) !important;
+  line-height: .97 !important;
+  letter-spacing: -.055em !important;
+  font-weight: 620 !important;
+}
+.premium-home .premium-hero h1 em {
+  color: var(--luxury-gold) !important;
+  font-style: normal;
+}
+.premium-home .premium-lead {
+  max-width: 650px !important;
+  font-size: 18px !important;
+  line-height: 1.72 !important;
+}
+.premium-home .premium-outcome-grid {
+  border: 1px solid rgba(255,255,255,.62) !important;
+  background: rgba(250,252,254,.56) !important;
+  box-shadow: var(--luxury-shadow) !important;
+}
+.premium-home .premium-outcome-grid article { border-left-color: rgba(34,70,101,.075) !important; }
+.premium-home .premium-outcome-icon {
+  color: var(--luxury-gold) !important;
+  border-color: rgba(185,155,104,.22) !important;
+  background: rgba(255,255,255,.34) !important;
+}
+
+/* Public pages: stronger editorial rhythm with very light containers. */
+.public-page .public-header {
+  border-color: rgba(255,255,255,.65) !important;
+  background: rgba(248,251,253,.64) !important;
+  box-shadow: 0 12px 38px rgba(31,62,91,.06) !important;
+}
+.public-page :is(.public-card,.public-content-aside,.public-content-block,.public-faq-list details,.public-related-grid a,.public-final-card) {
+  border-color: rgba(255,255,255,.62) !important;
+  background: rgba(251,253,254,.56) !important;
+  box-shadow: 0 14px 40px rgba(31,62,91,.055) !important;
+}
+.public-page .public-eyebrow {
+  color: var(--luxury-gold) !important;
+  font-weight: 750 !important;
+  letter-spacing: .13em !important;
+}
+
+/* Authentication: centered boutique-product presentation. */
+.auth-shell-with-footer .auth-content {
+  min-height: calc(100vh - 100px);
+  display: grid;
+  place-items: center;
+  padding: 120px 20px 64px;
+}
+.auth-shell-with-footer :is(.auth-card,.login-card,.register-card,.auth-panel) {
+  width: min(100%, 540px);
+  border: 1px solid rgba(255,255,255,.68) !important;
+  border-radius: 20px !important;
+  background: linear-gradient(145deg, rgba(255,255,255,.70), rgba(247,250,252,.53)) !important;
+  box-shadow: 0 28px 70px rgba(31,62,91,.09) !important;
+  backdrop-filter: blur(24px) saturate(108%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(108%) !important;
+}
+
+/* Shared widths and interaction polish. */
+.public-page :is(.public-header-inner,.public-hero-inner,.public-section-inner,.public-footer-inner),
+.premium-home :is(.premium-header-inner,.premium-hero-grid,.premium-outcome-grid,.premium-footer-inner) {
+  width: min(calc(100% - 48px), 1420px);
+  margin-inline: auto;
+}
+.executive-platform :is(input,select,textarea,button,.button,a),
+.public-page :is(input,select,textarea,button,a),
+.premium-home :is(input,select,textarea,button,a),
+.auth-shell-with-footer :is(input,select,textarea,button,a) {
+  transition: border-color .18s ease, box-shadow .18s ease, background-color .18s ease, color .18s ease, transform .18s ease, opacity .18s ease;
 }
 .executive-platform :is(input,select,textarea):focus-visible,
 .executive-platform :is(button,.button,a):focus-visible,
@@ -94,33 +291,12 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
   transform: translateY(1px);
 }
 
-/* Public pages share the same breathing room and content width. */
-.public-page :is(.public-header-inner,.public-hero-inner,.public-section-inner,.public-footer-inner),
-.premium-home :is(.premium-header-inner,.premium-hero-grid,.premium-outcome-grid,.premium-footer-inner) {
-  width: min(calc(100% - 40px), 1440px);
-  margin-inline: auto;
-}
-
-/* Authentication should visually match the public site, not feel like a separate app. */
-.auth-shell-with-footer .auth-content {
-  min-height: calc(100vh - 100px);
-  display: grid;
-  place-items: center;
-  padding: 120px 20px 64px;
-}
-.auth-shell-with-footer :is(.auth-card,.login-card,.register-card,.auth-panel) {
-  width: min(100%, 560px);
-}
-
-/* Mobile and tablet cleanup. */
 @media (max-width: 1100px) {
   .premium-home .premium-hero-grid {
     grid-template-columns: 1fr !important;
     gap: 22px !important;
   }
-  .premium-home .premium-hero-visual {
-    min-height: 340px !important;
-  }
+  .premium-home .premium-hero-visual { min-height: 330px !important; }
 }
 
 @media (max-width: 760px) {
@@ -131,25 +307,19 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
     right: 10px !important;
     width: auto !important;
     margin-top: 0 !important;
-    border-radius: 16px !important;
+    border-radius: 15px !important;
   }
   .premium-home .premium-header-inner,
   .public-page .public-header-inner {
     width: 100%;
     padding-inline: 16px !important;
   }
-  .premium-home .premium-hero {
-    padding-top: 116px !important;
-  }
-  .premium-home .premium-hero-copy {
-    padding-inline: 0 !important;
-  }
+  .premium-home .premium-hero { padding-top: 112px !important; }
+  .premium-home .premium-hero-copy { padding-inline: 0 !important; }
   .premium-home .premium-hero h1.premium-hero-message {
-    font-size: clamp(42px, 12vw, 62px) !important;
+    font-size: clamp(40px, 11.7vw, 60px) !important;
   }
-  .premium-home .premium-hero-logo {
-    width: min(360px, 82vw) !important;
-  }
+  .premium-home .premium-hero-logo { width: min(350px, 82vw) !important; }
   .premium-home :is(.premium-header-inner,.premium-hero-grid,.premium-outcome-grid,.premium-footer-inner),
   .public-page :is(.public-header-inner,.public-hero-inner,.public-section-inner,.public-footer-inner) {
     width: min(calc(100% - 24px), 100%);
@@ -158,22 +328,16 @@ body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; 
     padding-top: 82px !important;
     padding-bottom: 86px;
   }
-  .executive-platform .executive-page-frame {
-    padding-inline: 14px;
-  }
+  .executive-platform .executive-page-frame { padding-inline: 14px; }
   .executive-platform .app-header {
     top: 10px !important;
     left: 10px !important;
     right: 10px !important;
     min-height: 58px;
-    border-radius: 15px !important;
+    border-radius: 14px !important;
   }
-  .executive-platform .header-utilities {
-    gap: 12px;
-  }
-  .executive-platform .header-link {
-    font-size: 13px;
-  }
+  .executive-platform .header-utilities { gap: 12px; }
+  .executive-platform .header-link { font-size: 12px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
