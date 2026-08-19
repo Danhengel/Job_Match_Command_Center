@@ -26,10 +26,12 @@
 
 .resume-inline-upload,
 .resume-list-shell {
-  border: 1px solid rgba(15, 35, 60, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.38);
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.94);
+  background: rgba(255, 255, 255, 0.56);
   box-shadow: 0 16px 40px rgba(15, 35, 60, 0.055);
+  backdrop-filter: blur(14px) saturate(115%);
+  -webkit-backdrop-filter: blur(14px) saturate(115%);
 }
 
 .resume-inline-upload {
@@ -75,9 +77,11 @@
   min-height: 46px;
   border: 1px solid rgba(15, 35, 60, 0.14) !important;
   border-radius: 12px !important;
-  background: #fff !important;
+  background: rgba(255, 255, 255, 0.78) !important;
   color: #10263d !important;
   box-shadow: none !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .resume-upload-footer {
@@ -124,14 +128,17 @@
   align-items: center;
   min-height: 138px;
   padding: 18px 16px;
-  border: 1px solid rgba(15, 35, 60, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.34);
   border-radius: 15px;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.48);
   box-shadow: 0 8px 22px rgba(15, 35, 60, 0.035);
+  backdrop-filter: blur(12px) saturate(110%);
+  -webkit-backdrop-filter: blur(12px) saturate(110%);
 }
 
 .resume-list-row:hover {
   border-color: rgba(20, 73, 115, 0.20);
+  background: rgba(255, 255, 255, 0.58);
   box-shadow: 0 12px 28px rgba(15, 35, 60, 0.055);
 }
 
@@ -142,7 +149,7 @@
   height: 78px;
   border: 1px solid rgba(40, 115, 205, 0.12);
   border-radius: 13px;
-  background: linear-gradient(145deg, #eef6ff, #f7fbff);
+  background: linear-gradient(145deg, rgba(238, 246, 255, 0.82), rgba(247, 251, 255, 0.68));
 }
 
 .resume-file-icon::before {
@@ -197,7 +204,7 @@
   min-height: 24px;
   padding: 3px 8px;
   border-radius: 999px;
-  background: #e8f7ed;
+  background: rgba(232, 247, 237, 0.82);
   color: #248346;
   font-size: 0.7rem;
   font-weight: 800;
@@ -235,7 +242,7 @@
 
 .resume-delete-button {
   border-color: rgba(185, 45, 45, 0.18) !important;
-  background: #fff !important;
+  background: rgba(255, 255, 255, 0.62) !important;
   color: #b62d2d !important;
   box-shadow: none !important;
 }
@@ -274,8 +281,10 @@
   padding: 7px;
   border: 1px solid rgba(15, 35, 60, 0.10);
   border-radius: 12px;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.88);
   box-shadow: 0 16px 32px rgba(15, 35, 60, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .resume-more-menu button {
@@ -300,10 +309,12 @@
   gap: 10px;
   margin-top: 16px;
   padding: 12px 14px;
-  border: 1px solid rgba(15, 35, 60, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.30);
   border-radius: 12px;
-  background: rgba(20, 73, 115, 0.025);
+  background: rgba(255, 255, 255, 0.34);
   color: rgba(15, 35, 60, 0.62);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .resume-list-note p {
@@ -313,11 +324,13 @@
 
 .resume-list-empty {
   padding: 42px 20px;
-  border: 1px dashed rgba(15, 35, 60, 0.13);
+  border: 1px dashed rgba(255, 255, 255, 0.32);
   border-radius: 14px;
-  background: rgba(20, 73, 115, 0.02);
+  background: rgba(255, 255, 255, 0.30);
   color: rgba(15, 35, 60, 0.62);
   text-align: center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .resume-list-empty h3 {
