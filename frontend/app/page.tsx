@@ -3,51 +3,73 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "CareerNavIQ | Navigate Your Career",
-  description: "CareerNavIQ turns your experience, ambitions, and the live employment market into a clear path forward.",
+  description: "CareerNavIQ gives you strategic insight, targeted opportunities, and confidence to navigate your next career step.",
 };
 
 const outcomes = [
-  { icon: "⌖", title: "Targeted Opportunities", copy: "Find roles that match your skills, goals, and career direction." },
-  { icon: "◇", title: "Smart Insights", copy: "Use practical signals and market context to make stronger decisions." },
-  { icon: "↗", title: "Resume Studio", copy: "Tailor your résumé to each opportunity with evidence-based positioning." },
-  { icon: "◎", title: "Career Roadmap", copy: "Connect each next step into a clear path toward your next goal." },
+  {
+    icon: "◎",
+    title: "Targeted Opportunities",
+    copy: "Access curated roles that match your goals, experience, and market demand.",
+  },
+  {
+    icon: "↗",
+    title: "Strategic Insights",
+    copy: "Leverage data-driven insights and salary intelligence to negotiate with confidence.",
+  },
+  {
+    icon: "▤",
+    title: "Stand Out",
+    copy: "Craft a powerful personal brand and resume that gets noticed by the right people.",
+  },
+  {
+    icon: "◇",
+    title: "Navigate With Confidence",
+    copy: "From application to offer, we guide you every step of the way.",
+  },
 ];
 
 export default function HomePage() {
   return (
-    <div className="premium-home">
-      <header className="premium-header">
-        <div className="premium-shell premium-header-inner">
-          <nav className="premium-nav" aria-label="Main navigation">
-            <Link href="/features">Services</Link>
-            <Link href="/pricing">Pricing</Link>
-            <Link href="/login">Sign in</Link>
-            <Link href="/register" className="premium-header-cta">Get Started</Link>
+    <div className="premium-home premium-home-reference">
+      <header className="premium-header premium-reference-header">
+        <div className="premium-shell premium-header-inner premium-reference-header-inner">
+          <Link href="/" className="premium-header-brand" aria-label="CareerNavIQ home">
+            <img src="/careernaviq-logo-hero-transparent.png?v=20260819full" alt="CareerNavIQ" />
+          </Link>
+
+          <nav className="premium-nav premium-reference-nav" aria-label="Main navigation">
+            <Link href="/features">Platform</Link>
+            <Link href="/features">How It Works</Link>
+            <Link href="/features">Solutions</Link>
+            <Link href="/ai-job-search">Resources</Link>
+            <Link href="/about">About</Link>
           </nav>
 
+          <div className="premium-header-actions">
+            <Link href="/login" className="premium-header-signin">Sign In</Link>
+            <Link href="/register" className="premium-header-cta">Get Started</Link>
+          </div>
+
           <details className="premium-mobile-menu">
-            <summary aria-label="Open navigation menu">
-              <span />
-              <span />
-              <span />
-            </summary>
+            <summary aria-label="Open navigation menu"><span /><span /><span /></summary>
             <nav aria-label="Mobile navigation">
-              <Link href="/features">Services</Link>
-              <Link href="/pricing">Pricing</Link>
-              <Link href="/about">About</Link>
+              <Link href="/features">Platform</Link>
+              <Link href="/features">How It Works</Link>
+              <Link href="/features">Solutions</Link>
               <Link href="/ai-job-search">Resources</Link>
-              <Link href="/contact">Contact</Link>
-              <Link href="/login">Sign in</Link>
+              <Link href="/about">About</Link>
+              <Link href="/login">Sign In</Link>
               <Link href="/register" className="mobile-menu-cta">Get Started</Link>
             </nav>
           </details>
         </div>
       </header>
 
-      <main>
-        <section className="premium-hero">
-          <div className="premium-shell premium-hero-grid">
-            <div className="premium-hero-copy">
+      <main className="premium-reference-main">
+        <section className="premium-hero premium-reference-hero">
+          <div className="premium-shell premium-reference-hero-shell">
+            <div className="premium-hero-copy premium-reference-copy">
               <img
                 className="premium-hero-logo premium-hero-logo-unframed premium-hero-logo-classic"
                 src="/careernaviq-logo-hero-transparent.png?v=20260819full"
@@ -55,48 +77,42 @@ export default function HomePage() {
                 height="547"
                 alt="CareerNavIQ"
               />
+
               <h1 className="premium-hero-message">
                 <span>Know your value.</span>
                 <span>See your path.</span>
                 <em>Make your move.</em>
               </h1>
-              <div className="premium-rule" aria-hidden="true"><span /></div>
-              <p className="premium-lead">CareerNavIQ combines intelligent insights with real opportunities so you can navigate your career with clarity and confidence.</p>
+
+              <p className="premium-lead">
+                CareerNavIQ gives you the strategic insight, targeted opportunities, and confidence to navigate your next career step with clarity and precision.
+              </p>
+
               <div className="premium-actions premium-actions-refined">
-                <Link href="/register" className="premium-button premium-button-primary">Get Started</Link>
-                <Link href="/features" className="premium-button premium-button-secondary">See How It Works</Link>
+                <Link href="/register" className="premium-button premium-button-primary">
+                  <span>Get Started</span><span aria-hidden="true">→</span>
+                </Link>
+                <Link href="/features" className="premium-button premium-button-secondary">
+                  <span aria-hidden="true" className="premium-play">▶</span><span>See How It Works</span>
+                </Link>
               </div>
             </div>
-            <div className="premium-hero-visual" aria-hidden="true" />
           </div>
 
-          <div className="premium-shell premium-outcome-wrap">
+          <div className="premium-shell premium-outcome-wrap premium-reference-outcomes">
             <div className="premium-outcome-grid">
               {outcomes.map((outcome) => (
                 <article key={outcome.title}>
                   <div className="premium-outcome-icon" aria-hidden="true"><span>{outcome.icon}</span></div>
                   <h2>{outcome.title}</h2>
                   <p>{outcome.copy}</p>
+                  <span className="premium-outcome-accent" aria-hidden="true" />
                 </article>
               ))}
             </div>
           </div>
         </section>
       </main>
-
-      <footer className="premium-footer">
-        <div className="premium-shell">
-          <span>CareerNavIQ</span>
-          <p>Navigate your career with clarity, confidence, and direction.</p>
-          <div>
-            <Link href="/about">About</Link>
-            <Link href="/ai-job-search">Resources</Link>
-            <Link href="/contact">Contact</Link>
-            <Link href="/privacy">Privacy</Link>
-            <Link href="/terms">Terms</Link>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
