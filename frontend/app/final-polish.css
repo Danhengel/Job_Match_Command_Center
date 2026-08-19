@@ -1,0 +1,186 @@
+/* CareerNavIQ final polish layer — intentionally loaded last. */
+:root {
+  --polish-content-max: 1480px;
+  --polish-focus: rgba(45, 108, 176, .42);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
+
+/* Keep the signed-in workspace airy, aligned, and readable. */
+.executive-platform .app-content {
+  padding-top: 104px !important;
+}
+.executive-platform .executive-page-frame {
+  width: min(100%, var(--polish-content-max));
+  margin-inline: auto;
+  padding-inline: clamp(18px, 2.4vw, 38px);
+}
+.executive-platform .app-header {
+  min-height: 68px;
+}
+.executive-platform .header-utilities {
+  gap: clamp(16px, 2vw, 28px);
+}
+.executive-platform .header-link {
+  font-weight: 700;
+  letter-spacing: .015em;
+  text-decoration: none;
+}
+
+/* Compact, clear sidebar hierarchy. */
+.executive-platform .sidebar-nav-refined {
+  padding-bottom: 24px;
+}
+.executive-platform .sidebar-section-heading {
+  margin: 16px 18px 6px;
+  color: rgba(255,255,255,.58) !important;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+.executive-platform .sidebar-utility-links a,
+.executive-platform .sidebar-dashboard {
+  min-height: 38px;
+  border-radius: 10px;
+}
+.executive-platform .sidebar-utility-links a {
+  display: flex;
+  align-items: center;
+  padding: 8px 14px;
+  margin: 2px 10px;
+}
+.executive-platform .sidebar-dashboard {
+  margin: 0 10px 8px;
+  padding: 9px 14px;
+}
+.executive-platform .sidebar-signout {
+  margin: 18px 10px 0;
+  width: calc(100% - 20px);
+}
+
+/* A restrained shared surface rhythm instead of page-specific box stacks. */
+.executive-platform :is(
+  .card,.executive-panel,.executive-metric-strip,.empty-state-panel,.executive-empty-state,
+  .jobs-search-shell,.jobs-results-shell,.studio-setup-card,.studio-opportunity-card,
+  .tailor-primary-panel,.tailor-fit-panel,.tailor-job-description,.tailor-saved-versions,
+  .profile-card,.resume-list-shell,.resume-inline-upload,.application-card,.saved-job-card,
+  .interview-card,.company-card,.crm-card,.table-shell,.data-table-shell
+) {
+  padding: clamp(18px, 2vw, 28px);
+}
+.executive-platform :is(h1,h2,h3) {
+  text-wrap: balance;
+}
+.executive-platform p {
+  text-wrap: pretty;
+}
+.executive-platform :is(input,select,textarea,button,.button,a) {
+  transition: border-color .18s ease, box-shadow .18s ease, background-color .18s ease, transform .18s ease, opacity .18s ease;
+}
+.executive-platform :is(input,select,textarea):focus-visible,
+.executive-platform :is(button,.button,a):focus-visible,
+.public-page :is(button,a,input,select,textarea):focus-visible,
+.premium-home :is(button,a,input,select,textarea):focus-visible,
+.auth-shell-with-footer :is(button,a,input,select,textarea):focus-visible {
+  outline: 3px solid var(--polish-focus) !important;
+  outline-offset: 3px;
+}
+.executive-platform :is(button,.button):not(:disabled):active,
+.public-page :is(button,.public-button-primary):not(:disabled):active,
+.premium-home :is(button,.premium-button-primary):not(:disabled):active {
+  transform: translateY(1px);
+}
+
+/* Public pages share the same breathing room and content width. */
+.public-page :is(.public-header-inner,.public-hero-inner,.public-section-inner,.public-footer-inner),
+.premium-home :is(.premium-header-inner,.premium-hero-grid,.premium-outcome-grid,.premium-footer-inner) {
+  width: min(calc(100% - 40px), 1440px);
+  margin-inline: auto;
+}
+
+/* Authentication should visually match the public site, not feel like a separate app. */
+.auth-shell-with-footer .auth-content {
+  min-height: calc(100vh - 100px);
+  display: grid;
+  place-items: center;
+  padding: 120px 20px 64px;
+}
+.auth-shell-with-footer :is(.auth-card,.login-card,.register-card,.auth-panel) {
+  width: min(100%, 560px);
+}
+
+/* Mobile and tablet cleanup. */
+@media (max-width: 1100px) {
+  .premium-home .premium-hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 22px !important;
+  }
+  .premium-home .premium-hero-visual {
+    min-height: 340px !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .premium-home .premium-header,
+  .public-page .public-header {
+    top: 10px !important;
+    left: 10px !important;
+    right: 10px !important;
+    width: auto !important;
+    margin-top: 0 !important;
+    border-radius: 16px !important;
+  }
+  .premium-home .premium-header-inner,
+  .public-page .public-header-inner {
+    width: 100%;
+    padding-inline: 16px !important;
+  }
+  .premium-home .premium-hero {
+    padding-top: 116px !important;
+  }
+  .premium-home .premium-hero-copy {
+    padding-inline: 0 !important;
+  }
+  .premium-home .premium-hero h1.premium-hero-message {
+    font-size: clamp(42px, 12vw, 62px) !important;
+  }
+  .premium-home .premium-hero-logo {
+    width: min(360px, 82vw) !important;
+  }
+  .premium-home :is(.premium-header-inner,.premium-hero-grid,.premium-outcome-grid,.premium-footer-inner),
+  .public-page :is(.public-header-inner,.public-hero-inner,.public-section-inner,.public-footer-inner) {
+    width: min(calc(100% - 24px), 100%);
+  }
+  .executive-platform .app-content {
+    padding-top: 82px !important;
+    padding-bottom: 86px;
+  }
+  .executive-platform .executive-page-frame {
+    padding-inline: 14px;
+  }
+  .executive-platform .app-header {
+    top: 10px !important;
+    left: 10px !important;
+    right: 10px !important;
+    min-height: 58px;
+    border-radius: 15px !important;
+  }
+  .executive-platform .header-utilities {
+    gap: 12px;
+  }
+  .executive-platform .header-link {
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
