@@ -1,8 +1,8 @@
-/* Reduce high-end surface opacity to 6.25% of the original alpha values. Loaded last. */
+/* Reduce high-end surface opacity to 3.125% of the original alpha values. Loaded last. */
 
 .executive-platform .app-header {
-  background: rgba(249,252,254,.042) !important;
-  border-color: rgba(255,255,255,.044) !important;
+  background: rgba(249,252,254,.021) !important;
+  border-color: rgba(255,255,255,.022) !important;
 }
 
 .executive-platform :is(
@@ -12,65 +12,65 @@
   .profile-card,.resume-list-shell,.resume-inline-upload,.application-card,.saved-job-card,
   .interview-card,.company-card,.crm-card,.table-shell,.data-table-shell
 ) {
-  border-color: rgba(255,255,255,.04) !important;
-  background: linear-gradient(145deg, rgba(255,255,255,.043), rgba(246,250,253,.03)) !important;
+  border-color: rgba(255,255,255,.02) !important;
+  background: linear-gradient(145deg, rgba(255,255,255,.022), rgba(246,250,253,.015)) !important;
 }
 
 .executive-platform :is(
   .resume-list-row,.jobs-opportunity-card,.studio-opportunity-row,.resume-library-card,
   .application-row,.saved-job-row,.profile-selected-resume,.tailor-selected-resume
 ) {
-  border-color: rgba(34,70,101,.005) !important;
-  background: rgba(255,255,255,.027) !important;
+  border-color: rgba(34,70,101,.003) !important;
+  background: rgba(255,255,255,.014) !important;
 }
 
 .executive-platform :is(
   .resume-list-row,.jobs-opportunity-card,.studio-opportunity-row,.resume-library-card,
   .application-row,.saved-job-row
 ):hover {
-  background: rgba(255,255,255,.039) !important;
-  border-color: rgba(185,155,104,.015) !important;
+  background: rgba(255,255,255,.02) !important;
+  border-color: rgba(185,155,104,.008) !important;
 }
 
 .executive-platform :is(input,select,textarea),
 .auth-shell-with-footer :is(input,select,textarea),
 .public-page :is(input,select,textarea) {
-  background: rgba(255,255,255,.042) !important;
-  border-color: rgba(34,70,101,.008) !important;
+  background: rgba(255,255,255,.021) !important;
+  border-color: rgba(34,70,101,.004) !important;
 }
 
 .executive-platform .secondary,
 .public-page .secondary {
-  background: rgba(255,255,255,.032) !important;
-  border-color: rgba(34,70,101,.007) !important;
+  background: rgba(255,255,255,.016) !important;
+  border-color: rgba(34,70,101,.004) !important;
 }
 
 .premium-home .premium-header {
-  background: rgba(248,251,253,.039) !important;
-  border-color: rgba(255,255,255,.041) !important;
+  background: rgba(248,251,253,.02) !important;
+  border-color: rgba(255,255,255,.021) !important;
 }
 
 .premium-home .premium-outcome-grid {
-  background: rgba(250,252,254,.035) !important;
-  border-color: rgba(255,255,255,.039) !important;
+  background: rgba(250,252,254,.018) !important;
+  border-color: rgba(255,255,255,.02) !important;
 }
 
 .premium-home .premium-outcome-icon {
-  background: rgba(255,255,255,.022) !important;
-  border-color: rgba(185,155,104,.014) !important;
+  background: rgba(255,255,255,.011) !important;
+  border-color: rgba(185,155,104,.007) !important;
 }
 
 .public-page .public-header {
-  background: rgba(248,251,253,.04) !important;
-  border-color: rgba(255,255,255,.041) !important;
+  background: rgba(248,251,253,.02) !important;
+  border-color: rgba(255,255,255,.021) !important;
 }
 
 .public-page :is(.public-card,.public-content-aside,.public-content-block,.public-faq-list details,.public-related-grid a,.public-final-card) {
-  background: rgba(251,253,254,.035) !important;
-  border-color: rgba(255,255,255,.039) !important;
+  background: rgba(251,253,254,.018) !important;
+  border-color: rgba(255,255,255,.02) !important;
 }
 
 .auth-shell-with-footer :is(.auth-card,.login-card,.register-card,.auth-panel) {
-  border-color: rgba(255,255,255,.043) !important;
-  background: linear-gradient(145deg, rgba(255,255,255,.044), rgba(247,250,252,.034)) !important;
+  border-color: rgba(255,255,255,.022) !important;
+  background: linear-gradient(145deg, rgba(255,255,255,.022), rgba(247,250,252,.017)) !important;
 }
