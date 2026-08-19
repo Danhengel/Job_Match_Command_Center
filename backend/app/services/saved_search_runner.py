@@ -16,6 +16,7 @@ from app.services import (
     careeronestop_source,
     external_job_sources,
     job_sources,
+    jobspipe_source,
     web_discovery,
 )
 from app.services.job_matcher import match_job
@@ -23,6 +24,8 @@ from app.services.job_matcher import match_job
 
 MAX_TITLES = 8
 MAX_WORKERS = 10
+BROAD_JOBSPIPE_LIMIT = 17
+MAJOR_BOARD_LIMIT = 2
 
 
 def _unread_notification_exists(
@@ -133,30 +136,50 @@ def collect_saved_search_rows(
     tasks: list[tuple[str, Callable, tuple, bool, CareerPageWatch | None]] = []
     coverage_notes: list[str] = []
 
-    if saved_search.use_remotive:
-        remote_sources = (
-            ("Remotive", job_sources.remotive),
-            ("Remote OK", job_sources.remoteok),
-            ("Jobicy", job_sources.jobicy),
-        )
-        for source, loader in remote_sources:
-            for title in titles:
-                tasks.append((source, loader, (title,), False, None))
-
-    if saved_search.use_catalog:
-        tasks.extend(_catalog_tasks())
-
-    if saved_search.use_jsearch:
+    remote_sources = (
+        ("Remotive", job_sources.remotive),
+        ("Remote OK", job_sources.remoteok),
+        ("Jobicy", job_sources.jobicy),
+    )
+    for source, loader in remote_sources:
         for title in titles:
+            tasks.append((source, loader, (title,), False, None))
+
+    tasks.extend(_catalog_tasks())
+
+    for title in titles:
+        tasks.append(
+            (
+                "JSearch / Google Jobs publishers",
+                job_sources.jsearch,
+                (f"{title} in {location}",),
+                False,
+                None,
+            )
+        )
+
+    if jobspipe_source.configured():
+        tasks.append(
+            (
+                "JobsPipe broad coverage",
+                jobspipe_source.jobs,
+                (titles, location, None, BROAD_JOBSPIPE_LIMIT),
+                False,
+                None,
+            )
+        )
+        for source_key, label in jobspipe_source.MAJOR_BOARD_SOURCES.items():
             tasks.append(
                 (
-                    "JSearch / Google Jobs publishers",
-                    job_sources.jsearch,
-                    (f"{title} in {location}",),
+                    f"JobsPipe / {label}",
+                    jobspipe_source.jobs,
+                    (titles, location, [source_key], MAJOR_BOARD_LIMIT),
                     False,
                     None,
                 )
             )
+    else:
+        coverage_notes.append("JobsPipe is not configured for automated searches.")
 
     external_capabilities = external_job_sources.connector_capabilities()
     external_specs = (
