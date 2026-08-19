@@ -57,6 +57,18 @@ SPECIALTY_DISCOVERY_TARGETS = [
     "The Muse",
     "eFinancialCareers",
     "GovernmentJobs",
+    "Jooble",
+    "Adzuna",
+    "CareerOneStop / NLx",
+    "FlexJobs",
+    "Ladders",
+    "Idealist",
+    "HigherEdJobs",
+    "Handshake",
+    "We Work Remotely",
+    "Remote.co",
+    "Talent.com",
+    "Careerjet",
 ]
 
 
