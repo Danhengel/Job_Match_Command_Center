@@ -31,6 +31,7 @@ import "./sitewide-consolidated.css";
 import "./sitewide-soft-edge-overrides.css";
 import "./sitewide-edge-blend.css";
 import "./sitewide-cleanup.css";
+import "./sitewide-blend-hard-reset.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 
