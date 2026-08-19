@@ -32,7 +32,7 @@ def _search(**overrides):
 
 
 def test_collect_saved_search_rows_uses_expanded_sources(monkeypatch):
-    for name in ("remotive", "remoteok", "jobicy", "himalayas", "jsearch"):
+    for name in ("remotive", "remoteok", "jobicy", "jsearch"):
         monkeypatch.setattr(
             saved_search_runner.job_sources,
             name,
@@ -73,12 +73,11 @@ def test_collect_saved_search_rows_uses_expanded_sources(monkeypatch):
         _search(use_remotive=True, use_jsearch=True)
     )
 
-    assert result["raw_count"] == 8
+    assert result["raw_count"] == 7
     assert {
         "Remotive",
         "Remote OK",
         "Jobicy",
-        "Himalayas",
         "JSearch / Google Jobs publishers",
         "USAJOBS",
         "CareerOneStop / NLx",
