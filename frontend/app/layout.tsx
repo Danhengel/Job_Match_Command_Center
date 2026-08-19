@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./visual-system.css";
 import "./hero-background.css";
 import "./sitewide-luxury-reference.css";
+import "./sitewide-luxury-qa.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 
