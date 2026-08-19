@@ -29,6 +29,7 @@ import "./public-glass-theme.css";
 import "./reference-glass-system.css";
 import "./sitewide-consolidated.css";
 import "./sitewide-soft-edge-overrides.css";
+import "./sitewide-edge-blend.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 
