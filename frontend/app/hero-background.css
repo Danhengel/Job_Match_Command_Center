@@ -1,5 +1,6 @@
 /* Minimal sitewide hero background layer.
-   Keeps visual-system.css as the base and only adds the CareerNavIQ hero artwork globally. */
+   Keeps visual-system.css as the base and adds the CareerNavIQ hero artwork globally.
+   Homepage receives a focused premium treatment without reintroducing the legacy theme stack. */
 
 html,
 body,
@@ -61,17 +62,107 @@ main {
   background-color: rgba(255,255,255,.92);
 }
 
+/* -------------------------------------------------------------------------- */
+/* Homepage: focused high-end editorial treatment                              */
+/* -------------------------------------------------------------------------- */
+
+.premium-home {
+  min-height: 100vh;
+  color: #fff;
+}
+
+.premium-home .premium-shell {
+  width: min(1380px, calc(100% - 72px));
+  margin-inline: auto;
+}
+
+.premium-home .premium-header {
+  position: relative;
+  z-index: 20;
+  min-height: 88px;
+  border: 0;
+  background: linear-gradient(180deg, rgba(7,27,44,.36), rgba(7,27,44,0));
+  backdrop-filter: none;
+}
+
+.premium-home .premium-header-inner {
+  min-height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.premium-home .premium-nav {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+}
+
+.premium-home .premium-nav a {
+  color: rgba(255,255,255,.88);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  transition: color .18s ease, transform .18s ease, background .18s ease;
+}
+
+.premium-home .premium-nav a:hover {
+  color: #fff;
+}
+
+.premium-home .premium-nav .premium-header-cta {
+  min-height: 44px;
+  padding: 0 20px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(198,160,96,.7);
+  border-radius: 999px;
+  background: rgba(181,138,74,.9);
+  color: #fff;
+  box-shadow: 0 12px 30px rgba(5,20,34,.18);
+}
+
+.premium-home .premium-hero {
+  position: relative;
+  padding: clamp(30px, 5vw, 72px) 0 0;
+}
+
+.premium-home .premium-hero-grid {
+  min-height: 610px;
+  display: grid;
+  grid-template-columns: minmax(0, 760px) minmax(240px, 1fr);
+  align-items: center;
+  gap: clamp(40px, 8vw, 120px);
+}
+
+.premium-home .premium-hero-copy {
+  position: relative;
+  z-index: 2;
+  padding: 28px 0 54px;
+}
+
 /* Homepage logo: half-size treatment. */
 .premium-home .premium-hero-logo,
 .premium-home .premium-hero-logo-classic {
   width: min(380px, 50vw) !important;
   max-height: 105px !important;
   height: auto !important;
+  margin-bottom: 34px;
+  filter: drop-shadow(0 10px 28px rgba(7,27,44,.18));
 }
 
 /* Homepage hero statement: one line per phrase, white/white/bronze. */
 .premium-home .premium-hero-message {
+  margin: 0;
+  max-width: 760px;
   color: #fff !important;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(48px, 6.2vw, 88px);
+  font-weight: 500;
+  line-height: .94;
+  letter-spacing: -.045em;
+  text-shadow: 0 12px 34px rgba(5,20,34,.26);
 }
 
 .premium-home .premium-hero-message > span,
@@ -81,8 +172,194 @@ main {
 }
 
 .premium-home .premium-hero-message > em {
-  color: #b58a4a !important;
+  margin-top: 4px;
+  color: #c29a5b !important;
   font-style: normal !important;
+}
+
+.premium-home .premium-rule {
+  width: min(480px, 72%);
+  height: 1px;
+  margin: 34px 0 26px;
+  background: linear-gradient(90deg, rgba(194,154,91,.9), rgba(255,255,255,.28), transparent);
+}
+
+.premium-home .premium-rule span { display: none; }
+
+.premium-home .premium-lead {
+  max-width: 680px;
+  margin: 0 0 30px;
+  color: rgba(255,255,255,.82);
+  font-size: clamp(17px, 1.5vw, 21px);
+  line-height: 1.65;
+  text-shadow: 0 4px 16px rgba(5,20,34,.2);
+}
+
+.premium-home .premium-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.premium-home .premium-button {
+  min-height: 50px;
+  padding: 0 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+}
+
+.premium-home .premium-button:hover {
+  transform: translateY(-1px);
+}
+
+.premium-home .premium-button-primary {
+  border: 1px solid rgba(198,160,96,.72);
+  background: linear-gradient(180deg, #c29a5b, #a87f45);
+  color: #fff;
+  box-shadow: 0 14px 36px rgba(5,20,34,.2);
+}
+
+.premium-home .premium-button-secondary {
+  border: 1px solid rgba(255,255,255,.34);
+  background: rgba(255,255,255,.09);
+  color: #fff;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 30px rgba(5,20,34,.11);
+}
+
+.premium-home .premium-hero-visual {
+  min-height: 420px;
+}
+
+.premium-home .premium-outcome-wrap {
+  padding-bottom: 78px;
+}
+
+.premium-home .premium-outcome-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.premium-home .premium-outcome-grid article {
+  position: relative;
+  min-height: 250px;
+  padding: 30px 28px 28px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.20);
+  border-radius: 22px;
+  background: linear-gradient(145deg, rgba(10,35,56,.48), rgba(13,48,75,.22));
+  box-shadow: 0 22px 54px rgba(4,20,34,.18);
+  backdrop-filter: blur(14px) saturate(115%);
+  transition: transform .22s ease, border-color .22s ease, background .22s ease;
+}
+
+.premium-home .premium-outcome-grid article::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 12% 0%, rgba(255,255,255,.16), transparent 44%);
+}
+
+.premium-home .premium-outcome-grid article:hover {
+  transform: translateY(-4px);
+  border-color: rgba(194,154,91,.44);
+  background: linear-gradient(145deg, rgba(11,39,62,.60), rgba(14,53,82,.30));
+}
+
+.premium-home .premium-outcome-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 30px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(194,154,91,.42);
+  border-radius: 50%;
+  color: #d3ad6e;
+  font-size: 18px;
+  background: rgba(181,138,74,.08);
+}
+
+.premium-home .premium-outcome-grid h2 {
+  margin: 0 0 12px;
+  color: #fff;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 25px;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -.025em;
+}
+
+.premium-home .premium-outcome-grid p {
+  margin: 0;
+  color: rgba(255,255,255,.68);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.premium-home .premium-footer {
+  margin-top: 0;
+  padding: 34px 0 38px;
+  border-top: 1px solid rgba(255,255,255,.13);
+  background: rgba(5,23,38,.58);
+  backdrop-filter: blur(14px);
+}
+
+.premium-home .premium-footer .premium-shell {
+  display: grid;
+  grid-template-columns: auto minmax(240px, 1fr) auto;
+  align-items: center;
+  gap: 30px;
+}
+
+.premium-home .premium-footer span {
+  color: #fff;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 22px;
+  letter-spacing: -.02em;
+}
+
+.premium-home .premium-footer p {
+  margin: 0;
+  color: rgba(255,255,255,.58);
+  font-size: 13px;
+}
+
+.premium-home .premium-footer div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+.premium-home .premium-footer a {
+  color: rgba(255,255,255,.70);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.premium-home .premium-footer a:hover { color: #fff; }
+
+@media (max-width: 1050px) {
+  .premium-home .premium-outcome-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .premium-home .premium-hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .premium-home .premium-hero-visual { display: none; }
 }
 
 @media (max-width: 760px) {
@@ -93,8 +370,54 @@ main {
     background-position: center top;
   }
 
+  .premium-home .premium-shell {
+    width: min(100% - 28px, 100%);
+  }
+
+  .premium-home .premium-header-inner {
+    min-height: 72px;
+  }
+
+  .premium-home .premium-nav { display: none; }
+
+  .premium-home .premium-hero {
+    padding-top: 18px;
+  }
+
+  .premium-home .premium-hero-grid {
+    min-height: auto;
+  }
+
+  .premium-home .premium-hero-copy {
+    padding: 20px 0 44px;
+  }
+
   .premium-home .premium-hero-logo,
   .premium-home .premium-hero-logo-classic {
     width: min(320px, 72vw) !important;
+  }
+
+  .premium-home .premium-hero-message {
+    font-size: clamp(42px, 13vw, 62px);
+  }
+
+  .premium-home .premium-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .premium-home .premium-button { width: 100%; }
+
+  .premium-home .premium-outcome-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .premium-home .premium-footer .premium-shell {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .premium-home .premium-footer div {
+    justify-content: flex-start;
   }
 }
