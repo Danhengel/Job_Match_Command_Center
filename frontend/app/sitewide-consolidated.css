@@ -1,33 +1,95 @@
 /* CareerNavIQ authoritative sitewide visual system.
-   Loaded last. This file owns the visible design across public, auth, and signed-in experiences. */
+   Loaded last. One visual language across public, auth, and signed-in experiences. */
 
 :root {
   --cni-navy: #0b3153;
   --cni-navy-deep: #062744;
   --cni-ink: #173a59;
-  --cni-muted: rgba(23, 58, 89, .68);
+  --cni-muted: rgba(23,58,89,.70);
   --cni-gold: #b59661;
-  --cni-line: rgba(22, 58, 89, .11);
-  --cni-surface: rgba(255, 255, 255, .012);
-  --cni-surface-soft: rgba(255, 255, 255, .006);
-  --cni-surface-hover: rgba(255, 255, 255, .035);
-  --cni-radius: 16px;
-  --cni-control-radius: 9px;
+  --cni-line: rgba(23,58,89,.10);
+  --cni-glass: rgba(255,255,255,.16);
+  --cni-glass-soft: rgba(255,255,255,.10);
+  --cni-glass-hover: rgba(255,255,255,.23);
+  --cni-edge: rgba(255,255,255,.52);
+  --cni-edge-dark: rgba(18,53,83,.08);
+  --cni-edge-blur: 0 16px 46px rgba(21,56,87,.08), 0 0 24px rgba(255,255,255,.22), inset 0 1px 0 rgba(255,255,255,.55);
+  --cni-radius: 20px;
+  --cni-control-radius: 11px;
   --cni-content-max: 1480px;
 }
 
 html { scroll-behavior: smooth; }
-body {
+body,
+body.executive-platform-body {
   color: var(--cni-ink);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  background:
-    radial-gradient(circle at 8% 4%, rgba(207, 224, 236, .28), transparent 31%),
-    radial-gradient(circle at 92% 8%, rgba(226, 213, 188, .16), transparent 28%),
-    linear-gradient(180deg, #fbfcfd 0%, #f4f8fb 48%, #f9fbfc 100%) !important;
+  background-image:
+    linear-gradient(135deg, rgba(247,251,254,.55), rgba(239,247,252,.42)),
+    url('/careernaviq-compass-architecture.webp?v=20260819visible') !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-attachment: fixed !important;
+  background-repeat: no-repeat !important;
 }
 
-/* Typography: more editorial, less SaaS. */
+/* Keep the architectural/compass image visible instead of washing it out. */
+.executive-platform,
+.executive-platform .app-workspace,
+.executive-platform .app-content,
+.public-page,
+.premium-home,
+.auth-shell-with-footer {
+  background-color: transparent !important;
+}
+
+.executive-platform,
+.public-page {
+  background-image:
+    linear-gradient(135deg, rgba(247,251,254,.48), rgba(242,248,252,.36)),
+    url('/careernaviq-compass-architecture.webp?v=20260819visible') !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-attachment: fixed !important;
+}
+
+/* Homepage: visibly retain the background art behind the hero. */
+.premium-home .premium-hero {
+  background-image:
+    radial-gradient(circle at 76% 35%, rgba(63,131,162,.10), transparent 32%),
+    linear-gradient(110deg, rgba(248,252,254,.58) 0%, rgba(241,248,252,.42) 48%, rgba(238,246,251,.28) 100%),
+    url('/careernaviq-compass-architecture.webp?v=20260819visible') !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+}
+
+/* Earlier full CareerNavIQ logo treatment. */
+.premium-home .premium-hero-logo-classic {
+  display: block !important;
+  width: min(610px, 94%) !important;
+  max-height: 168px !important;
+  height: auto !important;
+  object-fit: contain !important;
+  object-position: left center !important;
+  margin: 0 0 26px !important;
+  filter: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+.auth-shell-with-footer .auth-centered-logo img {
+  display: block !important;
+  width: min(520px, 90vw) !important;
+  max-height: 138px !important;
+  height: auto !important;
+  object-fit: contain !important;
+  filter: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* Typography. */
 :where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(h1,h2,h3,h4) {
   color: var(--cni-navy) !important;
   font-weight: 620 !important;
@@ -45,180 +107,150 @@ body {
 
 /* Signed-in shell. */
 .executive-platform .app-sidebar {
-  background: linear-gradient(180deg, var(--cni-navy-deep), #0b3657) !important;
-  border-right: 0 !important;
-  box-shadow: 14px 0 36px rgba(8, 31, 51, .07) !important;
+  background: linear-gradient(180deg, rgba(6,39,68,.96), rgba(11,54,87,.94)) !important;
+  border-right: 1px solid rgba(255,255,255,.10) !important;
+  box-shadow: 16px 0 46px rgba(8,31,51,.12) !important;
+  backdrop-filter: blur(16px) saturate(112%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(112%) !important;
 }
-.executive-platform .app-header {
-  min-height: 66px;
-  background: rgba(255,255,255,.018) !important;
-  border: 0 !important;
-  border-bottom: 1px solid rgba(20,56,86,.08) !important;
-  box-shadow: none !important;
-  backdrop-filter: blur(4px) saturate(102%) !important;
-  -webkit-backdrop-filter: blur(4px) saturate(102%) !important;
+.executive-platform .app-header,
+:where(.public-page,.premium-home) :where(.public-header,.premium-header) {
+  background: rgba(255,255,255,.13) !important;
+  border: 1px solid rgba(255,255,255,.38) !important;
+  border-radius: 18px !important;
+  box-shadow: 0 10px 34px rgba(20,55,86,.07), 0 0 22px rgba(255,255,255,.20) !important;
+  backdrop-filter: blur(14px) saturate(116%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(116%) !important;
 }
-.executive-platform .app-content {
-  padding-top: 102px !important;
-  background: transparent !important;
-}
+.executive-platform .app-content { padding-top: 102px !important; background: transparent !important; }
 .executive-platform .executive-page-frame {
   width: min(100%, var(--cni-content-max));
   margin-inline: auto;
-  padding-inline: clamp(22px, 3vw, 52px);
+  padding-inline: clamp(22px,3vw,52px);
 }
 .executive-platform .sidebar-section-heading {
-  color: rgba(244,248,252,.43) !important;
+  color: rgba(244,248,252,.48) !important;
   font-size: 9px !important;
   font-weight: 760 !important;
-  letter-spacing: .2em !important;
+  letter-spacing: .20em !important;
   text-transform: uppercase;
 }
 .executive-platform .app-sidebar :is(a:hover,.active) {
-  background: rgba(255,255,255,.055) !important;
-  box-shadow: inset 2px 0 0 rgba(196,165,106,.68) !important;
+  background: rgba(255,255,255,.075) !important;
+  box-shadow: inset 2px 0 0 rgba(196,165,106,.72), 0 0 16px rgba(255,255,255,.04) !important;
 }
 .executive-platform .sidebar-signout {
-  background: transparent !important;
-  border: 1px solid rgba(255,255,255,.09) !important;
-  box-shadow: none !important;
+  background: rgba(255,255,255,.05) !important;
+  border: 1px solid rgba(255,255,255,.12) !important;
+  box-shadow: 0 0 16px rgba(255,255,255,.04) !important;
 }
 
-/* Surfaces are now intentionally clear: hierarchy comes from spacing and fine rules, not frosting. */
+/* All major surfaces: clear centers with softly blurred/frosted edges. */
 .executive-platform :where(
   .card,.panel,.executive-panel,.executive-metric-strip,.empty-state-panel,.executive-empty-state,
   .jobs-search-shell,.jobs-results-shell,.studio-setup-card,.studio-opportunity-card,
   .tailor-primary-panel,.tailor-fit-panel,.tailor-job-description,.tailor-saved-versions,
   .profile-card,.resume-list-shell,.resume-inline-upload,.application-card,.saved-job-card,
   .interview-card,.company-card,.crm-card,.table-shell,.data-table-shell,
-  [class$="-card"],[class$="-panel"]
-) {
-  border: 0 !important;
-  border-top: 1px solid rgba(255,255,255,.62) !important;
-  border-bottom: 1px solid rgba(22,58,89,.09) !important;
+  [class$='-card'],[class$='-panel']
+),
+:where(.public-page,.premium-home) :where(
+  .public-card,.public-content-aside,.public-content-block,.public-faq-list details,
+  .public-related-grid a,.public-final-card,.premium-outcome-grid,.premium-outcome-card,
+  [class$='-card'],[class$='-panel']
+),
+.auth-shell-with-footer :where(.auth-card,.login-card,.register-card,.auth-panel) {
+  background: linear-gradient(145deg, rgba(255,255,255,.18), rgba(255,255,255,.09)) !important;
+  border: 1px solid rgba(255,255,255,.40) !important;
   border-radius: var(--cni-radius) !important;
-  background: var(--cni-surface) !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  box-shadow: var(--cni-edge-blur) !important;
+  backdrop-filter: blur(11px) saturate(112%) !important;
+  -webkit-backdrop-filter: blur(11px) saturate(112%) !important;
 }
 
 .executive-platform :where(
   .resume-list-row,.jobs-opportunity-card,.studio-opportunity-row,.resume-library-card,
   .application-row,.saved-job-row,.profile-selected-resume,.tailor-selected-resume,
-  [class$="-row"]
+  [class$='-row']
 ) {
-  background: var(--cni-surface-soft) !important;
-  border: 0 !important;
-  border-bottom: 1px solid rgba(21,58,89,.07) !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
+  background: rgba(255,255,255,.10) !important;
+  border: 1px solid rgba(255,255,255,.24) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 7px 22px rgba(20,55,86,.045), 0 0 15px rgba(255,255,255,.14) !important;
+  backdrop-filter: blur(8px) saturate(108%) !important;
+  -webkit-backdrop-filter: blur(8px) saturate(108%) !important;
 }
 .executive-platform :where(
   .resume-list-row,.jobs-opportunity-card,.studio-opportunity-row,.resume-library-card,
-  .application-row,.saved-job-row,[class$="-row"]
+  .application-row,.saved-job-row,[class$='-row']
 ):hover {
-  background: var(--cni-surface-hover) !important;
-  border-bottom-color: rgba(184,154,102,.27) !important;
+  background: rgba(255,255,255,.18) !important;
+  border-color: rgba(184,154,102,.24) !important;
 }
 
-/* Controls: crisp and restrained rather than frosted. */
+/* Controls inherit the same blurred-edge language. */
 :where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(input,select,textarea) {
   min-height: 46px;
   color: var(--cni-ink) !important;
-  background: rgba(255,255,255,.32) !important;
-  border: 1px solid rgba(22,58,89,.12) !important;
+  background: rgba(255,255,255,.24) !important;
+  border: 1px solid rgba(255,255,255,.42) !important;
   border-radius: var(--cni-control-radius) !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
+  box-shadow: 0 5px 18px rgba(20,55,86,.035), inset 0 1px 0 rgba(255,255,255,.52) !important;
+  backdrop-filter: blur(8px) saturate(110%) !important;
+  -webkit-backdrop-filter: blur(8px) saturate(110%) !important;
 }
 :where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) textarea { min-height: 118px; }
 :where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(input,select,textarea):focus-visible {
-  outline: 2px solid rgba(39,98,151,.22) !important;
-  outline-offset: 2px;
-  border-color: rgba(39,98,151,.28) !important;
+  outline: 2px solid rgba(39,98,151,.20) !important;
+  outline-offset: 3px;
+  border-color: rgba(39,98,151,.30) !important;
 }
 
-/* Buttons: tailored executive treatment. */
+/* Buttons. */
 :where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(
   button:not(.secondary):not(.danger):not(.mobile-menu-button):not(.mobile-nav-overlay),
   .button:not(.secondary):not(.danger),.public-button-primary,.public-nav-cta,.premium-button-primary
 ) {
   min-height: 43px;
-  border-radius: 8px !important;
-  background: linear-gradient(180deg, #16456f, #0b3153) !important;
+  border-radius: 10px !important;
+  background: linear-gradient(180deg,#16456f,#0b3153) !important;
   color: #fff !important;
-  border: 1px solid rgba(6,34,60,.14) !important;
-  box-shadow: 0 6px 16px rgba(13,49,83,.08) !important;
+  border: 1px solid rgba(255,255,255,.15) !important;
+  box-shadow: 0 8px 22px rgba(13,49,83,.12), 0 0 13px rgba(255,255,255,.06) !important;
   font-weight: 650 !important;
-  letter-spacing: .008em;
 }
-:where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(.secondary,[class*="secondary"]) {
-  background: transparent !important;
-  border: 1px solid rgba(22,58,89,.12) !important;
-  box-shadow: none !important;
+:where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(.secondary,[class*='secondary']) {
+  background: rgba(255,255,255,.12) !important;
+  border: 1px solid rgba(255,255,255,.34) !important;
+  box-shadow: 0 6px 18px rgba(20,55,86,.04) !important;
   color: var(--cni-navy) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
 }
 
-/* Public and marketing pages. */
-:where(.public-page,.premium-home) :where(.public-header,.premium-header) {
-  background: rgba(255,255,255,.02) !important;
-  border: 0 !important;
-  border-bottom: 1px solid rgba(22,58,89,.08) !important;
-  box-shadow: none !important;
-  backdrop-filter: blur(4px) saturate(102%) !important;
-  -webkit-backdrop-filter: blur(4px) saturate(102%) !important;
-}
-:where(.public-page,.premium-home) :where(
-  .public-card,.public-content-aside,.public-content-block,.public-faq-list details,
-  .public-related-grid a,.public-final-card,.premium-outcome-grid,.premium-outcome-card,
-  [class$="-card"],[class$="-panel"]
-) {
-  background: var(--cni-surface) !important;
-  border: 0 !important;
-  border-top: 1px solid rgba(255,255,255,.62) !important;
-  border-bottom: 1px solid rgba(22,58,89,.09) !important;
-  border-radius: var(--cni-radius) !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-}
 .premium-home .premium-hero h1.premium-hero-message {
   max-width: 820px !important;
-  font-size: clamp(54px, 5.4vw, 90px) !important;
+  font-size: clamp(54px,5.4vw,90px) !important;
   line-height: .94 !important;
   font-weight: 600 !important;
 }
 .premium-home .premium-hero h1 em,
 .public-page .public-eyebrow { color: var(--cni-gold) !important; }
 
-/* Auth pages. */
 .auth-shell-with-footer .auth-content {
   min-height: calc(100vh - 100px);
   display: grid;
   place-items: center;
   padding: 118px 20px 64px;
 }
-.auth-shell-with-footer :where(.auth-card,.login-card,.register-card,.auth-panel) {
-  width: min(100%, 540px);
-  background: rgba(255,255,255,.018) !important;
-  border: 0 !important;
-  border-top: 1px solid rgba(255,255,255,.68) !important;
-  border-bottom: 1px solid rgba(22,58,89,.10) !important;
-  border-radius: 18px !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-}
+.auth-shell-with-footer :where(.auth-card,.login-card,.register-card,.auth-panel) { width: min(100%,540px); }
 
-/* Shared widths. */
 .public-page :where(.public-header-inner,.public-hero-inner,.public-section-inner,.public-footer-inner),
 .premium-home :where(.premium-header-inner,.premium-hero-grid,.premium-outcome-grid,.premium-footer-inner) {
-  width: min(calc(100% - 56px), 1440px);
+  width: min(calc(100% - 56px),1440px);
   margin-inline: auto;
 }
 
-/* Tables and status UI. */
 .executive-platform :where(table,thead,tbody,tr,th,td) { border-color: rgba(22,58,89,.07) !important; }
 .executive-platform :where(th,.table-heading) {
   color: rgba(13,49,83,.60) !important;
@@ -226,36 +258,34 @@ body {
   letter-spacing: .11em !important;
   text-transform: uppercase;
 }
-.executive-platform :where(.badge,.pill,.tag,[class*="badge"],[class*="pill"],[class*="tag"]) {
-  box-shadow: none !important;
-  border-color: rgba(22,58,89,.09) !important;
-  backdrop-filter: none !important;
+.executive-platform :where(.badge,.pill,.tag,[class*='badge'],[class*='pill'],[class*='tag']) {
+  box-shadow: 0 4px 12px rgba(20,55,86,.03) !important;
+  border-color: rgba(255,255,255,.32) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
 }
 
-@media (max-width: 760px) {
+@media (max-width:760px) {
+  body,body.executive-platform-body,.executive-platform,.public-page { background-attachment: scroll !important; }
   .executive-platform .app-content { padding-top: 80px !important; padding-bottom: 86px; }
   .executive-platform .executive-page-frame { padding-inline: 14px; }
-  .executive-platform .app-header {
-    top: 8px !important;
-    left: 8px !important;
-    right: 8px !important;
-    min-height: 56px;
-    border-radius: 13px !important;
-  }
+  .executive-platform .app-header,
   :where(.public-page,.premium-home) :where(.public-header,.premium-header) {
     top: 8px !important;
     left: 8px !important;
     right: 8px !important;
+    min-height: 56px;
     width: auto !important;
-    border-radius: 13px !important;
+    border-radius: 15px !important;
   }
   .public-page :where(.public-header-inner,.public-hero-inner,.public-section-inner,.public-footer-inner),
   .premium-home :where(.premium-header-inner,.premium-hero-grid,.premium-outcome-grid,.premium-footer-inner) {
-    width: min(calc(100% - 24px), 100%);
+    width: min(calc(100% - 24px),100%);
   }
+  .premium-home .premium-hero-logo-classic { width: min(460px,96%) !important; }
 }
 
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion:reduce) {
   html { scroll-behavior: auto; }
-  *,*::before,*::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
 }
