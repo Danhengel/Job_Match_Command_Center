@@ -40,8 +40,26 @@ type SearchSummary = {
   matched: number;
 };
 
+type SourceSelection = {
+  jsearch: boolean;
+  employerSites: boolean;
+  remotive: boolean;
+  remoteOk: boolean;
+  jobicy: boolean;
+  expandedWeb: boolean;
+};
+
 type SortMode = "match" | "newest" | "company";
 type ViewFilter = "all" | "strong" | "exceptional" | "remote";
+
+const defaultSources: SourceSelection = {
+  jsearch: true,
+  employerSites: true,
+  remotive: true,
+  remoteOk: true,
+  jobicy: true,
+  expandedWeb: true,
+};
 
 function postedLabel(value: string) {
   if (!value) return "Date unavailable";
@@ -84,6 +102,7 @@ export default function JobsPage() {
   const [greenhouse, setGreenhouse] = useState("");
   const [lever, setLever] = useState("");
   const [ashby, setAshby] = useState("");
+  const [sources, setSources] = useState<SourceSelection>(defaultSources);
 
   async function loadSavedMatches(id: string) {
     if (!id) {
@@ -163,6 +182,21 @@ export default function JobsPage() {
     await loadSavedMatches(id);
   }
 
+  function setSource<K extends keyof SourceSelection>(key: K, checked: boolean) {
+    setSources((current) => ({ ...current, [key]: checked }));
+  }
+
+  function setAllSources(checked: boolean) {
+    setSources({
+      jsearch: checked,
+      employerSites: checked,
+      remotive: checked,
+      remoteOk: checked,
+      jobicy: checked,
+      expandedWeb: checked,
+    });
+  }
+
   async function search(event: React.FormEvent) {
     event.preventDefault();
     setBusy(true);
@@ -170,18 +204,32 @@ export default function JobsPage() {
     setSummary(null);
     window.localStorage.setItem("careeros-search-location", location);
 
+    const anySourceSelected = Object.values(sources).some(Boolean);
+    if (!anySourceSelected) {
+      setErrors(["Select at least one search source."]);
+      setBusy(false);
+      return;
+    }
+
     try {
-      const data = await api("/api/jobs/search-everywhere", {
+      const endpoint = sources.expandedWeb ? "/api/jobs/search-everywhere" : "/api/jobs/search";
+      const data = await api(endpoint, {
         method: "POST",
         body: JSON.stringify({
           profile_id: Number(profileId),
           titles: titles.split("\n").map((value) => value.trim()).filter(Boolean),
-          use_jsearch: true,
+          use_jsearch: sources.jsearch,
+          use_remotive: sources.remotive || sources.remoteOk || sources.jobicy,
+          use_remoteok: sources.remoteOk,
+          use_jobicy: sources.jobicy,
+          use_himalayas: false,
+          use_catalog: sources.employerSites,
+          use_saved_career_pages: sources.employerSites,
           jsearch_location: location,
           minimum_score: 0,
-          greenhouse_boards: greenhouse.split("\n").map((value) => value.trim()).filter(Boolean),
-          lever_boards: lever.split("\n").map((value) => value.trim()).filter(Boolean),
-          ashby_boards: ashby.split("\n").map((value) => value.trim()).filter(Boolean),
+          greenhouse_boards: sources.employerSites ? greenhouse.split("\n").map((value) => value.trim()).filter(Boolean) : [],
+          lever_boards: sources.employerSites ? lever.split("\n").map((value) => value.trim()).filter(Boolean) : [],
+          ashby_boards: sources.employerSites ? ashby.split("\n").map((value) => value.trim()).filter(Boolean) : [],
         }),
       });
       setResults(data.results || []);
@@ -203,13 +251,15 @@ export default function JobsPage() {
   const strongCount = results.filter((item) => item.match.score >= 70).length;
   const excellentCount = results.filter((item) => item.match.score >= 85).length;
   const remoteCount = results.filter((item) => item.job.remote).length;
+  const selectedSourceCount = Object.values(sources).filter(Boolean).length;
+  const allSourcesSelected = selectedSourceCount === Object.keys(defaultSources).length;
 
   return (
     <>
       <PageHeader
         eyebrow="JOB SEARCH"
         title="Find your next role"
-        description="Search the full CareerNavIQ network, see the strongest matches first, and move directly from a job into a tailored résumé."
+        description="Choose the sources you want CareerNavIQ to search, see the strongest matches first, and move directly from a job into a tailored résumé."
         actions={<Link className="button secondary" href="/resumes/studio">Resume Studio</Link>}
       />
 
@@ -227,14 +277,51 @@ export default function JobsPage() {
             <input value={location} onChange={(event) => setLocation(event.target.value)} placeholder="Tampa, Florida or Remote" />
           </label>
           <button className="jobs-search-button" disabled={busy || !profileId || !titles.trim()}>
-            {busy ? "Searching everywhere…" : "Search jobs"}
+            {busy ? "Searching selected sources…" : "Search jobs"}
           </button>
         </div>
 
         <div className="jobs-search-context">
           <span><strong>{targetCount || 0}</strong> target roles</span>
-          <span>Maximum coverage: JSearch + enabled web sources + employer career sites</span>
+          <span><strong>{selectedSourceCount}</strong> source groups selected</span>
         </div>
+
+        <fieldset className="jobs-source-selector">
+          <legend>Search sources</legend>
+          <div className="jobs-source-selector-header">
+            <p>Select exactly where CareerNavIQ should look for this search.</p>
+            <label className="jobs-source-all">
+              <input type="checkbox" checked={allSourcesSelected} onChange={(event) => setAllSources(event.target.checked)} />
+              <span>All sources</span>
+            </label>
+          </div>
+          <div className="jobs-source-grid">
+            <label className="jobs-source-option">
+              <input type="checkbox" checked={sources.jsearch} onChange={(event) => setSource("jsearch", event.target.checked)} />
+              <span><strong>JSearch aggregation</strong><small>Broad Google Jobs, Indeed, LinkedIn and other publisher coverage through JSearch.</small></span>
+            </label>
+            <label className="jobs-source-option">
+              <input type="checkbox" checked={sources.employerSites} onChange={(event) => setSource("employerSites", event.target.checked)} />
+              <span><strong>Employer career sites</strong><small>Greenhouse, Lever, Ashby and saved employer career pages.</small></span>
+            </label>
+            <label className="jobs-source-option">
+              <input type="checkbox" checked={sources.remotive} onChange={(event) => setSource("remotive", event.target.checked)} />
+              <span><strong>Remotive</strong><small>Remote-first job listings.</small></span>
+            </label>
+            <label className="jobs-source-option">
+              <input type="checkbox" checked={sources.remoteOk} onChange={(event) => setSource("remoteOk", event.target.checked)} />
+              <span><strong>Remote OK</strong><small>Remote technology and professional roles.</small></span>
+            </label>
+            <label className="jobs-source-option">
+              <input type="checkbox" checked={sources.jobicy} onChange={(event) => setSource("jobicy", event.target.checked)} />
+              <span><strong>Jobicy</strong><small>Remote US job listings.</small></span>
+            </label>
+            <label className="jobs-source-option">
+              <input type="checkbox" checked={sources.expandedWeb} onChange={(event) => setSource("expandedWeb", event.target.checked)} />
+              <span><strong>Expanded web coverage</strong><small>Additional configured web, public-sector, and aggregator connectors.</small></span>
+            </label>
+          </div>
+        </fieldset>
 
         <details className="jobs-search-options">
           <summary>Search options</summary>
@@ -246,21 +333,21 @@ export default function JobsPage() {
             </label>
             <details className="advanced-market-sources">
               <summary>Optional employer-board overrides</summary>
-              <p className="muted">CareerNavIQ already searches the full enabled network. Use these only for a specific employer board you want to force into the search.</p>
+              <p className="muted">Use these only for a specific employer board you want to force into the search.</p>
               <label>Greenhouse boards</label>
-              <textarea rows={2} value={greenhouse} onChange={(event) => setGreenhouse(event.target.value)} />
+              <textarea rows={2} value={greenhouse} onChange={(event) => setGreenhouse(event.target.value)} disabled={!sources.employerSites} />
               <label>Lever sites</label>
-              <textarea rows={2} value={lever} onChange={(event) => setLever(event.target.value)} />
+              <textarea rows={2} value={lever} onChange={(event) => setLever(event.target.value)} disabled={!sources.employerSites} />
               <label>Ashby boards</label>
-              <textarea rows={2} value={ashby} onChange={(event) => setAshby(event.target.value)} />
+              <textarea rows={2} value={ashby} onChange={(event) => setAshby(event.target.value)} disabled={!sources.employerSites} />
             </details>
           </div>
         </details>
       </form>
 
       {loadingSaved ? <Notice title="Loading saved opportunities"><p>Restoring the most recent matches for this career profile.</p></Notice> : null}
-      {busy ? <Notice title="Searching the market"><p>CareerNavIQ is running maximum coverage across JSearch, enabled web sources, employer career sites, removing duplicates, and ranking the strongest opportunities.</p></Notice> : null}
-      {errors.length ? <Notice title="Some sources were temporarily unavailable" tone="warning"><p>The search still completed across the available network.</p></Notice> : null}
+      {busy ? <Notice title="Searching the market"><p>CareerNavIQ is searching only the source groups you selected, removing duplicates, and ranking the strongest opportunities.</p></Notice> : null}
+      {errors.length ? <Notice title="Search source notice" tone="warning"><p>{errors[0]}</p></Notice> : null}
 
       <section className="executive-panel jobs-results-shell">
         <div className="jobs-results-heading">
