@@ -20,17 +20,17 @@ export const PRIMARY_NAV: CareerJourneyItem[] = [
 export const SIDEBAR_GROUPS: Array<{ label: string; items: CareerJourneyItem[] }> = [
   { label: "Step 1", items: [
     { href: "/profiles", label: "Profile" },
-    { href: "/resumes", label: "Resume" },
+    { href: "/resumes", label: "Resumes" },
     { href: "/resumes/studio", label: "Resume Studio" },
   ] },
   { label: "Step 2", items: [
     { href: "/companies", label: "Companies" },
     { href: "/company-watches", label: "Saved Companies" },
-    { href: "/jobs", label: "Job" },
+    { href: "/jobs", label: "Jobs" },
   ] },
   { label: "Step 3", items: [
     { href: "/coach", label: "Application Prep" },
-    { href: "/applications", label: "Application" },
+    { href: "/applications", label: "Applications" },
     { href: "/crm", label: "Contacts" },
     { href: "/outreach", label: "Outreach" },
   ] },
@@ -40,7 +40,7 @@ export const SIDEBAR_GROUPS: Array<{ label: string; items: CareerJourneyItem[] }
     { href: "/calendar", label: "Calendar" },
   ] },
   { label: "Step 5", items: [
-    { href: "/analytics", label: "Analysis" },
+    { href: "/analytics", label: "Insights" },
     { href: "/reports/weekly", label: "Weekly Report" },
     { href: "/automation", label: "Automation" },
   ] },
@@ -58,8 +58,8 @@ export const CAREER_STAGES: CareerStage[] = [
     href: "/profiles",
     items: [
       { href: "/profiles", label: "Profile" },
-      { href: "/resumes", label: "Resume" },
-      { href: "/resumes/studio", label: "Tailor Resume" },
+      { href: "/resumes", label: "Resumes" },
+      { href: "/resumes/studio", label: "Resume Studio" },
     ],
   },
   {
@@ -84,33 +84,35 @@ export const CAREER_STAGES: CareerStage[] = [
     href: "/coach",
     items: [
       { href: "/coach", label: "Application Prep" },
+      { href: "/applications", label: "Applications" },
+      { href: "/crm", label: "Contacts" },
       { href: "/outreach", label: "Outreach" },
     ],
   },
   {
-    id: "portfolio",
-    number: 4,
-    label: "Track applications and contacts",
-    shortLabel: "Applications",
-    description: "Track progress, follow-ups, and decisions",
-    href: "/applications",
-    items: [
-      { href: "/applications", label: "Applications" },
-      { href: "/crm", label: "Contacts" },
-    ],
-  },
-  {
     id: "interviews",
-    number: 5,
+    number: 4,
     label: "Prepare for interviews",
     shortLabel: "Interviews",
     description: "Prepare, practice, schedule, and follow up",
     href: "/interviews",
     items: [
       { href: "/interviews", label: "Interview Prep" },
-      { href: "/interview-coach", label: "Practice Interviews" },
+      { href: "/interview-coach", label: "Practice Interview" },
       { href: "/calendar", label: "Calendar" },
-      { href: "/notifications", label: "Notifications" },
+    ],
+  },
+  {
+    id: "insights",
+    number: 5,
+    label: "Review progress and improve",
+    shortLabel: "Insights",
+    description: "Use reporting and automation to improve your search",
+    href: "/analytics",
+    items: [
+      { href: "/analytics", label: "Insights" },
+      { href: "/reports/weekly", label: "Weekly Report" },
+      { href: "/automation", label: "Automation" },
     ],
   },
 ];
