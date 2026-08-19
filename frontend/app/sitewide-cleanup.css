@@ -1,5 +1,5 @@
 /* CareerNavIQ final sitewide cleanup system.
-   This is intentionally loaded last. It normalizes all public, auth, and signed-in pages. */
+   Loaded last. This file owns final page rhythm, controls, and blended surfaces. */
 
 :root {
   --clean-ink: #123654;
@@ -15,7 +15,6 @@
 html { scroll-behavior: smooth; }
 body { margin: 0; }
 
-/* Shared page rhythm */
 .executive-platform .executive-page-frame {
   width: min(100%, var(--clean-content)) !important;
   margin-inline: auto !important;
@@ -31,7 +30,6 @@ body { margin: 0; }
   color: var(--clean-muted) !important;
 }
 
-/* Page and section headers: open, clean, no card chrome. */
 .executive-platform :where(.page-header,.executive-page-header,.executive-section-header) {
   background: transparent !important;
   border: 0 !important;
@@ -67,7 +65,7 @@ body { margin: 0; }
   text-transform: uppercase !important;
 }
 
-/* Header must remain visually open to the background. */
+/* Headers stay completely open to the background. */
 .executive-platform .app-header,
 :where(.public-page,.premium-home) :where(.public-header,.premium-header) {
   background: transparent !important;
@@ -78,7 +76,6 @@ body { margin: 0; }
   -webkit-backdrop-filter: none !important;
 }
 
-/* Larger unframed brand treatment. */
 .premium-home .premium-hero-logo-classic {
   width: min(760px, 100%) !important;
   max-height: 210px !important;
@@ -89,7 +86,12 @@ body { margin: 0; }
   max-height: 168px !important;
 }
 
-/* One surface model everywhere: no visible perimeter, feathered fill that fades into the page. */
+/*
+  BLENDED SURFACE SYSTEM
+  The actual container is fully transparent. There is no border and no rectangular fill.
+  A large radial veil lives behind the content and fades to transparent well before its edge,
+  so each panel visually dissolves into the page background rather than ending on a box line.
+*/
 :where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(
   .card,.panel,.executive-panel,.executive-metric-strip,.empty-state-panel,.executive-empty-state,
   .jobs-search-shell,.jobs-results-shell,.studio-setup-card,.studio-opportunity-card,
@@ -103,10 +105,14 @@ body { margin: 0; }
   isolation: isolate !important;
   overflow: visible !important;
   background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
   border: 0 !important;
   outline: 0 !important;
   box-shadow: none !important;
   border-radius: var(--clean-radius) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 :where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(
@@ -120,15 +126,20 @@ body { margin: 0; }
 )::before {
   content: '' !important;
   position: absolute !important;
-  inset: -10px !important;
+  inset: -34px !important;
   z-index: 0 !important;
   pointer-events: none !important;
-  border-radius: calc(var(--clean-radius) + 12px) !important;
-  background: linear-gradient(145deg, rgba(255,255,255,.23), rgba(255,255,255,.07)) !important;
-  filter: blur(15px) !important;
-  opacity: .78 !important;
-  -webkit-mask-image: radial-gradient(ellipse at center, #000 43%, rgba(0,0,0,.80) 62%, rgba(0,0,0,.38) 78%, transparent 100%) !important;
-  mask-image: radial-gradient(ellipse at center, #000 43%, rgba(0,0,0,.80) 62%, rgba(0,0,0,.38) 78%, transparent 100%) !important;
+  border-radius: calc(var(--clean-radius) + 34px) !important;
+  background:
+    radial-gradient(ellipse at center,
+      rgba(255,255,255,.24) 0%,
+      rgba(255,255,255,.18) 38%,
+      rgba(255,255,255,.10) 58%,
+      rgba(255,255,255,.045) 72%,
+      rgba(255,255,255,.012) 84%,
+      transparent 100%) !important;
+  filter: blur(22px) !important;
+  opacity: .96 !important;
 }
 
 :where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(
@@ -144,36 +155,63 @@ body { margin: 0; }
   z-index: 1;
 }
 
-/* Rows and list items: subtle separation only. */
+/* List rows also dissolve rather than draw boxes. */
 .executive-platform :where(
   .resume-list-row,.jobs-opportunity-card,.studio-opportunity-row,.resume-library-card,
   .application-row,.saved-job-row,.profile-selected-resume,.tailor-selected-resume,
   [class$='-row']
 ) {
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: visible !important;
+  background: transparent !important;
+  background-image: none !important;
   border: 0 !important;
   outline: 0 !important;
-  background: rgba(255,255,255,.045) !important;
   box-shadow: none !important;
   border-radius: 14px !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 .executive-platform :where(
   .resume-list-row,.jobs-opportunity-card,.studio-opportunity-row,.resume-library-card,
+  .application-row,.saved-job-row,.profile-selected-resume,.tailor-selected-resume,
+  [class$='-row']
+)::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: -18px !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  border-radius: 28px !important;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,.15) 0%, rgba(255,255,255,.07) 58%, transparent 100%) !important;
+  filter: blur(16px) !important;
+}
+.executive-platform :where(
+  .resume-list-row,.jobs-opportunity-card,.studio-opportunity-row,.resume-library-card,
+  .application-row,.saved-job-row,.profile-selected-resume,.tailor-selected-resume,
+  [class$='-row']
+) > * { position: relative; z-index: 1; }
+.executive-platform :where(
+  .resume-list-row,.jobs-opportunity-card,.studio-opportunity-row,.resume-library-card,
   .application-row,.saved-job-row,[class$='-row']
-):hover { background: rgba(255,255,255,.10) !important; }
+):hover::before { opacity: 1.18; }
 
-/* Remove old dividers that make sections look boxed. */
+/* Remove dividers that recreate visible box geometry. */
 .premium-home .premium-outcome-grid,
 .premium-home .premium-outcome-grid article,
+.executive-platform .executive-metric-strip,
 .executive-platform .executive-metric-strip article {
   border: 0 !important;
+  box-shadow: none !important;
 }
 .executive-platform :where(hr,.divider,.auth-divider) {
   border: 0 !important;
   height: 1px !important;
-  background: linear-gradient(90deg, transparent, rgba(21,57,87,.10), transparent) !important;
+  background: linear-gradient(90deg, transparent, rgba(21,57,87,.08), transparent) !important;
 }
 
-/* Buttons: exactly one dimensional system. Colors may indicate hierarchy, geometry may not. */
+/* Buttons use one geometry sitewide. */
 :where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(
   button:not(.mobile-menu-button):not(.mobile-nav-overlay):not(.sidebar-close),
   .button,.premium-button,.public-button-primary,.public-nav-cta,.premium-header-cta,.auth-submit
@@ -208,17 +246,17 @@ body { margin: 0; }
   box-shadow: 0 7px 22px rgba(11,49,83,.05) !important;
 }
 
-/* Forms */
+/* Forms stay readable without a hard perimeter. */
 :where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(input,select,textarea) {
   width: 100%;
   min-height: 46px !important;
   padding: 11px 14px !important;
   color: var(--clean-ink) !important;
-  background: rgba(255,255,255,.19) !important;
+  background: rgba(255,255,255,.15) !important;
   border: 0 !important;
   outline: 0 !important;
   border-radius: 11px !important;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.19), 0 6px 20px rgba(18,54,84,.035) !important;
+  box-shadow: 0 8px 26px rgba(18,54,84,.035) !important;
 }
 :where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) textarea { min-height: 120px !important; resize: vertical; }
 :where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(input,select,textarea):focus-visible {
@@ -226,10 +264,9 @@ body { margin: 0; }
   outline-offset: 2px !important;
 }
 
-/* Tables */
 .executive-platform table { width: 100%; border-collapse: collapse !important; }
 .executive-platform :where(th,td) { padding: 13px 14px !important; border: 0 !important; }
-.executive-platform tbody tr + tr td { border-top: 1px solid rgba(18,54,84,.065) !important; }
+.executive-platform tbody tr + tr td { border-top: 1px solid rgba(18,54,84,.055) !important; }
 .executive-platform th {
   color: rgba(18,54,84,.58) !important;
   font-size: 10px !important;
@@ -238,13 +275,11 @@ body { margin: 0; }
   font-weight: 800 !important;
 }
 
-/* Notices and statuses */
 .executive-platform :where(.notice,.executive-notice,.badge,.pill,.tag,[class*='badge'],[class*='pill'],[class*='tag']) {
   border: 0 !important;
   box-shadow: none !important;
 }
 
-/* Public page spacing */
 .public-page :where(.public-header-inner,.public-hero-inner,.public-section-inner,.public-footer-inner),
 .premium-home :where(.premium-header-inner,.premium-hero-grid,.premium-outcome-grid,.premium-footer-inner) {
   width: min(calc(100% - 48px), 1440px) !important;
@@ -252,7 +287,6 @@ body { margin: 0; }
 }
 .public-page section { padding-block: clamp(52px, 6vw, 92px); }
 
-/* Sidebar cleanup */
 .executive-platform .app-sidebar { border-right: 0 !important; }
 .executive-platform .sidebar-nav-group { margin-top: 14px !important; }
 .executive-platform .sidebar-section-heading { margin-bottom: 5px !important; }
@@ -263,7 +297,6 @@ body { margin: 0; }
   padding-block: 8px !important;
 }
 
-/* Responsive */
 @media (max-width: 900px) {
   .executive-platform .executive-page-header { align-items: start !important; }
   .executive-platform .page-header-actions,
