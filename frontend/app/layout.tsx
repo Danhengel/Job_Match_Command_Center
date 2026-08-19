@@ -26,6 +26,7 @@ import "./resume-consistency.css";
 import "./resume-translucent.css";
 import "./sitewide-glass-theme.css";
 import "./public-glass-theme.css";
+import "./reference-glass-system.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 
@@ -123,7 +124,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#071328",
+  themeColor: "#dfe9f2",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
