@@ -1,0 +1,288 @@
+/* CareerNavIQ final sitewide cleanup system.
+   This is intentionally loaded last. It normalizes all public, auth, and signed-in pages. */
+
+:root {
+  --clean-ink: #123654;
+  --clean-navy: #0b3153;
+  --clean-muted: rgba(18,54,84,.68);
+  --clean-gold: #b9955b;
+  --clean-radius: 20px;
+  --clean-radius-sm: 12px;
+  --clean-content: 1460px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; }
+
+/* Shared page rhythm */
+.executive-platform .executive-page-frame {
+  width: min(100%, var(--clean-content)) !important;
+  margin-inline: auto !important;
+  padding-inline: clamp(18px, 2.6vw, 44px) !important;
+}
+.executive-platform .app-content { padding-bottom: 48px !important; }
+
+:where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(h1,h2,h3,h4) {
+  color: var(--clean-navy) !important;
+  text-wrap: balance;
+}
+:where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(p,li,label,small,.muted) {
+  color: var(--clean-muted) !important;
+}
+
+/* Page and section headers: open, clean, no card chrome. */
+.executive-platform :where(.page-header,.executive-page-header,.executive-section-header) {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.executive-platform .executive-page-header {
+  padding: 8px 0 26px !important;
+  margin: 0 0 20px !important;
+  gap: 22px !important;
+  align-items: end !important;
+}
+.executive-platform .executive-page-header h1 {
+  margin: 0 !important;
+  font-size: clamp(34px, 4vw, 54px) !important;
+  line-height: .98 !important;
+  letter-spacing: -.045em !important;
+  font-weight: 620 !important;
+}
+.executive-platform .executive-page-header .muted {
+  max-width: 760px;
+  margin: 10px 0 0 !important;
+  line-height: 1.65 !important;
+}
+.executive-platform .eyebrow,
+.public-page .public-eyebrow,
+.auth-shell-with-footer .eyebrow {
+  color: var(--clean-gold) !important;
+  font-size: 10px !important;
+  letter-spacing: .16em !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+}
+
+/* Header must remain visually open to the background. */
+.executive-platform .app-header,
+:where(.public-page,.premium-home) :where(.public-header,.premium-header) {
+  background: transparent !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Larger unframed brand treatment. */
+.premium-home .premium-hero-logo-classic {
+  width: min(760px, 100%) !important;
+  max-height: 210px !important;
+  margin-bottom: 28px !important;
+}
+.auth-shell-with-footer .auth-centered-logo img {
+  width: min(620px, 92vw) !important;
+  max-height: 168px !important;
+}
+
+/* One surface model everywhere: no visible perimeter, feathered fill that fades into the page. */
+:where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(
+  .card,.panel,.executive-panel,.executive-metric-strip,.empty-state-panel,.executive-empty-state,
+  .jobs-search-shell,.jobs-results-shell,.studio-setup-card,.studio-opportunity-card,
+  .tailor-primary-panel,.tailor-fit-panel,.tailor-job-description,.tailor-saved-versions,
+  .profile-card,.resume-list-shell,.resume-inline-upload,.application-card,.saved-job-card,
+  .interview-card,.company-card,.crm-card,.table-shell,.data-table-shell,.auth-card,.auth-panel,
+  .public-card,.public-content-aside,.public-content-block,.public-final-card,.premium-outcome-grid,
+  [class$='-card'],[class$='-panel'],[class$='-shell']
+) {
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: visible !important;
+  background: transparent !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  border-radius: var(--clean-radius) !important;
+}
+
+:where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(
+  .card,.panel,.executive-panel,.executive-metric-strip,.empty-state-panel,.executive-empty-state,
+  .jobs-search-shell,.jobs-results-shell,.studio-setup-card,.studio-opportunity-card,
+  .tailor-primary-panel,.tailor-fit-panel,.tailor-job-description,.tailor-saved-versions,
+  .profile-card,.resume-list-shell,.resume-inline-upload,.application-card,.saved-job-card,
+  .interview-card,.company-card,.crm-card,.table-shell,.data-table-shell,.auth-card,.auth-panel,
+  .public-card,.public-content-aside,.public-content-block,.public-final-card,.premium-outcome-grid,
+  [class$='-card'],[class$='-panel'],[class$='-shell']
+)::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: -10px !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  border-radius: calc(var(--clean-radius) + 12px) !important;
+  background: linear-gradient(145deg, rgba(255,255,255,.23), rgba(255,255,255,.07)) !important;
+  filter: blur(15px) !important;
+  opacity: .78 !important;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 43%, rgba(0,0,0,.80) 62%, rgba(0,0,0,.38) 78%, transparent 100%) !important;
+  mask-image: radial-gradient(ellipse at center, #000 43%, rgba(0,0,0,.80) 62%, rgba(0,0,0,.38) 78%, transparent 100%) !important;
+}
+
+:where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(
+  .card,.panel,.executive-panel,.executive-metric-strip,.empty-state-panel,.executive-empty-state,
+  .jobs-search-shell,.jobs-results-shell,.studio-setup-card,.studio-opportunity-card,
+  .tailor-primary-panel,.tailor-fit-panel,.tailor-job-description,.tailor-saved-versions,
+  .profile-card,.resume-list-shell,.resume-inline-upload,.application-card,.saved-job-card,
+  .interview-card,.company-card,.crm-card,.table-shell,.data-table-shell,.auth-card,.auth-panel,
+  .public-card,.public-content-aside,.public-content-block,.public-final-card,.premium-outcome-grid,
+  [class$='-card'],[class$='-panel'],[class$='-shell']
+) > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Rows and list items: subtle separation only. */
+.executive-platform :where(
+  .resume-list-row,.jobs-opportunity-card,.studio-opportunity-row,.resume-library-card,
+  .application-row,.saved-job-row,.profile-selected-resume,.tailor-selected-resume,
+  [class$='-row']
+) {
+  border: 0 !important;
+  outline: 0 !important;
+  background: rgba(255,255,255,.045) !important;
+  box-shadow: none !important;
+  border-radius: 14px !important;
+}
+.executive-platform :where(
+  .resume-list-row,.jobs-opportunity-card,.studio-opportunity-row,.resume-library-card,
+  .application-row,.saved-job-row,[class$='-row']
+):hover { background: rgba(255,255,255,.10) !important; }
+
+/* Remove old dividers that make sections look boxed. */
+.premium-home .premium-outcome-grid,
+.premium-home .premium-outcome-grid article,
+.executive-platform .executive-metric-strip article {
+  border: 0 !important;
+}
+.executive-platform :where(hr,.divider,.auth-divider) {
+  border: 0 !important;
+  height: 1px !important;
+  background: linear-gradient(90deg, transparent, rgba(21,57,87,.10), transparent) !important;
+}
+
+/* Buttons: exactly one dimensional system. Colors may indicate hierarchy, geometry may not. */
+:where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(
+  button:not(.mobile-menu-button):not(.mobile-nav-overlay):not(.sidebar-close),
+  .button,.premium-button,.public-button-primary,.public-nav-cta,.premium-header-cta,.auth-submit
+) {
+  min-height: 46px !important;
+  padding: 0 24px !important;
+  border-radius: var(--clean-radius-sm) !important;
+  border: 0 !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  letter-spacing: .01em !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  text-decoration: none !important;
+  box-shadow: 0 8px 24px rgba(11,49,83,.09) !important;
+}
+:where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(
+  button:not(.secondary):not(.danger):not(.mobile-menu-button):not(.mobile-nav-overlay):not(.sidebar-close),
+  .button:not(.secondary):not(.danger),.premium-button-primary,.public-button-primary,.public-nav-cta,.premium-header-cta,.auth-submit
+) {
+  background: linear-gradient(180deg,#17466f,#0b3153) !important;
+  color: #fff !important;
+}
+:where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(
+  .secondary,[class*='secondary'],.premium-button-secondary
+) {
+  background: rgba(255,255,255,.16) !important;
+  color: var(--clean-navy) !important;
+  box-shadow: 0 7px 22px rgba(11,49,83,.05) !important;
+}
+
+/* Forms */
+:where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(input,select,textarea) {
+  width: 100%;
+  min-height: 46px !important;
+  padding: 11px 14px !important;
+  color: var(--clean-ink) !important;
+  background: rgba(255,255,255,.19) !important;
+  border: 0 !important;
+  outline: 0 !important;
+  border-radius: 11px !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.19), 0 6px 20px rgba(18,54,84,.035) !important;
+}
+:where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) textarea { min-height: 120px !important; resize: vertical; }
+:where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(input,select,textarea):focus-visible {
+  outline: 3px solid rgba(31,91,143,.18) !important;
+  outline-offset: 2px !important;
+}
+
+/* Tables */
+.executive-platform table { width: 100%; border-collapse: collapse !important; }
+.executive-platform :where(th,td) { padding: 13px 14px !important; border: 0 !important; }
+.executive-platform tbody tr + tr td { border-top: 1px solid rgba(18,54,84,.065) !important; }
+.executive-platform th {
+  color: rgba(18,54,84,.58) !important;
+  font-size: 10px !important;
+  letter-spacing: .10em !important;
+  text-transform: uppercase !important;
+  font-weight: 800 !important;
+}
+
+/* Notices and statuses */
+.executive-platform :where(.notice,.executive-notice,.badge,.pill,.tag,[class*='badge'],[class*='pill'],[class*='tag']) {
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Public page spacing */
+.public-page :where(.public-header-inner,.public-hero-inner,.public-section-inner,.public-footer-inner),
+.premium-home :where(.premium-header-inner,.premium-hero-grid,.premium-outcome-grid,.premium-footer-inner) {
+  width: min(calc(100% - 48px), 1440px) !important;
+  margin-inline: auto !important;
+}
+.public-page section { padding-block: clamp(52px, 6vw, 92px); }
+
+/* Sidebar cleanup */
+.executive-platform .app-sidebar { border-right: 0 !important; }
+.executive-platform .sidebar-nav-group { margin-top: 14px !important; }
+.executive-platform .sidebar-section-heading { margin-bottom: 5px !important; }
+.executive-platform .sidebar-utility-links a,
+.executive-platform .sidebar-dashboard {
+  min-height: 36px !important;
+  border-radius: 9px !important;
+  padding-block: 8px !important;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .executive-platform .executive-page-header { align-items: start !important; }
+  .executive-platform .page-header-actions,
+  .executive-platform .executive-page-header-actions { width: 100%; flex-wrap: wrap; }
+}
+@media (max-width: 760px) {
+  .executive-platform .executive-page-frame { padding-inline: 14px !important; }
+  .executive-platform .executive-page-header h1 { font-size: clamp(30px, 10vw, 42px) !important; }
+  .public-page :where(.public-header-inner,.public-hero-inner,.public-section-inner,.public-footer-inner),
+  .premium-home :where(.premium-header-inner,.premium-hero-grid,.premium-outcome-grid,.premium-footer-inner) {
+    width: min(calc(100% - 24px), 100%) !important;
+  }
+  :where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(
+    button:not(.mobile-menu-button):not(.mobile-nav-overlay):not(.sidebar-close),
+    .button,.premium-button,.public-button-primary,.public-nav-cta,.premium-header-cta,.auth-submit
+  ) { min-height: 44px !important; padding-inline: 18px !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,*::before,*::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
