@@ -6,14 +6,6 @@ import { useState } from "react";
 import { api } from "@/lib/api";
 import { startAuthenticatedSession } from "@/lib/sessionStorage";
 
-const authHeroBackgroundStyle = {
-  backgroundImage:
-    "radial-gradient(ellipse at 50% -10%, rgba(49, 104, 137, 0.20) 0%, rgba(20, 59, 85, 0.08) 31%, transparent 58%), radial-gradient(circle at 12% 23%, rgba(22, 139, 153, 0.09) 0%, transparent 31%), radial-gradient(circle at 88% 18%, rgba(221, 183, 108, 0.07) 0%, transparent 27%), linear-gradient(142deg, rgba(247, 251, 254, 0.34) 0%, rgba(239, 246, 251, 0.32) 43%, rgba(235, 244, 250, 0.34) 72%, rgba(245, 249, 252, 0.38) 100%), url('/careernaviq-compass-architecture.webp?v=20260819visible')",
-  backgroundSize: "cover",
-  backgroundPosition: "center center",
-  backgroundRepeat: "no-repeat",
-} as const;
-
 export default function RegisterPage() {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -41,14 +33,14 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="auth-page executive-auth-page auth-page-centered">
-      <section className="auth-form-panel auth-form-panel-centered" style={authHeroBackgroundStyle}>
+    <div className="auth-page executive-auth-page auth-page-centered auth-page-luxury">
+      <section className="auth-form-panel auth-form-panel-centered auth-form-panel-luxury">
         <div className="auth-centered-shell">
           <Link href="/" className="auth-centered-logo" aria-label="CareerNavIQ home">
             <img src="/careernaviq-logo-hero-transparent.png?v=20260819full" width="1920" height="547" alt="CareerNavIQ" />
           </Link>
 
-          <div className="auth-card auth-card-large">
+          <div className="auth-card auth-card-large auth-card-luxury">
             <p className="eyebrow">CREATE YOUR ACCOUNT</p>
             <h1>Start building your CareerNavIQ workspace</h1>
             <p className="auth-card-intro">Create a smarter, more strategic foundation for your next opportunity.</p>
