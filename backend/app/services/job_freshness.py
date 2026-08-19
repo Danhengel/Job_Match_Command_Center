@@ -15,7 +15,7 @@ from app.services.web_discovery import validate_public_url
 
 TIMEOUT = 15
 MAX_BODY_BYTES = 750_000
-MAX_WORKERS = 5
+MAX_WORKERS = 6
 CLOSED_STATUS_CODES = {404, 410}
 INACCESSIBLE_STATUS_CODES = {401, 403, 429}
 CLOSED_MARKERS = (
@@ -25,11 +25,22 @@ CLOSED_MARKERS = (
     "position no longer available",
     "this position has been filled",
     "position has been filled",
+    "this role has been filled",
+    "role has been filled",
     "job posting has expired",
+    "job posting is expired",
     "this job has expired",
     "job has been removed",
+    "job no longer exists",
     "job not found",
     "no longer accepting applications",
+    "applications are closed",
+    "application period has ended",
+    "requisition is no longer available",
+    "requisition has been closed",
+    "posting is no longer active",
+    "vacancy is closed",
+    "vacancy has closed",
 )
 
 
@@ -110,10 +121,51 @@ def verify_job_url(url: str) -> dict:
         }
 
 
+def expire_unseen_jobs(
+    db: Session,
+    now: datetime | None = None,
+    unresolved_age_days: int = 120,
+    verified_open_age_days: int = 180,
+) -> int:
+    current = now or datetime.utcnow()
+    unresolved_before = current - timedelta(days=unresolved_age_days)
+    open_before = current - timedelta(days=verified_open_age_days)
+
+    unresolved = (
+        db.query(Job)
+        .filter(
+            Job.active.is_(True),
+            Job.last_seen <= unresolved_before,
+            Job.verification_status.in_(("unverified", "unknown", "inaccessible")),
+        )
+        .all()
+    )
+    verified_open = (
+        db.query(Job)
+        .filter(
+            Job.active.is_(True),
+            Job.last_seen <= open_before,
+            Job.verification_status == "open",
+        )
+        .all()
+    )
+
+    expired = 0
+    for job in [*unresolved, *verified_open]:
+        job.active = False
+        job.closed_at = current
+        if job.verification_status == "open":
+            job.verification_status = "stale"
+        elif job.verification_status not in {"closed", "invalid_url"}:
+            job.verification_status = "expired"
+        expired += 1
+    return expired
+
+
 def verify_stale_jobs(
     db: Session,
-    limit: int = 25,
-    min_age_days: int = 14,
+    limit: int = 50,
+    min_age_days: int = 7,
     recheck_hours: int = 24,
 ) -> dict:
     now = datetime.utcnow()
@@ -127,7 +179,7 @@ def verify_stale_jobs(
             or_(Job.verified_at.is_(None), Job.verified_at <= recheck_before),
         )
         .order_by(Job.last_seen.asc())
-        .limit(max(1, min(limit, 100)))
+        .limit(max(1, min(limit, 150)))
         .all()
     )
 
@@ -138,6 +190,7 @@ def verify_stale_jobs(
         "inaccessible": 0,
         "unknown": 0,
         "invalid_url": 0,
+        "expired": 0,
     }
     futures = {}
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
@@ -156,20 +209,33 @@ def verify_stale_jobs(
             if status in {"closed", "invalid_url"}:
                 job.active = False
                 job.closed_at = now
+            elif status == "open":
+                job.active = True
+                job.closed_at = None
 
+    counts["expired"] = expire_unseen_jobs(db, now=now)
     db.commit()
     return counts
 
 
 def freshness_stats(db: Session) -> dict:
-    rows = db.query(Job.verification_status, Job.active).all()
+    now = datetime.utcnow()
+    stale_before = now - timedelta(days=7)
+    recent_before = now - timedelta(days=14)
+    rows = db.query(Job.verification_status, Job.active, Job.last_seen).all()
     statuses: dict[str, int] = {}
     active = 0
-    for status, is_active in rows:
+    stale_active = 0
+    recently_seen = 0
+    for status, is_active, last_seen in rows:
         key = status or "unverified"
         statuses[key] = statuses.get(key, 0) + 1
         if is_active:
             active += 1
+            if last_seen and last_seen <= stale_before:
+                stale_active += 1
+        if last_seen and last_seen >= recent_before:
+            recently_seen += 1
     last_verified = db.query(Job.verified_at).filter(
         Job.verified_at.is_not(None)
     ).order_by(Job.verified_at.desc()).first()
@@ -177,6 +243,8 @@ def freshness_stats(db: Session) -> dict:
         "total_jobs": len(rows),
         "active_jobs": active,
         "inactive_jobs": len(rows) - active,
+        "stale_active_jobs": stale_active,
+        "recently_seen_jobs": recently_seen,
         "verification_status": statuses,
         "last_verified_at": (
             last_verified[0].isoformat() if last_verified and last_verified[0] else None
