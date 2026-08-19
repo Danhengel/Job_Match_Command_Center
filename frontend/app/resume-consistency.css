@@ -1,0 +1,159 @@
+/* Resume page consistency layer.
+   Keeps the résumé workflow inside the same light, airy CareerNavIQ system used across Profiles, Jobs, and Resume Studio. */
+
+.resume-library-page .resume-upload-panel .eyebrow,
+.resume-library-page .resume-library-panel .eyebrow {
+  display: none !important;
+}
+
+.resume-library-page .executive-resume-workspace {
+  align-items: start;
+  gap: 20px;
+}
+
+.resume-library-page .resume-upload-panel,
+.resume-library-page .resume-library-panel,
+.resume-library-page .resume-analysis-panel {
+  border: 1px solid rgba(15, 35, 60, 0.09) !important;
+  border-radius: 18px !important;
+  background: rgba(255, 255, 255, 0.92) !important;
+  color: #10263d !important;
+  box-shadow: 0 16px 40px rgba(15, 35, 60, 0.055) !important;
+  backdrop-filter: none !important;
+}
+
+.resume-library-page .resume-upload-panel,
+.resume-library-page .resume-analysis-panel {
+  padding: 24px !important;
+}
+
+.resume-library-page .resume-library-panel {
+  padding: 24px !important;
+}
+
+.resume-library-page .resume-upload-panel h2,
+.resume-library-page .resume-library-panel h2,
+.resume-library-page .resume-analysis-panel h2,
+.resume-library-page .resume-upload-panel h3,
+.resume-library-page .resume-library-panel h3,
+.resume-library-page .resume-analysis-panel h3 {
+  color: #10263d !important;
+  text-shadow: none !important;
+}
+
+.resume-library-page .resume-upload-panel p,
+.resume-library-page .resume-library-panel p,
+.resume-library-page .resume-analysis-panel p,
+.resume-library-page .resume-upload-panel label,
+.resume-library-page .resume-library-panel label,
+.resume-library-page .resume-analysis-panel label,
+.resume-library-page .resume-upload-panel small,
+.resume-library-page .resume-library-panel small,
+.resume-library-page .resume-analysis-panel small,
+.resume-library-page .resume-analysis-panel li {
+  color: rgba(15, 35, 60, 0.66) !important;
+  text-shadow: none !important;
+}
+
+.resume-library-page .resume-upload-panel input:not([type="checkbox"]),
+.resume-library-page .resume-profile-control select {
+  min-height: 46px;
+  border: 1px solid rgba(15, 35, 60, 0.14) !important;
+  border-radius: 12px !important;
+  background: #ffffff !important;
+  color: #10263d !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+}
+
+.resume-library-page .resume-upload-panel input:not([type="checkbox"]):focus,
+.resume-library-page .resume-profile-control select:focus {
+  border-color: rgba(20, 73, 115, 0.48) !important;
+  box-shadow: 0 0 0 3px rgba(20, 73, 115, 0.10) !important;
+  outline: none;
+}
+
+.resume-library-page .resume-checkbox-row {
+  padding: 10px 0;
+}
+
+.resume-library-page .resume-library-card {
+  border: 1px solid rgba(15, 35, 60, 0.09) !important;
+  border-radius: 16px !important;
+  background: #ffffff !important;
+  color: #10263d !important;
+  box-shadow: 0 8px 24px rgba(15, 35, 60, 0.04) !important;
+}
+
+.resume-library-page .resume-library-card:hover {
+  border-color: rgba(20, 73, 115, 0.20) !important;
+  box-shadow: 0 12px 30px rgba(15, 35, 60, 0.07) !important;
+}
+
+.resume-library-page .resume-library-card.selected {
+  border-color: rgba(20, 73, 115, 0.32) !important;
+  background: rgba(248, 251, 254, 0.98) !important;
+  box-shadow: 0 14px 34px rgba(15, 35, 60, 0.075) !important;
+}
+
+.resume-library-page .resume-preview,
+.resume-library-page .resume-analysis-section {
+  border-color: rgba(15, 35, 60, 0.08) !important;
+  background: rgba(20, 73, 115, 0.035) !important;
+  color: rgba(15, 35, 60, 0.68) !important;
+}
+
+.resume-library-page .resume-score-badge,
+.resume-library-page .resume-analysis-score {
+  border-color: rgba(15, 35, 60, 0.08) !important;
+  background: rgba(20, 73, 115, 0.055) !important;
+  color: #0c2746 !important;
+}
+
+.resume-library-page .resume-score-badge strong,
+.resume-library-page .resume-analysis-score strong {
+  color: #0c2746 !important;
+}
+
+.resume-library-page .resume-card-actions button,
+.resume-library-page .resume-upload-panel > button,
+.resume-library-page .resume-analysis-panel > button {
+  border-radius: 11px !important;
+}
+
+.resume-library-page .resume-card-actions .secondary,
+.resume-library-page .resume-library-panel .secondary {
+  border: 1px solid rgba(15, 35, 60, 0.14) !important;
+  background: #ffffff !important;
+  color: #17324f !important;
+  box-shadow: none !important;
+}
+
+.resume-library-page .resume-card-actions .danger {
+  border: 1px solid rgba(174, 49, 49, 0.20) !important;
+  background: rgba(174, 49, 49, 0.045) !important;
+  color: #a62f2f !important;
+  box-shadow: none !important;
+}
+
+.resume-library-page .resume-empty-state {
+  border: 1px dashed rgba(15, 35, 60, 0.14) !important;
+  border-radius: 14px !important;
+  background: rgba(20, 73, 115, 0.025) !important;
+}
+
+.resume-library-page .resume-analysis-heading {
+  border-bottom-color: rgba(15, 35, 60, 0.08) !important;
+}
+
+.resume-library-page .badge,
+.resume-library-page .resume-metric-tags .badge {
+  border-color: rgba(20, 73, 115, 0.13) !important;
+  background: rgba(20, 73, 115, 0.055) !important;
+  color: #173a5e !important;
+}
+
+@media (max-width: 1040px) {
+  .resume-library-page .executive-resume-workspace {
+    grid-template-columns: 1fr !important;
+  }
+}
