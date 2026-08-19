@@ -171,11 +171,12 @@ export default function JobsPage() {
     window.localStorage.setItem("careeros-search-location", location);
 
     try {
-      const data = await api("/api/jobs/search", {
+      const data = await api("/api/jobs/search-everywhere", {
         method: "POST",
         body: JSON.stringify({
           profile_id: Number(profileId),
           titles: titles.split("\n").map((value) => value.trim()).filter(Boolean),
+          use_jsearch: true,
           jsearch_location: location,
           minimum_score: 0,
           greenhouse_boards: greenhouse.split("\n").map((value) => value.trim()).filter(Boolean),
@@ -226,13 +227,13 @@ export default function JobsPage() {
             <input value={location} onChange={(event) => setLocation(event.target.value)} placeholder="Tampa, Florida or Remote" />
           </label>
           <button className="jobs-search-button" disabled={busy || !profileId || !titles.trim()}>
-            {busy ? "Searching…" : "Search jobs"}
+            {busy ? "Searching everywhere…" : "Search jobs"}
           </button>
         </div>
 
         <div className="jobs-search-context">
           <span><strong>{targetCount || 0}</strong> target roles</span>
-          <span>All major sources + employer career sites</span>
+          <span>Maximum coverage: JSearch + enabled web sources + employer career sites</span>
         </div>
 
         <details className="jobs-search-options">
@@ -258,7 +259,7 @@ export default function JobsPage() {
       </form>
 
       {loadingSaved ? <Notice title="Loading saved opportunities"><p>Restoring the most recent matches for this career profile.</p></Notice> : null}
-      {busy ? <Notice title="Searching the market"><p>CareerNavIQ is checking the enabled job network, employer career sites, removing duplicates, and ranking the strongest opportunities.</p></Notice> : null}
+      {busy ? <Notice title="Searching the market"><p>CareerNavIQ is running maximum coverage across JSearch, enabled web sources, employer career sites, removing duplicates, and ranking the strongest opportunities.</p></Notice> : null}
       {errors.length ? <Notice title="Some sources were temporarily unavailable" tone="warning"><p>The search still completed across the available network.</p></Notice> : null}
 
       <section className="executive-panel jobs-results-shell">
@@ -310,6 +311,7 @@ export default function JobsPage() {
                     <span>{result.job.location || "Location not listed"}</span>
                     {result.job.salary ? <span>{result.job.salary}</span> : null}
                     <span>{postedLabel(result.job.posted_at)}</span>
+                    <span>{result.job.source || "Source unavailable"}</span>
                   </div>
                   {result.match.matched_keywords?.length ? (
                     <div className="jobs-keyword-row">
