@@ -7,7 +7,7 @@ class JobSearchRequest(BaseModel):
     use_remotive: bool = True
     use_remoteok: bool = True
     use_jobicy: bool = True
-    use_himalayas: bool = True
+    use_himalayas: bool = False
     use_catalog: bool = True
     use_saved_career_pages: bool = True
     use_jsearch: bool = True
