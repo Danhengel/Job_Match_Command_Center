@@ -16,7 +16,7 @@
   content: none !important;
 }
 
-/* Logo stays unframed. */
+/* Logo stays unframed and larger. */
 .premium-home .premium-hero-logo-classic,
 .auth-shell-with-footer .auth-centered-logo img {
   background: transparent !important;
@@ -25,9 +25,13 @@
   filter: none !important;
   object-fit: contain !important;
 }
+.premium-home .premium-hero-logo-classic {
+  width: min(760px, 98%) !important;
+  max-height: 205px !important;
+}
 
-/* Every major visual container uses a clear center and a feathered outer halo.
-   The halo extends past the box, so the perimeter dissolves into the page art. */
+/* Every major visual container becomes fully transparent. The actual visual body is a
+   blurred inner layer, so its perimeter fades rather than stopping at a rectangle. */
 .executive-platform :where(
   .card,.panel,.executive-panel,.executive-metric-strip,.empty-state-panel,.executive-empty-state,
   .jobs-search-shell,.jobs-results-shell,.studio-setup-card,.studio-opportunity-card,
@@ -45,14 +49,15 @@
   position: relative !important;
   isolation: isolate !important;
   overflow: visible !important;
-  background: linear-gradient(145deg, rgba(255,255,255,.095), rgba(255,255,255,.028)) !important;
+  background: transparent !important;
   border: 0 !important;
   outline: 0 !important;
-  box-shadow: 0 16px 46px rgba(17,49,78,.045) !important;
-  backdrop-filter: blur(8px) saturate(106%) !important;
-  -webkit-backdrop-filter: blur(8px) saturate(106%) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
+/* Real feather layer — visible inside the stacking context. */
 .executive-platform :where(
   .card,.panel,.executive-panel,.executive-metric-strip,.empty-state-panel,.executive-empty-state,
   .jobs-search-shell,.jobs-results-shell,.studio-setup-card,.studio-opportunity-card,
@@ -60,27 +65,64 @@
   .profile-card,.resume-list-shell,.resume-inline-upload,.application-card,.saved-job-card,
   .interview-card,.company-card,.crm-card,.table-shell,.data-table-shell,
   [class$='-card'],[class$='-panel']
-)::before,
+)::after,
 :where(.public-page,.premium-home) :where(
   .public-card,.public-content-aside,.public-content-block,.public-faq-list details,
   .public-related-grid a,.public-final-card,.premium-outcome-grid,.premium-outcome-card,
   [class$='-card'],[class$='-panel']
-)::before,
-.auth-shell-with-footer :where(.auth-card,.login-card,.register-card,.auth-panel)::before {
+)::after,
+.auth-shell-with-footer :where(.auth-card,.login-card,.register-card,.auth-panel)::after {
   content: "" !important;
   position: absolute !important;
-  z-index: -1 !important;
+  z-index: 0 !important;
   pointer-events: none !important;
-  inset: -14px !important;
-  border-radius: calc(var(--cni-radius, 20px) + 12px) !important;
-  background: rgba(255,255,255,.09) !important;
+  inset: -18px !important;
+  border-radius: calc(var(--cni-radius, 20px) + 18px) !important;
+  background: radial-gradient(ellipse at center,
+    rgba(255,255,255,.24) 0%,
+    rgba(255,255,255,.18) 44%,
+    rgba(255,255,255,.10) 66%,
+    rgba(255,255,255,.035) 82%,
+    transparent 100%) !important;
   filter: blur(18px) !important;
-  opacity: .76 !important;
-  -webkit-mask-image: radial-gradient(ellipse at center, #000 50%, rgba(0,0,0,.82) 67%, rgba(0,0,0,.30) 82%, transparent 100%) !important;
-  mask-image: radial-gradient(ellipse at center, #000 50%, rgba(0,0,0,.82) 67%, rgba(0,0,0,.30) 82%, transparent 100%) !important;
+  opacity: .92 !important;
 }
 
-/* Compact rows use the same fade, at a smaller scale. */
+/* Keep real content above the feather layer. */
+.executive-platform :where(
+  .card,.panel,.executive-panel,.executive-metric-strip,.empty-state-panel,.executive-empty-state,
+  .jobs-search-shell,.jobs-results-shell,.studio-setup-card,.studio-opportunity-card,
+  .tailor-primary-panel,.tailor-fit-panel,.tailor-job-description,.tailor-saved-versions,
+  .profile-card,.resume-list-shell,.resume-inline-upload,.application-card,.saved-job-card,
+  .interview-card,.company-card,.crm-card,.table-shell,.data-table-shell,
+  [class$='-card'],[class$='-panel']
+) > *,
+:where(.public-page,.premium-home) :where(
+  .public-card,.public-content-aside,.public-content-block,.public-faq-list details,
+  .public-related-grid a,.public-final-card,.premium-outcome-grid,.premium-outcome-card,
+  [class$='-card'],[class$='-panel']
+) > *,
+.auth-shell-with-footer :where(.auth-card,.login-card,.register-card,.auth-panel) > * {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Remove homepage grid lines that visually recreate a hard rectangle. */
+.premium-home .premium-outcome-grid,
+.premium-home .premium-outcome-grid article,
+.premium-home .premium-outcome-grid article + article {
+  border: 0 !important;
+  box-shadow: none !important;
+}
+.premium-home .premium-outcome-grid {
+  overflow: visible !important;
+  background: transparent !important;
+}
+.premium-home .premium-outcome-grid article {
+  background: transparent !important;
+}
+
+/* Compact rows get their own smaller visible feather layer. */
 .executive-platform :where(
   .resume-list-row,.jobs-opportunity-card,.studio-opportunity-row,.resume-library-card,
   .application-row,.saved-job-row,.profile-selected-resume,.tailor-selected-resume,
@@ -89,63 +131,64 @@
   position: relative !important;
   isolation: isolate !important;
   overflow: visible !important;
-  background: rgba(255,255,255,.045) !important;
+  background: transparent !important;
   border: 0 !important;
   outline: 0 !important;
   box-shadow: none !important;
-  backdrop-filter: blur(6px) saturate(104%) !important;
-  -webkit-backdrop-filter: blur(6px) saturate(104%) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
-
 .executive-platform :where(
   .resume-list-row,.jobs-opportunity-card,.studio-opportunity-row,.resume-library-card,
   .application-row,.saved-job-row,.profile-selected-resume,.tailor-selected-resume,
   [class$='-row']
-)::before {
+)::after {
   content: "" !important;
   position: absolute !important;
-  z-index: -1 !important;
+  z-index: 0 !important;
   pointer-events: none !important;
-  inset: -8px !important;
-  border-radius: 18px !important;
-  background: rgba(255,255,255,.07) !important;
+  inset: -10px !important;
+  border-radius: 22px !important;
+  background: radial-gradient(ellipse at center,
+    rgba(255,255,255,.18) 0%,
+    rgba(255,255,255,.11) 58%,
+    rgba(255,255,255,.025) 84%,
+    transparent 100%) !important;
   filter: blur(12px) !important;
-  opacity: .70 !important;
-  -webkit-mask-image: radial-gradient(ellipse at center, #000 48%, rgba(0,0,0,.72) 68%, transparent 100%) !important;
-  mask-image: radial-gradient(ellipse at center, #000 48%, rgba(0,0,0,.72) 68%, transparent 100%) !important;
+  opacity: .86 !important;
 }
-
 .executive-platform :where(
   .resume-list-row,.jobs-opportunity-card,.studio-opportunity-row,.resume-library-card,
-  .application-row,.saved-job-row,[class$='-row']
-):hover {
-  background: rgba(255,255,255,.075) !important;
+  .application-row,.saved-job-row,.profile-selected-resume,.tailor-selected-resume,
+  [class$='-row']
+) > * {
+  position: relative !important;
+  z-index: 1 !important;
 }
 
-/* Inputs keep definition for usability, but lose the hard perimeter. */
+/* Inputs stay readable but with no hard edge. */
 :where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(input,select,textarea) {
   border: 0 !important;
   outline: 0 !important;
-  background: rgba(255,255,255,.16) !important;
-  box-shadow: 0 7px 24px rgba(17,49,78,.035), inset 0 0 0 1px rgba(255,255,255,.16) !important;
+  background: rgba(255,255,255,.13) !important;
+  box-shadow: 0 0 20px rgba(255,255,255,.16), 0 7px 24px rgba(17,49,78,.03) !important;
   backdrop-filter: blur(7px) saturate(106%) !important;
   -webkit-backdrop-filter: blur(7px) saturate(106%) !important;
 }
 
-/* Keep every action button visually matched sitewide. */
+/* Every action button uses one matched geometry and finish. */
 :where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(
   button:not(.mobile-menu-button):not(.mobile-nav-overlay),
   .button,.premium-button,.public-button-primary,.public-nav-cta,.premium-header-cta
 ) {
-  min-height: 46px !important;
-  padding-inline: 24px !important;
+  min-height: 48px !important;
+  padding-inline: 26px !important;
   border-radius: 12px !important;
   font-weight: 650 !important;
   letter-spacing: .01em !important;
   border: 0 !important;
   box-shadow: 0 9px 26px rgba(13,49,83,.09) !important;
 }
-
 :where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(
   button:not(.secondary):not(.danger):not(.mobile-menu-button):not(.mobile-nav-overlay),
   .button:not(.secondary):not(.danger),.premium-button-primary,.public-button-primary,.public-nav-cta,.premium-header-cta
@@ -153,11 +196,10 @@
   background: linear-gradient(180deg, rgba(25,73,115,.96), rgba(10,47,82,.96)) !important;
   color: #fff !important;
 }
-
 :where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(
   .secondary,[class*='secondary'],.premium-button-secondary
 ) {
-  background: rgba(255,255,255,.12) !important;
+  background: rgba(255,255,255,.14) !important;
   color: #0b3153 !important;
   backdrop-filter: blur(8px) saturate(106%) !important;
   -webkit-backdrop-filter: blur(8px) saturate(106%) !important;
