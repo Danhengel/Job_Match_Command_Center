@@ -138,7 +138,6 @@ def collect_saved_search_rows(
             ("Remotive", job_sources.remotive),
             ("Remote OK", job_sources.remoteok),
             ("Jobicy", job_sources.jobicy),
-            ("Himalayas", job_sources.himalayas),
         )
         for source, loader in remote_sources:
             for title in titles:
