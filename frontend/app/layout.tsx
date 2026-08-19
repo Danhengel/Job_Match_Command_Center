@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./visual-system.css";
 import "./hero-background.css";
+import "./sitewide-luxury-reference.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 
@@ -98,7 +99,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#dfe9f2",
+  themeColor: "#06131e",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
