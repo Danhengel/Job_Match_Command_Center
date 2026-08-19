@@ -23,6 +23,7 @@ import "./sitewide-footer.css";
 import "./market-hero-theme.css";
 import "./workflow-simplification.css";
 import "./resume-consistency.css";
+import "./resume-translucent.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 
