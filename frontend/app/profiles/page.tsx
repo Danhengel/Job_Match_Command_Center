@@ -27,6 +27,7 @@ export default function Profiles() {
   const [items, setItems] = useState<Profile[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [deletingId, setDeletingId] = useState<number | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -44,6 +45,24 @@ export default function Profiles() {
     const strongestScore = Math.max(0, ...items.map((profile) => profile.best_resume_score || 0));
     return { profileCount, resumeCount, averageCompleteness, strongestScore };
   }, [items]);
+
+  async function deleteProfile(profile: Profile) {
+    const confirmed = window.confirm(
+      `Delete “${profile.name}”? This permanently removes this career profile and its associated résumé files.`,
+    );
+    if (!confirmed) return;
+
+    setDeletingId(profile.id);
+    setError("");
+    try {
+      await api(`/api/profiles/${profile.id}`, { method: "DELETE" });
+      setItems((current) => current.filter((item) => item.id !== profile.id));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unable to delete this career profile.");
+    } finally {
+      setDeletingId(null);
+    }
+  }
 
   return (
     <div className="profiles-page">
@@ -96,7 +115,17 @@ export default function Profiles() {
 
               <footer className="profile-card-footer">
                 <span className="muted">Use this profile as the mandate for market reviews, positioning, and active pursuits.</span>
-                <Link className="button" href={`/profiles/${profile.id}`}>Open career profile</Link>
+                <div style={{ display: "grid", gap: 8, minWidth: 170 }}>
+                  <Link className="button" href={`/profiles/${profile.id}`}>Open career profile</Link>
+                  <button
+                    type="button"
+                    className="button secondary"
+                    disabled={deletingId === profile.id}
+                    onClick={() => void deleteProfile(profile)}
+                  >
+                    {deletingId === profile.id ? "Deleting…" : "Delete profile"}
+                  </button>
+                </div>
               </footer>
             </article>
           ))}
