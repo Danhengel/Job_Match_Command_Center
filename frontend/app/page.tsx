@@ -34,10 +34,6 @@ export default function HomePage() {
     <div className="premium-home premium-home-reference">
       <header className="premium-header premium-reference-header">
         <div className="premium-shell premium-header-inner premium-reference-header-inner">
-          <Link href="/" className="premium-header-brand" aria-label="CareerNavIQ home">
-            <img src="/careernaviq-logo-hero-transparent.png?v=20260819full" alt="CareerNavIQ" />
-          </Link>
-
           <nav className="premium-nav premium-reference-nav" aria-label="Main navigation">
             <Link href="/features">Platform</Link>
             <Link href="/features">How It Works</Link>
