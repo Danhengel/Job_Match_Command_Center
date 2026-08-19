@@ -182,8 +182,9 @@ export default function ResumesPage() {
   return (
     <div className="resume-library-page resume-list-page">
       <PageHeader
-        title="Résumés"
-        description="Manage your résumés and tailor them for different opportunities."
+        eyebrow="RÉSUMÉ LIBRARY"
+        title="Manage your résumés"
+        description="Organize your résumé versions, review their readiness, and choose the strongest evidence for each opportunity."
         actions={
           <button type="button" className="button resume-upload-toggle" onClick={() => setShowUpload((current) => !current)}>
             {showUpload ? "Close upload" : "+ Upload New Résumé"}
