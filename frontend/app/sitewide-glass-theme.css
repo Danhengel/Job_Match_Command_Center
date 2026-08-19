@@ -1,0 +1,201 @@
+/* CareerNavIQ sitewide glass theme — signed-in workspace only. */
+
+.executive-platform .app-workspace {
+  position: relative;
+  isolation: isolate;
+  background:
+    linear-gradient(180deg, rgba(238, 245, 251, 0.44), rgba(230, 239, 248, 0.32)),
+    url('/careernaviq-compass-architecture.webp?v=20260810office') center center / cover fixed no-repeat !important;
+}
+
+.executive-platform .app-workspace::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 0 var(--sidebar-width, 0px);
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 72% 48%, rgba(255, 255, 255, 0.20), transparent 34%),
+    linear-gradient(110deg, rgba(236, 244, 251, 0.38), rgba(228, 239, 249, 0.12));
+}
+
+.executive-platform .app-content,
+.executive-platform .executive-page-frame {
+  background: transparent !important;
+}
+
+.executive-platform .app-header {
+  background: rgba(244, 248, 252, 0.64) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.58) !important;
+  backdrop-filter: blur(18px) saturate(120%);
+  -webkit-backdrop-filter: blur(18px) saturate(120%);
+}
+
+.executive-platform .app-header.app-header-scrolled {
+  background: rgba(241, 247, 252, 0.76) !important;
+  box-shadow: 0 10px 28px rgba(8, 27, 48, 0.08) !important;
+}
+
+/* Shared surfaces */
+.executive-platform :is(
+  .card,
+  .executive-panel,
+  .executive-metric-strip,
+  .empty-state-panel,
+  .executive-empty-state,
+  .notice,
+  .executive-notice,
+  .jobs-search-shell,
+  .jobs-results-shell,
+  .studio-setup-card,
+  .studio-opportunity-card,
+  .tailor-primary-panel,
+  .tailor-fit-panel,
+  .tailor-job-description,
+  .tailor-saved-versions,
+  .profile-card,
+  .resume-list-shell,
+  .resume-inline-upload,
+  .application-card,
+  .saved-job-card,
+  .interview-card,
+  .company-card,
+  .crm-card
+) {
+  background: rgba(248, 251, 254, 0.52) !important;
+  border-color: rgba(255, 255, 255, 0.68) !important;
+  box-shadow: 0 16px 40px rgba(8, 27, 48, 0.075) !important;
+  backdrop-filter: blur(14px) saturate(118%);
+  -webkit-backdrop-filter: blur(14px) saturate(118%);
+}
+
+.executive-platform :is(
+  .card,
+  .executive-panel,
+  .profile-card,
+  .jobs-search-shell,
+  .jobs-results-shell,
+  .studio-setup-card,
+  .studio-opportunity-card,
+  .tailor-primary-panel,
+  .tailor-fit-panel
+):hover {
+  border-color: rgba(255, 255, 255, 0.82) !important;
+  box-shadow: 0 20px 48px rgba(8, 27, 48, 0.10) !important;
+}
+
+/* Nested cards / rows */
+.executive-platform :is(
+  .resume-list-row,
+  .jobs-opportunity-card,
+  .studio-opportunity-row,
+  .resume-library-card,
+  .application-row,
+  .saved-job-row,
+  .profile-selected-resume,
+  .tailor-selected-resume
+) {
+  background: rgba(255, 255, 255, 0.40) !important;
+  border-color: rgba(255, 255, 255, 0.70) !important;
+  box-shadow: 0 9px 26px rgba(8, 27, 48, 0.055) !important;
+  backdrop-filter: blur(10px) saturate(112%);
+  -webkit-backdrop-filter: blur(10px) saturate(112%);
+}
+
+/* Form controls */
+.executive-platform :is(input, select, textarea) {
+  background: rgba(255, 255, 255, 0.64) !important;
+  border-color: rgba(255, 255, 255, 0.72) !important;
+  color: #10263d !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.58) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.executive-platform :is(input, select, textarea):focus {
+  background: rgba(255, 255, 255, 0.76) !important;
+  border-color: rgba(66, 111, 153, 0.42) !important;
+  box-shadow: 0 0 0 3px rgba(47, 95, 138, 0.10) !important;
+}
+
+/* Secondary informational surfaces */
+.executive-platform :is(
+  .resume-list-note,
+  .resume-list-empty,
+  .jobs-search-context span,
+  .studio-trust-banner,
+  .tailor-selected-resume,
+  .jobs-results-count,
+  .jobs-score-badge,
+  .studio-simple-step,
+  .tailor-simple-step,
+  .resume-preview,
+  .resume-analysis-section
+) {
+  background: rgba(242, 248, 253, 0.42) !important;
+  border-color: rgba(255, 255, 255, 0.56) !important;
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+}
+
+/* Tables and list shells */
+.executive-platform :is(table, .table-shell, .data-table-shell) {
+  background: rgba(250, 252, 254, 0.46) !important;
+  border-color: rgba(255, 255, 255, 0.64) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.executive-platform table :is(th, td) {
+  background: transparent !important;
+  border-color: rgba(255, 255, 255, 0.38) !important;
+}
+
+/* Preserve navy primary actions against the lighter glass */
+.executive-platform .button:not(.secondary):not(.danger),
+.executive-platform button:not(.secondary):not(.danger):not(.resume-more-button):not(.mobile-menu-button):not(.mobile-nav-overlay) {
+  box-shadow: 0 8px 20px rgba(5, 30, 54, 0.12);
+}
+
+/* Page headings stay crisp over the visual background. */
+.executive-platform .executive-page-header h1,
+.executive-platform .executive-section-header h2,
+.executive-platform h1,
+.executive-platform h2,
+.executive-platform h3 {
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+/* Keep the navigation distinctly navy and anchored. */
+.executive-platform .app-sidebar {
+  background: linear-gradient(180deg, rgba(5, 24, 43, 0.98), rgba(8, 40, 67, 0.98)) !important;
+  box-shadow: 12px 0 32px rgba(3, 17, 30, 0.16) !important;
+}
+
+.executive-platform .app-sidebar :is(.active, a:hover) {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+@media (max-width: 900px) {
+  .executive-platform .app-workspace {
+    background-attachment: scroll !important;
+    background-position: 68% center !important;
+  }
+
+  .executive-platform .app-workspace::before {
+    inset-left: 0;
+  }
+
+  .executive-platform :is(
+    .card,
+    .executive-panel,
+    .jobs-search-shell,
+    .jobs-results-shell,
+    .profile-card,
+    .resume-list-shell,
+    .resume-inline-upload
+  ) {
+    background: rgba(248, 251, 254, 0.62) !important;
+  }
+}
