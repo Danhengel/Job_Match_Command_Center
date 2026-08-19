@@ -1,159 +1,383 @@
-/* Resume page consistency layer.
-   Keeps the résumé workflow inside the same light, airy CareerNavIQ system used across Profiles, Jobs, and Resume Studio. */
+/* Résumés page: light, airy CareerNavIQ list layout matching the rest of the signed-in workspace. */
 
-.resume-library-page .resume-upload-panel .eyebrow,
-.resume-library-page .resume-library-panel .eyebrow {
-  display: none !important;
+.resume-list-page {
+  color: #10263d;
 }
 
-.resume-library-page .executive-resume-workspace {
-  align-items: start;
-  gap: 20px;
+.resume-list-page .executive-page-header {
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-.resume-library-page .resume-upload-panel,
-.resume-library-page .resume-library-panel,
-.resume-library-page .resume-analysis-panel {
-  border: 1px solid rgba(15, 35, 60, 0.09) !important;
-  border-radius: 18px !important;
-  background: rgba(255, 255, 255, 0.92) !important;
+.resume-list-page .executive-page-header h1 {
   color: #10263d !important;
-  box-shadow: 0 16px 40px rgba(15, 35, 60, 0.055) !important;
-  backdrop-filter: none !important;
 }
 
-.resume-library-page .resume-upload-panel,
-.resume-library-page .resume-analysis-panel {
-  padding: 24px !important;
-}
-
-.resume-library-page .resume-library-panel {
-  padding: 24px !important;
-}
-
-.resume-library-page .resume-upload-panel h2,
-.resume-library-page .resume-library-panel h2,
-.resume-library-page .resume-analysis-panel h2,
-.resume-library-page .resume-upload-panel h3,
-.resume-library-page .resume-library-panel h3,
-.resume-library-page .resume-analysis-panel h3 {
-  color: #10263d !important;
-  text-shadow: none !important;
-}
-
-.resume-library-page .resume-upload-panel p,
-.resume-library-page .resume-library-panel p,
-.resume-library-page .resume-analysis-panel p,
-.resume-library-page .resume-upload-panel label,
-.resume-library-page .resume-library-panel label,
-.resume-library-page .resume-analysis-panel label,
-.resume-library-page .resume-upload-panel small,
-.resume-library-page .resume-library-panel small,
-.resume-library-page .resume-analysis-panel small,
-.resume-library-page .resume-analysis-panel li {
+.resume-list-page .executive-page-header .muted {
   color: rgba(15, 35, 60, 0.66) !important;
-  text-shadow: none !important;
 }
 
-.resume-library-page .resume-upload-panel input:not([type="checkbox"]),
-.resume-library-page .resume-profile-control select {
+.resume-upload-toggle {
+  min-height: 46px;
+  padding-inline: 18px;
+  border-radius: 12px !important;
+  white-space: nowrap;
+}
+
+.resume-inline-upload,
+.resume-list-shell {
+  border: 1px solid rgba(15, 35, 60, 0.09);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 16px 40px rgba(15, 35, 60, 0.055);
+}
+
+.resume-inline-upload {
+  padding: 22px;
+  margin-bottom: 20px;
+}
+
+.resume-inline-upload-heading h2,
+.resume-list-header h2 {
+  margin: 0;
+  color: #10263d;
+}
+
+.resume-inline-upload-heading p {
+  margin: 5px 0 0;
+  color: rgba(15, 35, 60, 0.62);
+}
+
+.resume-upload-grid {
+  display: grid;
+  grid-template-columns: 0.8fr 1fr 1.2fr;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.resume-upload-grid label,
+.resume-list-profile-control {
+  display: grid;
+  gap: 7px;
+}
+
+.resume-upload-grid label > span,
+.resume-list-profile-control > span {
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: rgba(15, 35, 60, 0.64);
+}
+
+.resume-upload-grid input,
+.resume-upload-grid select,
+.resume-list-profile-control select {
   min-height: 46px;
   border: 1px solid rgba(15, 35, 60, 0.14) !important;
   border-radius: 12px !important;
-  background: #ffffff !important;
+  background: #fff !important;
   color: #10263d !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+  box-shadow: none !important;
 }
 
-.resume-library-page .resume-upload-panel input:not([type="checkbox"]):focus,
-.resume-library-page .resume-profile-control select:focus {
-  border-color: rgba(20, 73, 115, 0.48) !important;
-  box-shadow: 0 0 0 3px rgba(20, 73, 115, 0.10) !important;
-  outline: none;
+.resume-upload-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 16px;
 }
 
-.resume-library-page .resume-checkbox-row {
-  padding: 10px 0;
-}
-
-.resume-library-page .resume-library-card {
-  border: 1px solid rgba(15, 35, 60, 0.09) !important;
-  border-radius: 16px !important;
-  background: #ffffff !important;
-  color: #10263d !important;
-  box-shadow: 0 8px 24px rgba(15, 35, 60, 0.04) !important;
-}
-
-.resume-library-page .resume-library-card:hover {
-  border-color: rgba(20, 73, 115, 0.20) !important;
-  box-shadow: 0 12px 30px rgba(15, 35, 60, 0.07) !important;
-}
-
-.resume-library-page .resume-library-card.selected {
-  border-color: rgba(20, 73, 115, 0.32) !important;
-  background: rgba(248, 251, 254, 0.98) !important;
-  box-shadow: 0 14px 34px rgba(15, 35, 60, 0.075) !important;
-}
-
-.resume-library-page .resume-preview,
-.resume-library-page .resume-analysis-section {
-  border-color: rgba(15, 35, 60, 0.08) !important;
-  background: rgba(20, 73, 115, 0.035) !important;
+.resume-checkbox-row {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
   color: rgba(15, 35, 60, 0.68) !important;
 }
 
-.resume-library-page .resume-score-badge,
-.resume-library-page .resume-analysis-score {
-  border-color: rgba(15, 35, 60, 0.08) !important;
+.resume-list-shell {
+  padding: 20px;
+}
+
+.resume-list-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 2px 4px 18px;
+}
+
+.resume-list-profile-control {
+  min-width: 230px;
+}
+
+.resume-list-rows {
+  display: grid;
+  gap: 14px;
+}
+
+.resume-list-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 86px minmax(0, 1fr) 150px 190px 42px;
+  gap: 18px;
+  align-items: center;
+  min-height: 138px;
+  padding: 18px 16px;
+  border: 1px solid rgba(15, 35, 60, 0.10);
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(15, 35, 60, 0.035);
+}
+
+.resume-list-row:hover {
+  border-color: rgba(20, 73, 115, 0.20);
+  box-shadow: 0 12px 28px rgba(15, 35, 60, 0.055);
+}
+
+.resume-file-icon {
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 78px;
+  border: 1px solid rgba(40, 115, 205, 0.12);
+  border-radius: 13px;
+  background: linear-gradient(145deg, #eef6ff, #f7fbff);
+}
+
+.resume-file-icon::before {
+  content: "▤";
+  display: block;
+  color: #246fc2;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.resume-file-icon span {
+  margin-top: 3px;
+  padding: 2px 5px;
+  border-radius: 5px;
+  background: #2474ca;
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.resume-row-title-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.resume-row-copy h3 {
+  margin: 0;
+  color: #10263d;
+  font-size: 1rem;
+}
+
+.resume-row-copy p {
+  margin: 5px 0 0;
+  color: rgba(15, 35, 60, 0.62);
+  font-size: 0.83rem;
+}
+
+.resume-row-copy small {
+  display: block;
+  max-width: 680px;
+  margin-top: 8px;
+  color: rgba(15, 35, 60, 0.53);
+  line-height: 1.45;
+}
+
+.resume-primary-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #e8f7ed;
+  color: #248346;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+.resume-row-score {
+  display: grid;
+  justify-items: start;
+  gap: 3px;
+  padding-left: 8px;
+  border-left: 1px solid rgba(15, 35, 60, 0.08);
+}
+
+.resume-row-score strong {
+  color: #10263d;
+  font-size: 1.65rem;
+  line-height: 1;
+}
+
+.resume-row-score span {
+  color: rgba(15, 35, 60, 0.62);
+  font-size: 0.78rem;
+}
+
+.resume-row-actions {
+  display: grid;
+  gap: 8px;
+}
+
+.resume-row-actions .button {
+  width: 100%;
+  min-height: 42px;
+  border-radius: 10px !important;
+}
+
+.resume-delete-button {
+  border-color: rgba(185, 45, 45, 0.18) !important;
+  background: #fff !important;
+  color: #b62d2d !important;
+  box-shadow: none !important;
+}
+
+.resume-more-wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.resume-more-button {
+  width: 36px;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 9px !important;
+  background: transparent !important;
+  color: #10263d !important;
+  box-shadow: none !important;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.resume-more-button:hover {
   background: rgba(20, 73, 115, 0.055) !important;
-  color: #0c2746 !important;
 }
 
-.resume-library-page .resume-score-badge strong,
-.resume-library-page .resume-analysis-score strong {
-  color: #0c2746 !important;
+.resume-more-menu {
+  position: absolute;
+  z-index: 10;
+  top: 42px;
+  right: 0;
+  display: grid;
+  min-width: 170px;
+  padding: 7px;
+  border: 1px solid rgba(15, 35, 60, 0.10);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 16px 32px rgba(15, 35, 60, 0.12);
 }
 
-.resume-library-page .resume-card-actions button,
-.resume-library-page .resume-upload-panel > button,
-.resume-library-page .resume-analysis-panel > button {
-  border-radius: 11px !important;
-}
-
-.resume-library-page .resume-card-actions .secondary,
-.resume-library-page .resume-library-panel .secondary {
-  border: 1px solid rgba(15, 35, 60, 0.14) !important;
-  background: #ffffff !important;
+.resume-more-menu button {
+  justify-content: start;
+  min-height: 38px;
+  padding: 8px 10px;
+  border: 0 !important;
+  border-radius: 8px !important;
+  background: transparent !important;
   color: #17324f !important;
   box-shadow: none !important;
+  text-align: left;
 }
 
-.resume-library-page .resume-card-actions .danger {
-  border: 1px solid rgba(174, 49, 49, 0.20) !important;
-  background: rgba(174, 49, 49, 0.045) !important;
-  color: #a62f2f !important;
-  box-shadow: none !important;
-}
-
-.resume-library-page .resume-empty-state {
-  border: 1px dashed rgba(15, 35, 60, 0.14) !important;
-  border-radius: 14px !important;
-  background: rgba(20, 73, 115, 0.025) !important;
-}
-
-.resume-library-page .resume-analysis-heading {
-  border-bottom-color: rgba(15, 35, 60, 0.08) !important;
-}
-
-.resume-library-page .badge,
-.resume-library-page .resume-metric-tags .badge {
-  border-color: rgba(20, 73, 115, 0.13) !important;
+.resume-more-menu button:hover {
   background: rgba(20, 73, 115, 0.055) !important;
-  color: #173a5e !important;
 }
 
-@media (max-width: 1040px) {
-  .resume-library-page .executive-resume-workspace {
-    grid-template-columns: 1fr !important;
+.resume-list-note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 12px 14px;
+  border: 1px solid rgba(15, 35, 60, 0.08);
+  border-radius: 12px;
+  background: rgba(20, 73, 115, 0.025);
+  color: rgba(15, 35, 60, 0.62);
+}
+
+.resume-list-note p {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.resume-list-empty {
+  padding: 42px 20px;
+  border: 1px dashed rgba(15, 35, 60, 0.13);
+  border-radius: 14px;
+  background: rgba(20, 73, 115, 0.02);
+  color: rgba(15, 35, 60, 0.62);
+  text-align: center;
+}
+
+.resume-list-empty h3 {
+  margin: 0 0 6px;
+  color: #10263d;
+}
+
+.resume-list-empty p {
+  margin: 0;
+}
+
+@media (max-width: 1120px) {
+  .resume-list-row {
+    grid-template-columns: 74px minmax(0, 1fr) 130px 170px 38px;
+    gap: 13px;
+  }
+}
+
+@media (max-width: 900px) {
+  .resume-upload-grid,
+  .resume-list-row {
+    grid-template-columns: 1fr;
+  }
+
+  .resume-list-header,
+  .resume-upload-footer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .resume-list-profile-control {
+    min-width: 0;
+  }
+
+  .resume-file-icon {
+    width: 64px;
+    height: 72px;
+  }
+
+  .resume-row-score {
+    border-left: 0;
+    padding-left: 0;
+  }
+
+  .resume-row-actions {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .resume-more-wrap {
+    justify-content: flex-start;
+  }
+
+  .resume-more-menu {
+    left: 0;
+    right: auto;
+  }
+}
+
+@media (max-width: 620px) {
+  .resume-row-actions {
+    grid-template-columns: 1fr;
   }
 }
