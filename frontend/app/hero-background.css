@@ -1,0 +1,71 @@
+/* Minimal sitewide hero background layer.
+   Keeps visual-system.css as the base and only adds the CareerNavIQ hero artwork globally. */
+
+html,
+body,
+body.executive-platform-body {
+  min-height: 100%;
+  background-color: #fbfaf6;
+  background-image:
+    linear-gradient(rgba(251,250,246,.72), rgba(251,250,246,.72)),
+    url('/careernaviq-compass-architecture.webp?v=20260819sitewide');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* Let the global hero artwork remain visible through every page shell. */
+.app-shell,
+.app-workspace,
+.app-content,
+.executive-platform,
+.public-page,
+.premium-home,
+.auth-shell-with-footer,
+.auth-page,
+.auth-form-panel,
+main {
+  background-color: transparent !important;
+}
+
+/* Preserve readable content surfaces from the base visual system. */
+.card,
+.executive-panel,
+.dashboard-panel,
+.studio-panel,
+.analytics-panel,
+.settings-card,
+.resume-card,
+.resume-upload-panel,
+.resume-library-panel,
+.resume-analysis-panel,
+.connector-panel,
+.priority-card,
+.outreach-controls,
+.outreach-editor,
+.outreach-guidance,
+.executive-metric-strip,
+.executive-kpis,
+.interview-kpis,
+.analytics-kpi-grid,
+.profile-summary-grid,
+.company-summary-grid,
+.company-detail-kpis,
+.watch-summary-grid,
+.automation-health-grid,
+.empty-state-panel,
+.executive-empty-state,
+.notice,
+.executive-notice {
+  background-color: rgba(255,255,255,.92);
+}
+
+@media (max-width: 760px) {
+  html,
+  body,
+  body.executive-platform-body {
+    background-attachment: scroll;
+    background-position: center top;
+  }
+}
