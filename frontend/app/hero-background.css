@@ -16,7 +16,6 @@ body.executive-platform-body {
   background-attachment: fixed;
 }
 
-/* Let the global hero artwork remain visible through every page shell. */
 .app-shell,
 .app-workspace,
 .app-content,
@@ -30,7 +29,6 @@ main {
   background-color: transparent !important;
 }
 
-/* Preserve readable content surfaces from the base visual system. */
 .card,
 .executive-panel,
 .dashboard-panel,
@@ -61,10 +59,6 @@ main {
 .executive-notice {
   background-color: rgba(255,255,255,.92);
 }
-
-/* -------------------------------------------------------------------------- */
-/* Homepage: focused high-end editorial treatment                              */
-/* -------------------------------------------------------------------------- */
 
 .premium-home {
   min-height: 100vh;
@@ -107,9 +101,7 @@ main {
   transition: color .18s ease, transform .18s ease, background .18s ease;
 }
 
-.premium-home .premium-nav a:hover {
-  color: #fff;
-}
+.premium-home .premium-nav a:hover { color: #fff; }
 
 .premium-home .premium-nav .premium-header-cta {
   min-height: 44px;
@@ -142,17 +134,16 @@ main {
   padding: 28px 0 54px;
 }
 
-/* Homepage logo: half-size treatment. */
+/* Homepage logo: doubled from the prior reduced size. */
 .premium-home .premium-hero-logo,
 .premium-home .premium-hero-logo-classic {
-  width: min(380px, 50vw) !important;
-  max-height: 105px !important;
+  width: min(760px, 100vw) !important;
+  max-height: 210px !important;
   height: auto !important;
   margin-bottom: 34px;
   filter: drop-shadow(0 10px 28px rgba(7,27,44,.18));
 }
 
-/* Homepage hero statement: one line per phrase, white/white/bronze. */
 .premium-home .premium-hero-message {
   margin: 0;
   max-width: 760px;
@@ -215,9 +206,7 @@ main {
   transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
 }
 
-.premium-home .premium-button:hover {
-  transform: translateY(-1px);
-}
+.premium-home .premium-button:hover { transform: translateY(-1px); }
 
 .premium-home .premium-button-primary {
   border: 1px solid rgba(198,160,96,.72);
@@ -234,13 +223,9 @@ main {
   box-shadow: 0 12px 30px rgba(5,20,34,.11);
 }
 
-.premium-home .premium-hero-visual {
-  min-height: 420px;
-}
+.premium-home .premium-hero-visual { min-height: 420px; }
 
-.premium-home .premium-outcome-wrap {
-  padding-bottom: 78px;
-}
+.premium-home .premium-outcome-wrap { padding-bottom: 78px; }
 
 .premium-home .premium-outcome-grid {
   display: grid;
@@ -351,14 +336,8 @@ main {
 .premium-home .premium-footer a:hover { color: #fff; }
 
 @media (max-width: 1050px) {
-  .premium-home .premium-outcome-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .premium-home .premium-hero-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
+  .premium-home .premium-outcome-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .premium-home .premium-hero-grid { grid-template-columns: minmax(0, 1fr); }
   .premium-home .premium-hero-visual { display: none; }
 }
 
@@ -370,54 +349,23 @@ main {
     background-position: center top;
   }
 
-  .premium-home .premium-shell {
-    width: min(100% - 28px, 100%);
-  }
-
-  .premium-home .premium-header-inner {
-    min-height: 72px;
-  }
-
+  .premium-home .premium-shell { width: min(100% - 28px, 100%); }
+  .premium-home .premium-header-inner { min-height: 72px; }
   .premium-home .premium-nav { display: none; }
-
-  .premium-home .premium-hero {
-    padding-top: 18px;
-  }
-
-  .premium-home .premium-hero-grid {
-    min-height: auto;
-  }
-
-  .premium-home .premium-hero-copy {
-    padding: 20px 0 44px;
-  }
+  .premium-home .premium-hero { padding-top: 18px; }
+  .premium-home .premium-hero-grid { min-height: auto; }
+  .premium-home .premium-hero-copy { padding: 20px 0 44px; }
 
   .premium-home .premium-hero-logo,
   .premium-home .premium-hero-logo-classic {
-    width: min(320px, 72vw) !important;
+    width: min(640px, 96vw) !important;
+    max-height: 210px !important;
   }
 
-  .premium-home .premium-hero-message {
-    font-size: clamp(42px, 13vw, 62px);
-  }
-
-  .premium-home .premium-actions {
-    display: grid;
-    grid-template-columns: 1fr;
-  }
-
+  .premium-home .premium-hero-message { font-size: clamp(42px, 13vw, 62px); }
+  .premium-home .premium-actions { display: grid; grid-template-columns: 1fr; }
   .premium-home .premium-button { width: 100%; }
-
-  .premium-home .premium-outcome-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .premium-home .premium-footer .premium-shell {
-    grid-template-columns: 1fr;
-    align-items: start;
-  }
-
-  .premium-home .premium-footer div {
-    justify-content: flex-start;
-  }
+  .premium-home .premium-outcome-grid { grid-template-columns: 1fr; }
+  .premium-home .premium-footer .premium-shell { grid-template-columns: 1fr; align-items: start; }
+  .premium-home .premium-footer div { justify-content: flex-start; }
 }
