@@ -29,6 +29,14 @@ main {
   background-color: transparent !important;
 }
 
+/* Reduce the homepage CareerNavIQ hero logo to half of its current displayed size. */
+.premium-home .premium-hero-logo,
+.premium-home .premium-hero-logo-classic {
+  width: 50% !important;
+  max-width: 50% !important;
+  height: auto !important;
+}
+
 /* Preserve readable content surfaces from the base visual system. */
 .card,
 .executive-panel,
@@ -67,5 +75,11 @@ main {
   body.executive-platform-body {
     background-attachment: scroll;
     background-position: center top;
+  }
+
+  .premium-home .premium-hero-logo,
+  .premium-home .premium-hero-logo-classic {
+    width: 50% !important;
+    max-width: 50% !important;
   }
 }
