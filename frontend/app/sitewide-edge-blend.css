@@ -1,0 +1,55 @@
+/* Sitewide edge blending: loaded last so every major box dissolves into the page background. */
+
+:where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(
+  .card,.panel,.executive-panel,.executive-metric-strip,.empty-state-panel,.executive-empty-state,
+  .jobs-search-shell,.jobs-results-shell,.studio-setup-card,.studio-opportunity-card,
+  .tailor-primary-panel,.tailor-fit-panel,.tailor-job-description,.tailor-saved-versions,
+  .profile-card,.resume-list-shell,.resume-inline-upload,.application-card,.saved-job-card,
+  .interview-card,.company-card,.crm-card,.table-shell,.data-table-shell,
+  .public-card,.public-content-aside,.public-content-block,.public-final-card,
+  .premium-outcome-grid,.premium-outcome-card,.auth-card,.login-card,.register-card,.auth-panel,
+  [class$='-card'],[class$='-panel']
+) {
+  border-color: rgba(255,255,255,.10) !important;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.06),
+    0 0 18px 8px rgba(245,249,252,.14),
+    0 12px 34px 12px rgba(20,55,86,.045),
+    inset 0 0 22px rgba(255,255,255,.12) !important;
+  backdrop-filter: blur(12px) saturate(108%) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(108%) !important;
+}
+
+:where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(
+  .resume-list-row,.jobs-opportunity-card,.studio-opportunity-row,.resume-library-card,
+  .application-row,.saved-job-row,.profile-selected-resume,.tailor-selected-resume,
+  [class$='-row']
+) {
+  border-color: rgba(255,255,255,.08) !important;
+  box-shadow:
+    0 0 14px 5px rgba(247,250,252,.10),
+    0 8px 24px 8px rgba(20,55,86,.03),
+    inset 0 0 16px rgba(255,255,255,.08) !important;
+  backdrop-filter: blur(10px) saturate(106%) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(106%) !important;
+}
+
+:where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(input,select,textarea) {
+  border-color: rgba(255,255,255,.16) !important;
+  box-shadow:
+    0 0 12px 4px rgba(247,250,252,.08),
+    0 5px 16px rgba(20,55,86,.025),
+    inset 0 0 12px rgba(255,255,255,.08) !important;
+}
+
+/* Keep headers visually open while allowing their edges to feather into the background. */
+.executive-platform .app-header,
+:where(.public-page,.premium-home) :where(.public-header,.premium-header) {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow:
+    0 10px 28px 8px rgba(20,55,86,.025),
+    0 0 22px 8px rgba(247,250,252,.08) !important;
+  backdrop-filter: blur(8px) saturate(104%) !important;
+  -webkit-backdrop-filter: blur(8px) saturate(104%) !important;
+}
