@@ -18,28 +18,28 @@ export const PRIMARY_NAV: CareerJourneyItem[] = [
 ];
 
 export const SIDEBAR_GROUPS: Array<{ label: string; items: CareerJourneyItem[] }> = [
-  { label: "Positioning", items: [
+  { label: "Step 1", items: [
     { href: "/profiles", label: "Profile" },
     { href: "/resumes", label: "Resume" },
     { href: "/resumes/studio", label: "Resume Studio" },
   ] },
-  { label: "Research", items: [
+  { label: "Step 2", items: [
     { href: "/companies", label: "Companies" },
     { href: "/company-watches", label: "Saved Companies" },
     { href: "/jobs", label: "Job" },
   ] },
-  { label: "Application", items: [
+  { label: "Step 3", items: [
     { href: "/coach", label: "Application Prep" },
     { href: "/applications", label: "Application" },
     { href: "/crm", label: "Contacts" },
     { href: "/outreach", label: "Outreach" },
   ] },
-  { label: "Interviews", items: [
+  { label: "Step 4", items: [
     { href: "/interviews", label: "Interview Prep" },
     { href: "/interview-coach", label: "Practice Interview" },
     { href: "/calendar", label: "Calendar" },
   ] },
-  { label: "Insights", items: [
+  { label: "Step 5", items: [
     { href: "/analytics", label: "Analysis" },
     { href: "/reports/weekly", label: "Weekly Report" },
     { href: "/automation", label: "Automation" },
