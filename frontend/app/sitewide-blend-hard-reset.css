@@ -1,0 +1,123 @@
+/* CareerNavIQ final hard reset for blended surfaces.
+   Loaded LAST. Removes legacy hard rectangles from nested elements and pseudo-elements. */
+
+:root {
+  --blend-radius: 22px;
+  --blend-veil: rgba(255,255,255,.16);
+  --blend-veil-soft: rgba(255,255,255,.06);
+}
+
+/* Universal box targets across signed-in, public, and auth experiences. */
+:where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(
+  .card,.panel,.executive-panel,.executive-metric-strip,.empty-state-panel,.executive-empty-state,
+  .jobs-search-shell,.jobs-results-shell,.studio-setup-card,.studio-opportunity-card,
+  .tailor-primary-panel,.tailor-fit-panel,.tailor-job-description,.tailor-saved-versions,
+  .profile-card,.resume-list-shell,.resume-inline-upload,.application-card,.saved-job-card,
+  .interview-card,.company-card,.crm-card,.table-shell,.data-table-shell,.auth-card,.auth-panel,
+  .public-card,.public-content-aside,.public-content-block,.public-final-card,.premium-outcome-grid,
+  [class*='card'],[class*='panel'],[class*='surface'],[class*='tile'],[class$='-shell']
+) {
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: visible !important;
+  background: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  border-radius: var(--blend-radius) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Remove legacy pseudo chrome that can redraw a rectangle. */
+:where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(
+  .card,.panel,.executive-panel,.executive-metric-strip,.empty-state-panel,.executive-empty-state,
+  .jobs-search-shell,.jobs-results-shell,.studio-setup-card,.studio-opportunity-card,
+  .tailor-primary-panel,.tailor-fit-panel,.tailor-job-description,.tailor-saved-versions,
+  .profile-card,.resume-list-shell,.resume-inline-upload,.application-card,.saved-job-card,
+  .interview-card,.company-card,.crm-card,.table-shell,.data-table-shell,.auth-card,.auth-panel,
+  .public-card,.public-content-aside,.public-content-block,.public-final-card,.premium-outcome-grid,
+  [class*='card'],[class*='panel'],[class*='surface'],[class*='tile'],[class$='-shell']
+)::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Rebuild the entire surface as a soft veil with no hard edge. */
+:where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(
+  .card,.panel,.executive-panel,.executive-metric-strip,.empty-state-panel,.executive-empty-state,
+  .jobs-search-shell,.jobs-results-shell,.studio-setup-card,.studio-opportunity-card,
+  .tailor-primary-panel,.tailor-fit-panel,.tailor-job-description,.tailor-saved-versions,
+  .profile-card,.resume-list-shell,.resume-inline-upload,.application-card,.saved-job-card,
+  .interview-card,.company-card,.crm-card,.table-shell,.data-table-shell,.auth-card,.auth-panel,
+  .public-card,.public-content-aside,.public-content-block,.public-final-card,.premium-outcome-grid,
+  [class*='card'],[class*='panel'],[class*='surface'],[class*='tile'],[class$='-shell']
+)::before {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  inset: -24px !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  border: 0 !important;
+  outline: 0 !important;
+  border-radius: calc(var(--blend-radius) + 28px) !important;
+  background: radial-gradient(ellipse at center,
+    rgba(255,255,255,.28) 0%,
+    rgba(255,255,255,.20) 34%,
+    rgba(255,255,255,.11) 57%,
+    rgba(255,255,255,.045) 73%,
+    rgba(255,255,255,0) 100%) !important;
+  filter: blur(24px) !important;
+  opacity: .92 !important;
+  box-shadow: none !important;
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+}
+
+/* Keep actual content crisp above the veil. */
+:where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(
+  .card,.panel,.executive-panel,.executive-metric-strip,.empty-state-panel,.executive-empty-state,
+  .jobs-search-shell,.jobs-results-shell,.studio-setup-card,.studio-opportunity-card,
+  .tailor-primary-panel,.tailor-fit-panel,.tailor-job-description,.tailor-saved-versions,
+  .profile-card,.resume-list-shell,.resume-inline-upload,.application-card,.saved-job-card,
+  .interview-card,.company-card,.crm-card,.table-shell,.data-table-shell,.auth-card,.auth-panel,
+  .public-card,.public-content-aside,.public-content-block,.public-final-card,.premium-outcome-grid,
+  [class*='card'],[class*='panel'],[class*='surface'],[class*='tile'],[class$='-shell']
+) > * {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Nested boxes and rows must not reintroduce a hard perimeter. */
+:where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(
+  article,.resume-list-row,.jobs-opportunity-card,.studio-opportunity-row,.resume-library-card,
+  .application-row,.saved-job-row,.profile-selected-resume,.tailor-selected-resume,[class$='-row']
+) {
+  border-color: transparent !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Homepage outcome section had several old dividers/fills. */
+.premium-home .premium-outcome-grid,
+.premium-home .premium-outcome-grid article,
+.premium-home .premium-outcome-grid article::before,
+.premium-home .premium-outcome-grid article::after {
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+}
+
+/* Shared headers stay open. */
+.executive-platform .app-header,
+:where(.public-page,.premium-home) :where(.public-header,.premium-header) {
+  background: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
