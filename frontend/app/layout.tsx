@@ -25,6 +25,7 @@ import "./workflow-simplification.css";
 import "./resume-consistency.css";
 import "./resume-translucent.css";
 import "./sitewide-glass-theme.css";
+import "./public-glass-theme.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 
