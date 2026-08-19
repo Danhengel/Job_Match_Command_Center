@@ -92,7 +92,7 @@ main {
 .premium-reference-header-inner {
   min-height: 90px;
   display: grid;
-  grid-template-columns: 260px 1fr auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 30px;
 }
@@ -112,7 +112,7 @@ main {
 
 .premium-reference-nav {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: clamp(24px, 3vw, 42px);
 }
@@ -345,7 +345,7 @@ main {
 
 @media (max-width: 1200px) {
   .premium-reference-header-inner {
-    grid-template-columns: 210px 1fr auto;
+    grid-template-columns: minmax(0, 1fr) auto;
   }
   .premium-header-brand,
   .premium-header-brand img { width: 205px; }
@@ -358,7 +358,8 @@ main {
   .premium-reference-nav,
   .premium-header-actions { display: none; }
   .premium-reference-header-inner {
-    grid-template-columns: 1fr auto;
+    display: flex;
+    justify-content: flex-end;
   }
   .premium-mobile-menu { display: block; }
   .premium-reference-copy { width: min(780px, 92vw); }
