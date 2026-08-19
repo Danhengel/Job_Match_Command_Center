@@ -16,15 +16,21 @@ HEADERS = {
     "Accept": "application/json",
     "Content-Type": "application/json",
 }
+MAJOR_BOARD_SOURCES = {
+    "indeed": "Indeed",
+    "linkedin": "LinkedIn",
+    "glassdoor": "Glassdoor",
+    "ziprecruiter": "ZipRecruiter",
+}
 
 
 def configured() -> bool:
     return bool(os.getenv("JOBSPIPE_API_KEY", "").strip())
 
 
-def stable_key(company: str, title: str, url: str) -> str:
+def stable_key(source: str, company: str, title: str, url: str) -> str:
     return hashlib.sha256(
-        f"JobsPipe|{company}|{title}|{url}".lower().encode()
+        f"JobsPipe|{source}|{company}|{title}|{url}".lower().encode()
     ).hexdigest()
 
 
@@ -48,6 +54,38 @@ def remote_only(location: str) -> bool | None:
     if normalized in {"remote", "remote only", "fully remote"}:
         return True
     return None
+
+
+def normalize_titles(query: str | list[str]) -> list[str]:
+    values = [query] if isinstance(query, str) else list(query or [])
+    return list(
+        dict.fromkeys(
+            str(value or "").strip()
+            for value in values
+            if str(value or "").strip()
+        )
+    )[:12]
+
+
+def normalize_location(value) -> tuple[str, bool]:
+    if isinstance(value, dict):
+        text = ", ".join(
+            str(value.get(key) or "").strip()
+            for key in ("city", "region", "country")
+            if str(value.get(key) or "").strip()
+        )
+        return text, bool(value.get("remote"))
+    text = str(value or "").strip()
+    return text, "remote" in text.lower()
+
+
+def source_label(value: str) -> str:
+    normalized = (value or "").strip().lower()
+    if normalized in MAJOR_BOARD_SOURCES:
+        return MAJOR_BOARD_SOURCES[normalized]
+    if not normalized:
+        return "JobsPipe"
+    return normalized.replace("-", " ").replace("_", " ").title()
 
 
 @retry(
@@ -80,24 +118,37 @@ def cached(key: str, loader, ttl: int = 3600):
     return data
 
 
-def jobs(query: str, location: str = "") -> list[dict]:
+def jobs(
+    query: str | list[str],
+    location: str = "",
+    sources: list[str] | tuple[str, ...] | None = None,
+    limit: int = 25,
+) -> list[dict]:
     if not configured():
         raise RuntimeError("JobsPipe requires JOBSPIPE_API_KEY.")
 
-    normalized_query = (query or "").strip()
-    if not normalized_query:
+    titles = normalize_titles(query)
+    if not titles:
         return []
 
+    normalized_sources = [
+        str(value or "").strip().lower()
+        for value in (sources or [])
+        if str(value or "").strip()
+    ]
+    result_limit = max(1, min(int(limit or 25), 100))
     only_remote = remote_only(location)
 
     def load():
         payload = {
-            "job_title_or": [normalized_query],
+            "job_title_or": titles,
             "job_country_code_or": ["US"],
             "posted_at_max_age_days": 30,
-            "limit": 25,
+            "limit": result_limit,
             "include_total_results": True,
         }
+        if normalized_sources:
+            payload["source_or"] = normalized_sources
         if only_remote is True:
             payload["remote"] = True
 
@@ -106,12 +157,19 @@ def jobs(query: str, location: str = "") -> list[dict]:
         rows: list[dict] = []
 
         for item in items:
-            title = str(item.get("job_title") or "").strip()
+            title = str(item.get("job_title") or item.get("title") or "").strip()
             company = str(item.get("company") or "").strip()
-            url = str(item.get("final_url") or "").strip()
+            url = str(
+                item.get("final_url")
+                or item.get("apply_url")
+                or item.get("url")
+                or ""
+            ).strip()
             if not title or not url:
                 continue
 
+            collector_source = str(item.get("source") or "jobspipe").strip().lower()
+            display_source = source_label(collector_source)
             technologies = item.get("technology_slugs") or []
             if not isinstance(technologies, list):
                 technologies = []
@@ -121,46 +179,61 @@ def jobs(query: str, location: str = "") -> list[dict]:
                 or item.get("job_description")
                 or ""
             ).strip()
-            if raw_description:
-                description = raw_description
+            description = raw_description or " ".join(
+                part
+                for part in [
+                    title,
+                    seniority,
+                    " ".join(str(value) for value in technologies),
+                ]
+                if part
+            )
+
+            job_location, location_remote = normalize_location(item.get("location"))
+            salary = item.get("salary") or {}
+            if isinstance(salary, dict):
+                minimum = salary.get("min")
+                maximum = salary.get("max")
             else:
-                description = " ".join(
-                    part
-                    for part in [
-                        title,
-                        seniority,
-                        " ".join(str(value) for value in technologies),
-                    ]
-                    if part
-                )
+                minimum = maximum = None
+            minimum = item.get("min_annual_salary_usd", minimum)
+            maximum = item.get("max_annual_salary_usd", maximum)
 
             rows.append(
                 {
-                    "provider_key": stable_key(company, title, url),
+                    "provider_key": stable_key(
+                        collector_source,
+                        company,
+                        title,
+                        url,
+                    ),
                     "title": title,
                     "company": company,
-                    "location": str(item.get("location") or "").strip(),
+                    "location": job_location,
                     "description": description,
                     "url": url,
-                    "source": "JobsPipe",
-                    "posted_at": str(item.get("date_posted") or "").strip(),
-                    "salary": salary_text(
-                        item.get("min_annual_salary_usd"),
-                        item.get("max_annual_salary_usd"),
-                    ),
+                    "source": display_source,
+                    "posted_at": str(
+                        item.get("date_posted")
+                        or item.get("posted_at")
+                        or ""
+                    ).strip(),
+                    "salary": salary_text(minimum, maximum),
                     "employment_type": str(
                         item.get("employment_type")
                         or item.get("job_employment_type")
                         or ""
                     ).strip(),
-                    "remote": bool(item.get("remote", False)),
+                    "remote": bool(item.get("remote", False)) or location_remote,
                 }
             )
         return rows
 
     cache_location = (location or "").strip().lower() or "any"
+    cache_sources = ",".join(normalized_sources) or "all"
+    cache_titles = "|".join(value.lower() for value in titles)
     return cached(
-        f"jobs:jobspipe:v1:{normalized_query.lower()}:{cache_location}",
+        f"jobs:jobspipe:v2:{cache_sources}:{result_limit}:{cache_titles}:{cache_location}",
         load,
         3600,
     )
