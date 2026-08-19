@@ -3,8 +3,12 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
 from app.api.routes import auth, health, profiles, resumes, dashboard, jobs, job_search_all, job_search_enriched, job_freshness, tailoring, applications, intelligence, automation, recruiting, enterprise
-
+from app.services import job_quality, job_sources
 from app.services.scheduler import start_scheduler
+
+# Use one quality-aware dedupe implementation across manual searches,
+# saved searches, direct ATS results, and supplemental provider results.
+job_sources.dedupe = job_quality.dedupe_rows
 
 app = FastAPI(title=settings.app_name, version="1.0.0")
 
