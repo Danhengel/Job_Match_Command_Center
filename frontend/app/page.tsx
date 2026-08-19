@@ -7,10 +7,10 @@ export const metadata: Metadata = {
 };
 
 const outcomes = [
-  { icon: "⌖", title: "Discover", copy: "Uncover your strengths, priorities, and the opportunities worth pursuing." },
-  { icon: "◇", title: "Evaluate", copy: "Compare roles and employers with evidence, context, and sharper judgment." },
-  { icon: "↗", title: "Position", copy: "Tell a focused story with tailored materials that show the value you bring." },
-  { icon: "◎", title: "Advance", copy: "Manage every next step and keep building momentum toward meaningful work." },
+  { icon: "⌖", title: "Targeted Opportunities", copy: "Find roles that match your skills, goals, and career direction." },
+  { icon: "◇", title: "Smart Insights", copy: "Use practical signals and market context to make stronger decisions." },
+  { icon: "↗", title: "Resume Studio", copy: "Tailor your résumé to each opportunity with evidence-based positioning." },
+  { icon: "◎", title: "Career Roadmap", copy: "Connect each next step into a clear path toward your next goal." },
 ];
 
 export default function HomePage() {
@@ -22,6 +22,7 @@ export default function HomePage() {
             <Link href="/features">Services</Link>
             <Link href="/pricing">Pricing</Link>
             <Link href="/login">Sign in</Link>
+            <Link href="/register" className="premium-header-cta">Get Started</Link>
           </nav>
 
           <details className="premium-mobile-menu">
@@ -37,6 +38,7 @@ export default function HomePage() {
               <Link href="/ai-job-search">Resources</Link>
               <Link href="/contact">Contact</Link>
               <Link href="/login">Sign in</Link>
+              <Link href="/register" className="mobile-menu-cta">Get Started</Link>
             </nav>
           </details>
         </div>
@@ -59,9 +61,10 @@ export default function HomePage() {
                 <em>Make your move.</em>
               </h1>
               <div className="premium-rule" aria-hidden="true"><span /></div>
-              <p className="premium-lead">Turn your experience, ambitions, and opportunities into a clearer strategy for what comes next.</p>
+              <p className="premium-lead">CareerNavIQ combines intelligent insights with real opportunities so you can navigate your career with clarity and confidence.</p>
               <div className="premium-actions premium-actions-refined">
-                <Link href="/register" className="premium-button premium-button-primary">Start exploring opportunities <span aria-hidden="true">→</span></Link>
+                <Link href="/register" className="premium-button premium-button-primary">Get Started</Link>
+                <Link href="/features" className="premium-button premium-button-secondary">See How It Works</Link>
               </div>
             </div>
             <div className="premium-hero-visual" aria-hidden="true" />
