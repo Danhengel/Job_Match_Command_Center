@@ -1,6 +1,6 @@
 from datetime import datetime
 from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, JSON, String, Text
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, reconstructor, validates
 from app.db.base import Base
 
 
@@ -15,7 +15,7 @@ class SavedSearch(Base):
     location: Mapped[str] = mapped_column(String(500), default="Remote")
     minimum_score: Mapped[int] = mapped_column(Integer, default=35)
     use_catalog: Mapped[bool] = mapped_column(Boolean, default=True)
-    use_remotive: Mapped[bool] = mapped_column(Boolean, default=False)
+    use_remotive: Mapped[bool] = mapped_column(Boolean, default=True)
     use_jsearch: Mapped[bool] = mapped_column(Boolean, default=True)
     active: Mapped[bool] = mapped_column(Boolean, default=True)
     cadence: Mapped[str] = mapped_column(String(50), default="daily")
@@ -23,6 +23,16 @@ class SavedSearch(Base):
     last_result_count: Mapped[int] = mapped_column(Integer, default=0)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
     updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    @reconstructor
+    def _enforce_maximum_coverage_on_load(self):
+        self.use_catalog = True
+        self.use_remotive = True
+        self.use_jsearch = True
+
+    @validates("use_catalog", "use_remotive", "use_jsearch")
+    def _enforce_maximum_coverage(self, key, value):
+        return True
 
 
 class Notification(Base):
