@@ -13,14 +13,6 @@ type Recommendation = {
 
 const recommendations: Recommendation[] = [
   {
-    matches: (pathname) => pathname === "/profiles",
-    eyebrow: "NEXT STEP",
-    title: "Tell CareerNavIQ what you want next",
-    description: "Set your target roles, location, compensation, and work preferences so your results are more relevant.",
-    href: "/profiles/new",
-    label: "Create your profile",
-  },
-  {
     matches: (pathname) => /^\/profiles\/[^/]+/.test(pathname),
     eyebrow: "NEXT STEP",
     title: "Add the experience that supports your target",
