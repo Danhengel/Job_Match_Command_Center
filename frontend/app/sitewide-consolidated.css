@@ -1,0 +1,246 @@
+/* CareerNavIQ authoritative sitewide visual system.
+   Loaded last. This file owns the visible design across public, auth, and signed-in experiences. */
+
+:root {
+  --cni-navy: #0d3153;
+  --cni-navy-deep: #082a48;
+  --cni-ink: #173a59;
+  --cni-muted: rgba(23, 58, 89, .68);
+  --cni-gold: #b89a66;
+  --cni-line: rgba(22, 58, 89, .10);
+  --cni-surface: rgba(255, 255, 255, .035);
+  --cni-surface-soft: rgba(255, 255, 255, .018);
+  --cni-surface-hover: rgba(255, 255, 255, .075);
+  --cni-shadow: 0 18px 48px rgba(16, 47, 82, .055);
+  --cni-radius: 18px;
+  --cni-control-radius: 10px;
+  --cni-content-max: 1460px;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  color: var(--cni-ink);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(185, 216, 239, .22), transparent 34%),
+    radial-gradient(circle at 88% 18%, rgba(231, 221, 199, .16), transparent 30%),
+    linear-gradient(180deg, #f7fbfe 0%, #eef5fa 52%, #f8fbfd 100%) !important;
+}
+
+/* Typography is shared everywhere. */
+:where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(h1,h2,h3,h4) {
+  color: var(--cni-navy) !important;
+  font-weight: 650 !important;
+  letter-spacing: -.026em !important;
+  text-shadow: none !important;
+  text-wrap: balance;
+}
+:where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) h1 {
+  letter-spacing: -.045em !important;
+}
+:where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(p,li,label,small,.muted) {
+  color: var(--cni-muted) !important;
+}
+
+/* Signed-in shell. */
+.executive-platform .app-sidebar {
+  background: linear-gradient(180deg, var(--cni-navy-deep), #0b395b) !important;
+  border-right: 0 !important;
+  box-shadow: 16px 0 42px rgba(8, 31, 51, .10) !important;
+}
+.executive-platform .app-header {
+  min-height: 68px;
+  background: rgba(255,255,255,.025) !important;
+  border: 1px solid rgba(255,255,255,.08) !important;
+  box-shadow: 0 8px 28px rgba(16,47,82,.045) !important;
+  backdrop-filter: blur(22px) saturate(108%) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(108%) !important;
+}
+.executive-platform .app-content { padding-top: 106px !important; }
+.executive-platform .executive-page-frame {
+  width: min(100%, var(--cni-content-max));
+  margin-inline: auto;
+  padding-inline: clamp(20px, 2.6vw, 42px);
+}
+.executive-platform .sidebar-section-heading {
+  color: rgba(244,248,252,.48) !important;
+  font-size: 10px !important;
+  font-weight: 760 !important;
+  letter-spacing: .18em !important;
+  text-transform: uppercase;
+}
+.executive-platform .app-sidebar :is(a:hover,.active) {
+  background: rgba(255,255,255,.075) !important;
+  box-shadow: inset 2px 0 0 rgba(196,165,106,.72) !important;
+}
+.executive-platform .sidebar-signout {
+  background: rgba(255,255,255,.045) !important;
+  border: 1px solid rgba(255,255,255,.08) !important;
+  box-shadow: none !important;
+}
+
+/* One surface language for every signed-in page. */
+.executive-platform :where(
+  .card,.panel,.executive-panel,.executive-metric-strip,.empty-state-panel,.executive-empty-state,
+  .jobs-search-shell,.jobs-results-shell,.studio-setup-card,.studio-opportunity-card,
+  .tailor-primary-panel,.tailor-fit-panel,.tailor-job-description,.tailor-saved-versions,
+  .profile-card,.resume-list-shell,.resume-inline-upload,.application-card,.saved-job-card,
+  .interview-card,.company-card,.crm-card,.table-shell,.data-table-shell,
+  [class$="-card"],[class$="-panel"]
+) {
+  border: 1px solid rgba(255,255,255,.08) !important;
+  border-radius: var(--cni-radius) !important;
+  background: var(--cni-surface) !important;
+  box-shadow: var(--cni-shadow) !important;
+  backdrop-filter: blur(18px) saturate(106%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(106%) !important;
+}
+
+.executive-platform :where(
+  .resume-list-row,.jobs-opportunity-card,.studio-opportunity-row,.resume-library-card,
+  .application-row,.saved-job-row,.profile-selected-resume,.tailor-selected-resume,
+  [class$="-row"]
+) {
+  background: var(--cni-surface-soft) !important;
+  border: 1px solid rgba(21,58,89,.045) !important;
+  box-shadow: none !important;
+}
+.executive-platform :where(
+  .resume-list-row,.jobs-opportunity-card,.studio-opportunity-row,.resume-library-card,
+  .application-row,.saved-job-row,[class$="-row"]
+):hover {
+  background: var(--cni-surface-hover) !important;
+  border-color: rgba(184,154,102,.18) !important;
+}
+
+/* Controls are consistent across all experiences. */
+:where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(input,select,textarea) {
+  min-height: 46px;
+  color: var(--cni-ink) !important;
+  background: rgba(255,255,255,.07) !important;
+  border: 1px solid rgba(22,58,89,.10) !important;
+  border-radius: var(--cni-control-radius) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.22) !important;
+}
+:where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) textarea { min-height: 118px; }
+:where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(input,select,textarea):focus-visible {
+  outline: 3px solid rgba(39,98,151,.24) !important;
+  outline-offset: 2px;
+  border-color: rgba(39,98,151,.26) !important;
+}
+
+/* Buttons: compact executive treatment. */
+:where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(
+  button:not(.secondary):not(.danger):not(.mobile-menu-button):not(.mobile-nav-overlay),
+  .button:not(.secondary):not(.danger),.public-button-primary,.public-nav-cta,.premium-button-primary
+) {
+  min-height: 44px;
+  border-radius: 9px !important;
+  background: linear-gradient(180deg, #17446f, #0d3153) !important;
+  color: #fff !important;
+  border: 1px solid rgba(6,34,60,.16) !important;
+  box-shadow: 0 8px 20px rgba(13,49,83,.11) !important;
+  font-weight: 650 !important;
+  letter-spacing: .01em;
+}
+:where(.executive-platform,.public-page,.premium-home,.auth-shell-with-footer) :where(.secondary,[class*="secondary"]) {
+  background: rgba(255,255,255,.045) !important;
+  border: 1px solid rgba(22,58,89,.08) !important;
+  box-shadow: none !important;
+  color: var(--cni-navy) !important;
+}
+
+/* Public and marketing pages share the same system. */
+:where(.public-page,.premium-home) :where(.public-header,.premium-header) {
+  background: rgba(255,255,255,.025) !important;
+  border: 1px solid rgba(255,255,255,.08) !important;
+  box-shadow: 0 10px 32px rgba(16,47,82,.045) !important;
+  backdrop-filter: blur(22px) saturate(108%) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(108%) !important;
+}
+:where(.public-page,.premium-home) :where(
+  .public-card,.public-content-aside,.public-content-block,.public-faq-list details,
+  .public-related-grid a,.public-final-card,.premium-outcome-grid,.premium-outcome-card,
+  [class$="-card"],[class$="-panel"]
+) {
+  background: var(--cni-surface) !important;
+  border: 1px solid rgba(255,255,255,.08) !important;
+  border-radius: var(--cni-radius) !important;
+  box-shadow: var(--cni-shadow) !important;
+  backdrop-filter: blur(18px) saturate(106%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(106%) !important;
+}
+.premium-home .premium-hero h1.premium-hero-message {
+  max-width: 780px !important;
+  font-size: clamp(52px, 5.2vw, 86px) !important;
+  line-height: .97 !important;
+  font-weight: 620 !important;
+}
+.premium-home .premium-hero h1 em,
+.public-page .public-eyebrow { color: var(--cni-gold) !important; }
+
+/* Auth pages match the rest of the product. */
+.auth-shell-with-footer .auth-content {
+  min-height: calc(100vh - 100px);
+  display: grid;
+  place-items: center;
+  padding: 118px 20px 64px;
+}
+.auth-shell-with-footer :where(.auth-card,.login-card,.register-card,.auth-panel) {
+  width: min(100%, 540px);
+  background: var(--cni-surface) !important;
+  border: 1px solid rgba(255,255,255,.08) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 24px 64px rgba(16,47,82,.07) !important;
+  backdrop-filter: blur(20px) saturate(106%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(106%) !important;
+}
+
+/* Shared widths. */
+.public-page :where(.public-header-inner,.public-hero-inner,.public-section-inner,.public-footer-inner),
+.premium-home :where(.premium-header-inner,.premium-hero-grid,.premium-outcome-grid,.premium-footer-inner) {
+  width: min(calc(100% - 48px), 1420px);
+  margin-inline: auto;
+}
+
+/* Tables and status UI inherit the same restraint. */
+.executive-platform :where(table,thead,tbody,tr,th,td) { border-color: rgba(22,58,89,.07) !important; }
+.executive-platform :where(th,.table-heading) {
+  color: rgba(13,49,83,.62) !important;
+  font-size: 11px !important;
+  letter-spacing: .08em !important;
+  text-transform: uppercase;
+}
+.executive-platform :where(.badge,.pill,.tag,[class*="badge"],[class*="pill"],[class*="tag"]) {
+  box-shadow: none !important;
+  border-color: rgba(22,58,89,.08) !important;
+}
+
+@media (max-width: 760px) {
+  .executive-platform .app-content { padding-top: 82px !important; padding-bottom: 86px; }
+  .executive-platform .executive-page-frame { padding-inline: 14px; }
+  .executive-platform .app-header {
+    top: 10px !important;
+    left: 10px !important;
+    right: 10px !important;
+    min-height: 58px;
+    border-radius: 15px !important;
+  }
+  :where(.public-page,.premium-home) :where(.public-header,.premium-header) {
+    top: 10px !important;
+    left: 10px !important;
+    right: 10px !important;
+    width: auto !important;
+    border-radius: 15px !important;
+  }
+  .public-page :where(.public-header-inner,.public-hero-inner,.public-section-inner,.public-footer-inner),
+  .premium-home :where(.premium-header-inner,.premium-hero-grid,.premium-outcome-grid,.premium-footer-inner) {
+    width: min(calc(100% - 24px), 100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,*::before,*::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
