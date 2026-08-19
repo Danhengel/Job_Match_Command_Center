@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./visual-system.css";
+import "./hero-background.css";
 import { AppShell } from "@/components/AppShell";
 import { LegacyPersonalDefaultsGuard } from "@/components/LegacyPersonalDefaultsGuard";
 
