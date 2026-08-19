@@ -17,12 +17,23 @@ type Resume = {
   metrics_found: string[];
   analysis_summary: string;
 };
+type Opportunity = {
+  job: {
+    id: number;
+    title: string;
+    company: string;
+    location: string;
+    remote: boolean;
+    posted_at?: string;
+  };
+  match: { score: number };
+};
 
 function readiness(score: number | null) {
-  if (score === null) return { label: "Not analyzed", tone: "warning" as const };
-  if (score >= 85) return { label: "Ready for targeted positioning", tone: "success" as const };
-  if (score >= 70) return { label: "Strong evidence base", tone: "info" as const };
-  return { label: "Needs refinement", tone: "warning" as const };
+  if (score === null) return { label: "Not analyzed", className: "needs-review" };
+  if (score >= 85) return { label: "Ready", className: "ready" };
+  if (score >= 70) return { label: "Strong base", className: "strong" };
+  return { label: "Needs review", className: "needs-review" };
 }
 
 export default function ResumeStudioPage() {
@@ -30,6 +41,7 @@ export default function ResumeStudioPage() {
   const [profileId, setProfileId] = useState("");
   const [resumes, setResumes] = useState<Resume[]>([]);
   const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -49,96 +61,161 @@ export default function ResumeStudioPage() {
 
   useEffect(() => {
     if (!profileId) return;
+    let active = true;
     setLoading(true);
-    api(`/api/resumes/profile/${profileId}`)
-      .then((items) => {
-        const rows = Array.isArray(items) ? items : [];
-        setResumes(rows);
-        const primary = rows.find((item: Resume) => item.is_primary);
-        setSelectedId(primary?.id ?? rows[0]?.id ?? null);
+    setError("");
+    Promise.all([
+      api(`/api/resumes/profile/${profileId}`),
+      api(`/api/jobs/matches/${profileId}`),
+    ])
+      .then(([resumeItems, matchItems]) => {
+        if (!active) return;
+        const resumeRows = Array.isArray(resumeItems) ? resumeItems : [];
+        const matchRows = Array.isArray(matchItems) ? matchItems : [];
+        setResumes(resumeRows);
+        setOpportunities(matchRows.slice(0, 8));
+        const primary = resumeRows.find((item: Resume) => item.is_primary);
+        setSelectedId(primary?.id ?? resumeRows[0]?.id ?? null);
       })
-      .catch((err) => setError(err instanceof Error ? err.message : "Unable to load résumés."))
+      .catch((err) => setError(err instanceof Error ? err.message : "Unable to prepare Resume Studio."))
       .finally(() => setLoading(false));
+    return () => { active = false; };
   }, [profileId]);
 
   const selected = useMemo(() => resumes.find((item) => item.id === selectedId) ?? null, [resumes, selectedId]);
-  const status = readiness(selected?.analysis_score ?? null);
   const selectedProfile = profiles.find((item) => String(item.id) === profileId);
+  const status = readiness(selected?.analysis_score ?? null);
 
   return (
     <>
       <PageHeader
-        eyebrow="POSITIONING STUDIO"
-        title="Resume Studio"
-        description="Choose the strongest source résumé, review its evidence, and move into role-specific positioning without inventing experience or overstating fit."
-        actions={<Link className="button secondary" href="/resumes">Experience library</Link>}
+        eyebrow="RESUME STUDIO"
+        title="Tailor a résumé in a few clicks"
+        description="Choose the résumé you want to use, then pick a matched opportunity. CareerNavIQ carries both selections into the tailoring workspace for you."
+        actions={<Link className="button secondary" href="/resumes">Manage résumés</Link>}
       />
 
-      {error ? <Notice title="Positioning Studio is unavailable" tone="error"><p>{error}</p></Notice> : null}
+      {error ? <Notice title="Resume Studio needs attention" tone="error"><p>{error}</p></Notice> : null}
 
-      <section className="studio-steps" aria-label="Positioning workflow">
-        {["Choose source résumé", "Review evidence", "Select opportunity", "Tailor and verify", "Export materials"].map((step, index) => (
-          <div className="studio-step" key={step}><span>{index + 1}</span><strong>{step}</strong></div>
-        ))}
+      <section className="studio-simple-steps" aria-label="Resume tailoring workflow">
+        <div className="studio-simple-step active"><span>1</span><strong>Choose résumé</strong></div>
+        <div className="studio-simple-step"><span>2</span><strong>Pick a job</strong></div>
+        <div className="studio-simple-step"><span>3</span><strong>Tailor & download</strong></div>
       </section>
 
-      <div className="resume-studio-workspace">
-        <aside className="studio-panel studio-source-panel">
-          <p className="eyebrow">SOURCE EVIDENCE</p>
-          <h2>Choose the strongest foundation</h2>
-          <label>Career profile</label>
-          <select value={profileId} onChange={(event) => setProfileId(event.target.value)}>
-            {profiles.map((profile) => <option value={profile.id} key={profile.id}>{profile.name}</option>)}
-          </select>
-
-          <div className="studio-resume-list">
-            {resumes.map((resume) => (
-              <button type="button" className={`studio-resume-option ${selectedId === resume.id ? "selected" : ""}`} onClick={() => setSelectedId(resume.id)} key={resume.id}>
-                <span><strong>{resume.name}</strong><small>{resume.original_filename}</small></span>
-                <b>{resume.analysis_score ?? "—"}</b>
-              </button>
-            ))}
+      <div className="studio-flow-layout">
+        <section className="executive-panel studio-setup-card">
+          <div className="studio-card-heading">
+            <div>
+              <p className="eyebrow">STEP 1</p>
+              <h2>Choose your résumé</h2>
+              <p className="muted">CareerNavIQ defaults to your primary résumé. Change it only when another version is a better starting point.</p>
+            </div>
           </div>
 
-          <Link className="button secondary" href="/resumes">Manage experience library</Link>
-        </aside>
+          <div className="studio-select-grid">
+            <label>
+              <span>Career profile</span>
+              <select value={profileId} onChange={(event) => setProfileId(event.target.value)}>
+                {profiles.map((profile) => <option value={profile.id} key={profile.id}>{profile.name}</option>)}
+              </select>
+            </label>
+            <label>
+              <span>Source résumé</span>
+              <select value={selectedId ?? ""} onChange={(event) => setSelectedId(Number(event.target.value))} disabled={!resumes.length}>
+                {!resumes.length ? <option value="">No résumé available</option> : null}
+                {resumes.map((resume) => (
+                  <option value={resume.id} key={resume.id}>
+                    {resume.name}{resume.is_primary ? " · Primary" : ""}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
 
-        <section className="studio-panel studio-intelligence-panel">
-          {loading ? <EmptyState title="Loading evidence" description="CareerNavIQ is retrieving résumé evidence and analysis." /> : !selected ? (
-            <EmptyState title="No résumé is ready" description="Add a master résumé before starting opportunity-specific positioning." action={<Link className="button" href="/resumes">Open experience library</Link>} />
+          {loading ? <EmptyState title="Preparing your résumé" description="Loading résumé evidence and matched opportunities." /> : !selected ? (
+            <EmptyState title="Add a résumé to continue" description="Upload a master résumé first, then return here to tailor it for a job." action={<Link className="button" href="/resumes">Add résumé</Link>} />
           ) : (
-            <>
-              <div className="studio-score-header">
-                <div><p className="eyebrow">EVIDENCE READINESS</p><h2>{selected.name}</h2><p className="muted">{selected.analysis_summary || "Run analysis to create an evidence-based positioning summary."}</p></div>
-                <div className="studio-score"><strong>{selected.analysis_score ?? "—"}</strong><small>readiness</small></div>
+            <div className="studio-selected-resume">
+              <div>
+                <span className={`studio-readiness-chip ${status.className}`}>{status.label}</span>
+                <h3>{selected.name}</h3>
+                <p>{selected.analysis_summary || "This résumé is ready to use as source evidence. Review generated content before submitting."}</p>
               </div>
-
-              <Notice title={status.label} tone={status.tone}>
-                <p>{selected.analysis_score === null ? "Analyze this résumé before tailoring so CareerNavIQ can identify strengths, gaps, and measurable evidence." : "Use this score as a preparation guide, not as a hiring prediction. Verify every generated statement before submitting it."}</p>
-              </Notice>
-
-              <div className="studio-evidence-grid">
-                <section><h3>Evidence to preserve</h3>{selected.strengths.length ? <ul>{selected.strengths.map((item) => <li key={item}>{item}</li>)}</ul> : <p className="muted">No strengths recorded yet.</p>}</section>
-                <section><h3>Evidence to strengthen</h3>{selected.gaps.length ? <ul>{selected.gaps.map((item) => <li key={item}>{item}</li>)}</ul> : <p className="muted">No priority gaps recorded.</p>}</section>
+              <div className="studio-selected-score">
+                <strong>{selected.analysis_score ?? "—"}</strong>
+                <span>readiness</span>
               </div>
-
-              <section className="studio-metrics"><h3>Quantified impact detected</h3><div className="row wrap">{selected.metrics_found.length ? selected.metrics_found.map((item) => <span className="badge metric-badge" key={item}>{item}</span>) : <span className="muted">No metrics detected yet.</span>}</div></section>
-            </>
+            </div>
           )}
+
+          {selected ? (
+            <details className="studio-evidence-details">
+              <summary>Review résumé evidence</summary>
+              <div className="studio-evidence-grid simplified">
+                <section>
+                  <h3>Strengths</h3>
+                  {selected.strengths.length ? <ul>{selected.strengths.slice(0, 5).map((item) => <li key={item}>{item}</li>)}</ul> : <p className="muted">No strengths recorded yet.</p>}
+                </section>
+                <section>
+                  <h3>Areas to verify</h3>
+                  {selected.gaps.length ? <ul>{selected.gaps.slice(0, 5).map((item) => <li key={item}>{item}</li>)}</ul> : <p className="muted">No priority gaps recorded.</p>}
+                </section>
+              </div>
+              {selected.metrics_found.length ? (
+                <div className="studio-metrics-inline">
+                  <strong>Impact metrics:</strong>
+                  {selected.metrics_found.slice(0, 8).map((item) => <span key={item}>{item}</span>)}
+                </div>
+              ) : null}
+            </details>
+          ) : null}
         </section>
 
-        <aside className="studio-panel studio-action-panel">
-          <p className="eyebrow">NEXT DECISION</p>
-          <h2>Position for a real opportunity</h2>
-          <p className="muted">CareerNavIQ starts from a saved opportunity and only selects or reorganizes evidence found in the chosen résumé.</p>
-          <div className="studio-target-summary">
-            <span>Current profile</span><strong>{selectedProfile?.name || "Select a profile"}</strong>
-            <span>Target titles</span><strong>{selectedProfile?.target_titles?.slice(0, 3).join(" • ") || "Add target titles in your career profile"}</strong>
+        <section className="executive-panel studio-opportunity-card">
+          <div className="studio-card-heading studio-opportunity-heading">
+            <div>
+              <p className="eyebrow">STEP 2</p>
+              <h2>Pick the job you want to tailor for</h2>
+              <p className="muted">Your highest-ranked saved opportunities are shown first.</p>
+            </div>
+            <Link className="button secondary" href="/jobs">Search jobs</Link>
           </div>
-          <Link className="button" href="/jobs">Open market intelligence</Link>
-          <Link className="button secondary" href="/applications">Review opportunity portfolio</Link>
-          <p className="studio-trust-note"><strong>Truth-first positioning:</strong> missing keywords are flagged for verification rather than inserted as unsupported claims.</p>
-        </aside>
+
+          {loading ? <EmptyState title="Loading opportunities" description="Finding your strongest saved matches." /> : opportunities.length ? (
+            <div className="studio-opportunity-list">
+              {opportunities.map((item) => (
+                <article className="studio-opportunity-row" key={item.job.id}>
+                  <div className="studio-opportunity-score"><strong>{item.match.score}%</strong><span>match</span></div>
+                  <div className="studio-opportunity-main">
+                    <h3>{item.job.title}</h3>
+                    <p>{item.job.company}</p>
+                    <div>
+                      <span>{item.job.location || "Location not listed"}</span>
+                      {item.job.remote ? <span>Remote</span> : null}
+                    </div>
+                  </div>
+                  {selectedId ? (
+                    <Link className="button" href={`/jobs/${item.job.id}?profile_id=${profileId}&resume_id=${selectedId}`}>
+                      Tailor for this job
+                    </Link>
+                  ) : <button disabled>Choose résumé first</button>}
+                </article>
+              ))}
+            </div>
+          ) : (
+            <EmptyState
+              title="No matched jobs yet"
+              description={`Search for opportunities for ${selectedProfile?.name || "this profile"}, then return here to tailor your résumé.`}
+              action={<Link className="button" href="/jobs">Find jobs</Link>}
+            />
+          )}
+
+          <div className="studio-trust-banner">
+            <strong>Truth-first tailoring</strong>
+            <span>CareerNavIQ uses evidence already present in your selected résumé and flags unsupported keywords for review.</span>
+          </div>
+        </section>
       </div>
     </>
   );
