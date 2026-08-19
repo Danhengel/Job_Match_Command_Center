@@ -1,0 +1,297 @@
+/* CareerNavIQ sitewide luxury reference system.
+   Loaded after the base visual system and homepage reference layer.
+   Extends the approved dark architecture + bronze design to every route. */
+
+:root {
+  --lux-bg: #06131e;
+  --lux-panel: rgba(7, 21, 33, .76);
+  --lux-panel-soft: rgba(9, 27, 42, .58);
+  --lux-panel-hover: rgba(12, 34, 51, .76);
+  --lux-bronze: #c9974f;
+  --lux-bronze-bright: #ddb36e;
+  --lux-line: rgba(201, 151, 79, .34);
+  --lux-line-soft: rgba(255, 255, 255, .10);
+  --lux-text: #f6f1e9;
+  --lux-muted: rgba(246, 241, 233, .68);
+  --lux-shadow: 0 22px 55px rgba(0, 0, 0, .28);
+  --lux-radius: 18px;
+}
+
+html,
+body,
+body.executive-platform-body {
+  min-height: 100%;
+  background-color: var(--lux-bg) !important;
+  background-image:
+    linear-gradient(rgba(3, 14, 23, .72), rgba(3, 14, 23, .78)),
+    url('/careernaviq-compass-architecture.webp?v=20260819sitewide-luxury') !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+  color: var(--lux-text) !important;
+}
+
+/* All page shells stay transparent so the architecture remains visible. */
+:where(.app-shell,.app-workspace,.app-content,.executive-platform,.public-page,.auth-shell-with-footer,.auth-page,.auth-content,main) {
+  background: transparent !important;
+}
+
+/* Shared typography */
+:where(.executive-platform,.public-page,.auth-shell-with-footer) :where(h1,h2,h3,h4,h5,h6) {
+  color: var(--lux-text) !important;
+}
+:where(.executive-platform,.public-page,.auth-shell-with-footer) :where(p,li,small,.muted,label) {
+  color: var(--lux-muted) !important;
+}
+:where(.executive-platform,.public-page,.auth-shell-with-footer) :where(.eyebrow,.public-eyebrow) {
+  color: var(--lux-bronze-bright) !important;
+}
+:where(.executive-platform,.public-page,.auth-shell-with-footer) a {
+  color: var(--lux-text);
+}
+:where(.executive-platform,.public-page,.auth-shell-with-footer) a:hover {
+  color: var(--lux-bronze-bright);
+}
+
+/* Signed-in shell mirrors the reference header/navigation treatment. */
+.executive-platform .app-sidebar {
+  background: linear-gradient(180deg, rgba(3,14,23,.96), rgba(5,21,34,.92)) !important;
+  border-right: 1px solid var(--lux-line) !important;
+  box-shadow: 18px 0 45px rgba(0,0,0,.18) !important;
+}
+.executive-platform .sidebar-brand-row {
+  border-bottom-color: var(--lux-line-soft) !important;
+}
+.executive-platform .sidebar-brand {
+  box-shadow: none !important;
+}
+.executive-platform .sidebar-section-heading,
+.executive-platform .sidebar-section-heading small {
+  color: rgba(221,179,110,.72) !important;
+}
+.executive-platform :where(.sidebar-dashboard,.sidebar-utility-links a,.sidebar-signout) {
+  color: rgba(246,241,233,.72) !important;
+  border-color: transparent !important;
+  background: transparent !important;
+}
+.executive-platform :where(.sidebar-dashboard,.sidebar-utility-links a):hover,
+.executive-platform :where(.sidebar-dashboard,.sidebar-utility-links a).active {
+  color: #fff !important;
+  background: rgba(201,151,79,.10) !important;
+  box-shadow: inset 2px 0 0 var(--lux-bronze) !important;
+}
+.executive-platform .sidebar-signout {
+  border: 1px solid var(--lux-line) !important;
+  border-radius: 999px !important;
+}
+.executive-platform .sidebar-signout:hover {
+  background: rgba(201,151,79,.10) !important;
+}
+
+.executive-platform .app-header {
+  background: linear-gradient(180deg, rgba(3,14,23,.64), rgba(3,14,23,.18)) !important;
+  border-bottom: 1px solid var(--lux-line-soft) !important;
+  backdrop-filter: blur(14px) saturate(120%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(120%) !important;
+}
+.executive-platform .header-link {
+  color: rgba(246,241,233,.78) !important;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  font-size: 11px !important;
+  font-weight: 750 !important;
+}
+.executive-platform .header-link:hover { color: #fff !important; }
+
+/* Page headers are open and editorial, like the reference hero. */
+:where(.executive-platform,.public-page) :where(.page-header,.executive-page-header,.executive-section-header,.section-header) {
+  background: transparent !important;
+  border-color: var(--lux-line-soft) !important;
+  box-shadow: none !important;
+}
+.executive-platform :where(.page-header,.executive-page-header) h1,
+.public-page h1 {
+  color: #fff !important;
+  text-shadow: 0 10px 30px rgba(0,0,0,.22);
+}
+
+/* One premium surface model across every content type. */
+:where(.executive-platform,.public-page,.auth-shell-with-footer) :where(
+  .card,.executive-panel,.dashboard-panel,.studio-panel,.analytics-panel,.settings-card,
+  .resume-card,.resume-upload-panel,.resume-library-panel,.resume-analysis-panel,.connector-panel,
+  .priority-card,.outreach-controls,.outreach-editor,.outreach-guidance,.empty-state-panel,
+  .executive-empty-state,.notice,.executive-notice,.auth-card,.auth-panel,.auth-form-panel,
+  .public-card,.public-content-block,.public-content-aside,.public-final-card,
+  .table-shell,.data-table-shell,[class$='-card'],[class$='-panel'],[class$='-shell']
+) {
+  color: var(--lux-text) !important;
+  background: linear-gradient(145deg, rgba(6,20,32,.82), rgba(10,31,47,.58)) !important;
+  border: 1px solid var(--lux-line) !important;
+  border-radius: var(--lux-radius) !important;
+  box-shadow: var(--lux-shadow) !important;
+  backdrop-filter: blur(14px) saturate(115%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(115%) !important;
+}
+
+:where(.executive-platform,.public-page,.auth-shell-with-footer) :where(
+  .card,.executive-panel,.dashboard-panel,.studio-panel,.analytics-panel,.settings-card,
+  .resume-card,.resume-upload-panel,.resume-library-panel,.resume-analysis-panel,.connector-panel,
+  .priority-card,.auth-card,.auth-panel,.public-card,[class$='-card'],[class$='-panel']
+):hover {
+  border-color: rgba(221,179,110,.50) !important;
+}
+
+/* Metric strips / KPI blocks */
+:where(.executive-platform) :where(
+  .executive-metric-strip,.executive-kpis,.interview-kpis,.analytics-kpi-grid,.profile-summary-grid,
+  .company-summary-grid,.company-detail-kpis,.watch-summary-grid,.automation-health-grid
+) {
+  background: linear-gradient(145deg, rgba(6,20,32,.82), rgba(10,31,47,.58)) !important;
+  border: 1px solid var(--lux-line) !important;
+  border-radius: var(--lux-radius) !important;
+  box-shadow: var(--lux-shadow) !important;
+  backdrop-filter: blur(14px) !important;
+}
+:where(.executive-platform) :where(
+  .executive-metric-strip,.executive-kpis,.interview-kpis,.analytics-kpi-grid,.profile-summary-grid,
+  .company-summary-grid,.company-detail-kpis,.watch-summary-grid,.automation-health-grid
+) > article {
+  border-color: var(--lux-line-soft) !important;
+  background: transparent !important;
+}
+:where(.executive-platform) :where(
+  .executive-metric-strip,.executive-kpis,.interview-kpis,.analytics-kpi-grid,.profile-summary-grid,
+  .company-summary-grid,.company-detail-kpis,.watch-summary-grid,.automation-health-grid
+) strong {
+  color: var(--lux-bronze-bright) !important;
+}
+
+/* Rows and lists become subtle dark glass rather than white slabs. */
+.executive-platform :where([class$='-row'],.jobs-opportunity-card,.resume-list-row,.application-row,.saved-job-row) {
+  background: rgba(255,255,255,.035) !important;
+  border-color: var(--lux-line-soft) !important;
+  color: var(--lux-text) !important;
+}
+.executive-platform :where([class$='-row'],.jobs-opportunity-card,.resume-list-row,.application-row,.saved-job-row):hover {
+  background: rgba(201,151,79,.08) !important;
+  border-color: rgba(201,151,79,.28) !important;
+}
+
+/* Forms match the black/bronze reference controls. */
+:where(.executive-platform,.public-page,.auth-shell-with-footer) :where(
+  input:not([type='checkbox']):not([type='radio']):not([type='range']),select,textarea
+) {
+  color: var(--lux-text) !important;
+  background: rgba(2,13,22,.72) !important;
+  border: 1px solid rgba(201,151,79,.30) !important;
+  border-radius: 10px !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.03) !important;
+}
+:where(.executive-platform,.public-page,.auth-shell-with-footer) :where(input,textarea)::placeholder {
+  color: rgba(246,241,233,.42) !important;
+}
+:where(.executive-platform,.public-page,.auth-shell-with-footer) :where(input,select,textarea):focus {
+  border-color: var(--lux-bronze) !important;
+  box-shadow: 0 0 0 3px rgba(201,151,79,.12) !important;
+}
+
+/* Buttons use the exact bronze / outline hierarchy of the reference. */
+:where(.executive-platform,.public-page,.auth-shell-with-footer) :where(
+  button:not(.mobile-menu-button):not(.mobile-nav-overlay):not(.sidebar-close),.button,.public-button,.auth-submit
+) {
+  border-radius: 999px !important;
+  border: 1px solid rgba(221,179,110,.74) !important;
+  background: linear-gradient(180deg, #d4a45b, #ad7b35) !important;
+  color: #fff !important;
+  box-shadow: 0 12px 28px rgba(0,0,0,.20) !important;
+  font-weight: 750 !important;
+}
+:where(.executive-platform,.public-page,.auth-shell-with-footer) :where(
+  button.secondary,.button.secondary,.public-button-secondary,[class*='secondary']
+) {
+  background: rgba(5,18,29,.38) !important;
+  border-color: rgba(221,179,110,.58) !important;
+  color: var(--lux-text) !important;
+  box-shadow: none !important;
+}
+:where(.executive-platform,.public-page,.auth-shell-with-footer) :where(
+  button:not(.mobile-menu-button):not(.mobile-nav-overlay):not(.sidebar-close),.button,.public-button,.auth-submit
+):hover {
+  transform: translateY(-1px);
+  border-color: var(--lux-bronze-bright) !important;
+}
+
+/* Tables */
+.executive-platform table {
+  background: rgba(4,17,28,.60) !important;
+  color: var(--lux-text) !important;
+}
+.executive-platform th {
+  background: rgba(201,151,79,.09) !important;
+  color: var(--lux-bronze-bright) !important;
+  border-color: var(--lux-line-soft) !important;
+}
+.executive-platform td {
+  color: rgba(246,241,233,.80) !important;
+  border-color: var(--lux-line-soft) !important;
+}
+
+/* Badges and status pills */
+.executive-platform :where(.badge,.score-pill,.metric-badge,.status-badge,[class*='status-pill'],[class*='badge'],[class*='pill']) {
+  border-color: rgba(201,151,79,.38) !important;
+  background: rgba(201,151,79,.10) !important;
+  color: var(--lux-bronze-bright) !important;
+}
+
+/* Public pages */
+.public-page :where(.public-header,.public-footer) {
+  background: rgba(3,14,23,.54) !important;
+  border-color: var(--lux-line-soft) !important;
+  backdrop-filter: blur(14px) !important;
+}
+.public-page :where(.public-nav a,.public-footer a) {
+  color: rgba(246,241,233,.76) !important;
+}
+.public-page :where(.public-nav a,.public-footer a):hover {
+  color: #fff !important;
+}
+
+/* Auth */
+.auth-shell-with-footer .auth-page {
+  min-height: calc(100vh - 72px);
+}
+.auth-shell-with-footer :where(.auth-card,.auth-panel,.auth-form-panel) {
+  max-width: 620px;
+  margin-inline: auto;
+}
+.auth-shell-with-footer h1 { color: #fff !important; }
+
+/* Footer */
+:where(.executive-platform,.auth-shell-with-footer) .site-footer {
+  background: rgba(3,14,23,.62) !important;
+  border-top: 1px solid var(--lux-line-soft) !important;
+  color: var(--lux-muted) !important;
+}
+
+/* Mobile keeps the same luxury language. */
+@media (max-width: 760px) {
+  html,
+  body,
+  body.executive-platform-body {
+    background-attachment: scroll !important;
+    background-position: center top !important;
+  }
+  .executive-platform .mobile-bottom-nav {
+    background: rgba(3,14,23,.94) !important;
+    border-top: 1px solid var(--lux-line) !important;
+    backdrop-filter: blur(14px) !important;
+  }
+  .executive-platform .mobile-bottom-nav a,
+  .executive-platform .mobile-bottom-nav button {
+    color: rgba(246,241,233,.70) !important;
+  }
+  .executive-platform .mobile-bottom-nav .active {
+    color: var(--lux-bronze-bright) !important;
+  }
+}
