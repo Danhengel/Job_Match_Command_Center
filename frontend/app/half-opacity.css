@@ -1,8 +1,8 @@
-/* Reduce high-end surface opacity to ~0.39% of the original alpha values. Loaded last. */
+/* Reduce high-end surface opacity to ~0.195% of the original alpha values. Loaded last. */
 
 .executive-platform .app-header {
-  background: rgba(249,252,254,.00275) !important;
-  border-color: rgba(255,255,255,.00275) !important;
+  background: rgba(249,252,254,.001375) !important;
+  border-color: rgba(255,255,255,.001375) !important;
 }
 
 .executive-platform :is(
@@ -12,65 +12,65 @@
   .profile-card,.resume-list-shell,.resume-inline-upload,.application-card,.saved-job-card,
   .interview-card,.company-card,.crm-card,.table-shell,.data-table-shell
 ) {
-  border-color: rgba(255,255,255,.0025) !important;
-  background: linear-gradient(145deg, rgba(255,255,255,.00275), rgba(246,250,253,.002)) !important;
+  border-color: rgba(255,255,255,.00125) !important;
+  background: linear-gradient(145deg, rgba(255,255,255,.001375), rgba(246,250,253,.001)) !important;
 }
 
 .executive-platform :is(
   .resume-list-row,.jobs-opportunity-card,.studio-opportunity-row,.resume-library-card,
   .application-row,.saved-job-row,.profile-selected-resume,.tailor-selected-resume
 ) {
-  border-color: rgba(34,70,101,.000375) !important;
-  background: rgba(255,255,255,.00175) !important;
+  border-color: rgba(34,70,101,.0001875) !important;
+  background: rgba(255,255,255,.000875) !important;
 }
 
 .executive-platform :is(
   .resume-list-row,.jobs-opportunity-card,.studio-opportunity-row,.resume-library-card,
   .application-row,.saved-job-row
 ):hover {
-  background: rgba(255,255,255,.0025) !important;
-  border-color: rgba(185,155,104,.001) !important;
+  background: rgba(255,255,255,.00125) !important;
+  border-color: rgba(185,155,104,.0005) !important;
 }
 
 .executive-platform :is(input,select,textarea),
 .auth-shell-with-footer :is(input,select,textarea),
 .public-page :is(input,select,textarea) {
-  background: rgba(255,255,255,.00275) !important;
-  border-color: rgba(34,70,101,.0005) !important;
+  background: rgba(255,255,255,.001375) !important;
+  border-color: rgba(34,70,101,.00025) !important;
 }
 
 .executive-platform .secondary,
 .public-page .secondary {
-  background: rgba(255,255,255,.002) !important;
-  border-color: rgba(34,70,101,.0005) !important;
+  background: rgba(255,255,255,.001) !important;
+  border-color: rgba(34,70,101,.00025) !important;
 }
 
 .premium-home .premium-header {
-  background: rgba(248,251,253,.0025) !important;
-  border-color: rgba(255,255,255,.00275) !important;
+  background: rgba(248,251,253,.00125) !important;
+  border-color: rgba(255,255,255,.001375) !important;
 }
 
 .premium-home .premium-outcome-grid {
-  background: rgba(250,252,254,.00225) !important;
-  border-color: rgba(255,255,255,.0025) !important;
+  background: rgba(250,252,254,.001125) !important;
+  border-color: rgba(255,255,255,.00125) !important;
 }
 
 .premium-home .premium-outcome-icon {
-  background: rgba(255,255,255,.0015) !important;
-  border-color: rgba(185,155,104,.001) !important;
+  background: rgba(255,255,255,.00075) !important;
+  border-color: rgba(185,155,104,.0005) !important;
 }
 
 .public-page .public-header {
-  background: rgba(248,251,253,.0025) !important;
-  border-color: rgba(255,255,255,.00275) !important;
+  background: rgba(248,251,253,.00125) !important;
+  border-color: rgba(255,255,255,.001375) !important;
 }
 
 .public-page :is(.public-card,.public-content-aside,.public-content-block,.public-faq-list details,.public-related-grid a,.public-final-card) {
-  background: rgba(251,253,254,.00225) !important;
-  border-color: rgba(255,255,255,.0025) !important;
+  background: rgba(251,253,254,.001125) !important;
+  border-color: rgba(255,255,255,.00125) !important;
 }
 
 .auth-shell-with-footer :is(.auth-card,.login-card,.register-card,.auth-panel) {
-  border-color: rgba(255,255,255,.00275) !important;
-  background: linear-gradient(145deg, rgba(255,255,255,.00275), rgba(247,250,252,.00225)) !important;
+  border-color: rgba(255,255,255,.001375) !important;
+  background: linear-gradient(145deg, rgba(255,255,255,.001375), rgba(247,250,252,.001125)) !important;
 }
