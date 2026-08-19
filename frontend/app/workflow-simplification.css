@@ -21,7 +21,7 @@
   display: grid;
   grid-template-columns: minmax(180px, 0.8fr) minmax(260px, 1.45fr) auto;
   gap: 14px;
-  align-items: end;
+  align-items: flex-end;
 }
 
 .jobs-search-primary label,
@@ -118,7 +118,7 @@
 .jobs-results-heading {
   display: flex;
   gap: 20px;
-  align-items: start;
+  align-items: flex-start;
   justify-content: space-between;
 }
 
@@ -216,7 +216,7 @@
 .jobs-card-title-row {
   display: flex;
   gap: 12px;
-  align-items: start;
+  align-items: flex-start;
   justify-content: space-between;
 }
 
@@ -338,7 +338,7 @@
   display: grid;
   grid-template-columns: minmax(300px, 0.78fr) minmax(0, 1.35fr);
   gap: 20px;
-  align-items: start;
+  align-items: flex-start;
 }
 
 .studio-setup-card,
@@ -351,7 +351,7 @@
 .studio-card-heading,
 .tailor-output-heading {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
 }
