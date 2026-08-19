@@ -1,0 +1,416 @@
+/* Final QA polish for the approved dark bronze CareerNavIQ system.
+   Focuses on footer consistency, public page rhythm, guided next-step cards,
+   auth spacing, and responsive finish without replacing functional layouts. */
+
+:root {
+  --qa-bronze: #c9974f;
+  --qa-bronze-bright: #ddb36e;
+  --qa-text: #f6f1e9;
+  --qa-muted: rgba(246,241,233,.66);
+  --qa-line: rgba(201,151,79,.30);
+  --qa-line-soft: rgba(255,255,255,.10);
+  --qa-panel: rgba(4,16,26,.72);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Signed-in + auth footer                                                     */
+/* -------------------------------------------------------------------------- */
+
+:where(.executive-platform,.auth-shell-with-footer) .site-footer {
+  width: 100% !important;
+  margin-top: clamp(46px, 6vw, 78px) !important;
+  padding: 28px 0 22px !important;
+  background: linear-gradient(180deg, rgba(3,14,23,.34), rgba(3,14,23,.78)) !important;
+  border-top: 1px solid var(--qa-line) !important;
+  color: var(--qa-muted) !important;
+  box-shadow: 0 -24px 50px rgba(0,0,0,.10) !important;
+  backdrop-filter: blur(14px) saturate(115%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(115%) !important;
+}
+
+:where(.executive-platform,.auth-shell-with-footer) .site-footer-inner,
+:where(.executive-platform,.auth-shell-with-footer) .site-footer-meta {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 24px !important;
+}
+
+:where(.executive-platform,.auth-shell-with-footer) .site-footer-brand {
+  display: flex !important;
+  align-items: baseline !important;
+  gap: 13px !important;
+  min-width: 0 !important;
+}
+
+:where(.executive-platform,.auth-shell-with-footer) .site-footer-brand strong {
+  color: #fff !important;
+  font-family: Georgia, 'Times New Roman', serif !important;
+  font-size: 1.05rem !important;
+  font-weight: 500 !important;
+  letter-spacing: -.02em !important;
+}
+
+:where(.executive-platform,.auth-shell-with-footer) .site-footer-brand span {
+  color: rgba(221,179,110,.70) !important;
+  font-size: .72rem !important;
+  letter-spacing: .06em !important;
+  text-transform: uppercase !important;
+}
+
+:where(.executive-platform,.auth-shell-with-footer) .site-footer-links {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  flex-wrap: wrap !important;
+  gap: 18px 26px !important;
+}
+
+:where(.executive-platform,.auth-shell-with-footer) .site-footer-links a {
+  color: rgba(246,241,233,.72) !important;
+  font-size: .72rem !important;
+  font-weight: 700 !important;
+  letter-spacing: .055em !important;
+  text-transform: uppercase !important;
+}
+
+:where(.executive-platform,.auth-shell-with-footer) .site-footer-links a:hover {
+  color: var(--qa-bronze-bright) !important;
+}
+
+:where(.executive-platform,.auth-shell-with-footer) .site-footer-meta {
+  margin-top: 18px !important;
+  padding-top: 15px !important;
+  border-top: 1px solid var(--qa-line-soft) !important;
+  color: rgba(246,241,233,.42) !important;
+  font-size: .68rem !important;
+  letter-spacing: .025em !important;
+}
+
+.auth-shell-with-footer .site-footer-auth {
+  margin-top: 0 !important;
+  padding-inline: clamp(22px, 5vw, 72px) !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Guided next-step block                                                      */
+/* -------------------------------------------------------------------------- */
+
+.executive-platform .executive-recommendation {
+  display: grid !important;
+  grid-template-columns: minmax(0,1fr) auto !important;
+  align-items: center !important;
+  gap: 28px !important;
+  margin-top: clamp(38px, 5vw, 64px) !important;
+  padding: clamp(24px, 3vw, 34px) !important;
+  border: 1px solid var(--qa-line) !important;
+  border-radius: 20px !important;
+  background: linear-gradient(135deg, rgba(4,16,26,.82), rgba(16,42,61,.56)) !important;
+  box-shadow: 0 22px 54px rgba(0,0,0,.22) !important;
+  backdrop-filter: blur(14px) saturate(115%) !important;
+}
+
+.executive-platform .executive-recommendation h2 {
+  margin-bottom: 8px !important;
+  color: #fff !important;
+  font-family: Georgia, 'Times New Roman', serif !important;
+  font-size: clamp(24px, 2.4vw, 34px) !important;
+  font-weight: 500 !important;
+}
+
+.executive-platform .executive-recommendation p:last-child {
+  max-width: 780px !important;
+  margin-bottom: 0 !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Public pages                                                                */
+/* -------------------------------------------------------------------------- */
+
+.public-page .public-container {
+  width: min(1380px, calc(100% - 72px)) !important;
+  margin-inline: auto !important;
+}
+
+.public-page .public-header {
+  border-bottom: 1px solid var(--qa-line-soft) !important;
+  background: linear-gradient(180deg, rgba(3,14,23,.78), rgba(3,14,23,.42)) !important;
+}
+
+.public-page .public-header-inner {
+  min-height: 82px !important;
+}
+
+.public-page .public-hero {
+  padding: clamp(66px, 8vw, 112px) 0 clamp(54px, 7vw, 92px) !important;
+  border-bottom: 1px solid var(--qa-line-soft) !important;
+}
+
+.public-page .public-hero-inner {
+  max-width: 980px !important;
+  margin-inline: auto !important;
+}
+
+.public-page .public-breadcrumb {
+  margin-bottom: 28px !important;
+  color: rgba(246,241,233,.46) !important;
+  font-size: 11px !important;
+  letter-spacing: .05em !important;
+  text-transform: uppercase !important;
+}
+
+.public-page .public-intro {
+  max-width: 850px !important;
+  color: rgba(246,241,233,.76) !important;
+  font-size: clamp(17px, 1.6vw, 21px) !important;
+  line-height: 1.7 !important;
+}
+
+.public-page :where(.public-card-section,.public-content-section,.public-faq-section,.public-related-section,.public-final-cta) {
+  padding-block: clamp(52px, 6vw, 88px) !important;
+}
+
+.public-page .public-card-grid {
+  gap: 18px !important;
+}
+
+.public-page .public-card,
+.public-page .public-content-aside,
+.public-page .public-content-block,
+.public-page .public-related-grid > a,
+.public-page .public-faq-list details,
+.public-page .public-final-card {
+  border: 1px solid var(--qa-line) !important;
+  background: linear-gradient(145deg, rgba(4,16,26,.78), rgba(10,31,47,.56)) !important;
+  box-shadow: 0 20px 48px rgba(0,0,0,.18) !important;
+  backdrop-filter: blur(14px) saturate(115%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(115%) !important;
+}
+
+.public-page .public-card,
+.public-page .public-related-grid > a {
+  border-radius: 18px !important;
+}
+
+.public-page .public-card h2,
+.public-page .public-content-block h2,
+.public-page .public-content-aside h2,
+.public-page .public-faq-section h2,
+.public-page .public-related-section h2,
+.public-page .public-final-card h2 {
+  color: #fff !important;
+}
+
+.public-page .public-card-icon {
+  color: var(--qa-bronze-bright) !important;
+}
+
+.public-page .public-content-layout,
+.public-page .public-faq-layout {
+  gap: clamp(28px, 5vw, 72px) !important;
+}
+
+.public-page .public-content-aside {
+  position: sticky !important;
+  top: 110px !important;
+  align-self: start !important;
+  padding: 30px !important;
+  border-radius: 18px !important;
+}
+
+.public-page .public-content-block {
+  padding: clamp(26px, 3vw, 38px) !important;
+  border-radius: 18px !important;
+}
+
+.public-page .public-content-block + .public-content-block {
+  margin-top: 18px !important;
+}
+
+.public-page .public-faq-list {
+  display: grid !important;
+  gap: 12px !important;
+}
+
+.public-page .public-faq-list details {
+  padding: 0 20px !important;
+  border-radius: 14px !important;
+}
+
+.public-page .public-faq-list summary {
+  padding: 19px 0 !important;
+  color: #fff !important;
+  font-weight: 700 !important;
+}
+
+.public-page .public-faq-list details p {
+  padding-bottom: 20px !important;
+}
+
+.public-page .public-related-grid {
+  gap: 14px !important;
+}
+
+.public-page .public-related-grid > a {
+  padding: 22px !important;
+}
+
+.public-page .public-related-grid strong {
+  color: #fff !important;
+}
+
+.public-page .public-related-grid span {
+  color: var(--qa-muted) !important;
+}
+
+.public-page .public-final-card {
+  padding: clamp(28px, 4vw, 46px) !important;
+  border-radius: 22px !important;
+}
+
+/* Full public footer — align every public route with the approved homepage. */
+.public-page .public-footer {
+  margin-top: 0 !important;
+  padding: 52px 0 24px !important;
+  border-top: 1px solid var(--qa-line) !important;
+  background: linear-gradient(180deg, rgba(3,14,23,.62), rgba(2,10,17,.94)) !important;
+  box-shadow: 0 -24px 50px rgba(0,0,0,.12) !important;
+}
+
+.public-page .public-footer-grid {
+  display: grid !important;
+  grid-template-columns: minmax(240px,1.4fr) repeat(3,minmax(150px,.7fr)) !important;
+  gap: clamp(28px, 4vw, 58px) !important;
+  align-items: start !important;
+}
+
+.public-page .public-footer-brand {
+  margin-bottom: 14px !important;
+}
+
+.public-page .public-footer-grid > div > strong {
+  display: block !important;
+  margin-bottom: 16px !important;
+  color: var(--qa-bronze-bright) !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  letter-spacing: .12em !important;
+  text-transform: uppercase !important;
+}
+
+.public-page .public-footer-grid > div:not(:first-child) {
+  display: grid !important;
+  gap: 10px !important;
+}
+
+.public-page .public-footer p,
+.public-page .public-footer span {
+  color: rgba(246,241,233,.48) !important;
+}
+
+.public-page .public-footer a {
+  color: rgba(246,241,233,.72) !important;
+  font-size: 13px !important;
+}
+
+.public-page .public-footer a:hover {
+  color: var(--qa-bronze-bright) !important;
+}
+
+.public-page .public-footer-bottom {
+  display: grid !important;
+  grid-template-columns: 1fr auto 1fr !important;
+  align-items: center !important;
+  gap: 24px !important;
+  margin-top: 38px !important;
+  padding-top: 20px !important;
+  border-top: 1px solid var(--qa-line-soft) !important;
+  color: rgba(246,241,233,.38) !important;
+  font-size: 11px !important;
+}
+
+.public-page .public-footer-bottom nav {
+  display: flex !important;
+  gap: 18px !important;
+}
+
+.public-page .public-footer-bottom > span:last-child {
+  text-align: right !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Auth finish                                                                 */
+/* -------------------------------------------------------------------------- */
+
+.auth-shell-with-footer .auth-content {
+  display: grid !important;
+  align-items: center !important;
+  min-height: calc(100vh - 150px) !important;
+  padding: clamp(28px, 5vw, 64px) 20px !important;
+}
+
+.auth-shell-with-footer :where(.auth-card,.auth-panel,.auth-form-panel) {
+  width: min(100%, 620px) !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Responsive QA                                                               */
+/* -------------------------------------------------------------------------- */
+
+@media (max-width: 900px) {
+  .public-page .public-footer-grid {
+    grid-template-columns: repeat(2,minmax(0,1fr)) !important;
+  }
+
+  .public-page .public-footer-bottom {
+    grid-template-columns: 1fr !important;
+    align-items: start !important;
+  }
+
+  .public-page .public-footer-bottom > span:last-child {
+    text-align: left !important;
+  }
+
+  .public-page .public-content-aside {
+    position: static !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .public-page .public-container {
+    width: min(100% - 28px, 100%) !important;
+  }
+
+  .public-page .public-footer-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .public-page .public-footer {
+    padding-top: 38px !important;
+  }
+
+  .executive-platform .executive-recommendation {
+    grid-template-columns: 1fr !important;
+  }
+
+  .executive-platform .executive-recommendation .button {
+    width: 100% !important;
+  }
+
+  :where(.executive-platform,.auth-shell-with-footer) .site-footer-inner,
+  :where(.executive-platform,.auth-shell-with-footer) .site-footer-meta {
+    align-items: flex-start !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  :where(.executive-platform,.auth-shell-with-footer) .site-footer-brand {
+    align-items: flex-start !important;
+    flex-direction: column !important;
+    gap: 5px !important;
+  }
+
+  .executive-platform .site-footer-app {
+    margin-bottom: calc(72px + env(safe-area-inset-bottom)) !important;
+  }
+}
