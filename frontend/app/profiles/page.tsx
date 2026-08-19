@@ -113,7 +113,7 @@ export default function Profiles() {
                 {profile.target_titles.length ? profile.target_titles.slice(0, 4).map((title) => <span key={title}>{title}</span>) : <p className="muted">Add target titles to strengthen market selection.</p>}
               </div>
 
-              <footer className="profile-card-footer">
+              <footer className="profile-card-footer" style={{ display: "grid", gap: 12 }}>
                 <span className="muted">Use this profile as the mandate for market reviews, positioning, and active pursuits.</span>
                 <div style={{ display: "grid", gap: 8, minWidth: 170 }}>
                   <Link className="button" href={`/profiles/${profile.id}`}>Open career profile</Link>
