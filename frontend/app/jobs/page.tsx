@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
-import { EmptyState, MetricStrip, Notice, PageHeader, SectionHeader } from "@/components/ui";
+import { EmptyState, Notice, PageHeader, SectionHeader } from "@/components/ui";
 import { api } from "@/lib/api";
 
 type Profile = {
@@ -41,28 +41,29 @@ type SearchSummary = {
 };
 
 type SortMode = "match" | "newest" | "company";
+type ViewFilter = "all" | "strong" | "exceptional" | "remote";
 
 function postedLabel(value: string) {
-  if (!value) return "Posting date unavailable";
+  if (!value) return "Date unavailable";
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return value;
   const days = Math.max(0, Math.floor((Date.now() - date.getTime()) / 86400000));
-  if (days === 0) return "Posted today";
-  if (days === 1) return "Posted yesterday";
-  if (days < 30) return `Posted ${days} days ago`;
-  return `Posted ${date.toLocaleDateString()}`;
+  if (days === 0) return "Today";
+  if (days === 1) return "Yesterday";
+  if (days < 30) return `${days} days ago`;
+  return date.toLocaleDateString();
 }
 
 function alignmentLabel(score: number) {
-  if (score >= 85) return "Exceptional alignment";
-  if (score >= 70) return "Strong alignment";
-  if (score >= 55) return "Worth reviewing";
-  return "Exploratory";
+  if (score >= 85) return "Excellent match";
+  if (score >= 70) return "Strong match";
+  if (score >= 55) return "Good potential";
+  return "Explore";
 }
 
 function cleanError(message: string) {
   if (/RetryError|Traceback|HTTPError|<Future|0x[\da-f]+/i.test(message)) {
-    return "One market source was temporarily unavailable. The rest of the market review completed normally.";
+    return "One source was temporarily unavailable. The rest of the search completed normally.";
   }
   return message.replace(/https?:\/\/\S+/g, "the source");
 }
@@ -77,9 +78,9 @@ export default function JobsPage() {
   const [busy, setBusy] = useState(false);
   const [loadingSaved, setLoadingSaved] = useState(false);
   const [summary, setSummary] = useState<SearchSummary | null>(null);
-  const [remoteOnly, setRemoteOnly] = useState(false);
   const [resultQuery, setResultQuery] = useState("");
   const [sortMode, setSortMode] = useState<SortMode>("match");
+  const [viewFilter, setViewFilter] = useState<ViewFilter>("all");
   const [greenhouse, setGreenhouse] = useState("");
   const [lever, setLever] = useState("");
   const [ashby, setAshby] = useState("");
@@ -97,7 +98,7 @@ export default function JobsPage() {
       setResults(Array.isArray(data) ? data : []);
     } catch (error) {
       setResults([]);
-      setErrors([error instanceof Error ? error.message : "Could not load saved market results."]);
+      setErrors([error instanceof Error ? error.message : "Could not load saved opportunities."]);
     } finally {
       setLoadingSaved(false);
     }
@@ -120,7 +121,7 @@ export default function JobsPage() {
           await loadSavedMatches(id);
         }
       } catch (error) {
-        if (active) setErrors([error instanceof Error ? error.message : "Could not prepare market intelligence."]);
+        if (active) setErrors([error instanceof Error ? error.message : "Could not prepare job search."]);
       }
     })();
     return () => {
@@ -131,24 +132,34 @@ export default function JobsPage() {
   const visibleResults = useMemo(() => {
     const query = resultQuery.trim().toLowerCase();
     const filtered = results.filter((result) => {
-      if (remoteOnly && !result.job.remote) return false;
+      if (viewFilter === "remote" && !result.job.remote) return false;
+      if (viewFilter === "strong" && result.match.score < 70) return false;
+      if (viewFilter === "exceptional" && result.match.score < 85) return false;
       if (!query) return true;
-      return [result.job.title, result.job.company, result.job.location, ...(result.match.matched_keywords || [])]
+      return [
+        result.job.title,
+        result.job.company,
+        result.job.location,
+        ...(result.match.matched_keywords || []),
+      ]
         .join(" ")
         .toLowerCase()
         .includes(query);
     });
     return [...filtered].sort((a, b) => {
       if (sortMode === "company") return a.job.company.localeCompare(b.job.company);
-      if (sortMode === "newest") return new Date(b.job.posted_at || 0).getTime() - new Date(a.job.posted_at || 0).getTime();
+      if (sortMode === "newest") {
+        return new Date(b.job.posted_at || 0).getTime() - new Date(a.job.posted_at || 0).getTime();
+      }
       return b.match.score - a.match.score;
     });
-  }, [results, remoteOnly, resultQuery, sortMode]);
+  }, [results, resultQuery, sortMode, viewFilter]);
 
   async function selectProfile(id: string) {
     setProfileId(id);
     const profile = profiles.find((item) => String(item.id) === id);
     if (profile) setTitles((profile.target_titles || []).join("\n"));
+    setViewFilter("all");
     await loadSavedMatches(id);
   }
 
@@ -165,9 +176,6 @@ export default function JobsPage() {
         body: JSON.stringify({
           profile_id: Number(profileId),
           titles: titles.split("\n").map((value) => value.trim()).filter(Boolean),
-          use_remotive: true,
-          use_catalog: true,
-          use_jsearch: true,
           jsearch_location: location,
           minimum_score: 0,
           greenhouse_boards: greenhouse.split("\n").map((value) => value.trim()).filter(Boolean),
@@ -182,131 +190,149 @@ export default function JobsPage() {
         unique: data.unique_jobs || 0,
         matched: data.results?.length || 0,
       });
+      setViewFilter("all");
     } catch (error) {
-      setErrors([cleanError(error instanceof Error ? error.message : "Market review failed.")]);
+      setErrors([cleanError(error instanceof Error ? error.message : "Job search failed.")]);
     } finally {
       setBusy(false);
     }
   }
 
+  const targetCount = titles.split("\n").filter(Boolean).length;
+  const strongCount = results.filter((item) => item.match.score >= 70).length;
+  const excellentCount = results.filter((item) => item.match.score >= 85).length;
+  const remoteCount = results.filter((item) => item.job.remote).length;
+
   return (
     <>
       <PageHeader
-        title="Evaluate the market against your career direction"
-        description="Review live opportunities through the lens of role level, experience, geography, compensation, and evidence—not job-board volume."
-        actions={<Link className="button secondary" href="/profiles">Career profile</Link>}
+        eyebrow="JOB SEARCH"
+        title="Find your next role"
+        description="Search the full CareerNavIQ network, see the strongest matches first, and move directly from a job into a tailored résumé."
+        actions={<Link className="button secondary" href="/resumes/studio">Resume Studio</Link>}
       />
 
-      <MetricStrip
-        ariaLabel="Market review criteria"
-        items={[
-          { label: "Target positions", value: titles.split("\n").filter(Boolean).length || 0, detail: "roles in scope" },
-          { label: "Market", value: location || "Any", detail: remoteOnly ? "remote only" : "location + remote" },
-          { label: "Ranking", value: "Alignment", detail: "no manual cutoff" },
-          { label: "Visible opportunities", value: visibleResults.length, detail: results.length ? `${results.length} evaluated` : "awaiting review" },
-        ]}
-      />
-
-      <section className="market-intelligence-layout">
-        <form className="executive-panel market-criteria-panel" onSubmit={search}>
-          <SectionHeader eyebrow="SEARCH MANDATE" title="Opportunity criteria" description="Keep the mandate narrow enough to surface roles worth your attention. CareerNavIQ will rank all evaluated opportunities by alignment instead of hiding them behind a threshold." />
-
-          <label htmlFor="market-profile">Career profile</label>
-          <select id="market-profile" value={profileId} onChange={(event) => void selectProfile(event.target.value)} required>
-            <option value="">Select profile</option>
-            {profiles.map((profile) => <option key={profile.id} value={profile.id}>{profile.name}</option>)}
-          </select>
-
-          <label htmlFor="market-titles">Target positions</label>
-          <textarea id="market-titles" rows={6} value={titles} onChange={(event) => setTitles(event.target.value)} placeholder={"Director, Loan Operations\nVP, Construction Lending"} />
-
-          <label htmlFor="market-location">Geography or remote preference</label>
-          <input id="market-location" value={location} onChange={(event) => setLocation(event.target.value)} placeholder="Tampa, Florida or Remote" />
-
-          <label className="market-criteria-remote-toggle">
-            <input type="checkbox" checked={remoteOnly} onChange={(event) => setRemoteOnly(event.target.checked)} />
-            <span><strong>Remote opportunities only</strong><small>Show only remote roles in the evaluated opportunity results.</small></span>
+      <form className="executive-panel jobs-search-shell" onSubmit={search}>
+        <div className="jobs-search-primary">
+          <label>
+            <span>Career profile</span>
+            <select value={profileId} onChange={(event) => void selectProfile(event.target.value)} required>
+              <option value="">Select profile</option>
+              {profiles.map((profile) => <option key={profile.id} value={profile.id}>{profile.name}</option>)}
+            </select>
           </label>
-
-          <div className="market-criteria-result-controls">
-            <label>
-              <span>Filter evaluated opportunities</span>
-              <input
-                type="search"
-                value={resultQuery}
-                onChange={(event) => setResultQuery(event.target.value)}
-                onKeyDown={(event) => { if (event.key === "Enter") event.preventDefault(); }}
-                placeholder="Title, company, keyword"
-              />
-            </label>
-            <label>
-              <span>Sort results</span>
-              <select value={sortMode} onChange={(event) => setSortMode(event.target.value as SortMode)}>
-                <option value="match">Alignment</option>
-                <option value="newest">Newest</option>
-                <option value="company">Company</option>
-              </select>
-            </label>
-          </div>
-
-          <details className="advanced-market-sources">
-            <summary>Advanced source controls</summary>
-            <p className="muted">CareerNavIQ reviews direct employer boards, remote sources, and broad-market publishers automatically. Add specific boards only when you need deeper coverage.</p>
-            <label htmlFor="greenhouse-sources">Greenhouse boards</label>
-            <textarea id="greenhouse-sources" rows={3} value={greenhouse} onChange={(event) => setGreenhouse(event.target.value)} placeholder="Optional board tokens or URLs" />
-            <label htmlFor="lever-sources">Lever sites</label>
-            <textarea id="lever-sources" rows={3} value={lever} onChange={(event) => setLever(event.target.value)} placeholder="Optional site names or URLs" />
-            <label htmlFor="ashby-sources">Ashby boards</label>
-            <textarea id="ashby-sources" rows={3} value={ashby} onChange={(event) => setAshby(event.target.value)} placeholder="Optional board names or URLs" />
-          </details>
-
-          <button disabled={busy || !profileId || !titles.trim()}>
-            {busy ? "Reviewing the market…" : "Run market review"}
+          <label className="jobs-location-field">
+            <span>Location</span>
+            <input value={location} onChange={(event) => setLocation(event.target.value)} placeholder="Tampa, Florida or Remote" />
+          </label>
+          <button className="jobs-search-button" disabled={busy || !profileId || !titles.trim()}>
+            {busy ? "Searching…" : "Search jobs"}
           </button>
-        </form>
-
-        <div className="market-results-column">
-          {loadingSaved ? <Notice title="Loading prior market intelligence"><p>Restoring previously evaluated opportunities for this career profile.</p></Notice> : null}
-          {busy ? <Notice title="Market review in progress"><p>CareerNavIQ is evaluating enabled sources, removing duplication, and scoring opportunities against your position.</p></Notice> : null}
-          {errors.length ? <Notice title="Some market coverage was unavailable" tone="warning"><ul>{Array.from(new Set(errors)).slice(0, 4).map((message) => <li key={message}>{message}</li>)}</ul></Notice> : null}
-
-          <section className="executive-panel market-results-panel">
-            <SectionHeader
-              title="Current market signals"
-              description={summary ? `${summary.matched} opportunities ranked from ${summary.unique} unique roles reviewed.` : results.length ? "Previously evaluated opportunities for this career profile." : "Run a market review to evaluate current opportunities."}
-            />
-
-            {visibleResults.length ? (
-              <div className="market-result-list">
-                {visibleResults.map((result) => (
-                  <article className="market-result-row" key={`${result.job.id}-${result.job.source}`}>
-                    <div className="market-alignment-score"><strong>{result.match.score}</strong><span>alignment</span></div>
-                    <div className="market-result-main">
-                      <div className="market-result-heading">
-                        <div><h3>{result.job.title}</h3><p>{result.job.company}</p></div>
-                        <span className="market-alignment-label">{alignmentLabel(result.match.score)}</span>
-                      </div>
-                      <div className="market-result-meta">
-                        <span>{result.job.location || "Location not listed"}</span>
-                        {result.job.remote ? <span>Remote</span> : null}
-                        {result.job.salary ? <span>{result.job.salary}</span> : null}
-                        <span>{postedLabel(result.job.posted_at)}</span>
-                      </div>
-                      {result.match.explanation ? <p className="market-result-explanation">{result.match.explanation}</p> : null}
-                      {result.match.matched_keywords?.length ? <div className="market-keywords">{result.match.matched_keywords.slice(0, 5).map((keyword) => <span key={keyword}>{keyword}</span>)}</div> : null}
-                    </div>
-                    <div className="market-result-actions">
-                      <Link className="button" href={`/jobs/${result.job.id}?profile_id=${profileId}`}>Review opportunity</Link>
-                      {result.job.url ? <a className="button secondary" href={result.job.url} target="_blank" rel="noreferrer">Source posting</a> : null}
-                    </div>
-                  </article>
-                ))}
-              </div>
-            ) : !busy && !loadingSaved ? (
-              <EmptyState title="No opportunities in the current view" description="Adjust the mandate or run a fresh market review. CareerNavIQ will keep technical source details out of the primary decision view." />
-            ) : null}
-          </section>
         </div>
+
+        <div className="jobs-search-context">
+          <span><strong>{targetCount || 0}</strong> target roles</span>
+          <span>All major sources + employer career sites</span>
+        </div>
+
+        <details className="jobs-search-options">
+          <summary>Search options</summary>
+          <div className="jobs-options-grid">
+            <label>
+              <span>Target roles</span>
+              <textarea rows={5} value={titles} onChange={(event) => setTitles(event.target.value)} placeholder={"Director, Loan Operations\nVP, Construction Lending"} />
+              <small>One title per line. These are filled from the selected career profile.</small>
+            </label>
+            <details className="advanced-market-sources">
+              <summary>Optional employer-board overrides</summary>
+              <p className="muted">CareerNavIQ already searches the full enabled network. Use these only for a specific employer board you want to force into the search.</p>
+              <label>Greenhouse boards</label>
+              <textarea rows={2} value={greenhouse} onChange={(event) => setGreenhouse(event.target.value)} />
+              <label>Lever sites</label>
+              <textarea rows={2} value={lever} onChange={(event) => setLever(event.target.value)} />
+              <label>Ashby boards</label>
+              <textarea rows={2} value={ashby} onChange={(event) => setAshby(event.target.value)} />
+            </details>
+          </div>
+        </details>
+      </form>
+
+      {loadingSaved ? <Notice title="Loading saved opportunities"><p>Restoring the most recent matches for this career profile.</p></Notice> : null}
+      {busy ? <Notice title="Searching the market"><p>CareerNavIQ is checking the enabled job network, employer career sites, removing duplicates, and ranking the strongest opportunities.</p></Notice> : null}
+      {errors.length ? <Notice title="Some sources were temporarily unavailable" tone="warning"><p>The search still completed across the available network.</p></Notice> : null}
+
+      <section className="executive-panel jobs-results-shell">
+        <div className="jobs-results-heading">
+          <SectionHeader
+            title="Opportunities"
+            description={summary ? `${summary.matched} matches from ${summary.unique} unique jobs.` : results.length ? `${results.length} saved opportunities for this profile.` : "Run a search to find current opportunities."}
+          />
+          <div className="jobs-results-count"><strong>{visibleResults.length}</strong><span>shown</span></div>
+        </div>
+
+        {results.length ? (
+          <div className="jobs-results-toolbar">
+            <div className="jobs-filter-pills" aria-label="Quick filters">
+              <button type="button" className={viewFilter === "all" ? "active" : ""} aria-pressed={viewFilter === "all"} onClick={() => setViewFilter("all")}>All <span>{results.length}</span></button>
+              <button type="button" className={viewFilter === "strong" ? "active" : ""} aria-pressed={viewFilter === "strong"} onClick={() => setViewFilter("strong")}>70%+ <span>{strongCount}</span></button>
+              <button type="button" className={viewFilter === "exceptional" ? "active" : ""} aria-pressed={viewFilter === "exceptional"} onClick={() => setViewFilter("exceptional")}>85%+ <span>{excellentCount}</span></button>
+              <button type="button" className={viewFilter === "remote" ? "active" : ""} aria-pressed={viewFilter === "remote"} onClick={() => setViewFilter("remote")}>Remote <span>{remoteCount}</span></button>
+            </div>
+            <label className="jobs-results-search">
+              <span className="sr-only">Filter results</span>
+              <input type="search" value={resultQuery} onChange={(event) => setResultQuery(event.target.value)} placeholder="Filter by title or company" />
+            </label>
+            <select className="jobs-sort" value={sortMode} onChange={(event) => setSortMode(event.target.value as SortMode)} aria-label="Sort opportunities">
+              <option value="match">Best match</option>
+              <option value="newest">Newest</option>
+              <option value="company">Company</option>
+            </select>
+          </div>
+        ) : null}
+
+        {visibleResults.length ? (
+          <div className="jobs-card-list">
+            {visibleResults.map((result) => (
+              <article className="jobs-opportunity-card" key={`${result.job.id}-${result.job.source}`}>
+                <div className="jobs-score-badge">
+                  <strong>{result.match.score}%</strong>
+                  <span>{alignmentLabel(result.match.score)}</span>
+                </div>
+                <div className="jobs-card-body">
+                  <div className="jobs-card-title-row">
+                    <div>
+                      <h3>{result.job.title}</h3>
+                      <p>{result.job.company}</p>
+                    </div>
+                    {result.job.remote ? <span className="jobs-remote-badge">Remote</span> : null}
+                  </div>
+                  <div className="jobs-card-meta">
+                    <span>{result.job.location || "Location not listed"}</span>
+                    {result.job.salary ? <span>{result.job.salary}</span> : null}
+                    <span>{postedLabel(result.job.posted_at)}</span>
+                  </div>
+                  {result.match.matched_keywords?.length ? (
+                    <div className="jobs-keyword-row">
+                      {result.match.matched_keywords.slice(0, 4).map((keyword) => <span key={keyword}>{keyword}</span>)}
+                    </div>
+                  ) : null}
+                  {result.match.explanation ? (
+                    <details className="jobs-match-details">
+                      <summary>Why this matches</summary>
+                      <p>{result.match.explanation}</p>
+                    </details>
+                  ) : null}
+                </div>
+                <div className="jobs-card-actions">
+                  <Link className="button" href={`/jobs/${result.job.id}?profile_id=${profileId}`}>View & tailor</Link>
+                  {result.job.url ? <a className="jobs-source-link" href={result.job.url} target="_blank" rel="noreferrer">Open posting ↗</a> : null}
+                </div>
+              </article>
+            ))}
+          </div>
+        ) : !busy && !loadingSaved ? (
+          <EmptyState title="No opportunities in this view" description="Try another quick filter, adjust the location, or run a fresh search." />
+        ) : null}
       </section>
     </>
   );
