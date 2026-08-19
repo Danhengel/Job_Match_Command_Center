@@ -44,7 +44,7 @@ export default function LoginPage() {
       <section className="auth-form-panel auth-form-panel-centered" style={authHeroBackgroundStyle}>
         <div className="auth-centered-shell">
           <Link href="/" className="auth-centered-logo" aria-label="CareerNavIQ home">
-            <img src="/careernaviq-logo-home.png?v=20260819classic" alt="CareerNavIQ" />
+            <img src="/careernaviq-logo-hero-transparent.png?v=20260819full" width="1920" height="547" alt="CareerNavIQ" />
           </Link>
 
           <div className="auth-card auth-card-large">
