@@ -211,7 +211,12 @@ export default function ProfileDetail({ params }: { params: Promise<{ id: string
       eyebrow="CAREER PROFILE"
       title={p.name}
       description={`${p.home_location || "Location not set"} · ${p.salary_target ? `Target $${p.salary_target.toLocaleString()}` : "Salary target not set"}`}
-      actions={<Link className="button secondary" href={`/profiles/${id}/edit`}>Edit profile</Link>}
+      actions={
+        <div className="row wrap">
+          <Link className="button secondary" href={`/profiles/${id}/edit`}>Edit profile</Link>
+          <Link className="button" href="/resumes">Next: Resume Library →</Link>
+        </div>
+      }
     />
 
     {error ? <Notice title="Profile needs attention" tone="error"><p>{error}</p></Notice> : null}
