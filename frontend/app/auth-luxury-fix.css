@@ -5,7 +5,7 @@
 }
 
 .auth-shell-with-footer .auth-content {
-  min-height: calc(100vh - 76px);
+  min-height: 100dvh !important;
   display: grid;
   place-items: center;
   padding: 28px 20px 18px;
