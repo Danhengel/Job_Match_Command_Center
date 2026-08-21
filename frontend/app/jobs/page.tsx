@@ -132,7 +132,11 @@ export default function JobsPage() {
       try {
         const savedFeedback = window.localStorage.getItem("careernaviq-job-feedback");
         if (savedFeedback) {
-          setFeedback(JSON.parse(savedFeedback) as FeedbackState);
+          try {
+            setFeedback(JSON.parse(savedFeedback) as FeedbackState);
+          } catch {
+            window.localStorage.removeItem("careernaviq-job-feedback");
+          }
         }
         const profileData = await api("/api/profiles");
         if (!active) return;
