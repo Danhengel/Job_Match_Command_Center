@@ -30,6 +30,20 @@ router = APIRouter(prefix="/api/jobs", tags=["Jobs"])
 MAX_EXTERNAL_TITLES = 10
 MAX_EXTERNAL_WORKERS = 8
 MAX_TARGET_COMPANIES = 15
+PLACEMENT_AGENCIES = (
+    "Robert Half",
+    "Michael Page",
+    "LHH",
+    "Korn Ferry",
+    "Selby Jennings",
+    "JCW",
+    "Kforce",
+    "Randstad",
+    "DAVRON",
+    "CyberCoders",
+    "gpac",
+    "MRI Network",
+)
 
 
 def normalized_job_key(company: str, title: str, location: str) -> str:
@@ -138,6 +152,23 @@ def target_company_queries(
     return [
         (company, f"{primary_title} at {company} in {location}")
         for company in companies[:MAX_TARGET_COMPANIES]
+    ]
+
+
+def placement_agency_queries(
+    titles: list[str],
+    location: str,
+) -> list[tuple[str, str]]:
+    if not titles:
+        return []
+
+    primary_title = titles[0]
+    return [
+        (
+            agency,
+            f"{primary_title} recruiter placement agency {agency} in {location}",
+        )
+        for agency in PLACEMENT_AGENCIES
     ]
 
 
@@ -453,6 +484,50 @@ def search_all(
             )
         )
 
+    agency_queries = placement_agency_queries(
+        titles,
+        body.jsearch_location,
+    )
+    if body.use_jsearch and agency_queries:
+        source_name = "Major placement agencies"
+        searched_sources.append(source_name)
+        agency_jobs = 0
+        agency_failures = 0
+        with ThreadPoolExecutor(max_workers=MAX_EXTERNAL_WORKERS) as executor:
+            agency_futures = {
+                executor.submit(job_sources.jsearch, query): (agency, query)
+                for agency, query in agency_queries
+            }
+            for future in as_completed(agency_futures):
+                agency, query = agency_futures[future]
+                try:
+                    batch = future.result()
+                    for row in batch:
+                        original_source = row.get("source") or "JSearch"
+                        row["source"] = (
+                            f"Placement agency: {agency} / {original_source}"
+                        )
+                    rows.extend(batch)
+                    agency_jobs += len(batch)
+                    if not batch:
+                        coverage_notes.append(
+                            f"No current placement-agency results from '{agency}'."
+                        )
+                except Exception as exc:
+                    agency_failures += 1
+                    errors.append(
+                        f"Placement agency {agency}: "
+                        f"{job_sources.source_error_message(exc)}"
+                    )
+        source_status.append(
+            base_jobs.source_status_item(
+                source_name,
+                agency_jobs,
+                agency_failures,
+                len(agency_queries),
+            )
+        )
+
     merge_rows(base, rows, body, profile, resume_text, db)
     prioritize_target_company_results(base, target_companies)
     base.update(
@@ -464,6 +539,7 @@ def search_all(
             "connector_setup": capabilities,
             "external_titles_searched": titles,
             "target_companies_searched": target_companies,
+            "placement_agencies_searched": list(PLACEMENT_AGENCIES),
         }
     )
 
