@@ -27,7 +27,7 @@ from app.services.job_matcher import match_job
 
 
 router = APIRouter(prefix="/api/jobs", tags=["Jobs"])
-MAX_EXTERNAL_TITLES = 6
+MAX_EXTERNAL_TITLES = 10
 MAX_EXTERNAL_WORKERS = 8
 MAX_TARGET_COMPANIES = 15
 
