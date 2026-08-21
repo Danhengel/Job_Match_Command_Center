@@ -123,3 +123,48 @@ def test_exclusion_keywords_still_reduce_score():
 
     assert result["score"] == 96
     assert "commission only" in result["concerns"]
+
+
+def test_riverview_profile_treats_tampa_as_local_market():
+    profile = SimpleNamespace(
+        target_titles=["Director, Commercial Loan Operations"],
+        priority_keywords=[],
+        exclusion_keywords=[],
+        home_location="Riverview, Florida",
+        remote_preferred=True,
+        hybrid_preferred=True,
+    )
+    job = SimpleNamespace(
+        title="Director, Commercial Loan Operations",
+        description="Lead commercial loan servicing operations.",
+        location="Tampa, FL",
+        remote=False,
+        salary="$180,000",
+    )
+
+    result = match_job(job, profile, "")
+
+    assert result["location_score"] == 100
+
+
+def test_executive_search_penalizes_junior_results():
+    profile = SimpleNamespace(
+        target_titles=["Vice President, Loan Servicing"],
+        priority_keywords=["loan servicing"],
+        exclusion_keywords=[],
+        home_location="Riverview, Florida",
+        remote_preferred=True,
+        hybrid_preferred=True,
+    )
+    job = SimpleNamespace(
+        title="Loan Servicing Coordinator",
+        description="Support loan servicing workflows.",
+        location="Remote - United States",
+        remote=True,
+        salary="$65,000",
+    )
+
+    result = match_job(job, profile, "")
+
+    assert result["score"] < 60
+    assert "Seniority is below the target level" in result["concerns"]

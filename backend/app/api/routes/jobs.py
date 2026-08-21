@@ -15,6 +15,7 @@ from app.schemas.jobs import JobSearchRequest
 from app.services import job_sources
 from app.services.cache_service import stats as cache_stats
 from app.services.job_matcher import match_job
+from app.services.job_quality import ranking_score
 
 
 router = APIRouter(prefix="/api/jobs", tags=["Jobs"])
@@ -471,7 +472,14 @@ def search(
     db.add(search_run)
     db.commit()
 
-    results.sort(key=lambda item: item[1].score, reverse=True)
+    results.sort(
+        key=lambda item: ranking_score(
+            item[1].score,
+            item[0].source,
+            item[0].posted_at,
+        ),
+        reverse=True,
+    )
 
     top_below_threshold: list[dict] = []
 
@@ -544,7 +552,10 @@ def matches(
     rows = (
         db.query(JobMatch, Job)
         .join(Job, Job.id == JobMatch.job_id)
-        .filter(JobMatch.profile_id == profile_id)
+        .filter(
+            JobMatch.profile_id == profile_id,
+            Job.active.is_(True),
+        )
         .order_by(JobMatch.score.desc())
         .limit(300)
         .all()
