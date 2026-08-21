@@ -4,8 +4,12 @@ from app.api.routes.jobs import (
     split_search_locations,
 )
 from app.api.routes.job_search_all import (
+    NICHE_JOB_SOURCES,
     PLACEMENT_AGENCIES,
+    STRATEGIC_EMPLOYERS,
+    niche_source_queries,
     placement_agency_queries,
+    strategic_employer_queries,
 )
 
 
@@ -59,3 +63,25 @@ def test_major_placement_agencies_are_searched():
     assert any(agency == "Robert Half" for agency, _query in queries)
     assert any(agency == "Michael Page" for agency, _query in queries)
     assert all("Vice President, Loan Servicing" in query for _agency, query in queries)
+
+
+def test_niche_job_sources_receive_targeted_queries():
+    queries = niche_source_queries(
+        ["Director, Asset Management"],
+        "Remote",
+    )
+
+    assert len(queries) == len(NICHE_JOB_SOURCES)
+    assert any(name == "CREFC Career Center" for name, _query in queries)
+    assert any(name == "OFN Job Bank" for name, _query in queries)
+
+
+def test_strategic_employer_watchlist_receives_queries():
+    queries = strategic_employer_queries(
+        ["Director, Commercial Loan Operations"],
+        "Tampa, Florida",
+    )
+
+    assert len(queries) == len(STRATEGIC_EMPLOYERS)
+    assert any(name == "Suncoast Credit Union" for name, _query in queries)
+    assert any(name == "CAHEC" for name, _query in queries)
