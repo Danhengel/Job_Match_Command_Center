@@ -17,8 +17,8 @@ from app.services import job_quality, jobspipe_source
 
 router = APIRouter(prefix="/api/jobs", tags=["Jobs"])
 MAX_WORKERS = 8
-BROAD_JOBSPIPE_LIMIT = 13
-MAJOR_BOARD_LIMIT = 2
+BROAD_JOBSPIPE_LIMIT = 75
+MAJOR_BOARD_LIMIT = 10
 
 
 @router.post("/search")

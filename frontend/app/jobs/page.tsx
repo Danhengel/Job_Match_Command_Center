@@ -212,7 +212,7 @@ export default function JobsPage() {
     }
 
     try {
-      const endpoint = sources.expandedWeb ? "/api/jobs/search-everywhere" : "/api/jobs/search";
+      const endpoint = "/api/jobs/search";
       const data = await api(endpoint, {
         method: "POST",
         body: JSON.stringify({
@@ -226,7 +226,7 @@ export default function JobsPage() {
           use_catalog: sources.employerSites,
           use_saved_career_pages: sources.employerSites,
           jsearch_location: location,
-          minimum_score: 0,
+          minimum_score: 25,
           greenhouse_boards: sources.employerSites ? greenhouse.split("\n").map((value) => value.trim()).filter(Boolean) : [],
           lever_boards: sources.employerSites ? lever.split("\n").map((value) => value.trim()).filter(Boolean) : [],
           ashby_boards: sources.employerSites ? ashby.split("\n").map((value) => value.trim()).filter(Boolean) : [],
