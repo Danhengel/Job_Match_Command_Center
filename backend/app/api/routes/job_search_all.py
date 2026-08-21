@@ -43,6 +43,50 @@ PLACEMENT_AGENCIES = (
     "CyberCoders",
     "gpac",
     "MRI Network",
+    "KM Partners",
+    "StevenDouglas",
+    "The Symicor Group",
+    "Atlantic Group",
+)
+NICHE_JOB_SOURCES = (
+    ("CREFC Career Center", "CRE Finance Council career center"),
+    ("MBA Career Center", "Mortgage Bankers Association career center"),
+    ("OFN Job Bank", "Opportunity Finance Network CDFI job bank"),
+    ("Novogradac Jobs", "Novogradac affordable housing jobs"),
+    ("NALHFA Career Center", "NALHFA affordable housing finance careers"),
+    ("SelectLeaders", "SelectLeaders commercial real estate finance jobs"),
+)
+STRATEGIC_EMPLOYERS = (
+    "Suncoast Credit Union",
+    "The Bank of Tampa",
+    "M&T Bank",
+    "Valley Bank",
+    "Truist",
+    "Huntington Bank",
+    "Capital One",
+    "U.S. Bank",
+    "Wells Fargo",
+    "First Citizens Bank",
+    "PNC",
+    "Regions Bank",
+    "Fifth Third Bank",
+    "JLL",
+    "Cushman & Wakefield",
+    "CBRE",
+    "Berkadia",
+    "Greystone",
+    "Trimont",
+    "Built Technologies",
+    "Kiavi",
+    "Counterpointe",
+    "Land Gorilla",
+    "LISC",
+    "Enterprise Community Partners",
+    "BlueHub Capital",
+    "Low Income Investment Fund",
+    "Cinnaire",
+    "R4 Capital",
+    "CAHEC",
 )
 
 
@@ -169,6 +213,38 @@ def placement_agency_queries(
             f"{primary_title} recruiter placement agency {agency} in {location}",
         )
         for agency in PLACEMENT_AGENCIES
+    ]
+
+
+def niche_source_queries(
+    titles: list[str],
+    location: str,
+) -> list[tuple[str, str]]:
+    if not titles:
+        return []
+    primary_title = titles[0]
+    return [
+        (
+            source_name,
+            f"{primary_title} {search_term} in {location}",
+        )
+        for source_name, search_term in NICHE_JOB_SOURCES
+    ]
+
+
+def strategic_employer_queries(
+    titles: list[str],
+    location: str,
+) -> list[tuple[str, str]]:
+    if not titles:
+        return []
+    primary_title = titles[0]
+    return [
+        (
+            employer,
+            f"{primary_title} at {employer} in {location}",
+        )
+        for employer in STRATEGIC_EMPLOYERS
     ]
 
 
@@ -528,6 +604,53 @@ def search_all(
             )
         )
 
+    supplemental_groups = (
+        (
+            "Specialized industry job boards",
+            niche_source_queries(titles, body.jsearch_location),
+            "Niche source",
+        ),
+        (
+            "Strategic employer watchlist",
+            strategic_employer_queries(titles, body.jsearch_location),
+            "Strategic employer",
+        ),
+    )
+    if body.use_jsearch:
+        for source_name, queries, error_label in supplemental_groups:
+            searched_sources.append(source_name)
+            jobs_found = 0
+            failures = 0
+            with ThreadPoolExecutor(max_workers=MAX_EXTERNAL_WORKERS) as executor:
+                query_futures = {
+                    executor.submit(job_sources.jsearch, query): (name, query)
+                    for name, query in queries
+                }
+                for future in as_completed(query_futures):
+                    name, query = query_futures[future]
+                    try:
+                        batch = future.result()
+                        rows.extend(batch)
+                        jobs_found += len(batch)
+                        if not batch:
+                            coverage_notes.append(
+                                f"No current results from '{name}'."
+                            )
+                    except Exception as exc:
+                        failures += 1
+                        errors.append(
+                            f"{error_label} {name}: "
+                            f"{job_sources.source_error_message(exc)}"
+                        )
+            source_status.append(
+                base_jobs.source_status_item(
+                    source_name,
+                    jobs_found,
+                    failures,
+                    len(queries),
+                )
+            )
+
     merge_rows(base, rows, body, profile, resume_text, db)
     prioritize_target_company_results(base, target_companies)
     base.update(
@@ -540,6 +663,10 @@ def search_all(
             "external_titles_searched": titles,
             "target_companies_searched": target_companies,
             "placement_agencies_searched": list(PLACEMENT_AGENCIES),
+            "niche_sources_searched": [
+                source_name for source_name, _term in NICHE_JOB_SOURCES
+            ],
+            "strategic_employers_searched": list(STRATEGIC_EMPLOYERS),
         }
     )
 

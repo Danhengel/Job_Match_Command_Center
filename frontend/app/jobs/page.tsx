@@ -51,6 +51,8 @@ type SourceSelection = {
 
 type SortMode = "match" | "newest" | "company";
 type ViewFilter = "all" | "strong" | "exceptional" | "remote";
+type FeedbackValue = "relevant" | "not_relevant" | "reviewed";
+type FeedbackState = Record<string, FeedbackValue>;
 
 const defaultSources: SourceSelection = {
   jsearch: true,
@@ -103,6 +105,7 @@ export default function JobsPage() {
   const [lever, setLever] = useState("");
   const [ashby, setAshby] = useState("");
   const [sources, setSources] = useState<SourceSelection>(defaultSources);
+  const [feedback, setFeedback] = useState<FeedbackState>({});
 
   async function loadSavedMatches(id: string) {
     if (!id) {
@@ -127,6 +130,14 @@ export default function JobsPage() {
     let active = true;
     (async () => {
       try {
+        const savedFeedback = window.localStorage.getItem("careernaviq-job-feedback");
+        if (savedFeedback) {
+          try {
+            setFeedback(JSON.parse(savedFeedback) as FeedbackState);
+          } catch {
+            window.localStorage.removeItem("careernaviq-job-feedback");
+          }
+        }
         const profileData = await api("/api/profiles");
         if (!active) return;
         const normalizedProfiles = Array.isArray(profileData) ? profileData : [];
@@ -151,6 +162,8 @@ export default function JobsPage() {
   const visibleResults = useMemo(() => {
     const query = resultQuery.trim().toLowerCase();
     const filtered = results.filter((result) => {
+      const decision = feedback[String(result.job.id)];
+      if (decision === "not_relevant" || decision === "reviewed") return false;
       if (viewFilter === "remote" && !result.job.remote) return false;
       if (viewFilter === "strong" && result.match.score < 70) return false;
       if (viewFilter === "exceptional" && result.match.score < 85) return false;
@@ -170,9 +183,22 @@ export default function JobsPage() {
       if (sortMode === "newest") {
         return new Date(b.job.posted_at || 0).getTime() - new Date(a.job.posted_at || 0).getTime();
       }
-      return b.match.score - a.match.score;
+      const aBoost = feedback[String(a.job.id)] === "relevant" ? 8 : 0;
+      const bBoost = feedback[String(b.job.id)] === "relevant" ? 8 : 0;
+      return (b.match.score + bBoost) - (a.match.score + aBoost);
     });
-  }, [results, resultQuery, sortMode, viewFilter]);
+  }, [results, resultQuery, sortMode, viewFilter, feedback]);
+
+  function setJobFeedback(jobId: number, value: FeedbackValue) {
+    setFeedback((current) => {
+      const next = { ...current, [String(jobId)]: value };
+      window.localStorage.setItem(
+        "careernaviq-job-feedback",
+        JSON.stringify(next),
+      );
+      return next;
+    });
+  }
 
   async function selectProfile(id: string) {
     setProfileId(id);
@@ -413,6 +439,11 @@ export default function JobsPage() {
                   ) : null}
                 </div>
                 <div className="jobs-card-actions">
+                  <div className="jobs-feedback-actions" aria-label="Opportunity feedback">
+                    <button type="button" className="jobs-feedback-button" onClick={() => setJobFeedback(result.job.id, "relevant")}>Relevant</button>
+                    <button type="button" className="jobs-feedback-button" onClick={() => setJobFeedback(result.job.id, "not_relevant")}>Not relevant</button>
+                    <button type="button" className="jobs-feedback-button" onClick={() => setJobFeedback(result.job.id, "reviewed")}>Reviewed</button>
+                  </div>
                   <Link className="button" href={`/jobs/${result.job.id}?profile_id=${profileId}`}>View & tailor</Link>
                   {result.job.url ? <a className="jobs-source-link" href={result.job.url} target="_blank" rel="noreferrer">Open posting ↗</a> : null}
                 </div>

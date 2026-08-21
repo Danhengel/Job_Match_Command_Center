@@ -623,3 +623,29 @@
     grid-template-columns: 1fr;
   }
 }
+
+
+/* Job-result feedback controls */
+.jobs-feedback-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  width: 100%;
+}
+
+.jobs-feedback-button {
+  min-height: 30px !important;
+  padding: 0 10px !important;
+  border: 1px solid rgba(201, 151, 79, .34) !important;
+  border-radius: 999px !important;
+  background: rgba(255, 255, 255, .05) !important;
+  color: rgba(246, 241, 233, .78) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+}
+
+.jobs-feedback-button:hover {
+  border-color: #ddb36e !important;
+  background: rgba(201, 151, 79, .14) !important;
+  color: #fff !important;
+}
