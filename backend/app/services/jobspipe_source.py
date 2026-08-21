@@ -24,6 +24,31 @@ MAJOR_BOARD_SOURCES = {
     "usajobs": "USAJOBS",
     "ycombinator": "Y Combinator Jobs",
 }
+# Query these large and specialist publishers as one source group so searches gain
+# breadth without multiplying API usage by one request per board.
+EXPANDED_BOARD_SOURCES = {
+    "monster": "Monster",
+    "careerbuilder": "CareerBuilder",
+    "dice": "Dice",
+    "simplyhired": "SimplyHired",
+    "wellfound": "Wellfound",
+    "builtin": "Built In",
+    "themuse": "The Muse",
+    "efinancialcareers": "eFinancialCareers",
+    "governmentjobs": "GovernmentJobs",
+    "jooble": "Jooble",
+    "adzuna": "Adzuna",
+    "careeronestop": "CareerOneStop / NLx",
+    "flexjobs": "FlexJobs",
+    "theladders": "Ladders",
+    "idealist": "Idealist",
+    "higheredjobs": "HigherEdJobs",
+    "joinhandshake": "Handshake",
+    "weworkremotely": "We Work Remotely",
+    "remote-co": "Remote.co",
+    "talent": "Talent.com",
+    "careerjet": "Careerjet",
+}
 CORE_ATS_COVERAGE = [
     "Workday",
     "Greenhouse",
