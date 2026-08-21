@@ -19,6 +19,7 @@ router = APIRouter(prefix="/api/jobs", tags=["Jobs"])
 MAX_WORKERS = 8
 BROAD_JOBSPIPE_LIMIT = 75
 MAJOR_BOARD_LIMIT = 10
+EXPANDED_BOARD_LIMIT = 50
 
 
 @router.post("/search")
@@ -57,6 +58,11 @@ def enriched_search(
             (f"JobsPipe / {label}", [source_key], MAJOR_BOARD_LIMIT)
             for source_key, label in jobspipe_source.MAJOR_BOARD_SOURCES.items()
         ],
+        (
+            "JobsPipe / expanded major boards",
+            list(jobspipe_source.EXPANDED_BOARD_SOURCES),
+            EXPANDED_BOARD_LIMIT,
+        ),
     ]
     totals = {
         name: {"jobs": 0, "failures": 0, "requests": 1}
@@ -84,10 +90,16 @@ def enriched_search(
                 totals[source_name]["jobs"] += len(batch)
                 if not batch:
                     if sources:
-                        label = jobspipe_source.source_label(sources[0])
-                        coverage_notes.append(
-                            f"{label} returned no current JobsPipe matches for this search."
-                        )
+                        if len(sources) == 1:
+                            label = jobspipe_source.source_label(sources[0])
+                            coverage_notes.append(
+                                f"{label} returned no current JobsPipe matches for this search."
+                            )
+                        else:
+                            coverage_notes.append(
+                                "Expanded major boards returned no current JobsPipe matches "
+                                "for this search."
+                            )
                     else:
                         coverage_notes.append(
                             "JobsPipe broad coverage returned no current matches."
@@ -111,18 +123,29 @@ def enriched_search(
             )
         )
         if sources:
-            label = jobspipe_source.source_label(sources[0])
             if values["jobs"]:
                 status = "success"
             elif values["failures"]:
                 status = "failed"
             else:
                 status = "empty"
-            major_board_coverage[label] = {
-                "status": status,
-                "jobs": values["jobs"],
-                "via": "JobsPipe",
-            }
+            labels = [jobspipe_source.source_label(source) for source in sources]
+            for label in labels:
+                coverage = {
+                    "status": status,
+                    "via": "JobsPipe",
+                }
+                if len(labels) == 1:
+                    coverage["jobs"] = values["jobs"]
+                else:
+                    coverage["query"] = "grouped"
+                major_board_coverage[label] = coverage
+            if len(labels) > 1:
+                major_board_coverage["Expanded major boards (combined)"] = {
+                    "status": status,
+                    "jobs": values["jobs"],
+                    "via": "JobsPipe",
+                }
 
     major_board_coverage["Google Jobs publishers"] = {
         "status": "enabled",
