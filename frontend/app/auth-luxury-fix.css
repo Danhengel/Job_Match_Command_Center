@@ -41,10 +41,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  justify-self: center;
   width: 100%;
   min-height: 0;
+  margin-inline: auto;
   padding: 0;
   overflow: visible;
+  text-align: center;
 }
 
 .auth-page-luxury .auth-centered-logo img {
@@ -53,7 +56,9 @@
   max-width: 100% !important;
   max-height: 102px !important;
   height: auto !important;
+  margin-inline: auto !important;
   object-fit: contain;
+  object-position: 50% 50%;
   filter: drop-shadow(0 10px 26px rgba(0,0,0,.32));
 }
 
