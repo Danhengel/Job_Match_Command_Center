@@ -93,3 +93,12 @@ def test_closed_job_is_heavily_penalized():
     )
 
     assert closed < active
+
+
+def test_recruiter_source_ranks_below_direct_employer_but_above_aggregator():
+    recruiter = job_quality.source_quality(
+        "Placement agency: Robert Half / JSearch"
+    )
+
+    assert recruiter < job_quality.source_quality("Greenhouse career page")
+    assert recruiter > job_quality.source_quality("JSearch")
