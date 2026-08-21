@@ -108,6 +108,41 @@ def expand_search_titles(titles: list[str]) -> list[str]:
             "Specialty Loan Servicing",
             "Loan Administration",
         ],
+        "asset management": [
+            "Commercial Real Estate Asset Management",
+            "Multifamily Asset Management",
+            "Affordable Housing Asset Management",
+            "Real Estate Portfolio Management",
+            "Special Assets",
+        ],
+        "fund management": [
+            "Fund Management",
+            "Investment Fund Operations",
+            "Investor Reporting",
+            "LIHTC Fund Management",
+            "Real Estate Fund Management",
+        ],
+        "special servicing": [
+            "Special Servicing",
+            "Special Assets",
+            "Loan Workout",
+            "Distressed Loan Management",
+            "Default Management",
+        ],
+        "sba": [
+            "SBA Loan Operations",
+            "SBA Servicing",
+            "Government Guaranteed Lending",
+            "GGL Operations",
+            "SBA Portfolio Management",
+        ],
+        "capital program": [
+            "Capital Program Management",
+            "Construction Program Management",
+            "Capital Projects Director",
+            "Construction Finance",
+            "Program Operations Director",
+        ],
     }
 
     expanded_titles: list[str] = []
@@ -125,6 +160,39 @@ def expand_search_titles(titles: list[str]) -> list[str]:
                 expanded_titles.extend(alternatives)
 
     return list(dict.fromkeys(expanded_titles))
+
+
+def split_search_locations(value: str) -> list[str]:
+    """Turn a compound UI location into source-friendly search scopes."""
+    raw = (value or "").strip()
+    if not raw:
+        return ["United States"]
+
+    normalized = raw.lower()
+    locations: list[str] = []
+
+    if "tampa" in normalized or "riverview" in normalized:
+        locations.append("Tampa, Florida")
+    if "remote" in normalized or "work from home" in normalized:
+        locations.append("Remote")
+
+    if not locations:
+        locations.append(raw)
+
+    return list(dict.fromkeys(locations))
+
+
+def prioritized_search_titles(
+    base_titles: list[str],
+    expanded_titles: list[str],
+    limit: int = 24,
+) -> list[str]:
+    """Preserve every requested title before adding related variants."""
+    ordered = [
+        *base_titles,
+        *(title for title in expanded_titles if title not in base_titles),
+    ]
+    return list(dict.fromkeys(ordered))[:limit]
 
 
 def source_status_item(
@@ -371,28 +439,34 @@ def search(
         searched_sources.append("JSearch")
         jsearch_jobs = 0
         jsearch_failures = 0
-        for title in expanded_titles:
-            query = f"{title} in {body.jsearch_location}"
-            try:
-                batch = job_sources.jsearch(query)
-                jsearch_jobs += len(batch)
-                rows.extend(batch)
-                if not batch:
-                    coverage_notes.append(
-                        f"JSearch returned no jobs for '{query}'."
+        jsearch_titles = prioritized_search_titles(
+            base_titles,
+            expanded_titles,
+        )
+        search_locations = split_search_locations(body.jsearch_location)
+        for title in jsearch_titles:
+            for search_location in search_locations:
+                query = f"{title} in {search_location}"
+                try:
+                    batch = job_sources.jsearch(query)
+                    jsearch_jobs += len(batch)
+                    rows.extend(batch)
+                    if not batch:
+                        coverage_notes.append(
+                            f"JSearch returned no jobs for '{query}'."
+                        )
+                except Exception as exc:
+                    jsearch_failures += 1
+                    errors.append(
+                        f"JSearch {title} in {search_location}: "
+                        f"{job_sources.source_error_message(exc)}"
                     )
-            except Exception as exc:
-                jsearch_failures += 1
-                errors.append(
-                    f"JSearch {title}: "
-                    f"{job_sources.source_error_message(exc)}"
-                )
         source_status.append(
             source_status_item(
                 "JSearch / Google Jobs publishers",
                 jsearch_jobs,
                 jsearch_failures,
-                len(expanded_titles),
+                len(jsearch_titles) * len(search_locations),
             )
         )
 
