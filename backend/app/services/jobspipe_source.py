@@ -156,6 +156,8 @@ def source_label(value: str) -> str:
     normalized = (value or "").strip().lower()
     if normalized in MAJOR_BOARD_SOURCES:
         return MAJOR_BOARD_SOURCES[normalized]
+    if normalized in EXPANDED_BOARD_SOURCES:
+        return EXPANDED_BOARD_SOURCES[normalized]
     if not normalized:
         return "JobsPipe"
     return normalized.replace("-", " ").replace("_", " ").title()
