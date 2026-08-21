@@ -51,6 +51,11 @@ AGGREGATOR_MARKERS = (
     "monster",
     "simplyhired",
 )
+RECRUITER_MARKERS = (
+    "placement agency",
+    "recruiter",
+    "staffing",
+)
 REMOTE_BOARD_MARKERS = (
     "remotive",
     "remote ok",
@@ -136,6 +141,8 @@ def source_quality(source: str) -> int:
         return 96
     if any(marker in value for marker in MAJOR_BOARD_MARKERS):
         return 88
+    if any(marker in value for marker in RECRUITER_MARKERS):
+        return 84
     if any(marker in value for marker in AGGREGATOR_MARKERS):
         return 80
     if any(marker in value for marker in REMOTE_BOARD_MARKERS):
