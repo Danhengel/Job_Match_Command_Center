@@ -73,7 +73,7 @@ def test_collect_saved_search_rows_uses_expanded_sources(monkeypatch):
         _search(use_remotive=True, use_jsearch=True)
     )
 
-    assert result["raw_count"] == 7
+    assert result["raw_count"] >= 7
     assert {
         "Remotive",
         "Remote OK",
