@@ -68,6 +68,17 @@ def _search_due(search: SavedSearch, local_now: datetime, preference: Automation
     except ZoneInfoNotFoundError:
         zone = ZoneInfo("UTC")
     last_local = search.last_run_at.replace(tzinfo=timezone.utc).astimezone(zone)
+    if cadence == "twice_daily":
+        search_hours = (
+            preference.daily_brief_hour,
+            min(preference.daily_brief_hour + 8, 20),
+        )
+        due_slots = [hour for hour in search_hours if hour <= local_now.hour]
+        if not due_slots:
+            return False
+        if last_local.date() < local_now.date():
+            return True
+        return last_local.hour < max(due_slots)
     if cadence in {"daily", "weekdays"}:
         return last_local.date() < local_now.date()
     if cadence == "weekly":
