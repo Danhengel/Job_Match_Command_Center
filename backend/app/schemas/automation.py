@@ -55,7 +55,7 @@ class AutomationPreferenceUpdate(BaseModel):
     def validate_frequency(cls, value):
         if value is None:
             return value
-        allowed = {"instant", "daily", "weekdays", "weekly", "manual"}
+        allowed = {"instant", "twice_daily", "daily", "weekdays", "weekly", "manual"}
         if value not in allowed:
             raise ValueError("Unsupported frequency")
         return value
