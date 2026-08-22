@@ -27,7 +27,7 @@ from app.services.job_matcher import match_job
 
 
 router = APIRouter(prefix="/api/jobs", tags=["Jobs"])
-MAX_EXTERNAL_TITLES = 10
+MAX_EXTERNAL_TITLES = 20
 MAX_EXTERNAL_WORKERS = 8
 MAX_TARGET_COMPANIES = 15
 PLACEMENT_AGENCIES = (
@@ -87,6 +87,20 @@ STRATEGIC_EMPLOYERS = (
     "Cinnaire",
     "R4 Capital",
     "CAHEC",
+    "Community Preservation Corporation",
+    "National Community Investment Fund",
+    "Local Initiatives Support Corporation",
+    "National Equity Fund",
+    "Enterprise Housing Credit Investments",
+    "Boston Financial",
+    "Raymond James Affordable Housing Investments",
+    "KeyBank Community Development Lending",
+    "Bank of America Community Development Banking",
+    "Citi Community Capital",
+    "Walker & Dunlop",
+    "NewPoint Real Estate Capital",
+    "Mesa West Capital",
+    "Ares Commercial Real Estate",
 )
 
 
@@ -210,7 +224,11 @@ def placement_agency_queries(
     return [
         (
             agency,
-            f"{primary_title} recruiter placement agency {agency} in {location}",
+            (
+                f"{primary_title} {agency} banking commercial real estate "
+                f"credit risk loan operations affordable housing recruiter "
+                f"in {location}"
+            ),
         )
         for agency in PLACEMENT_AGENCIES
     ]
