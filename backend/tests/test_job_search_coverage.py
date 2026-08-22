@@ -16,7 +16,10 @@ from app.api.routes.job_search_all import (
 def test_compound_tampa_remote_location_splits_into_two_searches():
     assert split_search_locations("Tampa, Florida or Remote") == [
         "Tampa, Florida",
-        "Remote",
+        "St. Petersburg, Florida",
+        "Riverview, Florida",
+        "Florida",
+        "Remote - United States",
     ]
 
 
@@ -85,3 +88,24 @@ def test_strategic_employer_watchlist_receives_queries():
     assert len(queries) == len(STRATEGIC_EMPLOYERS)
     assert any(name == "Suncoast Credit Union" for name, _query in queries)
     assert any(name == "CAHEC" for name, _query in queries)
+
+
+def test_finance_titles_expand_across_executive_role_families():
+    expanded = expand_search_titles(["Director, Construction Loan Administration"])
+
+    assert "Senior Director, CRE Loan Operations" in expanded
+    assert "Vice President, Credit Administration and Risk" in expanded
+    assert "Head of, Special Servicing and Loan Workouts" in expanded
+
+
+def test_placement_agency_queries_include_financial_specialties():
+    query = dict(
+        placement_agency_queries(
+            ["Vice President, Loan Servicing"],
+            "Remote - United States",
+        )
+    )["Robert Half"]
+
+    assert "commercial real estate" in query
+    assert "credit risk" in query
+    assert "affordable housing" in query
