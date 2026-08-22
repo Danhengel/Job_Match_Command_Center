@@ -265,7 +265,11 @@ def collect_saved_search_rows(
             try:
                 batch = future.result() or []
                 if filter_titles:
-                    batch = [row for row in batch if _matches_titles(row, titles)]
+                    batch = [
+                        row
+                        for row in batch
+                        if _matches_titles(row, requested_titles)
+                    ]
                 rows.extend(batch)
                 totals[source]["jobs"] += len(batch)
                 if watch is not None:
