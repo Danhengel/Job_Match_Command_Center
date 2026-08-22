@@ -108,7 +108,8 @@ def test_collect_saved_search_rows_reports_unconfigured_optional_sources(monkeyp
 
     assert result["rows"] == []
     assert result["searched_sources"] == []
-    assert len(result["coverage_notes"]) == 5
+    assert len(result["coverage_notes"]) == 6
+    assert any("JobsPipe is not configured" in note for note in result["coverage_notes"])
 
 
 def test_saved_generic_career_page_is_filtered_and_audited(monkeypatch):
