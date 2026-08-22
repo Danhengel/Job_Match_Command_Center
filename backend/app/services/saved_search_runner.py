@@ -154,23 +154,26 @@ def collect_saved_search_rows(
         ("Remote OK", job_sources.remoteok),
         ("Jobicy", job_sources.jobicy),
     )
-    for source, loader in remote_sources:
+    if saved_search.use_remotive:
+        for source, loader in remote_sources:
+            for title in titles:
+                tasks.append((source, loader, (title,), False, None))
+
+    if saved_search.use_catalog:
+        tasks.extend(_catalog_tasks())
+
+    if saved_search.use_jsearch:
         for title in titles:
-            tasks.append((source, loader, (title,), False, None))
-
-    tasks.extend(_catalog_tasks())
-
-    for title in titles:
-        for search_location in search_locations:
-            tasks.append(
-                (
-                    "JSearch / Google Jobs publishers",
-                    job_sources.jsearch,
-                    (f"{title} in {search_location}",),
-                    False,
-                    None,
+            for search_location in search_locations:
+                tasks.append(
+                    (
+                        "JSearch / Google Jobs publishers",
+                        job_sources.jsearch,
+                        (f"{title} in {search_location}",),
+                        False,
+                        None,
+                    )
                 )
-            )
 
     if jobspipe_source.configured():
         tasks.append(
