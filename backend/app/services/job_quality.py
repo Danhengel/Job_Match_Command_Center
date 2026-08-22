@@ -179,6 +179,29 @@ def parse_posted_at(value: str) -> datetime | None:
         return None
 
 
+def posting_age_days(posted_at: str, now: datetime | None = None) -> int | None:
+    posted = parse_posted_at(posted_at)
+    if not posted:
+        return None
+    return max(0, ((now or datetime.utcnow()) - posted).days)
+
+
+def row_passes_quality_gate(row: dict, max_age_days: int = 60) -> bool:
+    """Stage one: remove unusable, closed, and clearly stale listings."""
+    url = str(row.get("url") or "").strip()
+    if not url.startswith(("https://", "http://")):
+        return False
+    status = str(
+        row.get("verification_status")
+        or row.get("status")
+        or ""
+    ).lower()
+    if status in {"closed", "expired", "invalid_url", "removed"}:
+        return False
+    age_days = posting_age_days(str(row.get("posted_at") or ""))
+    return age_days is None or age_days <= max_age_days
+
+
 def freshness_points(posted_at: str, now: datetime | None = None) -> int:
     posted = parse_posted_at(posted_at)
     if not posted:
@@ -258,7 +281,14 @@ def enrich_serialized_result(item: dict, verification_status: str = "") -> dict:
 
 
 def rank_serialized_results(items: list[dict]) -> list[dict]:
-    enriched = [enrich_serialized_result(item) for item in items or []]
+    # Stage one rejects closed, unusable, and clearly stale results. Stage two
+    # orders the remaining jobs by fit, source authority, and freshness.
+    eligible = [
+        item
+        for item in (items or [])
+        if row_passes_quality_gate(item.get("job") or {})
+    ]
+    enriched = [enrich_serialized_result(item) for item in eligible]
     return sorted(
         enriched,
         key=lambda item: (

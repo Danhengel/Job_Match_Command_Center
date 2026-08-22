@@ -22,10 +22,11 @@ from app.services import (
 from app.services.job_matcher import match_job
 
 
-MAX_TITLES = 8
+MAX_TITLES = 18
 MAX_WORKERS = 10
-BROAD_JOBSPIPE_LIMIT = 17
-MAJOR_BOARD_LIMIT = 2
+BROAD_JOBSPIPE_LIMIT = 50
+MAJOR_BOARD_LIMIT = 5
+EXPANDED_BOARD_LIMIT = 25
 
 
 def _unread_notification_exists(
@@ -125,14 +126,26 @@ def collect_saved_search_rows(
     saved_search: SavedSearch,
     watches: list[CareerPageWatch] | None = None,
 ) -> dict:
-    titles = list(
+    from app.api.routes.jobs import (
+        expand_search_titles,
+        prioritized_search_titles,
+        split_search_locations,
+    )
+
+    requested_titles = list(
         dict.fromkeys(
             title.strip()
             for title in (saved_search.titles or [])
             if title and title.strip()
         )
-    )[:MAX_TITLES]
+    )
+    titles = prioritized_search_titles(
+        requested_titles,
+        expand_search_titles(requested_titles),
+        limit=MAX_TITLES,
+    )
     location = (saved_search.location or "United States").strip()
+    search_locations = split_search_locations(location)
     tasks: list[tuple[str, Callable, tuple, bool, CareerPageWatch | None]] = []
     coverage_notes: list[str] = []
 
@@ -141,22 +154,26 @@ def collect_saved_search_rows(
         ("Remote OK", job_sources.remoteok),
         ("Jobicy", job_sources.jobicy),
     )
-    for source, loader in remote_sources:
+    if saved_search.use_remotive:
+        for source, loader in remote_sources:
+            for title in titles:
+                tasks.append((source, loader, (title,), False, None))
+
+    if saved_search.use_catalog:
+        tasks.extend(_catalog_tasks())
+
+    if saved_search.use_jsearch:
         for title in titles:
-            tasks.append((source, loader, (title,), False, None))
-
-    tasks.extend(_catalog_tasks())
-
-    for title in titles:
-        tasks.append(
-            (
-                "JSearch / Google Jobs publishers",
-                job_sources.jsearch,
-                (f"{title} in {location}",),
-                False,
-                None,
-            )
-        )
+            for search_location in search_locations:
+                tasks.append(
+                    (
+                        "JSearch / Google Jobs publishers",
+                        job_sources.jsearch,
+                        (f"{title} in {search_location}",),
+                        False,
+                        None,
+                    )
+                )
 
     if jobspipe_source.configured():
         tasks.append(
@@ -178,6 +195,20 @@ def collect_saved_search_rows(
                     None,
                 )
             )
+        tasks.append(
+            (
+                "JobsPipe / expanded major boards",
+                jobspipe_source.jobs,
+                (
+                    titles,
+                    location,
+                    list(jobspipe_source.EXPANDED_BOARD_SOURCES),
+                    EXPANDED_BOARD_LIMIT,
+                ),
+                False,
+                None,
+            )
+        )
     else:
         coverage_notes.append("JobsPipe is not configured for automated searches.")
 
@@ -237,7 +268,11 @@ def collect_saved_search_rows(
             try:
                 batch = future.result() or []
                 if filter_titles:
-                    batch = [row for row in batch if _matches_titles(row, titles)]
+                    batch = [
+                        row
+                        for row in batch
+                        if _matches_titles(row, requested_titles)
+                    ]
                 rows.extend(batch)
                 totals[source]["jobs"] += len(batch)
                 if watch is not None:

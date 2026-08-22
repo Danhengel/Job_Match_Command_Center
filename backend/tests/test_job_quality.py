@@ -102,3 +102,42 @@ def test_recruiter_source_ranks_below_direct_employer_but_above_aggregator():
 
     assert recruiter < job_quality.source_quality("Greenhouse career page")
     assert recruiter > job_quality.source_quality("JSearch")
+
+
+def test_quality_gate_rejects_missing_links_and_stale_jobs():
+    assert not job_quality.row_passes_quality_gate(
+        {"url": "", "posted_at": "2026-08-20"}
+    )
+    assert not job_quality.row_passes_quality_gate(
+        {"url": "https://example.com/job", "posted_at": "2025-01-01"}
+    )
+    assert job_quality.row_passes_quality_gate(
+        {"url": "https://example.com/job", "posted_at": ""}
+    )
+
+
+def test_two_stage_ranking_removes_closed_results():
+    items = [
+        {
+            "job": {
+                "url": "https://example.com/open",
+                "source": "Greenhouse",
+                "posted_at": "",
+            },
+            "match": {"score": 75},
+        },
+        {
+            "job": {
+                "url": "https://example.com/closed",
+                "source": "Indeed",
+                "posted_at": "",
+                "verification_status": "closed",
+            },
+            "match": {"score": 95},
+        },
+    ]
+
+    ranked = job_quality.rank_serialized_results(items)
+
+    assert len(ranked) == 1
+    assert ranked[0]["job"]["url"].endswith("/open")

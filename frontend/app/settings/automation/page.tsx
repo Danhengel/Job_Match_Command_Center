@@ -6,7 +6,7 @@ import { Notice, PageHeader } from "@/components/ui";
 import { api } from "@/lib/api";
 
 const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-const frequencies = ["instant", "daily", "weekdays", "weekly", "manual"];
+const frequencies = ["instant", "twice_daily", "daily", "weekdays", "weekly", "manual"];
 const hours = Array.from({ length: 24 }, (_, hour) => hour);
 
 type AutomationPreferences = {

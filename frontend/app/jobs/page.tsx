@@ -52,7 +52,22 @@ type SourceSelection = {
 type SortMode = "match" | "newest" | "company";
 type ViewFilter = "all" | "strong" | "exceptional" | "remote";
 type FeedbackValue = "relevant" | "not_relevant" | "reviewed";
-type FeedbackState = Record<string, FeedbackValue>;
+type FeedbackReason =
+  | "wrong_seniority"
+  | "wrong_specialty"
+  | "wrong_location"
+  | "compensation"
+  | "technical_role"
+  | "closed_posting"
+  | "other";
+type FeedbackEntry = {
+  value: FeedbackValue;
+  reason?: FeedbackReason;
+  title?: string;
+  company?: string;
+  location?: string;
+};
+type FeedbackState = Record<string, FeedbackEntry | FeedbackValue>;
 
 const defaultSources: SourceSelection = {
   jsearch: true,
@@ -86,6 +101,36 @@ function cleanError(message: string) {
     return "One source was temporarily unavailable. The rest of the search completed normally.";
   }
   return message.replace(/https?:\/\/\S+/g, "the source");
+}
+
+function feedbackValue(entry?: FeedbackEntry | FeedbackValue) {
+  return typeof entry === "string" ? entry : entry?.value;
+}
+
+function titleLevel(value: string) {
+  const title = value.toLowerCase();
+  if (/vice president|\bvp\b|head of/.test(title)) return "executive";
+  if (/senior director|\bsr\.? director/.test(title)) return "senior_director";
+  if (/director/.test(title)) return "director";
+  if (/manager/.test(title)) return "manager";
+  if (/analyst|specialist|coordinator|associate/.test(title)) return "individual";
+  return "other";
+}
+
+function learnedSuppression(result: Result, feedback: FeedbackState) {
+  return Object.values(feedback).some((rawEntry) => {
+    if (typeof rawEntry === "string" || rawEntry.value !== "not_relevant") return false;
+    if (rawEntry.reason === "wrong_seniority") {
+      return titleLevel(rawEntry.title || "") === titleLevel(result.job.title);
+    }
+    if (rawEntry.reason === "wrong_location") {
+      return Boolean(rawEntry.location) && rawEntry.location === result.job.location;
+    }
+    if (rawEntry.reason === "technical_role") {
+      return /analytics|data science|machine learning|software|engineer/i.test(result.job.title);
+    }
+    return false;
+  });
 }
 
 export default function JobsPage() {
@@ -162,8 +207,9 @@ export default function JobsPage() {
   const visibleResults = useMemo(() => {
     const query = resultQuery.trim().toLowerCase();
     const filtered = results.filter((result) => {
-      const decision = feedback[String(result.job.id)];
+      const decision = feedbackValue(feedback[String(result.job.id)]);
       if (decision === "not_relevant" || decision === "reviewed") return false;
+      if (learnedSuppression(result, feedback)) return false;
       if (viewFilter === "remote" && !result.job.remote) return false;
       if (viewFilter === "strong" && result.match.score < 70) return false;
       if (viewFilter === "exceptional" && result.match.score < 85) return false;
@@ -183,15 +229,28 @@ export default function JobsPage() {
       if (sortMode === "newest") {
         return new Date(b.job.posted_at || 0).getTime() - new Date(a.job.posted_at || 0).getTime();
       }
-      const aBoost = feedback[String(a.job.id)] === "relevant" ? 8 : 0;
-      const bBoost = feedback[String(b.job.id)] === "relevant" ? 8 : 0;
+      const aBoost = feedbackValue(feedback[String(a.job.id)]) === "relevant" ? 8 : 0;
+      const bBoost = feedbackValue(feedback[String(b.job.id)]) === "relevant" ? 8 : 0;
       return (b.match.score + bBoost) - (a.match.score + aBoost);
     });
   }, [results, resultQuery, sortMode, viewFilter, feedback]);
 
-  function setJobFeedback(jobId: number, value: FeedbackValue) {
+  function setJobFeedback(
+    result: Result,
+    value: FeedbackValue,
+    reason?: FeedbackReason,
+  ) {
     setFeedback((current) => {
-      const next = { ...current, [String(jobId)]: value };
+      const next = {
+        ...current,
+        [String(result.job.id)]: {
+          value,
+          reason,
+          title: result.job.title,
+          company: result.job.company,
+          location: result.job.location,
+        },
+      };
       window.localStorage.setItem(
         "careernaviq-job-feedback",
         JSON.stringify(next),
@@ -440,9 +499,26 @@ export default function JobsPage() {
                 </div>
                 <div className="jobs-card-actions">
                   <div className="jobs-feedback-actions" aria-label="Opportunity feedback">
-                    <button type="button" className="jobs-feedback-button" onClick={() => setJobFeedback(result.job.id, "relevant")}>Relevant</button>
-                    <button type="button" className="jobs-feedback-button" onClick={() => setJobFeedback(result.job.id, "not_relevant")}>Not relevant</button>
-                    <button type="button" className="jobs-feedback-button" onClick={() => setJobFeedback(result.job.id, "reviewed")}>Reviewed</button>
+                    <button type="button" className="jobs-feedback-button" onClick={() => setJobFeedback(result, "relevant")}>Relevant</button>
+                    <select
+                      className="jobs-feedback-button"
+                      aria-label="Mark this opportunity not relevant and choose a reason"
+                      defaultValue=""
+                      onChange={(event) => {
+                        const reason = event.target.value as FeedbackReason;
+                        if (reason) setJobFeedback(result, "not_relevant", reason);
+                      }}
+                    >
+                      <option value="" disabled>Not relevant because…</option>
+                      <option value="wrong_seniority">Wrong seniority</option>
+                      <option value="wrong_specialty">Wrong specialty</option>
+                      <option value="wrong_location">Wrong location</option>
+                      <option value="compensation">Compensation</option>
+                      <option value="technical_role">Too technical</option>
+                      <option value="closed_posting">Posting closed</option>
+                      <option value="other">Other</option>
+                    </select>
+                    <button type="button" className="jobs-feedback-button" onClick={() => setJobFeedback(result, "reviewed")}>Reviewed</button>
                   </div>
                   <Link className="button" href={`/jobs/${result.job.id}?profile_id=${profileId}`}>View & tailor</Link>
                   {result.job.url ? <a className="jobs-source-link" href={result.job.url} target="_blank" rel="noreferrer">Open posting ↗</a> : null}

@@ -21,6 +21,39 @@ from app.services.job_quality import ranking_score
 router = APIRouter(prefix="/api/jobs", tags=["Jobs"])
 
 
+EXECUTIVE_ROLE_FAMILIES = (
+    "Construction Loan Administration",
+    "Commercial Loan Servicing Operations",
+    "CRE Loan Operations",
+    "Credit Administration and Risk",
+    "Portfolio and Asset Management",
+    "Affordable Housing Asset Management",
+    "Capital Programs and Construction Finance",
+    "SBA and Government Guaranteed Lending Operations",
+    "Special Servicing and Loan Workouts",
+)
+EXECUTIVE_SENIORITY_PREFIXES = (
+    "Director",
+    "Senior Director",
+    "Vice President",
+    "Head of",
+)
+ROLE_FAMILY_TRIGGER_TERMS = (
+    "loan",
+    "lending",
+    "credit",
+    "portfolio",
+    "asset management",
+    "construction",
+    "servicing",
+    "fund management",
+    "affordable housing",
+    "lihtc",
+    "cdfi",
+    "sba",
+)
+
+
 def serialize_job(job: Job, match: JobMatch) -> dict:
     return {
         "job": {
@@ -159,11 +192,20 @@ def expand_search_titles(titles: list[str]) -> list[str]:
             if key in normalized or normalized in key:
                 expanded_titles.extend(alternatives)
 
+    requested_text = " ".join(titles).lower()
+    if any(term in requested_text for term in ROLE_FAMILY_TRIGGER_TERMS):
+        expanded_titles.extend(EXECUTIVE_ROLE_FAMILIES)
+        for family in EXECUTIVE_ROLE_FAMILIES:
+            expanded_titles.extend(
+                f"{prefix}, {family}"
+                for prefix in EXECUTIVE_SENIORITY_PREFIXES
+            )
+
     return list(dict.fromkeys(expanded_titles))
 
 
 def split_search_locations(value: str) -> list[str]:
-    """Turn a compound UI location into source-friendly search scopes."""
+    """Turn a compound UI location into independent local and remote scopes."""
     raw = (value or "").strip()
     if not raw:
         return ["United States"]
@@ -172,9 +214,16 @@ def split_search_locations(value: str) -> list[str]:
     locations: list[str] = []
 
     if "tampa" in normalized or "riverview" in normalized:
-        locations.append("Tampa, Florida")
+        locations.extend(
+            [
+                "Tampa, Florida",
+                "St. Petersburg, Florida",
+                "Riverview, Florida",
+                "Florida",
+            ]
+        )
     if "remote" in normalized or "work from home" in normalized:
-        locations.append("Remote")
+        locations.append("Remote - United States")
 
     if not locations:
         locations.append(raw)
@@ -185,7 +234,7 @@ def split_search_locations(value: str) -> list[str]:
 def prioritized_search_titles(
     base_titles: list[str],
     expanded_titles: list[str],
-    limit: int = 24,
+    limit: int = 40,
 ) -> list[str]:
     """Preserve every requested title before adding related variants."""
     ordered = [
