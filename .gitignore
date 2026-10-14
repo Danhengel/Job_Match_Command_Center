@@ -1,7 +1,7 @@
+node_modules/
+dist/
 .env
+.env.*
 __pycache__/
 *.pyc
-node_modules/
-.next/
-uploads/
-*.log
+.DS_Store

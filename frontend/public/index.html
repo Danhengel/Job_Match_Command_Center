@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b1220" />
+  <title>My Work Assistant</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="mark">WA</div>
+        <div><strong>Work Assistant</strong><span>Personal command center</span></div>
+      </div>
+      <nav>
+        <button class="nav active" data-view="home">Today</button>
+        <button class="nav" data-view="inbox">Inbox</button>
+        <button class="nav" data-view="meetings">Meetings</button>
+        <button class="nav" data-view="tasks">Tasks</button>
+        <button class="nav" data-view="files">Files</button>
+      </nav>
+      <div class="privacy">Private workspace<br><span>Connections will be added one at a time.</span></div>
+    </aside>
+
+    <main>
+      <header>
+        <div><p class="eyebrow">YOUR DAY</p><h1>Good to see you.</h1><p class="sub">One place to organize work, prepare for meetings, follow up, and ask ChatGPT for help.</p></div>
+        <button class="connect" id="connectBtn">Connect Microsoft 365</button>
+      </header>
+
+      <section class="hero-card">
+        <div>
+          <span class="status-dot"></span><span class="status">Assistant setup started</span>
+          <h2>What do you need help with?</h2>
+        </div>
+        <div class="ask-row">
+          <input id="assistantInput" placeholder="Ask about your day, meetings, email, files, or tasks…" />
+          <button id="askBtn">Ask</button>
+        </div>
+        <div class="suggestions">
+          <button>What should I work on today?</button>
+          <button>Prepare me for my next meeting</button>
+          <button>What am I waiting on?</button>
+        </div>
+        <p id="assistantReply" class="reply">ChatGPT will be connected in the next setup step.</p>
+      </section>
+
+      <section class="grid">
+        <article class="card"><div class="card-top"><span>Priority Inbox</span><b>—</b></div><h3>Important messages</h3><p>Once Outlook is connected, the assistant will surface emails that need your attention.</p><button class="text-btn">Connect Outlook →</button></article>
+        <article class="card"><div class="card-top"><span>Next Meeting</span><b>—</b></div><h3>Meeting preparation</h3><p>See the meeting, related messages, documents, prior decisions, and suggested talking points.</p><button class="text-btn">Connect Calendar →</button></article>
+        <article class="card"><div class="card-top"><span>Follow-ups</span><b>—</b></div><h3>Things not to forget</h3><p>Track what you owe others, what others owe you, and anything that is getting overdue.</p><button class="text-btn">Set up tasks →</button></article>
+        <article class="card"><div class="card-top"><span>Work Files</span><b>—</b></div><h3>Find and understand files</h3><p>Search permitted OneDrive files and ask questions about reports, spreadsheets, and documents.</p><button class="text-btn">Connect OneDrive →</button></article>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal" id="modal" hidden>
+    <div class="modal-card"><button class="close" id="closeModal">×</button><p class="eyebrow">NEXT STEP</p><h2>Microsoft 365 connection</h2><p>The dashboard is ready. We will add secure Microsoft sign-in next, using only the permissions you choose.</p><button class="connect" id="modalOk">Got it</button></div>
+  </div>
+  <script src="/app.js"></script>
+</body>
+</html>
