@@ -23,7 +23,7 @@
         <button class="nav" data-view="library">Library</button>
         <button class="nav" data-view="connections">Connections</button>
       </nav>
-      <div class="privacy">Local-first workspace<br><span>Imported material stays in this browser unless you explicitly choose to send it to an AI service later.</span></div>
+      <div class="privacy">Local-first workspace<br><span>Imported material stays in this browser. Only text you explicitly select for AI context is sent when you ask the assistant.</span></div>
     </aside>
 
     <main>
@@ -46,15 +46,19 @@
             <h2>What do you need help with?</h2>
           </div>
           <div class="ask-row">
-            <input id="assistantInput" placeholder="Ask about imported emails, meetings, files, or tasks…" />
+            <input id="assistantInput" placeholder="Ask about your day, selected emails, meetings, files, or tasks…" />
             <button id="askBtn">Ask</button>
+          </div>
+          <div class="assistant-controls">
+            <label class="context-toggle"><input type="checkbox" id="includeAiContext" /><span>Use selected library text + open tasks</span></label>
+            <span class="context-count" id="aiContextCount">0 items selected</span>
           </div>
           <div class="suggestions">
             <button>What should I work on today?</button>
             <button>Prepare me for my next meeting</button>
             <button>What am I waiting on?</button>
           </div>
-          <p id="assistantReply" class="reply">Import a few work items first. ChatGPT will be the next layer we connect.</p>
+          <div id="assistantReply" class="reply">CareerNavIQ is local-first. Connect the secure AI backend in Connections when you are ready.</div>
         </section>
 
         <section class="stats-grid">
@@ -82,7 +86,7 @@
               <input id="fileInput" type="file" multiple hidden />
               <span class="drop-icon">↓</span>
               <strong>Drop files here or click to browse</strong>
-              <small>Nothing is uploaded to a server in this version.</small>
+              <small>Original files remain in this browser. AI only receives text you explicitly select later.</small>
             </label>
             <p id="importMessage" class="setup-message"></p>
           </section>
@@ -127,7 +131,7 @@
       </section>
 
       <section class="view" data-view-section="library" hidden>
-        <section class="panel"><div class="section-heading"><div><p class="eyebrow">LIBRARY</p><h2>Local work library</h2></div><button class="connect jump" data-jump="import">Add material</button></div><p class="panel-copy">Original imported files are stored in this browser and can be downloaded again. Pasted text is stored as a local library item.</p><div id="libraryItems" class="item-list empty-state">Your library is empty.</div></section>
+        <section class="panel"><div class="section-heading"><div><p class="eyebrow">LIBRARY</p><h2>Local work library</h2></div><button class="connect jump" data-jump="import">Add material</button></div><p class="panel-copy">Original imported files remain local. For text-readable items, use <strong>Add to AI</strong> to explicitly select what CareerNavIQ may send with your next AI question.</p><div id="libraryItems" class="item-list empty-state">Your library is empty.</div></section>
       </section>
 
       <section class="view" data-view-section="connections" hidden>
@@ -137,10 +141,17 @@
             <p class="panel-copy">Direct Outlook, Calendar, and OneDrive access can be added later if your company allows employee-created applications.</p>
             <button class="secondary" id="connectBtn">Microsoft 365 setup</button>
           </section>
+
           <section class="panel connection-card featured">
-            <div class="connection-top"><div><p class="eyebrow">NEXT</p><h2>ChatGPT / OpenAI</h2></div><span class="connection-status">Not connected</span></div>
-            <p class="panel-copy">This will turn your imported material into summaries, priorities, meeting prep, follow-up lists, drafts, and answers.</p>
-            <button class="connect" id="openAiSetupBtn">Set up next</button>
+            <div class="connection-top"><div><p class="eyebrow">AI</p><h2>ChatGPT / OpenAI</h2></div><span id="openAiStatus" class="connection-status">Checking…</span></div>
+            <p class="panel-copy" id="openAiServerHint">The OpenAI key is kept only on the Vercel server. It is never placed in this website's JavaScript.</p>
+            <label class="field-label" for="aiAccessCodeInput">CareerNavIQ personal access code</label>
+            <input id="aiAccessCodeInput" class="setup-input" type="password" autocomplete="off" placeholder="Enter your private access code" />
+            <div class="connection-actions">
+              <button class="connect" id="saveAiAccessBtn">Use this session</button>
+              <button class="secondary" id="clearAiAccessBtn">Clear</button>
+            </div>
+            <p id="aiSetupMessage" class="setup-message">The access code stays in this browser session only.</p>
           </section>
         </div>
       </section>
