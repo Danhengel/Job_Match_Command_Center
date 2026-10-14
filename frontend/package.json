@@ -1,8 +1,14 @@
 {
   "name": "careernaviq-work-assistant",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "build": "node build.js"
+  },
+  "dependencies": {
+    "@azure/msal-browser": "^5.0.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0"
   }
 }
