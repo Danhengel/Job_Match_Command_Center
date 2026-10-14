@@ -4,61 +4,145 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0b1220" />
-  <title>My Work Assistant</title>
+  <title>CareerNavIQ Work Assistant</title>
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
   <div class="shell">
     <aside class="sidebar">
       <div class="brand">
-        <div class="mark">WA</div>
-        <div><strong>Work Assistant</strong><span>Personal command center</span></div>
+        <div class="mark">CN</div>
+        <div><strong>CareerNavIQ</strong><span>Personal work assistant</span></div>
       </div>
       <nav>
-        <button class="nav active" data-view="home">Today</button>
+        <button class="nav active" data-view="today">Today</button>
+        <button class="nav" data-view="import">Import Center</button>
         <button class="nav" data-view="inbox">Inbox</button>
         <button class="nav" data-view="meetings">Meetings</button>
         <button class="nav" data-view="tasks">Tasks</button>
-        <button class="nav" data-view="files">Files</button>
+        <button class="nav" data-view="library">Library</button>
+        <button class="nav" data-view="connections">Connections</button>
       </nav>
-      <div class="privacy">Private workspace<br><span>Microsoft permissions are added one at a time.</span></div>
+      <div class="privacy">Local-first workspace<br><span>Imported material stays in this browser unless you explicitly choose to send it to an AI service later.</span></div>
     </aside>
 
     <main>
       <header>
         <div>
-          <p class="eyebrow">YOUR DAY</p>
-          <h1 id="greeting">Good to see you.</h1>
-          <p class="sub">One place to organize work, prepare for meetings, follow up, and ask ChatGPT for help.</p>
+          <p class="eyebrow" id="viewEyebrow">YOUR DAY</p>
+          <h1 id="viewTitle">Good to see you.</h1>
+          <p class="sub" id="viewSubtitle">Bring your work into one place, organize it, and turn it into an actionable day.</p>
         </div>
-        <div class="account-actions">
-          <span id="accountStatus" class="account-status">Microsoft 365 not connected</span>
-          <button class="connect" id="connectBtn">Connect Microsoft 365</button>
+        <div class="header-actions">
+          <button class="secondary compact" id="exportBtn">Export workspace</button>
+          <button class="connect compact" id="quickImportBtn">Import work</button>
         </div>
       </header>
 
-      <section class="hero-card">
-        <div>
-          <span class="status-dot" id="setupDot"></span><span class="status" id="setupStatus">Assistant setup started</span>
-          <h2>What do you need help with?</h2>
-        </div>
-        <div class="ask-row">
-          <input id="assistantInput" placeholder="Ask about your day, meetings, email, files, or tasks…" />
-          <button id="askBtn">Ask</button>
-        </div>
-        <div class="suggestions">
-          <button>What should I work on today?</button>
-          <button>Prepare me for my next meeting</button>
-          <button>What am I waiting on?</button>
-        </div>
-        <p id="assistantReply" class="reply">Connect Microsoft 365 first. ChatGPT will be added after the Microsoft connection is working.</p>
+      <section class="view active" data-view-section="today">
+        <section class="hero-card">
+          <div>
+            <span class="status-dot" id="setupDot"></span><span class="status" id="setupStatus">Local workspace ready</span>
+            <h2>What do you need help with?</h2>
+          </div>
+          <div class="ask-row">
+            <input id="assistantInput" placeholder="Ask about imported emails, meetings, files, or tasks…" />
+            <button id="askBtn">Ask</button>
+          </div>
+          <div class="suggestions">
+            <button>What should I work on today?</button>
+            <button>Prepare me for my next meeting</button>
+            <button>What am I waiting on?</button>
+          </div>
+          <p id="assistantReply" class="reply">Import a few work items first. ChatGPT will be the next layer we connect.</p>
+        </section>
+
+        <section class="stats-grid">
+          <article class="stat"><span>Imported items</span><strong id="statItems">0</strong><small>Files + pasted content</small></article>
+          <article class="stat"><span>Emails</span><strong id="statEmails">0</strong><small>Imported or pasted</small></article>
+          <article class="stat"><span>Meetings</span><strong id="statMeetings">0</strong><small>Notes + calendar files</small></article>
+          <article class="stat"><span>Open tasks</span><strong id="statTasks">0</strong><small>Things to follow up on</small></article>
+        </section>
+
+        <section class="grid">
+          <article class="card"><div class="card-top"><span>Priority Inbox</span><b id="inboxCount">0</b></div><h3>Imported email</h3><p>Save or paste important messages here so the assistant can help you track responses and follow-ups.</p><button class="text-btn jump" data-jump="import">Import email →</button></article>
+          <article class="card"><div class="card-top"><span>Meeting Prep</span><b id="meetingCount">0</b></div><h3>Notes and calendar items</h3><p>Bring in meeting notes, transcripts, agendas, or .ics files and keep them together.</p><button class="text-btn jump" data-jump="meetings">View meetings →</button></article>
+          <article class="card"><div class="card-top"><span>Follow-ups</span><b id="taskCount">0</b></div><h3>Things not to forget</h3><p>Track what you owe others, what others owe you, and what needs attention next.</p><button class="text-btn jump" data-jump="tasks">Open tasks →</button></article>
+          <article class="card"><div class="card-top"><span>Work Library</span><b id="libraryCount">0</b></div><h3>Your reference material</h3><p>Keep permitted reports, spreadsheets, documents, notes, and exports available in one local library.</p><button class="text-btn jump" data-jump="library">Open library →</button></article>
+        </section>
       </section>
 
-      <section class="grid">
-        <article class="card"><div class="card-top"><span>Priority Inbox</span><b id="inboxCount">—</b></div><h3>Important messages</h3><p>Once Outlook is connected, the assistant will surface emails that need your attention.</p><button class="text-btn microsoft-feature">Connect Outlook →</button></article>
-        <article class="card"><div class="card-top"><span>Next Meeting</span><b>—</b></div><h3>Meeting preparation</h3><p>See the meeting, related messages, documents, prior decisions, and suggested talking points.</p><button class="text-btn microsoft-feature">Connect Calendar →</button></article>
-        <article class="card"><div class="card-top"><span>Follow-ups</span><b>—</b></div><h3>Things not to forget</h3><p>Track what you owe others, what others owe you, and anything that is getting overdue.</p><button class="text-btn">Set up tasks →</button></article>
-        <article class="card"><div class="card-top"><span>Work Files</span><b>—</b></div><h3>Find and understand files</h3><p>Search permitted OneDrive files and ask questions about reports, spreadsheets, and documents.</p><button class="text-btn microsoft-feature">Connect OneDrive →</button></article>
+      <section class="view" data-view-section="import" hidden>
+        <div class="two-col import-layout">
+          <section class="panel">
+            <p class="eyebrow">FILES</p>
+            <h2>Drop work files here</h2>
+            <p class="panel-copy">PDF, Word, Excel, CSV, text, Outlook email files, calendar files, images, and other permitted work exports can be stored locally.</p>
+            <label class="dropzone" id="dropzone" for="fileInput">
+              <input id="fileInput" type="file" multiple hidden />
+              <span class="drop-icon">↓</span>
+              <strong>Drop files here or click to browse</strong>
+              <small>Nothing is uploaded to a server in this version.</small>
+            </label>
+            <p id="importMessage" class="setup-message"></p>
+          </section>
+
+          <section class="panel">
+            <p class="eyebrow">PASTE</p>
+            <h2>Capture email or notes</h2>
+            <div class="form-row">
+              <select id="pasteKind" class="setup-input">
+                <option value="email">Email</option>
+                <option value="meeting">Meeting notes</option>
+                <option value="note">General note</option>
+                <option value="reference">Reference information</option>
+              </select>
+              <input id="pasteTitle" class="setup-input" placeholder="Title or subject" />
+            </div>
+            <textarea id="pasteText" class="setup-input textarea" placeholder="Paste the email, meeting notes, procedure, or other text here…"></textarea>
+            <button class="connect full" id="savePasteBtn">Save to local library</button>
+          </section>
+        </div>
+
+        <section class="panel recent-panel">
+          <div class="section-heading"><div><p class="eyebrow">RECENT</p><h2>Recently imported</h2></div><button class="secondary" id="clearLibraryBtn">Clear local library</button></div>
+          <div id="recentItems" class="item-list empty-state">No imported items yet.</div>
+        </section>
+      </section>
+
+      <section class="view" data-view-section="inbox" hidden>
+        <section class="panel"><div class="section-heading"><div><p class="eyebrow">INBOX</p><h2>Imported email</h2></div><button class="connect jump" data-jump="import">Import email</button></div><p class="panel-copy">This shows email files and anything you paste as an email. Direct Outlook access remains optional.</p><div id="emailItems" class="item-list empty-state">No imported email yet.</div></section>
+      </section>
+
+      <section class="view" data-view-section="meetings" hidden>
+        <section class="panel"><div class="section-heading"><div><p class="eyebrow">MEETINGS</p><h2>Meeting workspace</h2></div><button class="connect jump" data-jump="import">Import meeting material</button></div><p class="panel-copy">Store agendas, transcripts, notes, .ics calendar exports, and supporting material here.</p><div id="meetingItems" class="item-list empty-state">No meeting material yet.</div></section>
+      </section>
+
+      <section class="view" data-view-section="tasks" hidden>
+        <section class="panel task-panel">
+          <p class="eyebrow">FOLLOW-UPS</p><h2>My tasks</h2>
+          <div class="task-entry"><input id="taskInput" class="setup-input" placeholder="Add a task or follow-up…" /><button id="addTaskBtn" class="connect">Add</button></div>
+          <div id="taskList" class="task-list empty-state">No tasks yet.</div>
+        </section>
+      </section>
+
+      <section class="view" data-view-section="library" hidden>
+        <section class="panel"><div class="section-heading"><div><p class="eyebrow">LIBRARY</p><h2>Local work library</h2></div><button class="connect jump" data-jump="import">Add material</button></div><p class="panel-copy">Original imported files are stored in this browser and can be downloaded again. Pasted text is stored as a local library item.</p><div id="libraryItems" class="item-list empty-state">Your library is empty.</div></section>
+      </section>
+
+      <section class="view" data-view-section="connections" hidden>
+        <div class="connection-grid">
+          <section class="panel connection-card">
+            <div class="connection-top"><div><p class="eyebrow">OPTIONAL</p><h2>Microsoft 365</h2></div><span id="accountStatus" class="connection-status">Not connected</span></div>
+            <p class="panel-copy">Direct Outlook, Calendar, and OneDrive access can be added later if your company allows employee-created applications.</p>
+            <button class="secondary" id="connectBtn">Microsoft 365 setup</button>
+          </section>
+          <section class="panel connection-card featured">
+            <div class="connection-top"><div><p class="eyebrow">NEXT</p><h2>ChatGPT / OpenAI</h2></div><span class="connection-status">Not connected</span></div>
+            <p class="panel-copy">This will turn your imported material into summaries, priorities, meeting prep, follow-up lists, drafts, and answers.</p>
+            <button class="connect" id="openAiSetupBtn">Set up next</button>
+          </section>
+        </div>
       </section>
     </main>
   </div>
@@ -66,37 +150,26 @@
   <div class="modal" id="modal" hidden>
     <div class="modal-card setup-card">
       <button class="close" id="closeModal" aria-label="Close">×</button>
-      <p class="eyebrow">MICROSOFT 365 SETUP</p>
+      <p class="eyebrow">OPTIONAL MICROSOFT 365 SETUP</p>
       <h2>Connect your work account</h2>
-      <p class="modal-lead">The first connection requests only <strong>User.Read</strong> so we can verify Microsoft sign-in. Email, calendar, and OneDrive permissions will be requested separately later.</p>
-
-      <div class="security-note">
-        <strong>Privacy-first setup</strong>
-        <span>Authentication uses Microsoft OAuth with PKCE. Access tokens stay in this browser session and are not placed in the site source code.</span>
-      </div>
-
+      <p class="modal-lead">Only use this if your employer permits it. The first connection requests only <strong>User.Read</strong>. Email, calendar, and OneDrive permissions would be requested separately.</p>
+      <div class="security-note"><strong>Privacy-first setup</strong><span>Authentication uses Microsoft OAuth with PKCE. Access tokens remain in this browser session.</span></div>
       <ol class="setup-steps">
         <li>Open <a href="https://entra.microsoft.com/" target="_blank" rel="noreferrer">Microsoft Entra</a> and go to <strong>App registrations → New registration</strong>.</li>
         <li>Name it <strong>CareerNavIQ Work Assistant</strong>.</li>
-        <li>Under Authentication, add a <strong>Single-page application (SPA)</strong> redirect URI: <code>https://careernaviq.com/</code>.</li>
-        <li>Copy the <strong>Application (client) ID</strong> from the Overview page and paste it below.</li>
+        <li>Add a <strong>Single-page application (SPA)</strong> redirect URI: <code>https://careernaviq.com/</code>.</li>
+        <li>Copy the <strong>Application (client) ID</strong> and paste it below.</li>
       </ol>
-
       <label class="field-label" for="clientIdInput">Application (client) ID</label>
       <input class="setup-input" id="clientIdInput" autocomplete="off" placeholder="00000000-0000-0000-0000-000000000000" />
-
       <label class="field-label" for="tenantIdInput">Directory (tenant) ID <span>optional</span></label>
-      <input class="setup-input" id="tenantIdInput" autocomplete="off" placeholder="Leave blank for any work/school organization" />
-
+      <input class="setup-input" id="tenantIdInput" autocomplete="off" placeholder="Leave blank for organizational accounts" />
       <p id="msSetupMessage" class="setup-message"></p>
-
-      <div class="modal-actions">
-        <button class="secondary" id="clearMicrosoftSetup" type="button">Clear setup</button>
-        <button class="connect" id="modalOk" type="button">Save & Sign in</button>
-      </div>
+      <div class="modal-actions"><button class="secondary" id="clearMicrosoftSetup" type="button">Clear setup</button><button class="connect" id="modalOk" type="button">Save & Sign in</button></div>
       <button class="signout" id="signOutBtn" type="button" hidden>Sign out of Microsoft 365</button>
     </div>
   </div>
+
   <script src="/app.js"></script>
 </body>
 </html>
