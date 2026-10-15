@@ -4,18 +4,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0b1220" />
-  <title>CareerNavIQ Work Assistant</title>
+  <title>CareerNavIQ Work Command Center</title>
   <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/command-center.css" />
 </head>
 <body>
   <div class="shell">
     <aside class="sidebar">
       <div class="brand">
         <div class="mark">CN</div>
-        <div><strong>CareerNavIQ</strong><span>Personal work assistant</span></div>
+        <div><strong>CareerNavIQ</strong><span>Work command center</span></div>
       </div>
       <nav>
         <button class="nav active" data-view="today">Today</button>
+        <button class="nav" data-view="projects">Projects</button>
         <button class="nav" data-view="import">Import Center</button>
         <button class="nav" data-view="inbox">Inbox</button>
         <button class="nav" data-view="meetings">Meetings</button>
@@ -23,7 +25,7 @@
         <button class="nav" data-view="library">Library</button>
         <button class="nav" data-view="connections">Connections</button>
       </nav>
-      <div class="privacy">Local-first workspace<br><span>Imported material stays in this browser. Only text you explicitly select for AI context is sent when you ask the assistant.</span></div>
+      <div class="privacy">Local-first command center<br><span>CareerNavIQ organizes your work. ChatGPT does the heavy AI work using only information you choose to copy or upload.</span></div>
     </aside>
 
     <main>
@@ -31,26 +33,28 @@
         <div>
           <p class="eyebrow" id="viewEyebrow">YOUR DAY</p>
           <h1 id="viewTitle">Good to see you.</h1>
-          <p class="sub" id="viewSubtitle">Bring your work into one place, organize it, and turn it into an actionable day.</p>
+          <p class="sub" id="viewSubtitle">Organize your work here, then hand selected items to ChatGPT when you need help.</p>
         </div>
         <div class="header-actions">
+          <button class="secondary compact" id="openChatGPTBtn">Open ChatGPT</button>
           <button class="secondary compact" id="exportBtn">Export workspace</button>
           <button class="connect compact" id="quickImportBtn">Import work</button>
         </div>
       </header>
 
       <section class="view active" data-view-section="today">
-        <section class="hero-card">
+        <section class="hero-card command-hero">
           <div>
-            <span class="status-dot" id="setupDot"></span><span class="status" id="setupStatus">Local workspace ready</span>
-            <h2>What do you need help with?</h2>
+            <span class="status-dot" id="setupDot"></span><span class="status" id="setupStatus">Command center ready</span>
+            <h2>What do you want ChatGPT to help with?</h2>
+            <p class="hero-copy">CareerNavIQ will build a clean work prompt from your question, selected notes/files, and open tasks. You stay in control of what leaves this browser.</p>
           </div>
           <div class="ask-row">
-            <input id="assistantInput" placeholder="Ask about your day, selected emails, meetings, files, or tasks…" />
-            <button id="askBtn">Ask</button>
+            <input id="assistantInput" placeholder="Example: Prepare me for my next meeting and list the questions I should ask…" />
+            <button id="askBtn">Copy + Open ChatGPT</button>
           </div>
           <div class="assistant-controls">
-            <label class="context-toggle"><input type="checkbox" id="includeAiContext" /><span>Use selected library text + open tasks</span></label>
+            <label class="context-toggle"><input type="checkbox" id="includeAiContext" checked /><span>Include selected library text + open tasks in the copied prompt</span></label>
             <span class="context-count" id="aiContextCount">0 items selected</span>
           </div>
           <div class="suggestions">
@@ -58,7 +62,7 @@
             <button>Prepare me for my next meeting</button>
             <button>What am I waiting on?</button>
           </div>
-          <div id="assistantReply" class="reply">CareerNavIQ is local-first. Connect the secure AI backend in Connections when you are ready.</div>
+          <div id="assistantReply" class="reply">Choose a question above. CareerNavIQ will copy a work brief and open ChatGPT for you.</div>
         </section>
 
         <section class="stats-grid">
@@ -69,118 +73,73 @@
         </section>
 
         <section class="grid">
-          <article class="card"><div class="card-top"><span>Priority Inbox</span><b id="inboxCount">0</b></div><h3>Imported email</h3><p>Save or paste important messages here so the assistant can help you track responses and follow-ups.</p><button class="text-btn jump" data-jump="import">Import email →</button></article>
+          <article class="card"><div class="card-top"><span>Priority Inbox</span><b id="inboxCount">0</b></div><h3>Imported email</h3><p>Save or paste important messages so you can quickly build replies and follow-ups in ChatGPT.</p><button class="text-btn jump" data-jump="import">Import email →</button></article>
           <article class="card"><div class="card-top"><span>Meeting Prep</span><b id="meetingCount">0</b></div><h3>Notes and calendar items</h3><p>Bring in meeting notes, transcripts, agendas, or .ics files and keep them together.</p><button class="text-btn jump" data-jump="meetings">View meetings →</button></article>
           <article class="card"><div class="card-top"><span>Follow-ups</span><b id="taskCount">0</b></div><h3>Things not to forget</h3><p>Track what you owe others, what others owe you, and what needs attention next.</p><button class="text-btn jump" data-jump="tasks">Open tasks →</button></article>
           <article class="card"><div class="card-top"><span>Work Library</span><b id="libraryCount">0</b></div><h3>Your reference material</h3><p>Keep permitted reports, spreadsheets, documents, notes, and exports available in one local library.</p><button class="text-btn jump" data-jump="library">Open library →</button></article>
         </section>
       </section>
 
+      <section class="view" data-view-section="projects" hidden>
+        <section class="panel">
+          <div class="section-heading"><div><p class="eyebrow">PROJECTS</p><h2>My work</h2><p class="panel-copy">Organize active assignments, properties, clients, reviews, or anything else you work on repeatedly.</p></div></div>
+          <div class="project-entry"><input id="projectNameInput" class="setup-input" placeholder="Project name" /><input id="projectNextInput" class="setup-input" placeholder="Next action (optional)" /><button id="addProjectBtn" class="connect">Add project</button></div>
+          <div id="projectList" class="project-list empty-state">No projects yet.</div>
+        </section>
+      </section>
+
       <section class="view" data-view-section="import" hidden>
         <div class="two-col import-layout">
           <section class="panel">
-            <p class="eyebrow">FILES</p>
-            <h2>Drop work files here</h2>
+            <p class="eyebrow">FILES</p><h2>Drop work files here</h2>
             <p class="panel-copy">PDF, Word, Excel, CSV, text, Outlook email files, calendar files, images, and other permitted work exports can be stored locally.</p>
-            <label class="dropzone" id="dropzone" for="fileInput">
-              <input id="fileInput" type="file" multiple hidden />
-              <span class="drop-icon">↓</span>
-              <strong>Drop files here or click to browse</strong>
-              <small>Original files remain in this browser. AI only receives text you explicitly select later.</small>
-            </label>
+            <label class="dropzone" id="dropzone" for="fileInput"><input id="fileInput" type="file" multiple hidden /><span class="drop-icon">↓</span><strong>Drop files here or click to browse</strong><small>Original files remain in this browser until you choose to use them elsewhere.</small></label>
             <p id="importMessage" class="setup-message"></p>
           </section>
-
           <section class="panel">
-            <p class="eyebrow">PASTE</p>
-            <h2>Capture email or notes</h2>
-            <div class="form-row">
-              <select id="pasteKind" class="setup-input">
-                <option value="email">Email</option>
-                <option value="meeting">Meeting notes</option>
-                <option value="note">General note</option>
-                <option value="reference">Reference information</option>
-              </select>
-              <input id="pasteTitle" class="setup-input" placeholder="Title or subject" />
-            </div>
+            <p class="eyebrow">PASTE</p><h2>Capture email or notes</h2>
+            <div class="form-row"><select id="pasteKind" class="setup-input"><option value="email">Email</option><option value="meeting">Meeting notes</option><option value="note">General note</option><option value="reference">Reference information</option></select><input id="pasteTitle" class="setup-input" placeholder="Title or subject" /></div>
             <textarea id="pasteText" class="setup-input textarea" placeholder="Paste the email, meeting notes, procedure, or other text here…"></textarea>
             <button class="connect full" id="savePasteBtn">Save to local library</button>
           </section>
         </div>
-
-        <section class="panel recent-panel">
-          <div class="section-heading"><div><p class="eyebrow">RECENT</p><h2>Recently imported</h2></div><button class="secondary" id="clearLibraryBtn">Clear local library</button></div>
-          <div id="recentItems" class="item-list empty-state">No imported items yet.</div>
-        </section>
+        <section class="panel recent-panel"><div class="section-heading"><div><p class="eyebrow">RECENT</p><h2>Recently imported</h2></div><button class="secondary" id="clearLibraryBtn">Clear local library</button></div><div id="recentItems" class="item-list empty-state">No imported items yet.</div></section>
       </section>
 
-      <section class="view" data-view-section="inbox" hidden>
-        <section class="panel"><div class="section-heading"><div><p class="eyebrow">INBOX</p><h2>Imported email</h2></div><button class="connect jump" data-jump="import">Import email</button></div><p class="panel-copy">This shows email files and anything you paste as an email. Direct Outlook access remains optional.</p><div id="emailItems" class="item-list empty-state">No imported email yet.</div></section>
-      </section>
+      <section class="view" data-view-section="inbox" hidden><section class="panel"><div class="section-heading"><div><p class="eyebrow">INBOX</p><h2>Imported email</h2></div><button class="connect jump" data-jump="import">Import email</button></div><p class="panel-copy">Keep important email here, then select it when you want ChatGPT to summarize it, draft a response, or extract follow-ups.</p><div id="emailItems" class="item-list empty-state">No imported email yet.</div></section></section>
 
-      <section class="view" data-view-section="meetings" hidden>
-        <section class="panel"><div class="section-heading"><div><p class="eyebrow">MEETINGS</p><h2>Meeting workspace</h2></div><button class="connect jump" data-jump="import">Import meeting material</button></div><p class="panel-copy">Store agendas, transcripts, notes, .ics calendar exports, and supporting material here.</p><div id="meetingItems" class="item-list empty-state">No meeting material yet.</div></section>
-      </section>
+      <section class="view" data-view-section="meetings" hidden><section class="panel"><div class="section-heading"><div><p class="eyebrow">MEETINGS</p><h2>Meeting workspace</h2></div><button class="connect jump" data-jump="import">Import meeting material</button></div><p class="panel-copy">Store agendas, transcripts, notes, .ics calendar exports, and supporting material here.</p><div id="meetingItems" class="item-list empty-state">No meeting material yet.</div></section></section>
 
-      <section class="view" data-view-section="tasks" hidden>
-        <section class="panel task-panel">
-          <p class="eyebrow">FOLLOW-UPS</p><h2>My tasks</h2>
-          <div class="task-entry"><input id="taskInput" class="setup-input" placeholder="Add a task or follow-up…" /><button id="addTaskBtn" class="connect">Add</button></div>
-          <div id="taskList" class="task-list empty-state">No tasks yet.</div>
-        </section>
-      </section>
+      <section class="view" data-view-section="tasks" hidden><section class="panel task-panel"><p class="eyebrow">FOLLOW-UPS</p><h2>My tasks</h2><div class="task-entry"><input id="taskInput" class="setup-input" placeholder="Add a task or follow-up…" /><button id="addTaskBtn" class="connect">Add</button></div><div id="taskList" class="task-list empty-state">No tasks yet.</div></section></section>
 
-      <section class="view" data-view-section="library" hidden>
-        <section class="panel"><div class="section-heading"><div><p class="eyebrow">LIBRARY</p><h2>Local work library</h2></div><button class="connect jump" data-jump="import">Add material</button></div><p class="panel-copy">Original imported files remain local. For text-readable items, use <strong>Add to AI</strong> to explicitly select what CareerNavIQ may send with your next AI question.</p><div id="libraryItems" class="item-list empty-state">Your library is empty.</div></section>
-      </section>
+      <section class="view" data-view-section="library" hidden><section class="panel"><div class="section-heading"><div><p class="eyebrow">LIBRARY</p><h2>Local work library</h2></div><button class="connect jump" data-jump="import">Add material</button></div><p class="panel-copy">For text-readable items, choose <strong>Use in ChatGPT</strong>. CareerNavIQ will include only those selected items when it builds your copied work brief.</p><div id="libraryItems" class="item-list empty-state">Your library is empty.</div></section></section>
 
       <section class="view" data-view-section="connections" hidden>
         <div class="connection-grid">
+          <section class="panel connection-card featured">
+            <div class="connection-top"><div><p class="eyebrow">PRIMARY WORKFLOW</p><h2>ChatGPT</h2></div><span class="connection-status ready">Ready</span></div>
+            <p class="panel-copy">No API key required. CareerNavIQ organizes the work and builds the prompt; your existing ChatGPT account does the AI work.</p>
+            <div class="connection-actions"><button class="connect" id="connectionsOpenChatGPT">Open ChatGPT</button><button class="secondary" id="copyWorkBriefBtn">Copy today’s work brief</button></div>
+          </section>
           <section class="panel connection-card">
-            <div class="connection-top"><div><p class="eyebrow">OPTIONAL</p><h2>Microsoft 365</h2></div><span id="accountStatus" class="connection-status">Not connected</span></div>
-            <p class="panel-copy">Direct Outlook, Calendar, and OneDrive access can be added later if your company allows employee-created applications.</p>
+            <div class="connection-top"><div><p class="eyebrow">OPTIONAL LATER</p><h2>Microsoft 365</h2></div><span id="accountStatus" class="connection-status">Not connected</span></div>
+            <p class="panel-copy">Direct Outlook, Calendar, and OneDrive access can be added only if your employer permits employee-created applications or integrations.</p>
             <button class="secondary" id="connectBtn">Microsoft 365 setup</button>
           </section>
-
-          <section class="panel connection-card featured">
-            <div class="connection-top"><div><p class="eyebrow">AI</p><h2>ChatGPT / OpenAI</h2></div><span id="openAiStatus" class="connection-status">Checking…</span></div>
-            <p class="panel-copy" id="openAiServerHint">The OpenAI key is kept only on the Vercel server. It is never placed in this website's JavaScript.</p>
-            <label class="field-label" for="aiAccessCodeInput">CareerNavIQ personal access code</label>
-            <input id="aiAccessCodeInput" class="setup-input" type="password" autocomplete="off" placeholder="Enter your private access code" />
-            <div class="connection-actions">
-              <button class="connect" id="saveAiAccessBtn">Use this session</button>
-              <button class="secondary" id="clearAiAccessBtn">Clear</button>
-            </div>
-            <p id="aiSetupMessage" class="setup-message">The access code stays in this browser session only.</p>
-          </section>
         </div>
+        <details class="legacy-api">
+          <summary>Advanced: direct API mode</summary>
+          <div class="legacy-inner"><span id="openAiStatus" class="connection-status">Checking…</span><p id="openAiServerHint" class="panel-copy">Optional direct API mode is not needed for the main workflow.</p><input id="aiAccessCodeInput" class="setup-input" type="password" autocomplete="off" placeholder="Optional API access code" /><div class="connection-actions"><button class="secondary" id="saveAiAccessBtn">Use this session</button><button class="secondary" id="clearAiAccessBtn">Clear</button></div><p id="aiSetupMessage" class="setup-message"></p></div>
+        </details>
       </section>
     </main>
   </div>
 
   <div class="modal" id="modal" hidden>
-    <div class="modal-card setup-card">
-      <button class="close" id="closeModal" aria-label="Close">×</button>
-      <p class="eyebrow">OPTIONAL MICROSOFT 365 SETUP</p>
-      <h2>Connect your work account</h2>
-      <p class="modal-lead">Only use this if your employer permits it. The first connection requests only <strong>User.Read</strong>. Email, calendar, and OneDrive permissions would be requested separately.</p>
-      <div class="security-note"><strong>Privacy-first setup</strong><span>Authentication uses Microsoft OAuth with PKCE. Access tokens remain in this browser session.</span></div>
-      <ol class="setup-steps">
-        <li>Open <a href="https://entra.microsoft.com/" target="_blank" rel="noreferrer">Microsoft Entra</a> and go to <strong>App registrations → New registration</strong>.</li>
-        <li>Name it <strong>CareerNavIQ Work Assistant</strong>.</li>
-        <li>Add a <strong>Single-page application (SPA)</strong> redirect URI: <code>https://careernaviq.com/</code>.</li>
-        <li>Copy the <strong>Application (client) ID</strong> and paste it below.</li>
-      </ol>
-      <label class="field-label" for="clientIdInput">Application (client) ID</label>
-      <input class="setup-input" id="clientIdInput" autocomplete="off" placeholder="00000000-0000-0000-0000-000000000000" />
-      <label class="field-label" for="tenantIdInput">Directory (tenant) ID <span>optional</span></label>
-      <input class="setup-input" id="tenantIdInput" autocomplete="off" placeholder="Leave blank for organizational accounts" />
-      <p id="msSetupMessage" class="setup-message"></p>
-      <div class="modal-actions"><button class="secondary" id="clearMicrosoftSetup" type="button">Clear setup</button><button class="connect" id="modalOk" type="button">Save & Sign in</button></div>
-      <button class="signout" id="signOutBtn" type="button" hidden>Sign out of Microsoft 365</button>
-    </div>
+    <div class="modal-card setup-card"><button class="close" id="closeModal" aria-label="Close">×</button><p class="eyebrow">OPTIONAL MICROSOFT 365 SETUP</p><h2>Connect your work account</h2><p class="modal-lead">Only use this if your employer permits it. The first connection requests only <strong>User.Read</strong>.</p><div class="security-note"><strong>Privacy-first setup</strong><span>Authentication uses Microsoft OAuth with PKCE. Access tokens remain in this browser session.</span></div><ol class="setup-steps"><li>Open <a href="https://entra.microsoft.com/" target="_blank" rel="noreferrer">Microsoft Entra</a> and go to <strong>App registrations → New registration</strong>.</li><li>Name it <strong>CareerNavIQ Work Assistant</strong>.</li><li>Add a <strong>Single-page application (SPA)</strong> redirect URI: <code>https://careernaviq.com/</code>.</li><li>Copy the <strong>Application (client) ID</strong> and paste it below.</li></ol><label class="field-label" for="clientIdInput">Application (client) ID</label><input class="setup-input" id="clientIdInput" autocomplete="off" placeholder="00000000-0000-0000-0000-000000000000" /><label class="field-label" for="tenantIdInput">Directory (tenant) ID <span>optional</span></label><input class="setup-input" id="tenantIdInput" autocomplete="off" placeholder="Leave blank for organizational accounts" /><p id="msSetupMessage" class="setup-message"></p><div class="modal-actions"><button class="secondary" id="clearMicrosoftSetup" type="button">Clear setup</button><button class="connect" id="modalOk" type="button">Save & Sign in</button></div><button class="signout" id="signOutBtn" type="button" hidden>Sign out of Microsoft 365</button></div>
   </div>
 
   <script src="/app.js"></script>
+  <script src="/handoff.js"></script>
 </body>
 </html>
